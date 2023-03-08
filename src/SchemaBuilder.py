@@ -10,46 +10,43 @@ import typing
 
 
 class SchemaBuilder:
-    def __init__(self):
-        
-        
-    
-    def set_logger_config(self, directory:str, file_name:str, format:str = '[%(asctime)s] %(levelname)s-%(message)s', level= logging.INFO)-> None:
-        """# Summary:
-        Method for setting the logger configuration
-
-        ### Args:
-            directory (str): when method is called, user will be prompted to enter the directory where the log file will be saved
-            
-            file_name (str): when method is called, user will be prompted to enter the name of the log file
-            
-            format (str, optional): specific to the logging format,  Defaults to '[%(asctime)s] %(levelname)s-%(message)s'
-            see https://docs.python.org/3/library/logging.html?highlight=basicconfig#logging.basicConfig for documentation.
-            
-            level (_type_, optional): _description_. Defaults to logging.INFO.
-            
-        ### Attributes:
-            logging_directory (str): the directory of the log file
-            logger (logging.Logger): the logger object            
-        ### Returns:
-            None        
-        """
-        directory = input("Enter the directory of the log file directory: ")
-        file_name = input("Enter the file name of the log file: ")
-        #TODO decorator for back calculating the directory and file name if logging_directory is changed
-        
-        self.logging_directory = os.path.join(directory, file_name)
-        self.logger = logging.getLogger(__name__)
-        logging.basicConfig(
-            filename = self.logging_directory,
-            level = level, 
-            format = format
-            )
-        
+    def __init__(self, logger):
+        self.self = self
+        self.logger = logger
 
     def request_directory(self):
-        self.data_directory = input("Enter the directory of the data files: ")
-        logger.info(f"Data directory: {self.data_directory}")
+        """
+        # Summary:
+        Method for requesting the directory of the data files from the user.
         
-    def aggregate_data(self):
+        ## Agrs:
+        None: user is promoted to enter the directory of the data files
+        
+        ## Attributes:
+        data_directory (str): the directory of the data files
+        
+        ### Logs:
+        info: the directory of the data files
+        
+        ## Returns:
+        None
+        """
+        
+        
+        self.data_directory = input("Enter the directory of the data files: ")
+        self.logger.info(f"Data directory: {self.data_directory}")
+        
+        
+    def collect_data_files(self,search_keys:list, *file_regex:str):
+        
+        for key in search_keys:
+        
+        # csv, feather, pickle, parquet
+        
+        
+        
+    def aggregate_data(self, filetype:str, ):
+        pass
+    
+    
         
