@@ -12,9 +12,9 @@ import typing
 
 
 class SchemaBuilder:
-    def __init__(self, logger):
+    def __init__(self, directory: str = None):
         self.self = self
-        self.logger = logger
+        self.data_directory = directory
 
     def request_directory(self):
         """
@@ -26,16 +26,13 @@ class SchemaBuilder:
         
         ## Attributes:
         data_directory (str): the directory of the data files
-        
-        ### Logs:
-        info: the directory of the data files
-        
+
         ## Returns:
         None
         """
         
         self.data_directory = input("Enter the directory of the data files: ")
-        self.logger.info(f"Data directory: {self.data_directory}")
+
         
         
     def collect_data_files(self,search_keys:list, file_types:list):
@@ -56,8 +53,8 @@ class SchemaBuilder:
         """
 
 
-        # first search for search_keys in the file directory        
         
+        # helper function to collect all file paths within self.data_directory
         def collect_filenames(directory):
             filenames = []
             for root, dirs, files in os.walk(directory):
@@ -65,28 +62,42 @@ class SchemaBuilder:
                     filenames.append(file)
             return filenames
 
-        def filter_list_by_terms(list, terms):
-            filtered_list = filter(lambda l: any(re.search(t,l) for t in terms), list)
+        # helper function to filter a list by a list of terms
+        def filter_list_by_terms(list_to_search, terms):
+            filtered_list = filter(lambda list_: any(re.search(term,list_) for term in terms), list_to_search)
             return filtered_list
         
-        self.data_files = collect_filenames(self.data_directory)
-        self.matched_file_types = filter_list_by_terms(self.data_files,file_types)
-        self.matched_search_keys = filter_list_by_terms(self.matched_file_types,search_keys)
-        
-        return 
-        
+        self.data_files = collect_filenames(self.data_directory) #collect all file names in the data directory
+        self.matched_file_types = list(filter_list_by_terms(self.data_files,file_types)) # filters all of the files for file types
+        self.matched_search_keys = list(filter_list_by_terms(self.matched_file_types,search_keys)) # filters all of the matched file types for search keys
+     
 
+    def aggregate_data(self): 
+        #todo exception handing for file types that don't exist
+        #
+        # FileTypeError(Exception):
+            
         
-        # then search for file_types in the file directory
-    
+        for file in self.matched_search_keys:
+            try
+            if file.endswith('csv'):
+                df = pd.read_csv(file)
+                
+            if file.endswith('xlsx'):
+                df = pd.read_excel(file)
+                
+            if file.endswith('feather'):
+                df = pd.read_feather(file)
+            
+            if file.endswith('pkl'):
+                df = pd.read_pickle(file)
+            
+            if file.endswith('h5'):
+                df = pd.read_hdf(file)
+            #todo concat dataframes
+            #self.dataframe = concat dateframes
+      
         
-        # csv, feather, pickle, parquet
-        # for files in data_files:
-        #     if file 
-        
-        
-    def aggregate_data(self, filetype:str, ):
-        pass
     
     
     def save_schema(self):
@@ -95,4 +106,5 @@ class SchemaBuilder:
     def load_schema(self):
         pass
     
+    # how to write tests for SchemaBuilder?
     
