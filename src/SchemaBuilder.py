@@ -9,6 +9,9 @@ import sys
 import time
 import typing
 
+from src.utilities.exceptions import *
+
+
 
 
 class SchemaBuilder:
@@ -32,9 +35,7 @@ class SchemaBuilder:
         """
         
         self.data_directory = input("Enter the directory of the data files: ")
-
-        
-        
+   
     def collect_data_files(self,search_keys:list, file_types:list):
         """
         # Summary:
@@ -51,9 +52,6 @@ class SchemaBuilder:
         Returns:
             None
         """
-
-
-        
         # helper function to collect all file paths within self.data_directory
         def collect_filenames(directory):
             filenames = []
@@ -70,32 +68,38 @@ class SchemaBuilder:
         self.data_files = collect_filenames(self.data_directory) #collect all file names in the data directory
         self.matched_file_types = list(filter_list_by_terms(self.data_files,file_types)) # filters all of the files for file types
         self.matched_search_keys = list(filter_list_by_terms(self.matched_file_types,search_keys)) # filters all of the matched file types for search keys
+        
+        return self
      
-
     def aggregate_data(self): 
-        #todo exception handing for file types that don't exist
-        #
-        # FileTypeError(Exception):
-            
+        self.data_frames = []
         
         for file in self.matched_search_keys:
-            try
-            if file.endswith('csv'):
-                df = pd.read_csv(file)
+            file_path = os.path.join(self.data_directory,file)
+            try:
+                if file_path.endswith('csv'):
+                    df = pd.read_csv(file_path)
+                    
+                if file_path.endswith('xlsx'):
+                    df = pd.read_excel(file_path)
+                    
+                if file_path.endswith('feather'):
+                    df = pd.read_feather(file_path)
                 
-            if file.endswith('xlsx'):
-                df = pd.read_excel(file)
+                if file_path.endswith('pkl'):
+                    df = pd.read_pickle(file_path)
                 
-            if file.endswith('feather'):
-                df = pd.read_feather(file)
+                if file_path.endswith('h5'):
+                    df = pd.read_hdf(file_path)
+                    
+            except:
+                filetype = file_path.split('.')[-1]
+                raise FileTypeError(filetype=filetype)
             
-            if file.endswith('pkl'):
-                df = pd.read_pickle(file)
             
-            if file.endswith('h5'):
-                df = pd.read_hdf(file)
+            self.data_frames.append(df)
             #todo concat dataframes
-            #self.dataframe = concat dateframes
+        return self
       
         
     
