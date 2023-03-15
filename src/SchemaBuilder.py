@@ -57,7 +57,7 @@ class SchemaBuilder:
             filenames = []
             for root, dirs, files in os.walk(directory):
                 for file in files:
-                    filenames.append(file)
+                    filenames.append(os.path.join(root, file))
             return filenames
 
         # helper function to filter a list by a list of terms
@@ -69,37 +69,42 @@ class SchemaBuilder:
         self.matched_file_types = list(filter_list_by_terms(self.data_files,file_types)) # filters all of the files for file types
         self.matched_search_keys = list(filter_list_by_terms(self.matched_file_types,search_keys)) # filters all of the matched file types for search keys
         
-        return self
      
-    def aggregate_data(self): 
+    def aggregate_data(self, files=None):
+        if files is None:
+            files = self.matched_search_keys 
+
+            
         self.data_frames = []
-        
-        for file in self.matched_search_keys:
+        for file in files:
             file_path = os.path.join(self.data_directory,file)
             try:
                 if file_path.endswith('csv'):
                     df = pd.read_csv(file_path)
+                    self.data_frames.append(df)
                     
                 if file_path.endswith('xlsx'):
                     df = pd.read_excel(file_path)
+                    self.data_frames.append(df)
                     
                 if file_path.endswith('feather'):
                     df = pd.read_feather(file_path)
+                    self.data_frames.append(df)
                 
                 if file_path.endswith('pkl'):
                     df = pd.read_pickle(file_path)
+                    self.data_frames.append(df)
                 
                 if file_path.endswith('h5'):
                     df = pd.read_hdf(file_path)
-                    
+                    self.data_frames.append(df)
+
             except:
-                filetype = file_path.split('.')[-1]
-                raise FileTypeError(filetype=filetype)
+                raise FileTypeError(filetype=file_path.split('.')[-1])
             
-            
-            self.data_frames.append(df)
+
             #todo concat dataframes
-        return self
+        
       
         
     
