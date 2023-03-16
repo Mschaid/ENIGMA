@@ -1,4 +1,3 @@
-
 import logging
 import numpy as np
 import os
@@ -8,6 +7,7 @@ import re
 import sys
 import time
 import typing
+import pickle
 
 from src.utilities.exceptions import *
 
@@ -78,33 +78,34 @@ class SchemaBuilder:
         self.data_frames = []
         for file in files:
             file_path = os.path.join(self.data_directory,file)
-            try:
-                if file_path.endswith('csv'):
-                    df = pd.read_csv(file_path)
-                    self.data_frames.append(df)
-                    
-                if file_path.endswith('xlsx'):
-                    df = pd.read_excel(file_path)
-                    self.data_frames.append(df)
-                    
-                if file_path.endswith('feather'):
-                    df = pd.read_feather(file_path)
-                    self.data_frames.append(df)
+            # try:
+            if file_path.endswith('csv'):
+                df = pd.read_csv(file_path)
+                self.data_frames.append(df)
+        
+            elif file_path.endswith('xlsx'):
+                df = pd.read_excel(file_path)
+                self.data_frames.append(df)
+        
                 
-                if file_path.endswith('pkl'):
-                    df = pd.read_pickle(file_path)
-                    self.data_frames.append(df)
+            elif file_path.endswith('feather'):
+                df = pd.read_feather(file_path)
+                self.data_frames.append(df)
+            
+            elif file_path.endswith('pkl'):
+                df = pd.read_pickle(file_path)
+                self.data_frames.append(df)
+            
+            elif file_path.endswith('h5'):
+                df = pd.read_hdf(file_path)
+                self.data_frames.append(df)
                 
-                if file_path.endswith('h5'):
-                    df = pd.read_hdf(file_path)
-                    self.data_frames.append(df)
-
-            except:
+            else:
                 raise FileTypeError(filetype=file_path.split('.')[-1])
             
 
             #todo concat dataframes
-        
+        self.aggregate_dataframes = pd.concat(self.data_frames)
       
         
     
