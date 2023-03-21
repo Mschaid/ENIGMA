@@ -59,8 +59,7 @@ class TestSchemaBuilder(unittest.TestCase):
         # assert that aggregate_dataframes is a pandas dataframe
         self.assertIsInstance(self.sb.aggregate_dataframes, pd.DataFrame)
 
-    def test_save_schema(self):
-        print('test_save_schema')
+    # def test_save_schema(self):
 
 
 if __name__ == '__main__':

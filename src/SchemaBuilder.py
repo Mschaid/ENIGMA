@@ -10,13 +10,15 @@ import typing
 import pickle
 
 from src.utilities.exceptions import *
+from src.utilities.os_helpers import create_new_directoy
+
 
 
 class SchemaBuilder:
-    def __init__(self, directory: str = None):
+    def __init__(self, data_directory: str = None):
         self.self = self
-        self.data_directory = directory
-
+        self.data_directory = data_directory
+        
     def request_directory(self):
         """
         # Summary:
@@ -72,7 +74,18 @@ class SchemaBuilder:
         self.matched_search_keys = list(
             filter_list_by_terms(self.matched_file_types, search_keys))
 
-    def aggregate_data(self, files=None):
+    def aggregate_data(self, files: list = None):
+        """ # Summary:
+        Method for aggregating the data files into a single dataframe. Current filetypes supported are csv, xlsx, feather, pkl, and h5.
+        csv, xlsc, feather, pickle and h5
+
+        ## Args: 
+            files (list): a list of files to be aggregated, if None, all files in the matched search keys attribute are aggregated 
+
+        ##Raises:
+            FileTypeError: if file type is not supported, FileTypeError is raised
+        """
+
         if files is None:
             files = self.matched_search_keys
 
@@ -105,12 +118,47 @@ class SchemaBuilder:
 
         self.aggregate_dataframes = pd.concat(self.data_frames)
 
-    def save_schema(self, file_path: str, file_str: str):
-        self.stored_object_file_path = f'{os.path.join(file_path,file_str)}.pkl'
-        with open(file_name, 'wb') as f:
-            pickle.dump(self, f)
+    def save_schema(self, file_path: str = None, new_dir_extension: str = None):
+                    
+        """            
+         # Summary
+        saves the schema object to a pick file, can be loaded later. 
 
-    def load_schema(self, file_path)
+        Args:
+            file_path (str):path for the file to be saved
+            file_str (str): name of the file to be saved
 
-    with open(file_path) as f:
-        pickle.load(f)
+        """
+        if file_path is None:
+            file_path = self.data_directory
+            
+        if new_dir_extension is None:
+            new_dir_extension = 'saved_objects'
+        
+        new_directory = os.path.join(file_path, new_dir_extension)
+   
+
+        if os.path.exists(new_directory):
+            pass
+        else:
+            os.mkdir(new_directory)
+            
+        # TODO create file name to store object based on the new directory
+        
+        # self.stored_object_file_path_ = f'{os.path.join(file_path,file_str)}.pkl'
+        #TODO dump pickle file to the new directory
+        # with open(self.stored_object_file_path_, 'wb') as f:
+        #     pickle.dump(self, f)
+
+    # def load_schema(self, file_path)
+
+    # with open(file_path) as f:
+    #     pickle.load(f)
+
+#TODO delete this later
+if __name__ == '__main__':
+    DIR = r"C:\Users\mds8301\Documents\Github\dopamine_modeling\data"
+    sb = SchemaBuilder(data_directory = DIR)
+    sb.save_schema()
+    print(sb.stored_object_file_path)
+    
