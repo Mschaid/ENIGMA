@@ -13,12 +13,11 @@ from src.utilities.exceptions import *
 from src.utilities.os_helpers import create_new_directoy
 
 
-
 class SchemaBuilder:
     def __init__(self, data_directory: str = None):
         self.self = self
         self.data_directory = data_directory
-        
+
     def request_directory(self):
         """
         # Summary:
@@ -118,8 +117,7 @@ class SchemaBuilder:
 
         self.aggregate_dataframes = pd.concat(self.data_frames)
 
-    def save_schema(self, file_path: str = None, new_dir_extension: str = None):
-                    
+    def save_schema(self, file_path: str = None, new_dir_extension: str = None, file_name: str = None):
         """            
          # Summary
         saves the schema object to a pick file, can be loaded later. 
@@ -131,34 +129,47 @@ class SchemaBuilder:
         """
         if file_path is None:
             file_path = self.data_directory
-            
+
         if new_dir_extension is None:
             new_dir_extension = 'saved_objects'
-        
-        new_directory = os.path.join(file_path, new_dir_extension)
-   
 
+        if file_name is None:
+            file_name = 'data_schema.pkl'
+        else:
+            file_name = file_name + '.pkl'
+
+        # new directory to be created
+        new_directory = os.path.join(file_path, new_dir_extension)
+        # file path for the saved object
+        self.stored_object_file_path_ = os.path.join(new_directory, file_name)
+
+        # create the new directory if it does not exist
         if os.path.exists(new_directory):
             pass
         else:
             os.mkdir(new_directory)
-            
-        # TODO create file name to store object based on the new directory
-        
-        # self.stored_object_file_path_ = f'{os.path.join(file_path,file_str)}.pkl'
-        #TODO dump pickle file to the new directory
-        # with open(self.stored_object_file_path_, 'wb') as f:
-        #     pickle.dump(self, f)
 
-    # def load_schema(self, file_path)
+        with open(self.stored_object_file_path_, 'wb') as f:
+            pickle.dump(self, f)
 
-    # with open(file_path) as f:
-    #     pickle.load(f)
+    @classmethod
+    def load_schema(cls, file_path):
+        """
+        # Summary
+        loads the schema object from a pick file, can be loaded later. 
 
-#TODO delete this later
+        Args:
+            file_path (str):path for the file to be saved
+
+        """
+        with open(file_path, 'rb') as f:
+            schema = pickle.load(f)
+        return schema
+
+
+# TODO delete this later
 if __name__ == '__main__':
     DIR = r"C:\Users\mds8301\Documents\Github\dopamine_modeling\data"
-    sb = SchemaBuilder(data_directory = DIR)
-    sb.save_schema()
-    print(sb.stored_object_file_path)
-    
+    sb = SchemaBuilder.load_schema(
+        file_path=r'C:\Users\mds8301\Documents\Github\dopamine_modeling\data\test_save_schema\data_schema.pkl')
+    print(sb.data_directory)
