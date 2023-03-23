@@ -66,6 +66,7 @@ class SchemaBuilder:
             return filtered_list
 
         # collect all file names in the data directory
+        # TODO need to modify this to work for all files in the directory if no search keys are provided
         self.data_files = collect_filenames(self.data_directory)
         self.matched_file_types = list(filter_list_by_terms(
             self.data_files, file_types))  # filters all of the files for file types
