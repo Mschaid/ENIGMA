@@ -166,11 +166,3 @@ class SchemaBuilder:
         with open(file_path, 'rb') as f:
             schema = pickle.load(f)
         return schema
-
-
-# TODO delete this later
-if __name__ == '__main__':
-    DIR = r"C:\Users\mds8301\Documents\Github\dopamine_modeling\data"
-    sb = SchemaBuilder.load_schema(
-        file_path=r'C:\Users\mds8301\Documents\Github\dopamine_modeling\data\test_save_schema\data_schema.pkl')
-    print(sb.data_directory)
