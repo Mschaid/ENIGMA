@@ -1,8 +1,10 @@
 README.md
 setup.py
+src/QuestConnection.py
 src/SchemaBuilder.py
 src/__init__.py
 src/main.py
+src/test.py
 src.egg-info/PKG-INFO
 src.egg-info/SOURCES.txt
 src.egg-info/dependency_links.txt
