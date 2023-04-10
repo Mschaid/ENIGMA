@@ -14,7 +14,7 @@ class Preprocessor:
     def one_hot_encode(self, *labels, df=None):
         if df is None:
             df = self.data
-            print(df)
+
 
         dataframes_w_dummies = [pd.get_dummies(
             df[label], prefix=label) for label in labels]
@@ -25,5 +25,4 @@ class Preprocessor:
         return self
 
 
-if __name__ == '__main__':
-    print('preprocessor file')
+
