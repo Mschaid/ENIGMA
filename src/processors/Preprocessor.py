@@ -23,3 +23,6 @@ class Preprocessor:
         self.dummy_data = concat_df.drop(columns=packed_labels)
 
         return self
+ 
+ if __name__ == '__main__':
+     print('preprocessor file')
