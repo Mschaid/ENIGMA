@@ -11,7 +11,7 @@ class Preprocessor:
         self.data = pd.read_parquet(self.path_to_data)
         return self
 
-    def one_hot_encode(self, *labels, df=None,):
+    def one_hot_encode(self, *labels, df=None):
         if df is None:
             df = self.data
             print(df)
@@ -23,6 +23,7 @@ class Preprocessor:
         self.dummy_data = concat_df.drop(columns=packed_labels)
 
         return self
- 
- if __name__ == '__main__':
-     print('preprocessor file')
+
+
+if __name__ == '__main__':
+    print('preprocessor file')
