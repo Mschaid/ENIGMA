@@ -15,9 +15,6 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.losses import BinaryCrossentropy
 
 
-PATH_TO_PROCESSED_DATA = input('Enter path to processed data: ')
-
-
 class ModelBuilder:
 
     def __init__(self, path_to_processed_data, features, target, model_name, model):
@@ -42,7 +39,7 @@ class ModelBuilder:
             self.features, self.target, test_size=test_size, random_state=random_state)
         return self
 
-    def split_train_by_query(self, coloumn_name, cut_off):
+    def split_train_by_query(self, column_name, cut_off):
         self.under_cut_off_data = self.processed_data.query(
             "@column_name <= cutoff")
         self.over_cut_off_data = self.processed_data.query(
@@ -59,3 +56,31 @@ class ModelBuilder:
         self.model_name = tf.keras.models.load_model(
             os.path.join(path, model_name))
         return self.model_name
+
+
+def experiment():
+    FEATURES = ['day', 'time', 'trial',
+                'signal', 'event_cue', 'event_shock',
+                'sensor_D1', 'sensor_D2', 'sensor_DA']
+    TARGET = 'signal'
+
+    PATH_TO_PROCESSED_DATA = input('Enter path to processed data: ')
+
+    fully_connected_model_1 = Sequential([
+        Dense(units=128, activation='sigmoid'),
+        Dense(units=25, activation='sigmoid'),
+        Dense(units=1, activation='sigmoid')])
+    
+    model_builder = ModelBuilder(path=PATH_TO_PROCESSED_DATA,
+                                 features=FEATURES,
+                                 target=TARGET,
+                                 model_name='fully_connected_model_1',
+                                 model=fully_connected_model_1)
+    model_builder.load_data()
+    model_builder.split_train_by_query(coloumn_name='day', cut_off=6)
+    model_builder.model.compile(loss=BinaryCrossentropy())
+    model_builder.model.fit(X_train, y_train, epochs=100)
+
+
+if __name__ == "__main__":
+    experiment()
