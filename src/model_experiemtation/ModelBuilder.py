@@ -1,5 +1,6 @@
 
 from src.processors.Preprocessor import Preprocessor
+
 import pandas as pd
 import os
 import numpy as np
@@ -7,8 +8,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import seaborn.objects as so
 from sklearn.model_selection import train_test_split
-import tensorflow as tf
 import logging
+
+import tensorflow as tf
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense
@@ -32,22 +34,6 @@ class ModelBuilder:
     def load_data(self):
         self.processed_data = pd.read_parquet(self.path_to_processed_data)
 
-    def split_train_test(self, X_labels, y_label, test_size=0.2, random_state=42):
-        self.features = self.processed_data[X_labels]
-        self.target = self.processed_data[y_label]
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.features, self.target, test_size=test_size, random_state=random_state)
-        return self
-
-    def split_train_by_query(self, column_name, cut_off):
-        self.under_cut_off_data = self.processed_data.query(
-            "@column_name <= cutoff")
-        self.over_cut_off_data = self.processed_data.query(
-            "@column_name > cutoff")
-        self.X_train = self.under_cut_off_data[self.features]
-        self.y_train = self.under_cut_off_data[self.target]
-        self.X_test = self.over_cut_off_data[self.features]
-        self.y_test = self.over_cut_off_data[self.target]
 
     def save_model(self, model, model_name, path):
         model.save(os.path.join(path, model_name))
@@ -65,6 +51,10 @@ def experiment():
     TARGET = 'signal'
 
     PATH_TO_PROCESSED_DATA = input('Enter path to processed data: ')
+    
+    processor = Preprocessor(PATH_TO_PROCESSED_DATA,)
+    
+    
 
     fully_connected_model_1 = Sequential([
         Dense(units=128, activation='sigmoid'),
@@ -76,11 +66,19 @@ def experiment():
                                  target=TARGET,
                                  model_name='fully_connected_model_1',
                                  model=fully_connected_model_1)
-    model_builder.load_data()
-    model_builder.split_train_by_query(coloumn_name='day', cut_off=6)
+
     model_builder.model.compile(loss=BinaryCrossentropy())
     model_builder.model.fit(X_train, y_train, epochs=100)
 
 
 if __name__ == "__main__":
-    experiment()
+    # experiment()
+        # Create three random tensors with shape (3,2)
+    tensor1 = tf.random.normal(shape=(3,2))
+    tensor2 = tf.random.normal(shape=(3,2))
+    tensor3 = tf.random.normal(shape=(3,2))
+
+    # Print the tensors
+    print("Tensor 1:\n", tensor1)
+    print("Tensor 2:\n", tensor2)
+    print("Tensor 3:\n", tensor3)
