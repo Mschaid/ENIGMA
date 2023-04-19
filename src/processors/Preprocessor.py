@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 # todo logger
-# todo unit tests
+
 
 
 class Preprocessor:
@@ -67,7 +67,7 @@ class Preprocessor:
 
         return self
 
-    def one_hot_encode(self, *labels, df=None):
+    def one_hot_encode(self, *labels, data=None):
         """# Summary
 
         ## Args:
@@ -79,12 +79,12 @@ class Preprocessor:
         Returns:
             self
         """
-        if df is None:
-            df = self.data
+        if data is None:
+            data = self.data
 
         dataframes_w_dummies = [pd.get_dummies(
-            df[label], prefix=label) for label in labels]
-        concat_df = pd.concat([df, *dataframes_w_dummies], axis=1)
+            data[label], prefix=label) for label in labels]
+        concat_df = pd.concat([data, *dataframes_w_dummies], axis=1)
         packed_labels = list(labels)
         self.dummy_data = concat_df.drop(columns=packed_labels)
 
@@ -203,21 +203,3 @@ class Preprocessor:
         with open(file_path, 'rb') as f:
             processor = pickle.load(f)
         return processor
-if __name__ == "__main__":
-
-    # FEATURES = ['day', 'time', 'trial',
-    #             'signal', 'event_cue', 'event_shock',
-    #             'sensor_D1', 'sensor_D2', 'sensor_DA']
-    # TARGET = 'signal'
-    # processor = Preprocessor(path_to_processed_data='/home/mds8301/gaby_test/processed_data.parquet.gzp',
-    #                          features=FEATURES,
-    #                          target=TARGET, 
-    #                          processor_name='test_processor')
-
-    # processor.load_data()
-    # processor.split_train_test()
-    # processor.save_processor()
-    processor = Preprocessor.load_processor('/home/mds8301/gaby_test/processors/test_processor.pkl')
-    print(processor.processor_name)
-    print(processor.features)
-    print(processor.X_train)
