@@ -2,7 +2,7 @@ import unittest
 from sys import platform
 
 import pandas as pd
-from src.SchemaBuilder import SchemaBuilder
+from src.processors.SchemaBuilder import SchemaBuilder
 from src.utilities.exceptions import *
 from src.utilities.logger_helpers import *
 
