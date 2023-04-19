@@ -1,7 +1,7 @@
 import logging
 import os
 
-from src.SchemaBuilder import SchemaBuilder
+from src.processors.SchemaBuilder import SchemaBuilder
 
 
 def set_logger_config(directory, file_name,  format: str = '[%(asctime)s] %(levelname)s-%(message)s', level=logging.INFO) -> None:
