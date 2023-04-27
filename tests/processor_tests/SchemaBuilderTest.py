@@ -1,5 +1,6 @@
 import unittest
 from sys import platform
+import logging
 
 import pandas as pd
 from src.processors.SchemaBuilder import SchemaBuilder
@@ -89,4 +90,16 @@ class TestSchemaBuilder(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    TEST_LOG_DIR = '/projects/p31961/dopamine_modeling/tests/test_logs'
+    TEST_LOG_FILE = 'SchemaBuilderTest.log'
+    FULL_TEST_LOG_DIR = os.path.join(TEST_LOG_DIR, TEST_LOG_FILE)
+
+    # create logger
+    logging.basicConfig(filename=FULL_TEST_LOG_DIR, 
+                        level=logging.INFO,
+                        format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        datefmt='%d-%b-%y %H:%M:%S')
+
+    with open(FULL_TEST_LOG_DIR, 'w') as f:
+        runner = LoggingTestRunner(verbosity=2)
+        unittest.main(testRunner=runner)

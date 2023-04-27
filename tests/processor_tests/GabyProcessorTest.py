@@ -1,6 +1,10 @@
+import logging
+import os
 import pandas as pd
 import unittest
+
 from src.processors.GabyProcessor import GabyProcessor
+from src.utilities.logger_helpers import LoggingTestRunner
 
 
 TEST_PATH =r'/home/mds8301/gaby_test/Day7/142-237_Day7_Avoid_D1_z_score_D1.h5'
@@ -42,4 +46,16 @@ class TestGabyProcessor(unittest.TestCase):
 
     
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    TEST_LOG_DIR = '/projects/p31961/dopamine_modeling/tests/test_logs'
+    TEST_LOG_FILE = 'GabyProcessorTest.log'
+    FULL_TEST_LOG_DIR = os.path.join(TEST_LOG_DIR, TEST_LOG_FILE)
+
+    # create logger
+    logging.basicConfig(filename=FULL_TEST_LOG_DIR, 
+                        level=logging.INFO,
+                        format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        datefmt='%d-%b-%y %H:%M:%S')
+
+    with open(FULL_TEST_LOG_DIR, 'w') as f:
+        runner = LoggingTestRunner(verbosity=2)
+        unittest.main(testRunner=runner)
