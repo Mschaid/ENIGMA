@@ -6,6 +6,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
+
 class Preprocessor:
 
     """
@@ -227,7 +228,7 @@ class Preprocessor:
             self.path_to_save_processor = path_to_save_processor
         else:
         # gets the directory of the processed data path
-            current_directory = os.path.dirname(self.path_to_processed_data)
+            current_directory = os.path.dirname(self.path_to_data)
             # creates a new directory called processors in the same directory as 1the processed data
             processor_directory = os.path.join(current_directory, 'processors')
             
