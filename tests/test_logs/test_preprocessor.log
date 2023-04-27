@@ -1,0 +1,18 @@
+27-Apr-23 15:57:14 - src.utilities.logger_helpers - INFO - test_load_data (__main__.TestPreprocessor.test_load_data)
+Test the one_hot_encode() method. ... ok
+test_load_processed_data (__main__.TestPreprocessor.test_load_processed_data)
+Parameters ... ok
+test_one_hot_encode (__main__.TestPreprocessor.test_one_hot_encode)
+Test if the one_hot_encode() method properly one-hot encodes categorical features. ... ok
+test_save_processed_data (__main__.TestPreprocessor.test_save_processed_data)
+Summary ... ok
+test_split_train_by_query (__main__.TestPreprocessor.test_split_train_by_query)
+Summary ... ok
+test_split_train_test (__main__.TestPreprocessor.test_split_train_test)
+Tests if the split_train_test() method properly splits data into train and test sets. ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 202.492s
+
+OK
+

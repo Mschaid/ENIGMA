@@ -1,15 +1,14 @@
+import logging
 import os
 import pandas as pd
 import shutil
 import time 
 import unittest
-import numpy as np
-
-
-
 
 from src.processors.Preprocessor import Preprocessor
+from src.utilities.logger_helpers import LoggingTestRunner
 
+# Globals for tests
 FEATURES = ['day', 'time', 'trial',
             'event_cue', 'event_shock',
             'sensor_D1', 'sensor_D2', 'sensor_DA']
@@ -18,7 +17,6 @@ TARGET = 'signal'
 TEST_DATA_DIR = '/home/mds8301/gaby_test'
 test_data = os.path.join(TEST_DATA_DIR, 'aggregated_data.parquet.gzp')
 test_processed_data = os.path.join(TEST_DATA_DIR, 'processed_data.parquet.gzp')
-
 
 class TestPreprocessor(unittest.TestCase):
     """
@@ -80,18 +78,18 @@ class TestPreprocessor(unittest.TestCase):
         
     def test_one_hot_encode(self)->None:
         """ 
-    Test if the one_hot_encode() method properly one-hot encodes categorical features.
+        Test if the one_hot_encode() method properly one-hot encodes categorical features.
 
-    Parameters
-    ----------
-    labels : list of str, optional
-        The feature names to use. Defaults to ENCODED_FEATURES.
+        Parameters
+        ----------
+        labels : list of str, optional
+            The feature names to use. Defaults to ENCODED_FEATURES.
 
-    Raises
-    ------
-    AssertionError
-        If the one_hot_encode() method fails to add the encoded features to the processed_data attribute,
-        or if the dummy_data attribute is not of type pd.DataFrame.
+        Raises
+        ------
+        AssertionError
+            If the one_hot_encode() method fails to add the encoded features to the processed_data attribute,
+            or if the dummy_data attribute is not of type pd.DataFrame.
         """
         self.processor.one_hot_encode(labels = ENCODED_FEATURES)
         expected_cols = ['mouse_id', 'day', 'time', 'trial', 'signal', 'event_avoid',
@@ -158,9 +156,7 @@ class TestPreprocessor(unittest.TestCase):
         
  
         """
-        
 
-        
 
         self.processor.split_train_by_query(column_name='day', cutoff=7, processed_data=True)
         self.assertIsInstance(self.processor.X_train, pd.DataFrame)
@@ -228,6 +224,20 @@ class TestPreprocessor(unittest.TestCase):
 
 
 if __name__=="__main__":
-    unittest.main(verbosity=2)
+    # logging configuration
+    TEST_LOG_DIR = '/projects/p31961/dopamine_modeling/tests/test_logs'
+    TEST_LOG_FILE = 'test_preprocessor.log'
+    FULL_TEST_LOG_DIR = os.path.join(TEST_LOG_DIR, TEST_LOG_FILE)
 
+    # create logger
+    logging.basicConfig(filename=FULL_TEST_LOG_DIR, 
+                        level=logging.INFO,
+                        format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        datefmt='%d-%b-%y %H:%M:%S')
+
+    with open(FULL_TEST_LOG_DIR, 'w') as f:
+        runner = LoggingTestRunner(verbosity=2)
+        unittest.main(testRunner=runner)
+
+    # run tests and log output
 

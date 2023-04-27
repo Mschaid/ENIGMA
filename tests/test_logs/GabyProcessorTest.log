@@ -1,0 +1,8 @@
+27-Apr-23 15:58:36 - src.utilities.logger_helpers - INFO - test_get_data (__main__.TestGabyProcessor.test_get_data) ... ok
+test_get_meta_data (__main__.TestGabyProcessor.test_get_meta_data) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 3.555s
+
+OK
+

@@ -200,7 +200,7 @@ class Preprocessor:
         self.X_test = over_cut_off_data[self.features]
         self.y_test = over_cut_off_data[self.target]
 
-    def save_processed_data(self, path):
+    def save_processor(self, path_to_save_processor = None):
         """
         Summary
         -------
@@ -223,14 +223,15 @@ class Preprocessor:
             None
         
         """
-     
+        if path_to_save_processor is not None:
+            self.path_to_save_processor = path_to_save_processor
+        else:
         # gets the directory of the processed data path
-        current_directory = os.path.dirname(self.path_to_processed_data)
-        # creates a new directory called processors in the same directory as
-        # the processed data
-        processor_directory = os.path.join(current_directory, 'processors')
-        
-        self.path_to_save_processor = os.path.join(processor_directory, f'{self.processor_name}.pkl')
+            current_directory = os.path.dirname(self.path_to_processed_data)
+            # creates a new directory called processors in the same directory as 1the processed data
+            processor_directory = os.path.join(current_directory, 'processors')
+            
+            self.path_to_save_processor = os.path.join(processor_directory, f'{self.processor_name}.pkl')
 
         # check if the processor directory exists, if not, create it
         if not os.path.exists(processor_directory):
