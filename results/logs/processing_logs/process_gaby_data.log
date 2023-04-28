@@ -16,3 +16,7 @@
 [2023-04-27 16:37:32,908] INFO - splitting data by query
 [2023-04-27 16:39:05,223] INFO - processor saved to /projects/p31961/gaby_data/aggregated_data/processors/5_day_training_gaby.pkl
 [2023-04-27 16:39:05,225] INFO - done processing and storing processor
+[2023-04-28 12:23:30,891] INFO - initiating processing and storing processor
+[2023-04-28 12:23:30,923] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-04-28 12:24:22,914] INFO - one hot encoding
+[2023-04-28 12:24:57,600] INFO - splitting data by query
