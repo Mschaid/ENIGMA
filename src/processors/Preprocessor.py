@@ -1,4 +1,5 @@
 
+import json
 import os
 import pandas as pd
 import pickle
@@ -251,10 +252,97 @@ class Preprocessor:
         Args:
             file_path (str):path for the file to be saved
 
-        """
-        with open(file_path, 'rb') as f:
-            processor = pickle.load(f)
-            f.close()
+            """
+        def generator():
+            with open(file_path, 'rb') as f:
+                while True:
+                    try:
+                        yield pickle.load(f)
+                    except EOFError:
+                        break
+
+        processor = cls()
+        for obj in generator():
+            processor = obj
         return processor
     
-    
+
+    def save_processor_json(self, path_to_save_processor=None):
+        """
+        Summary
+        -------
+        Saves the processed data to a file.
+
+        Parameters
+        ---
+        path: str path to save the processed data to.
+
+        Notes:
+        ------
+        The method creates a new directory called `processors` in the same directory as
+        the processed data, if it doesn't exist already. It then saves the processor object
+        to a JSON file with the same name as the processor, using the following format:
+
+            <processed_data_directory>/processors/<processor_name>.json
+
+        Returns:
+            None
+        
+        """
+        
+        #TODO check if attributes are pd.Series or pd.DataFrame and convert df  = df.to_json() and series = series.to_json()
+        '''
+            def to_json(self):
+        attributes = vars(self)
+        for name, value in attributes.items():
+            if isinstance(value, (pd.DataFrame, pd.Series)):
+                attributes[name] = value.to_json()
+        return attributes
+        
+        
+        
+        ''''
+        
+        #check if path is none, if not use the path, if not use the default path of path_to_data
+        if path_to_save_processor is not None:
+            self.path_to_save_processor = path_to_save_processor
+        else:
+            # if gets the directory of the processed data path
+            current_directory = os.path.dirname(self.path_to_data)
+            # creates a new directory called processors in the same directory as the processed data
+            processor_directory = os.path.join(current_directory, 'processors')
+            self.path_to_save_processor = os.path.join(processor_directory, f'{self.processor_name}.json')
+
+        # check if the processor directory exists, if not, create it
+        if not os.path.exists(processor_directory):
+            os.makedirs(processor_directory)
+
+        #check of any of the attributes are pd.Series or pd.DataFrame and convert them to json
+        def convert_to_json(self):
+            
+        
+        
+        
+        # serialize the processor object to JSON and save it to a file
+        with open(self.path_to_save_processor, 'w') as f:
+            json.dump(self.__dict__, f)
+
+    @classmethod
+    def load_processor_json(cls, file_path):
+        """
+        # Summary
+        loads the schema object from a JSON file, can be loaded later. 
+
+        Args:
+            file_path (str):path for the file to be saved
+
+        """
+        with open(file_path, 'r') as f:
+            processor_dict = json.load(f)
+            f.close()
+
+        # create a new instance of Processor and populate its attributes from the JSON dictionary
+        processor = Preprocessor.__new__(Preprocessor)
+        processor.__dict__.update(processor_dict)
+
+        return processor
