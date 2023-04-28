@@ -25,7 +25,8 @@ def process_data_and_store_processor():
     gaby_processor.one_hot_encode(labels = ['event', 'sensor'])
     logging.info('splitting data by query')
     gaby_processor.split_train_by_query('day', 5, processed_data=True)
-    gaby_processor.save_processor_json()
+    logging.info('saving processor')
+    gaby_processor.save_processor()
     logging.info(f'processor saved to {gaby_processor.path_to_save_processor}')
     
 if __name__ == '__main__':
