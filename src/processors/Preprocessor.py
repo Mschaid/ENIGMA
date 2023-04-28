@@ -266,7 +266,7 @@ class Preprocessor:
             processor = obj
         return processor
     
-
+    #TODO JSON save and load
     def save_processor_json(self, path_to_save_processor=None):
         """
         Summary
@@ -290,22 +290,11 @@ class Preprocessor:
         
         """
         
-        #TODO check if attributes are pd.Series or pd.DataFrame and convert df  = df.to_json() and series = series.to_json()
-        '''
-            def to_json(self):
-        attributes = vars(self)
-        for name, value in attributes.items():
-            if isinstance(value, (pd.DataFrame, pd.Series)):
-                attributes[name] = value.to_json()
-        return attributes
-        
-        
-        
-        ''''
-        
         #check if path is none, if not use the path, if not use the default path of path_to_data
         if path_to_save_processor is not None:
             self.path_to_save_processor = path_to_save_processor
+            current_directory= os.path.dirname(self.path_to_save_processor)
+            processor_directory = os.path.join(current_directory, 'processors')
         else:
             # if gets the directory of the processed data path
             current_directory = os.path.dirname(self.path_to_data)
@@ -318,11 +307,10 @@ class Preprocessor:
             os.makedirs(processor_directory)
 
         #check of any of the attributes are pd.Series or pd.DataFrame and convert them to json
-        def convert_to_json(self):
-            
-        
-        
-        
+        for name, value in vars(self).items():
+            if isinstance(value, pd.DataFrame) or isinstance(value, pd.Series):
+                setattr(self, name, value.reset_index().to_json())
+
         # serialize the processor object to JSON and save it to a file
         with open(self.path_to_save_processor, 'w') as f:
             json.dump(self.__dict__, f)
