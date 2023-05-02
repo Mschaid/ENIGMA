@@ -1,9 +1,13 @@
 
-import json
+import h5py
 import os
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 import pickle
 import numpy as np
+
+
 from sklearn.model_selection import train_test_split
 
 
@@ -56,7 +60,7 @@ class Preprocessor:
     """
 
     def __init__(self,
-                 processor_name=None,
+                 processor_name:str=None,
                  path_to_data=None,
                  path_to_processed_data=None,
                  features=None,
@@ -266,71 +270,50 @@ class Preprocessor:
             processor = obj
         return processor
     
-    #TODO JSON save and load
-    def save_processor_json(self, path_to_save_processor=None):
-        """
-        Summary
-        -------
-        Saves the processed data to a file.
+# Pyarrow methods
+#! work on pyarrow and hdf5 implementation for saving and storing instance - this didnt improve performance
+# pyarrow hangs on data attribute
 
-        Parameters
-        ---
-        path: str path to save the processed data to.
-
-        Notes:
-        ------
-        The method creates a new directory called `processors` in the same directory as
-        the processed data, if it doesn't exist already. It then saves the processor object
-        to a JSON file with the same name as the processor, using the following format:
-
-            <processed_data_directory>/processors/<processor_name>.json
-
-        Returns:
-            None
+#     def save_processor_pyarrow(self, file_path):
+#         data_dict = {}
+#         for key, value in self.__dict__.items():
+#             print(f'processing{key}')
+#             if isinstance(value, pd.DataFrame):
+#                 data_dict[key] = pa.Table.from_pandas(value).to_pydict()
+#             elif value is not None:
+#                 data_dict[key] = value
+#         table = pa.Table.from_pydict(data_dict)
         
-        """
+#         with pa.OSFile(path, 'wb') as f:
+#             writer = pa.RecordBatchFileWriter(f, table.schema)
+#             writer.write_table(table)
+#             writer.close()
+
+
+
+# HDF5 methods
+    # def save_processor_hdf5(self, file_path):
+    #     """
+    #     # Summary
+    #     saves the schema object to a hdf5 file, can be loaded later. 
+
+    #     Args:
+    #         file_path (str):path for the file to be saved
+
+    #         """
+    # def save_hdf5(self, filename):
         
-        #check if path is none, if not use the path, if not use the default path of path_to_data
-        if path_to_save_processor is not None:
-            self.path_to_save_processor = path_to_save_processor
-            current_directory= os.path.dirname(self.path_to_save_processor)
-            processor_directory = os.path.join(current_directory, 'processors')
-        else:
-            # if gets the directory of the processed data path
-            current_directory = os.path.dirname(self.path_to_data)
-            # creates a new directory called processors in the same directory as the processed data
-            processor_directory = os.path.join(current_directory, 'processors')
-            self.path_to_save_processor = os.path.join(processor_directory, f'{self.processor_name}.json')
+    #     with h5py.File(filename, 'w') as hf:
+    #         for k, v in self.__dict__.items():
+    #             if isinstance(v, pd.DataFrame):
+    #                 hf.create_dataset(k, data=v.values, compression='gzip')
+                    
+    #             elif isinstance(v, (np.ndarray, list)):
+    #                 hf.create_dataset(k, data=v, compression='gzip')
+                    
+    #             else:
+    #                 pass
+            
+        
 
-        # check if the processor directory exists, if not, create it
-        if not os.path.exists(processor_directory):
-            os.makedirs(processor_directory)
-
-        #check of any of the attributes are pd.Series or pd.DataFrame and convert them to json
-        for name, value in vars(self).items():
-            if isinstance(value, pd.DataFrame) or isinstance(value, pd.Series):
-                setattr(self, name, value.reset_index().to_json())
-
-        # serialize the processor object to JSON and save it to a file
-        with open(self.path_to_save_processor, 'w') as f:
-            json.dump(self.__dict__, f)
-
-    @classmethod
-    def load_processor_json(cls, file_path):
-        """
-        # Summary
-        loads the schema object from a JSON file, can be loaded later. 
-
-        Args:
-            file_path (str):path for the file to be saved
-
-        """
-        with open(file_path, 'r') as f:
-            processor_dict = json.load(f)
-            f.close()
-
-        # create a new instance of Processor and populate its attributes from the JSON dictionary
-        processor = Preprocessor.__new__(Preprocessor)
-        processor.__dict__.update(processor_dict)
-
-        return processor
+            
