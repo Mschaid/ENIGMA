@@ -11,7 +11,6 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-
 class Preprocessor:
 
     """
@@ -19,7 +18,7 @@ class Preprocessor:
     ----------
     Preprocessor is responsible for loading,  preprocessing, and saving processed the data. for model building and experimentation
 
-    
+
     Attributes
     ----------
      processor_name : str or None
@@ -40,8 +39,8 @@ class Preprocessor:
         The training target data.
     y_test : pd.Series or None
         The test target data.
-    
-    
+
+
     Methods
     ----------
     * load_data
@@ -50,7 +49,7 @@ class Preprocessor:
         encodes the data using one hot encoding. 
     split_train_test
         splits data into train and test sets using train_test_split from sklearn.model_selection
-        
+
     split_train_by_query
         spilts data into train and test sets based on a specified column's cutoff value.
     save_processed_data
@@ -60,7 +59,7 @@ class Preprocessor:
     """
 
     def __init__(self,
-                 processor_name:str=None,
+                 processor_name: str = None,
                  path_to_data=None,
                  path_to_processed_data=None,
                  features=None,
@@ -125,13 +124,13 @@ class Preprocessor:
         # concat_df = pd.concat([data, *dataframes_w_dummies], axis=1)
         # packed_labels = list(labels)
         # self.dummy_data = concat_df.drop(columns=packed_labels)
-        
-        self.processed_data = pd.get_dummies(data = data,
-                         prefix = labels,
-                         columns = labels)
+
+        self.processed_data = pd.get_dummies(data=data,
+                                             prefix=labels,
+                                             columns=labels)
         return self
-    
-    def split_train_test(self, test_size=0.2, random_state=42, processed_data=False, data = None):
+
+    def split_train_test(self, test_size=0.2, random_state=42, processed_data=False, data=None):
         """
 
     Summary
@@ -154,16 +153,16 @@ class Preprocessor:
         """
         if processed_data is True:
             data = self.processed_data
-        
+
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             data[self.features],
             data[self.target],
             test_size=test_size,
             random_state=random_state)
-        
+
         return self
 
-    def split_train_by_query(self, column_name, cutoff, processed_data = False, data=None):
+    def split_train_by_query(self, column_name, cutoff, processed_data=False, data=None):
         """
         Summary
         -------
@@ -180,7 +179,7 @@ class Preprocessor:
         Returns
         -------
         None
-        
+
         Notes:
         ------
             Updates the class instance with four attributes - X_train, X_test, y_train, and y_test.
@@ -198,7 +197,6 @@ class Preprocessor:
 
         over_cut_off_data = data.query(
             f"{column_name} > {cutoff}")
-        
 
         self.X_train = under_cut_off_data[self.features]
         self.y_train = under_cut_off_data[self.target]
@@ -206,13 +204,13 @@ class Preprocessor:
         self.X_test = over_cut_off_data[self.features]
         self.y_test = over_cut_off_data[self.target]
 
-    def save_processor(self, path_to_save_processor = None):
+    def save_processor(self, path_to_save_processor=None):
         """
         Summary
         -------
         Saves the processed data to a file.
-        
-        
+
+
         Parameters
         ---
         path: str path to save the processed data to.
@@ -227,26 +225,27 @@ class Preprocessor:
 
         Returns:
             None
-        
+
         """
         if path_to_save_processor is not None:
             self.path_to_save_processor = path_to_save_processor
         else:
-        # gets the directory of the processed data path
+            # gets the directory of the processed data path
             current_directory = os.path.dirname(self.path_to_data)
             # creates a new directory called processors in the same directory as 1the processed data
             processor_directory = os.path.join(current_directory, 'processors')
-            
-            self.path_to_save_processor = os.path.join(processor_directory, f'{self.processor_name}.pkl')
+
+            self.path_to_save_processor = os.path.join(
+                processor_directory, f'{self.processor_name}.pkl')
 
         # check if the processor directory exists, if not, create it
         if not os.path.exists(processor_directory):
             os.makedirs(processor_directory)
-        
+
         # save the processor
         with open(self.path_to_save_processor, 'wb') as f:
             pickle.dump(self, f)
-    
+
     @classmethod
     def load_processor(cls, file_path):
         """
@@ -269,9 +268,10 @@ class Preprocessor:
         for obj in generator():
             processor = obj
         return processor
-    
+
 # Pyarrow methods
 #! work on pyarrow and hdf5 implementation for saving and storing instance - this didnt improve performance
+# TODO try too convert all objects to strings and implement hdf5
 # pyarrow hangs on data attribute
 
 #     def save_processor_pyarrow(self, file_path):
@@ -283,37 +283,32 @@ class Preprocessor:
 #             elif value is not None:
 #                 data_dict[key] = value
 #         table = pa.Table.from_pydict(data_dict)
-        
+
 #         with pa.OSFile(path, 'wb') as f:
 #             writer = pa.RecordBatchFileWriter(f, table.schema)
 #             writer.write_table(table)
 #             writer.close()
 
 
-
 # HDF5 methods
     # def save_processor_hdf5(self, file_path):
     #     """
     #     # Summary
-    #     saves the schema object to a hdf5 file, can be loaded later. 
+    #     saves the schema object to a hdf5 file, can be loaded later.
 
     #     Args:
     #         file_path (str):path for the file to be saved
 
     #         """
     # def save_hdf5(self, filename):
-        
+
     #     with h5py.File(filename, 'w') as hf:
     #         for k, v in self.__dict__.items():
     #             if isinstance(v, pd.DataFrame):
     #                 hf.create_dataset(k, data=v.values, compression='gzip')
-                    
+
     #             elif isinstance(v, (np.ndarray, list)):
     #                 hf.create_dataset(k, data=v, compression='gzip')
-                    
+
     #             else:
     #                 pass
-            
-        
-
-            
