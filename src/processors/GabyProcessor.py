@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
+import pyarrow as pa
 
 from src.processors.SchemaBuilder import SchemaBuilder
 
