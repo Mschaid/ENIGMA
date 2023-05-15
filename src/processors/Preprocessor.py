@@ -249,14 +249,14 @@ class Preprocessor:
     
     @classmethod
     def load_processor(cls, file_path):
+        """ load a saved processor object from a pickle file
+
+        Parameters
+        ----------
+        file_path : str
+            the path to the pickle file containing the saved processor object
         """
-        # Summary
-        loads the schema object from a pick file, can be loaded later. 
 
-        Args:
-            file_path (str):path for the file to be saved
-
-            """
         def generator():
             with open(file_path, 'rb') as f:
                 while True:
