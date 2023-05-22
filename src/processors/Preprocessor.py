@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-import pickle
+import _pickle as cPickle
 import numpy as np
 
 
@@ -244,7 +244,7 @@ class Preprocessor:
 
         # save the processor
         with open(self.path_to_save_processor, 'wb') as f:
-            pickle.dump(self, f)
+            cPickle.dump(self, f)
 
     @classmethod
     def load_processor(cls, file_path):
@@ -260,7 +260,7 @@ class Preprocessor:
             with open(file_path, 'rb') as f:
                 while True:
                     try:
-                        yield pickle.load(f)
+                        yield cPickle.load(f)
                     except EOFError:
                         break
 
