@@ -1,0 +1,21 @@
+[2023-05-17 12:36:33,898] INFO - initiating processing and storing processor
+[2023-05-17 12:36:33,912] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-05-17 12:38:47,521] INFO - initiating processing and storing processor
+[2023-05-17 12:38:47,522] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-05-17 12:54:18,804] INFO - initiating processing and storing processor
+[2023-05-17 12:54:18,819] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-05-17 12:55:13,979] INFO - one hot encoding
+[2023-05-17 12:55:53,916] INFO - splitting data by query
+[2023-05-17 12:56:23,675] INFO - saving processor
+[2023-05-17 13:10:31,299] INFO - initiating processing and storing processor
+[2023-05-17 13:10:31,302] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-05-17 13:11:26,040] INFO - one hot encoding
+[2023-05-17 13:12:06,292] INFO - splitting data by query
+[2023-05-17 13:12:35,797] INFO - saving processor
+[2023-05-17 15:34:20,096] INFO - initiating processing and storing processor
+[2023-05-17 15:34:20,098] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-05-17 15:35:14,881] INFO - one hot encoding
+[2023-05-17 15:35:54,800] INFO - splitting data by query
+[2023-05-17 15:36:24,630] INFO - saving processor
+[2023-05-17 15:37:38,053] INFO - processor saved to /projects/p31961/gaby_data/aggregated_data/processors/5_day_training_gaby.pkl
+[2023-05-17 15:37:38,055] INFO - done processing and storing processor

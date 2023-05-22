@@ -1,7 +1,5 @@
 README.md
 setup.py
-src/QuestConnection.py
-src/SchemaBuilder.py
 src/__init__.py
 src/main.py
 src.egg-info/PKG-INFO
