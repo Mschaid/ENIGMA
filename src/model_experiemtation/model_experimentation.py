@@ -52,7 +52,7 @@ if __name__ == '__main__':
     y_train = tf_seq.preprocessor.y_train.sample(1000)
     print('compiling model and training')
     tf_seq.model.compile(optimizer = "adam", loss = "binary_crossentropy", metrics = ["accuracy"])
-    tf_seq.model.fit(X_train, y_train, epochs = 10, batch_size = 10, callbacks = [tensorboard_callback])
+    tf_seq.model.fit(X_train, y_train, epochs = 1000, batch_size = 30, callbacks = [tensorboard_callback])
     # tf_seq.compile_model(**model_kwargs)
     # tf_seq.train_model
     
