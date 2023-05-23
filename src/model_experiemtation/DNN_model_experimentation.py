@@ -29,8 +29,11 @@ if __name__ == '__main__':
     PATH = '/projects/p31961/gaby_data/aggregated_data/processors/5_day_training_gaby.pkl'
     proc = Preprocessor().load_processor(PATH)
     #normalize training data
-    X_train = proc.X_train.sample(10000)
-    y_train = proc.y_train.sample(10000)
+    X_train = proc.X_train.sample(1000)
+    y_train = proc.y_train.sample(1000)
+    X_test = proc.X_test.sample(1000)
+    y_test = proc.y_test.sample(1000)
+    
 
     print('proc loaded')
 
@@ -58,7 +61,14 @@ if __name__ == '__main__':
         optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
     tf_seq.model.fit(X_train, y_train, epochs=200,
                      batch_size=30, callbacks=[tensorboard_callback])
-    # tf_seq.compile_model(**model_kwargs)
-    # tf_seq.train_model
+    prediction = tf_seq.model.predict(X_test)
+    tf_seq.model.evaluate(X_test, y_test)
+    
+    
+
+    path_to_save = '/projects/p31961/dopamine_modeling/results/models'
+    model_name = 'DNN_test_model'
+    tf_seq.model.save(os.path.join(path_to_save, model_name))
+    
 
     print(tf_seq.model.summary())
