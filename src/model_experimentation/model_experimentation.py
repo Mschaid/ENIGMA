@@ -1,5 +1,6 @@
 
 from src.processors.Preprocessor import Preprocessor
+from src.utilities.os_helpers import save_dataframes_to_parquet
 
 
 import pandas as pd
@@ -31,6 +32,7 @@ def split_data_by_trial(df, trial_threshold):
         
 
 def build_model():
+    #TODO need to redo model architecture
     sequential_model = Sequential(
     [
         Dense(128, activation='relu', name="dense_1"),
@@ -59,7 +61,10 @@ def inference(model, X_test):
     model.predict(X_test)
     
 def save_model(model, path_to_save, model_id):
+    #TODO need to implement saving with keras
     model.save(os.path.join(path_to_save, model_id))
+    
+
     
 def validated_tf():
     print("TensorFlow version:", tf.__version__)
@@ -75,6 +80,14 @@ def main():
     data = read_data(DATA_PATH)
     model_id = 'sequential_prototype'
     X_train, y_train, X_test, y_test = split_data_by_trial(data, 5)
+    
+    save_dataframes_to_parquet(
+        ('X_train', X_train),
+        ('X_test', X_test),
+        ('y_train', y_train),
+        ('y_test', y_test)
+        ,path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
+    
     
     model = build_model()
     tensorboard_callback = set_tensorboard(model_id)
