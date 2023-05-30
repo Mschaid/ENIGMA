@@ -9,7 +9,7 @@ class ModelExperimentor(ABC):
     """Abstract class for model experimentation. The purpose of this class is to outline and constrain model experimentation that is implemented
     in the child classes that will be developed dependent on the framework being used (tensorflow, xgboost, pytorch). This class is not meant to be instantiated.
 
-    Parameters
+    ParametersS
     ----------
     ABC : the abstract class from the abc module
     """
