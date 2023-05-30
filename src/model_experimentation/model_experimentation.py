@@ -14,8 +14,8 @@ import datetime
 import tensorflow as tf
 
 from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.losses import Huber
+from tensorflow.keras.layers import Dense, LSTM, Lambda
+
 
 def read_data(path):
     """
@@ -67,7 +67,7 @@ def split_data_by_trial(df, trial_threshold):
     return X_train, y_train, X_test, y_test
         
 
-def build_model():
+def build_ltsm(sequence_length, input_dimentions):
     #TODO need to redo model architecture
     """
     Build a sequential model with a specific architecture.
@@ -77,13 +77,14 @@ def build_model():
     tensorflow.keras.models.Sequential
         The built sequential model.
     """
-    sequential_model = Sequential(
-    [
-        Dense(128, activation='relu', name="dense_1"),
-        Dense(1, activation='relu', name="dense_2")
-    ]
-)
-    return sequential_model
+    
+    input_shape = (sequence_length, input_dimentions)
+    ltsm_model = Sequential([
+        Lambda(lambda x: tf.expand_dims(x, axis=-1), input_shape=[None]),
+        LSTM(64, input_shape=input_shape),
+        Dense(1)
+    ])
+    return ltsm_model
 
 def set_tensorboard(model_id):
     """
@@ -126,7 +127,7 @@ def train_model(model, X_train, y_train, tensorboard_callback):
     None
     """
     model.compile(
-    optimizer="adam", loss=Huber())
+    optimizer="adam", loss='mean_squared_error')
     model.fit(X_train, y_train, batch_size=30, epochs= 100, callbacks=[tensorboard_callback])
 
 def evaluate_model(model, X_test, y_test):
@@ -206,7 +207,7 @@ def main():
     MODEL_PATH_SAVE = '/projects/p31961/dopamine_modeling/results/models/'
     validated_tf()
     data = read_data(DATA_PATH)
-    model_id = 'sequential_prototype'
+    model_id = 'ltsm_prototype'
     X_train, y_train, X_test, y_test = split_data_by_trial(data, 5)
     
     save_dataframes_to_parquet(
@@ -216,8 +217,8 @@ def main():
         ('y_test', y_test)
         ,path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
     
-    
-    model = build_model()
+    #time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
+    model = build_ltsm(sequence_length=90, input_dimentions=X_train.shape[1])
     tensorboard_callback = set_tensorboard(model_id)
     train_model(model, X_train, y_train, tensorboard_callback)
     evaluate_model(model, X_test, y_test)
