@@ -201,8 +201,15 @@ def validated_tf():
     None
     """
     print("TensorFlow version:", tf.__version__)
+    print('hello')
     for gpu in tf.config.list_physical_devices('GPU'):
-        print(gpu)
+        
+        if gpu len(gpu)==0:
+            print("GPU not available")
+            
+        else:
+            print(gpu)
+
 
 
     
