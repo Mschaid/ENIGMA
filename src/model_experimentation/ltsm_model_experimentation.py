@@ -13,6 +13,8 @@ import datetime
 
 import tensorflow as tf
 
+
+
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Lambda
 
@@ -108,6 +110,7 @@ def set_tensorboard(model_id):
     return tensorboard_callback
         
 def train_model(model, X_train, y_train, tensorboard_callback):
+    #TODO save checkpoints 
     """
     Train a model on the given training data. The optimizer and loss function are currently hard-coded.
 
@@ -166,25 +169,26 @@ def inference(model, X_test):
     """
     model.predict(X_test)
     
-def save_model(model, path_to_save, model_id):
-    """
-    Save the trained model to a specific path.
+# def save_model(model, path_to_save, model_id):
+#     """
+#     Save the trained model to a specific path.
 
-    Parameters
-    ----------
-    model : tensorflow.keras.models.Sequential
-        The trained model.
-    path_to_save : str
-        The path to save the model.
-    model_id : str
-        The ID of the model.
+#     Parameters
+#     ----------
+#     model : tensorflow.keras.models.Sequential
+#         The trained model.
+#     path_to_save : str
+#         The path to save the model.
+#     model_id : str
+#         The ID of the model.
 
-    Returns
-    -------
-    None
-    """
-    #TODO need to implement saving with keras
-    model.save(os.path.join(path_to_save, model_id))
+#     Returns
+#     -------
+#     None
+#     """
+#     #TODO need to implement saving with keras
+#     path = os.path.join(path_to_save, model_id)
+#     save(os.path.join(path_to_save, model_id))
     
 
     
@@ -223,7 +227,7 @@ def main():
     train_model(model, X_train, y_train, tensorboard_callback)
     evaluate_model(model, X_test, y_test)
     inference(model, X_test)
-    save_model(model, path_to_save = MODEL_PATH_SAVE, model_id = model_id)
+    tf.keras.models.save_model(model, os.path.join(MODEL_PATH_SAVE,model_id))
     
 if __name__ == "__main__":
     main()
