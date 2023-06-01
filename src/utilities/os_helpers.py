@@ -1,11 +1,20 @@
 
-import inspect
 import os
 import pandas as pd
-import re
 
 
 
+def create_dir(path):
+    """# Summary
+    creates a directory if it does not exist
+
+    ### Args:
+        path (_type_): _description_
+    """
+    if path is not None and not os.path.exists(path):
+        os.makedirs(path)
+        
+    return path
 def create_new_directoy(file_path: str, new_dir_extension=None) -> str:
     """
     # Summary
@@ -25,51 +34,10 @@ def create_new_directoy(file_path: str, new_dir_extension=None) -> str:
     new_directory = os.path.join(file_path, new_dir_extension)
     print(new_directory)
 
-    if os.path.exists(new_directory):
-        pass
-    else:
+    if not os.path.exists(new_directory):
         os.mkdir(new_directory)
 
-
-
-def get_variable_name(variable):
-    """
-    Retrieve the string representation of a variable name in a Jupyter Notebook.
-
-    Parameters
-    ----------
-    variable : object
-        The variable for which to retrieve the name.
-
-    Returns
-    -------
-    str or None
-        The string representation of the variable name if found, None otherwise.
-
-    Notes
-    -----
-    - This function is specifically designed for use in a Jupyter Notebook environment.
-    - It retrieves the variable name by comparing values in the local variables of the calling frame.
-    - If the variable is not found in the local variables, None is returned.
-    - This approach relies on comparing variable values and assumes that there are no two variables with the same value.
-    - It also assumes that the variable is defined within the current scope or an outer scope.
-
-    Example
-    -------
-    >>> my_variable = 42
-    >>> variable_name = get_variable_name(my_variable)
-    >>> print(variable_name)
-    'my_variable'
-    """
-    frame = inspect.currentframe().f_back
-    variables = frame.f_locals
-    
-    for name in variables:
-        value = variables[name]
-        if value is variable:
-            return name
-    
-    return None
+    return new_directory
 
 def save_dataframes_to_parquet(*dataframes, path_to_save):
     """
@@ -97,6 +65,7 @@ def save_dataframes_to_parquet(*dataframes, path_to_save):
 
     for df_name, df in dataframes:
         path = os.path.join(path_to_save, f'{df_name}.parquet.gzip')
+
         if isinstance(df,pd.Series):
             df.to_frame().to_parquet(path, compression='gzip')
         else:

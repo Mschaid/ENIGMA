@@ -13,8 +13,6 @@ import datetime
 
 import tensorflow as tf
 
-
-
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Lambda
 
@@ -35,6 +33,7 @@ def read_data(path):
     """
     data = pd.read_parquet(path)
     return data
+
 
 def split_data_by_trial(df, trial_threshold):
     """
@@ -64,13 +63,15 @@ def split_data_by_trial(df, trial_threshold):
     trials_under_5 = df.query('trial<=@trial_threshold')
     trials_over_5 = df.query('trial>@trial_threshold')
 
-    X_train, y_train = trials_under_5.drop(columns = ['signal']), trials_under_5.signal
-    X_test, y_test = trials_over_5.drop(columns = ['signal']), trials_over_5.signal
+    X_train, y_train = trials_under_5.drop(
+        columns=['signal']), trials_under_5.signal
+    X_test, y_test = trials_over_5.drop(
+        columns=['signal']), trials_over_5.signal
     return X_train, y_train, X_test, y_test
-        
+
 
 def build_ltsm(sequence_length, input_dimentions):
-    #TODO need to redo model architecture
+    # TODO need to redo model architecture
     """
     Build a sequential model with a specific architecture.
 
@@ -79,7 +80,7 @@ def build_ltsm(sequence_length, input_dimentions):
     tensorflow.keras.models.Sequential
         The built sequential model.
     """
-    
+
     input_shape = (sequence_length, input_dimentions)
     ltsm_model = Sequential([
         Lambda(lambda x: tf.expand_dims(x, axis=-1), input_shape=[None]),
@@ -87,6 +88,7 @@ def build_ltsm(sequence_length, input_dimentions):
         Dense(1)
     ])
     return ltsm_model
+
 
 def set_tensorboard(model_id):
     """
@@ -104,13 +106,15 @@ def set_tensorboard(model_id):
     """
     model_id = 'sequential_prototype'
     date_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    training_log_dir = "/projects/p31961/dopamine_modeling/results/logs/training_logs/" 
+    training_log_dir = "/projects/p31961/dopamine_modeling/results/logs/training_logs/"
     logs_dir = f"{training_log_dir}/{model_id}/{date_time}"
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logs_dir, histogram_freq=1)
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(
+        log_dir=logs_dir, histogram_freq=1)
     return tensorboard_callback
-        
+
+
 def train_model(model, X_train, y_train, tensorboard_callback):
-    #TODO save checkpoints 
+    # TODO save checkpoints
     """
     Train a model on the given training data. The optimizer and loss function are currently hard-coded.
 
@@ -130,8 +134,10 @@ def train_model(model, X_train, y_train, tensorboard_callback):
     None
     """
     model.compile(
-    optimizer="adam", loss='mean_squared_error')
-    model.fit(X_train, y_train, batch_size=30, epochs= 100, callbacks=[tensorboard_callback])
+        optimizer="adam", loss='mean_squared_error')
+    model.fit(X_train, y_train, batch_size=30, epochs=100,
+              callbacks=[tensorboard_callback])
+
 
 def evaluate_model(model, X_test, y_test):
     """
@@ -151,7 +157,8 @@ def evaluate_model(model, X_test, y_test):
     None
     """
     model.evaluate(X_test, y_test)
-    
+
+
 def inference(model, X_test):
     """
     Perform inference using the trained model on the given test data.
@@ -168,7 +175,7 @@ def inference(model, X_test):
     None
     """
     model.predict(X_test)
-    
+
 # def save_model(model, path_to_save, model_id):
 #     """
 #     Save the trained model to a specific path.
@@ -189,9 +196,8 @@ def inference(model, X_test):
 #     #TODO need to implement saving with keras
 #     path = os.path.join(path_to_save, model_id)
 #     save(os.path.join(path_to_save, model_id))
-    
 
-    
+
 def validated_tf():
     """
     Validate TensorFlow installation and GPU availability. Prints the TensorFlow version and the GPUs available.
@@ -203,16 +209,14 @@ def validated_tf():
     print("TensorFlow version:", tf.__version__)
     print('hello')
     for gpu in tf.config.list_physical_devices('GPU'):
-        
-        if gpu len(gpu)==0:
+
+        if gpu len(gpu) == 0:
             print("GPU not available")
-            
+
         else:
             print(gpu)
 
 
-
-    
 def main():
     DATA_PATH = '/projects/p31961/dopamine_modeling/data/prototype_data/mouse_909_DA_avoid.parquet.gzip'
     MODEL_PATH_SAVE = '/projects/p31961/dopamine_modeling/results/models/'
@@ -220,22 +224,21 @@ def main():
     data = read_data(DATA_PATH)
     model_id = 'ltsm_prototype'
     X_train, y_train, X_test, y_test = split_data_by_trial(data, 5)
-    
+
     save_dataframes_to_parquet(
         ('X_train', X_train),
         ('X_test', X_test),
         ('y_train', y_train),
-        ('y_test', y_test)
-        ,path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
-    
-    #time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
+        ('y_test', y_test), path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
+
+    # time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
     model = build_ltsm(sequence_length=90, input_dimentions=X_train.shape[1])
     tensorboard_callback = set_tensorboard(model_id)
     train_model(model, X_train, y_train, tensorboard_callback)
     evaluate_model(model, X_test, y_test)
     inference(model, X_test)
-    tf.keras.models.save_model(model, os.path.join(MODEL_PATH_SAVE,model_id))
-    
+    tf.keras.models.save_model(model, os.path.join(MODEL_PATH_SAVE, model_id))
+
+
 if __name__ == "__main__":
     main()
-    
