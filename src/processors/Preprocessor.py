@@ -6,6 +6,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import _pickle as cPickle
 import numpy as np
+from src.utilities.os_helpers import *
 
 
 from sklearn.model_selection import train_test_split
@@ -62,6 +63,7 @@ class Preprocessor:
                  processor_name: str = None,
                  path_to_data=None,
                  path_to_processed_data=None,
+                 path_to_save = None,
                  features=None,
                  target=None,
                  X_train=None,
@@ -76,7 +78,11 @@ class Preprocessor:
         """
         self.processor_name = processor_name
         self.path_to_data = path_to_data
+        self.path_to_save = create_dir(path_to_save)
         self.path_to_processed_data = path_to_processed_data
+        self.path_to_processed_data_dir=create_new_directoy(path_to_save, 'processed_data')
+        self.path_to_save_processor = create_new_directoy(path_to_save, 'processors')
+        self.path_to_save_datasets = create_new_directoy(path_to_save, 'datasets')
         self.X_train = X_train
         self.y_train = y_train
         self.X_test = X_test
@@ -84,7 +90,9 @@ class Preprocessor:
         self.features = features
         self.target = target
 
-    def load_data(self):
+
+
+    def load_data(self, load_processed_data=False):
         """
         # Summary
         loads data from path_to_data into data attribute.
@@ -99,7 +107,7 @@ class Preprocessor:
         if self.path_to_data is not None:
             self.data = pd.read_parquet(self.path_to_data)
 
-        if self.path_to_processed_data is not None:
+        if load_processed_data == True and self.path_to_processed_data is not None:
             self.processed_data = pd.read_parquet(self.path_to_processed_data)
 
         return self
@@ -239,13 +247,116 @@ class Preprocessor:
                 processor_directory, f'{self.processor_name}.pkl')
 
         # check if the processor directory exists, if not, create it
-        if not os.path.exists(processor_directory):
-            os.makedirs(processor_directory)
+        create_dir(processor_directory)
 
         # save the processor
         with open(self.path_to_save_processor, 'wb') as f:
             cPickle.dump(self, f)
+            
+    def save_datasets_to_parquet(self, path=None):
+        """
+        saves the processed datasets (X_train, X_test, y_train, y_test, to parquet files
+        Parameters
+        ----------
+        path : str, optional 
+        
+        Attributes
+        ----------
+        path_to_save_datasets : str is path is provided, path_to_save_datasets is updated, 
+                                if not defaults to initialized self.path_to_save_datasets
+        
+        """
+        
+        if path is not None:
+            self.path_to_save_datasets = path 
+        else:
+            path = self.path_to_save_datasets
+        # create_dir(self.path_to_save_datasets)
+        save_dataframes_to_parquet(
+            (f'{self.processor_name}_X_train', self.X_train),
+            (f'{self.processor_name}_X_test', self.X_test),
+            (f'{self.processor_name}_y_train', self.y_train),
+            (f'{self.processor_name}_y_test', self.y_test),
+            path_to_save=path)
+        return self
+     
+    def save_data_to_h5(self, path=None, file_name=None):
+        """
+        method to save specific attributes of the processor object to an hdf5 file
+        
+        Parameters
+        ----------
+        path : str, optional - path to save the hdf5 file to. Defaults to path_to_save_datasets
+        file_name: str, optional - name of the hdf5 file to save the data to. Defaults to <processor_name>_dataset.h5
+        
+        Attributes saved
+        ----------------
+        * processor_name
+        * path_to_data
+        * path_to_save
+        * path_to_processed_data
+        * path_to_processed_data_dir
+        * path_to_save_processor
+        * path_to_save_datasets
+        * features list
+        * target
+        * X_train
+        * X_test
+        * y_train
+        * y_test
+        
+        Returns
+        -------
+        None
+        """
+        
+        if path is not None:
+            self.path_to_save_datasets = path 
+        else:
+            path = self.path_to_save_datasets
+        
+        if file_name is None:
+            file_name = f'{self.processor_name}_dataset.h5'
+            file_path = os.path.join(path, file_name)
+            
+        with pd.HDFStore(file_path, mode = 'w') as store:
+            store.put('X_train', self.X_train)
+            store.put('X_test', self.X_test)
+            store.put('y_train', self.y_train)
+            store.put('y_test', self.y_test)
+        
 
+        with h5py.File(file_path, 'w') as file:
+            file.attrs['processor_name'] = str(self.processor_name)
+            file.attrs['path_to_data'] = str(self.path_to_data)
+            file.attrs['path_to_save'] = str(self.path_to_save)
+            file.attrs['path_to_processed_data'] = str(self.path_to_processed_data)
+            file.attrs['path_to_processed_data_dir'] = str(self.path_to_processed_data_dir)
+            file.attrs['path_to_save_processor'] = str(self.path_to_save_processor)
+            file.attrs['path_to_save_datasets'] = str(self.path_to_save_datasets)
+            file.attrs['features'] = self.features
+            file.attrs['target'] = self.target
+            
+    #? possible implementiation but need to resolve speed issues
+    def save_processor_to_h5(self):
+        pass
+    #         self.filename = os.path.join(self.path_to_save_processor, f'{self.processor_name}.h5')
+    #         with h5py.File(self.filename, 'w') as file:
+    #             instance_group = file.create_group('instance')
+
+    #             for attr_name, attr_value in vars(self).items():
+    #                 if isinstance(attr_value, pd.DataFrame):
+    #                     # Save DataFrame as a separate group
+    #                     df_group = instance_group.create_group(attr_name)
+    #                     for col_name, col_data in attr_value.items():
+    #                         df_group.create_dataset(col_name, data=col_data)
+    #                 elif isinstance(attr_value, (int, float, str)):
+    #                     instance_group.create_dataset(attr_name, data=attr_value)
+    #                 else:
+    #                     # Convert non-compatible types to string representation
+    #                     instance_group.create_dataset(attr_name, data=str(attr_value))
+
+    #! currently not implemented                
     @classmethod
     def load_processor(cls, file_path):
         """ load a saved processor object from a pickle file
@@ -269,46 +380,3 @@ class Preprocessor:
             processor = obj
         return processor
 
-# Pyarrow methods
-#! work on pyarrow and hdf5 implementation for saving and storing instance - this didnt improve performance
-# TODO try too convert all objects to strings and implement hdf5
-# pyarrow hangs on data attribute
-
-#     def save_processor_pyarrow(self, file_path):
-#         data_dict = {}
-#         for key, value in self.__dict__.items():
-#             print(f'processing{key}')
-#             if isinstance(value, pd.DataFrame):
-#                 data_dict[key] = pa.Table.from_pandas(value).to_pydict()
-#             elif value is not None:
-#                 data_dict[key] = value
-#         table = pa.Table.from_pydict(data_dict)
-
-#         with pa.OSFile(path, 'wb') as f:
-#             writer = pa.RecordBatchFileWriter(f, table.schema)
-#             writer.write_table(table)
-#             writer.close()
-
-
-# HDF5 methods
-    # def save_processor_hdf5(self, file_path):
-    #     """
-    #     # Summary
-    #     saves the schema object to a hdf5 file, can be loaded later.
-
-    #     Args:
-    #         file_path (str):path for the file to be saved
-
-    #         """
-    # def save_hdf5(self, filename):
-
-    #     with h5py.File(filename, 'w') as hf:
-    #         for k, v in self.__dict__.items():
-    #             if isinstance(v, pd.DataFrame):
-    #                 hf.create_dataset(k, data=v.values, compression='gzip')
-
-    #             elif isinstance(v, (np.ndarray, list)):
-    #                 hf.create_dataset(k, data=v, compression='gzip')
-
-    #             else:
-    #                 pass
