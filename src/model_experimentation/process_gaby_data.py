@@ -14,8 +14,7 @@ gaby_processor = Preprocessor(
     processor_name = '5_day_training_gaby',
     path_to_data = PATH_TO_DATA,
     path_to_save = PATH_TO_SAVE,
-    features = ['day', 'time', 'trial',
-                'signal','event_cue', 
+    features = ['day', 'time', 'trial','event_cue', 
                 'event_shock','sensor_D1','sensor_D2',
                 'sensor_DA'],
     target = 'signal')
@@ -29,7 +28,7 @@ def process_and_store_data():
     gaby_processor.split_train_by_query('day', 5, processed_data=True)
     logging.info('saving datasets')
     gaby_processor.save_datasets_to_parquet()
-    gaby_processor.save_data_to_h5()
+    # gaby_processor.save_data_to_h5()
     # logging.info('saving processor')
     logging.info('data saved')
     # gaby_processor.save_processor()
