@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 import pandas as pd
 
+
 from src.model_experimentation.prototypes.lstm_protype_simple import (build_lstm,
                                                                       set_tensorboard,
                                                                       train_model,
@@ -23,7 +24,9 @@ def read_data_from_paths(*paths):
 
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
+ 
+
     # print tensorflow specs
     validated_tf()
     # set global variables
@@ -39,14 +42,17 @@ if __name__ == '__main__':
     X_test_path = build_path(PATH_TO_DATA, 'X_test')
     y_test_path = build_path(PATH_TO_DATA, 'y_test')
     
-    # read data from parquet files
-    X_train, y_train, X_test, y_test = read_data_from_paths(X_train_path, y_train_path, X_test_path, y_test_path)
+    # # read data from parquet files
+    X_train = pd.read_parquet(X_train_path)
+    y_train = pd.read_parquet(y_train_path)
+    X_test = pd.read_parquet(X_test_path)
+    y_test = pd.read_parquet(y_test_path)
     
-    #define model- same as in lstm_protype_simple.py
-    ltsm_model_simple = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
+    training_dataset = tf.data.Dataset.from_tensor_slices((dict(X_train), y_train))
+    testing_dataset = tf.data.Dataset.from_tensor_slices((dict(X_test), y_test))
     
-    #train model
-    train_model(ltsm_model_simple, X_train, y_train, TENSORBOARD_CALLBACK)
-    evaluate_model(ltsm_model_simple, X_test, y_test)
-    inference(ltsm_model_simple, X_test)
-    tf.keras.models.save_model(ltsm_model_simple, os.path.join(MODEL_PATH_TO_SAVE, MODEL_ID))
+    training_output_path = os.path.join(PATH_TO_DATA, 'tensorflow_training_dataset')
+    testing_output_path = os.path.join(PATH_TO_DATA, 'tensorflow_testing_dataset')
+    # save dataset to tfrecord
+    training_dataset.save(training_output_path)
+    testing_dataset.save(testing_output_path)
