@@ -2,8 +2,7 @@
 import h5py
 import os
 import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
+from typing import List, Type
 import _pickle as cPickle
 import numpy as np
 from src.utilities.os_helpers import *
@@ -61,15 +60,15 @@ class Preprocessor:
 
     def __init__(self,
                  processor_name: str = None,
-                 path_to_data=None,
-                 path_to_processed_data=None,
-                 path_to_save = None,
-                 features=None,
-                 target=None,
-                 X_train=None,
-                 X_test=None,
-                 y_train=None,
-                 y_test=None):
+                 path_to_data: str =None,
+                 path_to_processed_data: str =None,
+                 path_to_save:str = None,
+                 features: List[str] =None,
+                 target:str =None,
+                 X_train: pd.DataFrame = None,
+                 X_test: pd.DataFrame = None,
+                 y_train: pd.Series = None,
+                 y_test: pd.Series = None):
         """# Summary
         Instantiates a Preprocessor object.
 
@@ -80,9 +79,12 @@ class Preprocessor:
         self.path_to_data = path_to_data
         self.path_to_save = create_dir(path_to_save)
         self.path_to_processed_data = path_to_processed_data
-        self.path_to_processed_data_dir=create_new_directoy(path_to_save, 'processed_data')
-        self.path_to_save_processor = create_new_directoy(path_to_save, 'processors')
-        self.path_to_save_datasets = create_new_directoy(path_to_save, 'datasets')
+        self.path_to_processed_data_dir = create_new_directoy(
+            path_to_save, 'processed_data')
+        self.path_to_save_processor = create_new_directoy(
+            path_to_save, 'processors')
+        self.path_to_save_datasets = create_new_directoy(
+            path_to_save, 'datasets')
         self.X_train = X_train
         self.y_train = y_train
         self.X_test = X_test
@@ -90,9 +92,7 @@ class Preprocessor:
         self.features = features
         self.target = target
 
-
-
-    def load_data(self, load_processed_data=False):
+    def load_data(self, load_processed_data: str =False) -> Type['Preprocessor']:
         """
         # Summary
         loads data from path_to_data into data attribute.
@@ -112,7 +112,7 @@ class Preprocessor:
 
         return self
 
-    def one_hot_encode(self, labels, data=None):
+    def one_hot_encode(self, labels: List[str], data: pd.DataFrame = None):
         """# Summary
 
         ## Args:
@@ -252,23 +252,23 @@ class Preprocessor:
         # save the processor
         with open(self.path_to_save_processor, 'wb') as f:
             cPickle.dump(self, f)
-            
+
     def save_datasets_to_parquet(self, path=None):
         """
         saves the processed datasets (X_train, X_test, y_train, y_test, to parquet files
         Parameters
         ----------
         path : str, optional 
-        
+
         Attributes
         ----------
         path_to_save_datasets : str is path is provided, path_to_save_datasets is updated, 
                                 if not defaults to initialized self.path_to_save_datasets
-        
+
         """
-        
+
         if path is not None:
-            self.path_to_save_datasets = path 
+            self.path_to_save_datasets = path
         else:
             path = self.path_to_save_datasets
         # create_dir(self.path_to_save_datasets)
@@ -279,16 +279,16 @@ class Preprocessor:
             (f'{self.processor_name}_y_test', self.y_test),
             path_to_save=path)
         return self
-     
+
     def save_data_to_h5(self, path=None, file_name=None):
         """
         method to save specific attributes of the processor object to an hdf5 file
-        
+
         Parameters
         ----------
         path : str, optional - path to save the hdf5 file to. Defaults to path_to_save_datasets
         file_name: str, optional - name of the hdf5 file to save the data to. Defaults to <processor_name>_dataset.h5
-        
+
         Attributes saved
         ----------------
         * processor_name
@@ -304,40 +304,57 @@ class Preprocessor:
         * X_test
         * y_train
         * y_test
-        
+
         Returns
         -------
         None
         """
-        
+
         if path is not None:
-            self.path_to_save_datasets = path 
+            self.path_to_save_datasets = path
         else:
             path = self.path_to_save_datasets
-        
+
         if file_name is None:
             file_name = f'{self.processor_name}_dataset.h5'
-            file_path = os.path.join(path, file_name)
             
-        with pd.HDFStore(file_path, mode = 'w') as store:
-            store.put('X_train', self.X_train)
-            store.put('X_test', self.X_test)
-            store.put('y_train', self.y_train)
-            store.put('y_test', self.y_test)
-        
+        file_path = os.path.join(path, file_name)
 
-        with h5py.File(file_path, 'w') as file:
-            file.attrs['processor_name'] = str(self.processor_name)
-            file.attrs['path_to_data'] = str(self.path_to_data)
-            file.attrs['path_to_save'] = str(self.path_to_save)
-            file.attrs['path_to_processed_data'] = str(self.path_to_processed_data)
-            file.attrs['path_to_processed_data_dir'] = str(self.path_to_processed_data_dir)
-            file.attrs['path_to_save_processor'] = str(self.path_to_save_processor)
-            file.attrs['path_to_save_datasets'] = str(self.path_to_save_datasets)
-            file.attrs['features'] = self.features
-            file.attrs['target'] = self.target
+        dataframe_dict = {
+            'X_train': self.X_train,
+            'X_test': self.X_test,
+            'y_train': self.y_train,
+            'y_test': self.y_test
             
-    #? possible implementiation but need to resolve speed issues
+        }
+
+        attrs_dict = {
+            'processor_name': str(self.processor_name),
+            'path_to_data': str(self.path_to_data),
+            'path_to_save': str(self.path_to_save),
+            'path_to_processed_data': str(self.path_to_processed_data),
+            'path_to_processed_data_dir': str(self.path_to_processed_data_dir),
+            'path_to_save_processor': str(self.path_to_save_processor),
+            'path_to_save_datasets': str(self.path_to_save_datasets),
+            'features': self.features,
+            'target': self.target
+        }
+        
+        def save_to_h5(file_path, dataframe_dict, attrs_dict):
+                with h5py.File(file_path, 'w') as file:
+                    # save dataframes 
+                    dataframe_group = file.create_group('dataframes')
+                    for key, value in dataframe_dict.items():
+                        dataframe_group[key] = value
+                    # save attributes
+                    attrs_group = file.create_group('attributes')
+                    for key, value in attrs_dict.items():
+                        attrs_group[key] = value    
+                        
+        save_to_h5(file_path, dataframe_dict, attrs_dict)
+
+            # ? possible implementiation but need to resolve speed issues
+
     def save_processor_to_h5(self):
         pass
     #         self.filename = os.path.join(self.path_to_save_processor, f'{self.processor_name}.h5')
@@ -356,7 +373,7 @@ class Preprocessor:
     #                     # Convert non-compatible types to string representation
     #                     instance_group.create_dataset(attr_name, data=str(attr_value))
 
-    #! currently not implemented                
+    #! currently not implemented
     @classmethod
     def load_processor(cls, file_path):
         """ load a saved processor object from a pickle file
@@ -379,4 +396,3 @@ class Preprocessor:
         for obj in generator():
             processor = obj
         return processor
-
