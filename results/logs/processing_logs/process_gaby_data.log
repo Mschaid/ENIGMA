@@ -140,3 +140,62 @@
 [2023-06-01 15:14:20,423] DEBUG - Creating converter from 5 to 3
 [2023-06-01 15:14:20,430] INFO - data saved
 [2023-06-01 15:14:20,430] INFO - done processing and storing processor
+[2023-06-01 15:39:45,173] INFO - initiating processing and storing processor
+[2023-06-01 15:39:45,175] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 15:40:36,011] INFO - one hot encoding
+[2023-06-01 15:41:10,740] INFO - splitting data by query
+[2023-06-01 15:41:34,618] INFO - saving datasets
+[2023-06-01 15:41:47,018] DEBUG - Creating converter from 5 to 3
+[2023-06-01 15:41:47,044] INFO - data saved
+[2023-06-01 15:41:47,044] INFO - done processing and storing processor
+[2023-06-01 15:47:10,907] INFO - initiating processing and storing processor
+[2023-06-01 15:47:10,908] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 15:48:01,558] INFO - one hot encoding
+[2023-06-01 15:48:36,013] INFO - splitting data by query
+[2023-06-01 15:48:59,501] INFO - saving datasets
+[2023-06-01 15:49:11,764] DEBUG - Creating converter from 5 to 3
+[2023-06-01 15:49:11,765] INFO - data saved
+[2023-06-01 15:49:11,766] INFO - done processing and storing processor
+[2023-06-01 15:52:11,571] INFO - initiating processing and storing processor
+[2023-06-01 15:52:11,572] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 15:53:02,376] INFO - one hot encoding
+[2023-06-01 15:53:36,817] INFO - splitting data by query
+[2023-06-01 15:54:00,374] INFO - saving datasets
+[2023-06-01 15:54:12,775] INFO - initiating processing and storing processor
+[2023-06-01 15:54:12,776] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 15:55:03,386] INFO - one hot encoding
+[2023-06-01 15:55:38,165] INFO - splitting data by query
+[2023-06-01 15:56:02,057] INFO - saving datasets
+[2023-06-01 16:02:14,209] INFO - initiating processing and storing processor
+[2023-06-01 16:02:14,210] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 16:03:04,176] INFO - one hot encoding
+[2023-06-01 16:03:38,744] INFO - splitting data by query
+[2023-06-01 16:04:02,460] INFO - saving datasets
+[2023-06-01 16:05:21,312] INFO - initiating processing and storing processor
+[2023-06-01 16:05:21,313] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 16:06:11,549] INFO - one hot encoding
+[2023-06-01 16:06:46,353] INFO - splitting data by query
+[2023-06-01 16:07:10,274] INFO - saving datasets
+[2023-06-01 16:14:30,335] INFO - initiating processing and storing processor
+[2023-06-01 16:14:30,336] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 16:15:43,334] INFO - initiating processing and storing processor
+[2023-06-01 16:15:43,335] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 16:16:33,602] INFO - one hot encoding
+[2023-06-01 16:17:08,051] INFO - splitting data by query
+[2023-06-01 16:17:31,539] INFO - saving datasets
+[2023-06-01 16:22:14,269] INFO - initiating processing and storing processor
+[2023-06-01 16:22:14,287] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 16:23:05,216] INFO - one hot encoding
+[2023-06-01 16:23:39,635] INFO - splitting data by query
+[2023-06-01 16:24:03,117] INFO - saving datasets
+[2023-06-01 16:24:23,799] DEBUG - Creating converter from 5 to 3
+[2023-06-01 16:24:23,845] INFO - data saved
+[2023-06-01 16:24:23,846] INFO - done processing and storing processor
+[2023-06-01 17:32:56,907] INFO - initiating processing and storing processor
+[2023-06-01 17:32:56,920] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-01 17:33:48,054] INFO - one hot encoding
+[2023-06-01 17:34:22,519] INFO - splitting data by query
+[2023-06-01 17:34:46,036] INFO - saving datasets
+[2023-06-01 17:42:09,286] DEBUG - Creating converter from 5 to 3
+[2023-06-01 17:42:09,330] INFO - data saved
+[2023-06-01 17:42:09,330] INFO - done processing and storing processor
