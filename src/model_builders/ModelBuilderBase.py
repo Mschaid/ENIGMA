@@ -1,10 +1,6 @@
 from src.processors.Preprocessor import Preprocessor
 from abc import ABC, abstractmethod
 
-import tensorflow as tf
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense
-
 
 class ModelBuilderBase(ABC):
     """Abstract class for model experimentation. The purpose of this class is to outline and constrain model experimentation that is implemented
@@ -31,45 +27,47 @@ class ModelBuilderBase(ABC):
         self.path_to_processed_data = path_to_processed_data
         
 
-    def load_data(self):
+    def load_preprocessed_data(self):
+        """loads the preprocessed data from the path that is passed in to the class
         """
-        loads the data from the path_to_processed_data path and stores as X_train, X_test, y_train, y_test
-        """
-        self.X_train = pd.read_hdf(self.path_to_processed_data, key = 'X_train')
-        self.X_test = pd.read_hdf(self.path_to_processed_data, key = 'X_test')
-        self.y_train = pd.read_hdf(self.path_to_processed_data, key = 'y_train')
-        self.y_test = pd.read_hdf(self.path_to_processed_data, key = 'y_test')
+        with h5py.File(self.path_to_processed_data, 'r') as file:
+            dataframe_group = file['dataframes']
+            for key in dataframe_group.keys():
+                dataset = dataframe_group[key]
+                setattr(self, key, pd.DataFrame(dataset[:]))
+            
+            attrs_group = file['attrs']
+            for key in attrs_group.keys():
+                setattr(self, key, attrs_group[key].value)
+        
+    # @abstractmethod
+    # def compile_model(self):
+    #     """ calls the build method of the model object that is passed in to the class
+    #     """
+    #     pass
 
-        # with h5py_File(self.path_to_processed_data, 'r') as file:
+    # @abstractmethod
+    # def train_model(self):
+    #     """calls the train method of the model object that is passed in to the class
+    #     """
+    #     pass
 
-    @abstractmethod
-    def compile_model(self):
-        """ calls the build method of the model object that is passed in to the class
-        """
-        pass
+    # @abstractmethod
+    # def test_model(self):
+    #     """calls the test method of the model object that is passed in to the class"""
+    #     pass
 
-    @abstractmethod
-    def train_model(self):
-        """calls the train method of the model object that is passed in to the class
-        """
-        pass
+    # @abstractmethod
+    # def evaluate_model(self):
+    #     """calls the evalutation methods of the model object that is passed in to the class
+    #     """
+    #     pass
 
-    @abstractmethod
-    def test_model(self):
-        """calls the test method of the model object that is passed in to the class"""
-        pass
-
-    @abstractmethod
-    def evaluate_model(self):
-        """calls the evalutation methods of the model object that is passed in to the class
-        """
-        pass
-
-    @abstractmethod
-    def save_model(self):
-        """ saves the model
-        """
-        pass
+    # @abstractmethod
+    # def save_model(self):
+    #     """ saves the model
+    #     """
+    #     pass
 
 
 

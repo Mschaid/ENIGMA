@@ -70,7 +70,7 @@ def split_data_by_trial(df, trial_threshold):
     return X_train, y_train, X_test, y_test
 
 
-def build_ltsm(sequence_length, input_dimentions):
+def build_lstm(sequence_length, input_dimentions):
     # TODO need to redo model architecture
     """
     Build a sequential model with a specific architecture.
@@ -104,7 +104,6 @@ def set_tensorboard(model_id):
     tensorflow.keras.callbacks.TensorBoard
         The TensorBoard callback.
     """
-    model_id = 'sequential_prototype'
     date_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     training_log_dir = "/projects/p31961/dopamine_modeling/results/logs/training_logs/"
     logs_dir = f"{training_log_dir}/{model_id}/{date_time}"
@@ -135,7 +134,7 @@ def train_model(model, X_train, y_train, tensorboard_callback):
     """
     model.compile(
         optimizer="adam", loss='mean_squared_error')
-    model.fit(X_train, y_train, batch_size=30, epochs=100,
+    model.fit(X_train, y_train, epochs= 50,
               callbacks=[tensorboard_callback])
 
 
@@ -207,13 +206,11 @@ def validated_tf():
     None
     """
     print("TensorFlow version:", tf.__version__)
-    print('hello')
-    for gpu in tf.config.list_physical_devices('GPU'):
-
-        if gpu len(gpu) == 0:
-            print("GPU not available")
-
-        else:
+    gpus = tf.config.list_physical_devices('GPU')
+    if len(gpus) == 0:
+        print("GPU not available")
+    else:
+        for gpu in gpus:
             print(gpu)
 
 
@@ -232,7 +229,7 @@ def main():
         ('y_test', y_test), path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
 
     # time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
-    model = build_ltsm(sequence_length=90, input_dimentions=X_train.shape[1])
+    model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
     tensorboard_callback = set_tensorboard(model_id)
     train_model(model, X_train, y_train, tensorboard_callback)
     evaluate_model(model, X_test, y_test)
