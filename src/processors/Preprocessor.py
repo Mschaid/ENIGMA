@@ -3,9 +3,11 @@ import h5py
 import os
 import pandas as pd
 from typing import List, Type
+import tensorflow as tf
 import _pickle as cPickle
 import numpy as np
 from src.utilities.os_helpers import *
+from src.utilities.exceptions import *
 
 
 from sklearn.model_selection import train_test_split
@@ -43,7 +45,7 @@ class Preprocessor:
 
     Methods
     ----------
-    * load_data
+    load_data
         loads data from path_to_data or path_to_processed_data into data attribute. If both attributes are not None, both are loaded.
     one_hot_encode
         encodes the data using one hot encoding. 
@@ -96,6 +98,7 @@ class Preprocessor:
         """
         # Summary
         loads data from path_to_data into data attribute.
+        first checks that filetype is parquet (currently only supported filetype)
 
 
         # attributes
@@ -104,6 +107,15 @@ class Preprocessor:
         Returns:
             self
         """
+        #! needs tesing
+        def check_parquet_file(path):
+            if path is not None and not path.endswith('.parquet'):
+                raise FileTypeError('Filetype must be a parquet file')
+            else: 
+                pass
+            
+        check_parquet_file(self.path_to_data)
+        
         if self.path_to_data is not None:
             self.data = pd.read_parquet(self.path_to_data)
 
@@ -211,48 +223,7 @@ class Preprocessor:
 
         self.X_test = over_cut_off_data[self.features]
         self.y_test = over_cut_off_data[self.target]
-
-    def save_processor(self, path_to_save_processor=None):
-        """
-        Summary
-        -------
-        Saves the processed data to a file.
-
-
-        Parameters
-        ---
-        path: str path to save the processed data to.
-
-        Notes:
-        ------
-        The method creates a new directory called `processors` in the same directory as
-        the processed data, if it doesn't exist already. It then saves the processor object
-        to a pickle file with the same name as the processor, using the following format:
-
-            <processed_data_directory>/processors/<processor_name>.pkl
-
-        Returns:
-            None
-
-        """
-        if path_to_save_processor is not None:
-            self.path_to_save_processor = path_to_save_processor
-        else:
-            # gets the directory of the processed data path
-            current_directory = os.path.dirname(self.path_to_data)
-            # creates a new directory called processors in the same directory as 1the processed data
-            processor_directory = os.path.join(current_directory, 'processors')
-
-            self.path_to_save_processor = os.path.join(
-                processor_directory, f'{self.processor_name}.pkl')
-
-        # check if the processor directory exists, if not, create it
-        create_dir(processor_directory)
-
-        # save the processor
-        with open(self.path_to_save_processor, 'wb') as f:
-            cPickle.dump(self, f)
-
+         
     def save_datasets_to_parquet(self, path=None):
         """
         saves the processed datasets (X_train, X_test, y_train, y_test, to parquet files
@@ -279,7 +250,41 @@ class Preprocessor:
             (f'{self.processor_name}_y_test', self.y_test),
             path_to_save=path)
         return self
-
+    
+    def save_datasets_to_tensorflow_Dataset(self, path=None):
+        """
+        converts the processed datasets (X_train, X_test, y_train, y_test) to tensorflow Dataset objects 
+        and saves them to the path provided or the default path_to_save_datasets
+        
+        Attributes
+        ----------
+        none
+        
+        Returns 
+        -------
+        selfn
+        
+        Examples
+        --------
+        >>> from src.processors import Preprocessor
+        >>> processor = Preprocessor()
+        >>> processor.save_datasets_to_tensorflow_Dataset()
+        """
+        if path is None:
+            path = self.path_to_save_datasets
+            
+        training_dataset = tf.data.Dataset.from_tensor_slices((dict(self.X_train), self.y_train))
+        testing_dataset = tf.data.Dataset.from_tensor_slices((dict(self.X_test), self.y_test))
+        
+        training_output_path = os.path.join(path, 'tensorflow_training_dataset')
+        testing_output_path = os.path.join(path, 'tensorflow_testing_dataset')
+        # save dataset to tfrecord
+        training_dataset.save(training_output_path)
+        testing_dataset.save(testing_output_path)
+            
+        return self
+        
+    #! currently not implemented - should likely be removed
     def save_data_to_h5(self, path=None, file_name=None):
         """
         method to save specific attributes of the processor object to an hdf5 file
@@ -354,24 +359,69 @@ class Preprocessor:
         save_to_h5(file_path, dataframe_dict, attrs_dict)
 
             # ? possible implementiation but need to resolve speed issues
+    
+     #! currently not implemented - should likely be removed
+   
+    def save_processor(self, path_to_save_processor=None):
+        """
+        Summary
+        -------
+        Saves the processed data to a file.
 
+
+        Parameters
+        ---
+        path: str path to save the processed data to.
+
+        Notes:
+        ------
+        The method creates a new directory called `processors` in the same directory as
+        the processed data, if it doesn't exist already. It then saves the processor object
+        to a pickle file with the same name as the processor, using the following format:
+
+            <processed_data_directory>/processors/<processor_name>.pkl
+
+        Returns:
+            None
+
+        """
+        if path_to_save_processor is not None:
+            self.path_to_save_processor = path_to_save_processor
+        else:
+            # gets the directory of the processed data path
+            current_directory = os.path.dirname(self.path_to_data)
+            # creates a new directory called processors in the same directory as 1the processed data
+            processor_directory = os.path.join(current_directory, 'processors')
+
+            self.path_to_save_processor = os.path.join(
+                processor_directory, f'{self.processor_name}.pkl')
+
+        # check if the processor directory exists, if not, create it
+        create_dir(processor_directory)
+
+        # save the processor
+        with open(self.path_to_save_processor, 'wb') as f:
+            cPickle.dump(self, f)
+
+    #! currently not implemented - should likely be removed
     def save_processor_to_h5(self):
-        pass
-    #         self.filename = os.path.join(self.path_to_save_processor, f'{self.processor_name}.h5')
-    #         with h5py.File(self.filename, 'w') as file:
-    #             instance_group = file.create_group('instance')
+        
+        '''self.filename = os.path.join(self.path_to_save_processor, f'{self.processor_name}.h5')
+        with h5py.File(self.filename, 'w') as file:
+            instance_group = file.create_group('instance')
 
-    #             for attr_name, attr_value in vars(self).items():
-    #                 if isinstance(attr_value, pd.DataFrame):
-    #                     # Save DataFrame as a separate group
-    #                     df_group = instance_group.create_group(attr_name)
-    #                     for col_name, col_data in attr_value.items():
-    #                         df_group.create_dataset(col_name, data=col_data)
-    #                 elif isinstance(attr_value, (int, float, str)):
-    #                     instance_group.create_dataset(attr_name, data=attr_value)
-    #                 else:
-    #                     # Convert non-compatible types to string representation
-    #                     instance_group.create_dataset(attr_name, data=str(attr_value))
+            for attr_name, attr_value in vars(self).items():
+                if isinstance(attr_value, pd.DataFrame):
+                    # Save DataFrame as a separate group
+                    df_group = instance_group.create_group(attr_name)
+                    for col_name, col_data in attr_value.items():
+                        df_group.create_dataset(col_name, data=col_data)
+                elif isinstance(attr_value, (int, float, str)):
+                    instance_group.create_dataset(attr_name, data=attr_value)
+                else:
+                    # Convert non-compatible types to string representation
+                    instance_group.create_dataset(attr_name, data=str(attr_value))'''
+        pass
 
     #! currently not implemented
     @classmethod
