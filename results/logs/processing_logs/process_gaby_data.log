@@ -199,3 +199,14 @@
 [2023-06-01 17:42:09,286] DEBUG - Creating converter from 5 to 3
 [2023-06-01 17:42:09,330] INFO - data saved
 [2023-06-01 17:42:09,330] INFO - done processing and storing processor
+[2023-06-05 16:26:31,330] INFO - initiating processing and storing processor
+[2023-06-05 16:26:31,332] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-05 16:27:43,986] INFO - initiating processing and storing processor
+[2023-06-05 16:27:43,988] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-05 16:30:00,310] INFO - initiating processing and storing processor
+[2023-06-05 16:30:00,312] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-05 16:30:52,414] INFO - one hot encoding
+[2023-06-05 16:31:27,617] INFO - splitting data by query
+[2023-06-05 16:31:51,131] INFO - downsampling data
+[2023-06-05 16:32:54,508] INFO - initiating processing and storing processor
+[2023-06-05 16:32:54,509] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp

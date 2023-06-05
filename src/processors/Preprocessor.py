@@ -109,8 +109,8 @@ class Preprocessor:
         """
         #! needs tesing
         def check_parquet_file(path):
-            if path is not None and not path.endswith('.parquet'):
-                raise FileTypeError('Filetype must be a parquet file')
+            if path is not None and not path.endswith('.gzp'):
+                raise FileTypeError('Filetype must be a parquet file and gzipped. Please provide a valid path to a parquet gzi')
             else: 
                 pass
             
@@ -123,7 +123,7 @@ class Preprocessor:
             self.processed_data = pd.read_parquet(self.path_to_processed_data)
 
         return self
-
+    # FEATURE ENGINEERING METHODS
     def one_hot_encode(self, labels: List[str], data: pd.DataFrame = None):
         """# Summary
 
@@ -223,8 +223,31 @@ class Preprocessor:
 
         self.X_test = over_cut_off_data[self.features]
         self.y_test = over_cut_off_data[self.target]
-         
-    def save_datasets_to_parquet(self, path=None):
+    
+    #DATA PREPERATION METHODS
+
+    def downsample_train_and_test_datasets(self, n: int) -> Type['Preprocessor']:
+        """
+        downsamples the processed data by storing dataframes sampling every nth row.
+        
+        Attributes  
+        __________
+        X_train_downsampled : pd.DataFrame
+        y_train_downsampled : pd.Series
+        X_test_downsampled : pd.DataFrame
+        y_test_downsampled : pd.Series
+        
+        returns self
+        """
+        self.X_train_downsampled = self.X_train[::n]
+        self.y_train_downsampled = self.y_train[::n]
+        self.X_test_downsampled = self.X_test[::n]
+        self.y_test_downsampled = self.y_test[::n]
+        
+        return self
+    
+    # DATA SAVING METHODS   
+    def save_datasets_to_parquet(self, path=None, save_downsampled = False):
         """
         saves the processed datasets (X_train, X_test, y_train, y_test, to parquet files
         Parameters
@@ -242,6 +265,8 @@ class Preprocessor:
             self.path_to_save_datasets = path
         else:
             path = self.path_to_save_datasets
+            
+          
         # create_dir(self.path_to_save_datasets)
         save_dataframes_to_parquet(
             (f'{self.processor_name}_X_train', self.X_train),
@@ -249,41 +274,15 @@ class Preprocessor:
             (f'{self.processor_name}_y_train', self.y_train),
             (f'{self.processor_name}_y_test', self.y_test),
             path_to_save=path)
+        
+        if save_downsampled == True:
+            save_dataframes_to_parquet(
+                (f'{self.processor_name}_X_train_downsampled', self.X_train_downsampled),
+                (f'{self.processor_name}_X_test_downsampled', self.X_test_downsampled),
+                (f'{self.processor_name}_y_train_downsampled', self.y_train_downsampled),
+                (f'{self.processor_name}_y_test_downsampled', self.y_test_downsampled),
+                path_to_save=path)
         return self
-    
-    def save_datasets_to_tensorflow_Dataset(self, path=None):
-        """
-        converts the processed datasets (X_train, X_test, y_train, y_test) to tensorflow Dataset objects 
-        and saves them to the path provided or the default path_to_save_datasets
-        
-        Attributes
-        ----------
-        none
-        
-        Returns 
-        -------
-        selfn
-        
-        Examples
-        --------
-        >>> from src.processors import Preprocessor
-        >>> processor = Preprocessor()
-        >>> processor.save_datasets_to_tensorflow_Dataset()
-        """
-        if path is None:
-            path = self.path_to_save_datasets
-            
-        training_dataset = tf.data.Dataset.from_tensor_slices((dict(self.X_train), self.y_train))
-        testing_dataset = tf.data.Dataset.from_tensor_slices((dict(self.X_test), self.y_test))
-        
-        training_output_path = os.path.join(path, 'tensorflow_training_dataset')
-        testing_output_path = os.path.join(path, 'tensorflow_testing_dataset')
-        # save dataset to tfrecord
-        training_dataset.save(training_output_path)
-        testing_dataset.save(testing_output_path)
-            
-        return self
-        
     #! currently not implemented - should likely be removed
     def save_data_to_h5(self, path=None, file_name=None):
         """

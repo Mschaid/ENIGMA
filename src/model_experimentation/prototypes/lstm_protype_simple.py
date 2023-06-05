@@ -219,7 +219,7 @@ def main():
     MODEL_PATH_SAVE = '/projects/p31961/dopamine_modeling/results/models/'
     validated_tf()
     data = read_data(DATA_PATH)
-    model_id = 'ltsm_prototype'
+    model_id = 'ltsm_prototype_tensor_datasets'
     X_train, y_train, X_test, y_test = split_data_by_trial(data, 5)
 
     save_dataframes_to_parquet(
@@ -228,6 +228,7 @@ def main():
         ('y_train', y_train),
         ('y_test', y_test), path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
 
+    
     # time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
     model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
     tensorboard_callback = set_tensorboard(model_id)
