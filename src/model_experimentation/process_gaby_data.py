@@ -26,6 +26,8 @@ def process_and_store_data():
     gaby_processor.one_hot_encode(labels = ['event', 'sensor'])
     logging.info('splitting data by query')
     gaby_processor.split_train_by_query('day', 5, processed_data=True)
+    logging.info('downsampling data')
+    gaby_processor.downsample_train_and_test_datasets(n = 100)
     logging.info('saving datasets')
     gaby_processor.save_datasets_to_parquet()
     # gaby_processor.save_data_to_h5()

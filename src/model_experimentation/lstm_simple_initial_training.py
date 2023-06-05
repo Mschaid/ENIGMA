@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # set global variables
     PATH_TO_DATA = '/projects/p31961/gaby_data/aggregated_data/data_pipeline/datasets'
     
-    MODEL_ID = 'lstm_simple_initial_training'
+    MODEL_ID = 'lstm_simple_initial_training_with_downsampling'
     MODEL_PATH_TO_SAVE = '/projects/p31961/dopamine_modeling/results/models/'
     
     TENSORBOARD_CALLBACK = set_tensorboard(MODEL_ID)
@@ -48,11 +48,25 @@ if __name__ == '__main__':
     X_test = pd.read_parquet(X_test_path)
     y_test = pd.read_parquet(y_test_path)
     
-    training_dataset = tf.data.Dataset.from_tensor_slices((dict(X_train), y_train))
-    testing_dataset = tf.data.Dataset.from_tensor_slices((dict(X_test), y_test))
+    def downsample(df, n = 100):
+        return df[::n]
+    X_train_ds = downsample(X_train, 100)
+    y_train_ds = downsample(y_train, 100)
+    X_test_ds = downsample(X_test, 100)
+    y_test_ds = downsample(y_train, 100)
     
-    training_output_path = os.path.join(PATH_TO_DATA, 'tensorflow_training_dataset')
-    testing_output_path = os.path.join(PATH_TO_DATA, 'tensorflow_testing_dataset')
-    # save dataset to tfrecord
-    training_dataset.save(training_output_path)
-    testing_dataset.save(testing_output_path)
+    
+    #convert to tensors
+    # X_train = tf.convert_to_tensor(X_train)
+    # y_train = tf.convert_to_tensor(y_train)
+    # X_test = tf.convert_to_tensor(X_test)
+    # y_test = tf.convert_to_tensor(y_test)
+    
+    
+    # #build lodel
+    model = build_lstm(sequence_length=90, input_dimentions=X_train_ds.shape[1])
+    train_model(model, X_train_ds, y_train_ds, TENSORBOARD_CALLBACK)
+    evaluate_model(model, X_test_ds, y_test_ds, TENSORBOARD_CALLBACK)
+    inference(model, X_test_ds)
+    tf.keras.save_model(model, os.path.join(MODEL_PATH_TO_SAVE, MODEL_ID))
+    
