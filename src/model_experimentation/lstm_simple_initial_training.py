@@ -56,12 +56,6 @@ if __name__ == '__main__':
     y_test_ds = downsample(y_train, 100)
     
     
-    #convert to tensors
-    # X_train = tf.convert_to_tensor(X_train)
-    # y_train = tf.convert_to_tensor(y_train)
-    # X_test = tf.convert_to_tensor(X_test)
-    # y_test = tf.convert_to_tensor(y_test)
-    
     
     # #build lodel
     model = build_lstm(sequence_length=90, input_dimentions=X_train_ds.shape[1])

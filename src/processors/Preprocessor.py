@@ -3,7 +3,6 @@ import h5py
 import os
 import pandas as pd
 from typing import List, Type
-import tensorflow as tf
 import _pickle as cPickle
 import numpy as np
 from src.utilities.os_helpers import *

@@ -6,6 +6,7 @@ import unittest
 
 from src.processors.Preprocessor import Preprocessor
 from src.utilities.logger_helpers import LoggingTestRunner
+from src.utilities.exceptions import *
 
 # Globals for tests
 FEATURES = ['day', 'time', 'trial',
@@ -75,6 +76,12 @@ class TestPreprocessor(unittest.TestCase):
         self.assertIsInstance(self.processor.data, pd.DataFrame)
         self.assertIsInstance(self.processor.processed_data, pd.DataFrame)
         
+    def test_load_data_none_pq(self) -> None:
+        not_pq_path = os.path.join(TEST_DATA_DIR, 'test_data.csv')
+        with self.assertRaises(FileTypeError):
+            self.processor.load_data(path_to_data=not_pq_path)
+        
+       
     def test_one_hot_encode(self)->None:
         """ 
         Test if the one_hot_encode() method properly one-hot encodes categorical features.
@@ -230,14 +237,14 @@ if __name__=="__main__":
     FULL_TEST_LOG_DIR = os.path.join(TEST_LOG_DIR, TEST_LOG_FILE)
 
     # create logger
-    logging.basicConfig(filename=FULL_TEST_LOG_DIR, 
-                        level=logging.INFO,
-                        format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                        datefmt='%d-%b-%y %H:%M:%S')
+    # logging.basicConfig(filename=FULL_TEST_LOG_DIR, 
+    #                     level=logging.INFO,
+    #                     format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    #                     datefmt='%d-%b-%y %H:%M:%S')
 
-    with open(FULL_TEST_LOG_DIR, 'w') as f:
-        runner = LoggingTestRunner(verbosity=2)
-        unittest.main(testRunner=runner)
+    # with open(FULL_TEST_LOG_DIR, 'w') as f:
+    #     runner = LoggingTestRunner(verbosity=2)
+    #     unittest.main(testRunner=runner)
 
     # run tests and log output
-
+    unittest.main()

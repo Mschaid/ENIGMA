@@ -29,7 +29,7 @@ def process_and_store_data():
     logging.info('downsampling data')
     gaby_processor.downsample_train_and_test_datasets(n = 100)
     logging.info('saving datasets')
-    gaby_processor.save_datasets_to_parquet()
+    gaby_processor.save_datasets_to_parquet(save_downsampled=True)
     # gaby_processor.save_data_to_h5()
     # logging.info('saving processor')
     logging.info('data saved')
