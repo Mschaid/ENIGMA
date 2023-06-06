@@ -248,3 +248,9 @@
 [2023-06-06 12:15:58,279] INFO - done processing and storing processor
 [2023-06-06 13:37:35,259] INFO - initiating processing and storing processor
 [2023-06-06 13:37:35,261] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-06 13:39:50,675] INFO - one hot encoding
+[2023-06-06 13:40:33,547] INFO - splitting data by query
+[2023-06-06 13:41:01,253] INFO - downsampling train and test datasets
+[2023-06-06 13:41:01,253] INFO - saving datasets
+[2023-06-06 13:47:21,042] INFO - data saved
+[2023-06-06 13:47:21,044] INFO - done processing and storing processor

@@ -3,7 +3,7 @@ import tensorflow as tf
 import pandas as pd
 
 
-from src.model_experimentation.prototypes.lstm_protype_simple import (build_lstm,
+from src.modeling.prototyping.lstm_protype_simple import (build_lstm,
                                                                       set_tensorboard,
                                                                       train_model,
                                                                       evaluate_model,
