@@ -1,5 +1,5 @@
 
-from src.processors.Preprocessor import Preprocessor
+from src.data_processing.processors.Preprocessor import Preprocessor
 from src.utilities.os_helpers import save_dataframes_to_parquet
 
 
@@ -234,7 +234,7 @@ def main():
         ('y_test', y_test), path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
 
     
-    time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
+    # time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
     model = build_lstm(sequence_length=90, input_dimentions=X_train_ds.shape[1])
     tensorboard_callback = set_tensorboard(model_id)
     train_model(model, X_train_ds, y_train_ds, tensorboard_callback)

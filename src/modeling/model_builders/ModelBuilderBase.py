@@ -4,7 +4,9 @@ from abc import ABC, abstractmethod
 
 class ModelBuilderBase(ABC):
     """Abstract class for model experimentation. The purpose of this class is to outline and constrain model experimentation that is implemented
-    in the child classes that will be developed dependent on the framework being used (tensorflow, xgboost, pytorch). This class is not meant to be instantiated.
+    in the child classes that will be developed dependent on the framework being used (tensorflow, xgboost, pytorch). 
+    This class is not meant to be instantiated. 
+    Use assumes data was preprocessed with the PreProcessor class
 
     Parameters
     ----------
@@ -23,22 +25,29 @@ class ModelBuilderBase(ABC):
         preprocessor : a stored preprocessor object that stores preprocessed data for model experimentation
 
         """
-        self.model = model
+        self.model = None
         self.path_to_processed_data = path_to_processed_data
         
 
-    def load_preprocessed_data(self):
-        """loads the preprocessed data from the path that is passed in to the class
+    def load_preprocessed_data(self, downsampled = False):
         """
-        with h5py.File(self.path_to_processed_data, 'r') as file:
-            dataframe_group = file['dataframes']
-            for key in dataframe_group.keys():
-                dataset = dataframe_group[key]
-                setattr(self, key, pd.DataFrame(dataset[:]))
+        loads the preprocessed data from the path that is passed in to the class
+        
+        Parameters
+        ----------
+        downsampled : bool, optional
+            if True, loads any datasets containing 'downsampled' in file name,  defaults to False
+        
+        """
+        
+        # search for file_paths containing X_train, y_train, X_test, y_test
+        
+        
+        #filter for parquet files
+        
+        # read in parquet files to attributes
+      
             
-            attrs_group = file['attrs']
-            for key in attrs_group.keys():
-                setattr(self, key, attrs_group[key].value)
         
     # @abstractmethod
     # def compile_model(self):
