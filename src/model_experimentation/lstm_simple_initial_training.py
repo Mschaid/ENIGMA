@@ -53,14 +53,14 @@ if __name__ == '__main__':
     X_train_ds = downsample(X_train, 100)
     y_train_ds = downsample(y_train, 100)
     X_test_ds = downsample(X_test, 100)
-    y_test_ds = downsample(y_train, 100)
+    y_test_ds = downsample(y_test, 100)
     
     
     
     # #build lodel
-    model = build_lstm(sequence_length=90, input_dimentions=X_train_ds.shape[1])
-    train_model(model, X_train_ds, y_train_ds, TENSORBOARD_CALLBACK)
-    evaluate_model(model, X_test_ds, y_test_ds, TENSORBOARD_CALLBACK)
-    inference(model, X_test_ds)
+    model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
+    train_model(model, X_train, y_train, TENSORBOARD_CALLBACK)
+    evaluate_model(model, X_test, y_test, TENSORBOARD_CALLBACK)
+    inference(model, X_test)
     tf.keras.save_model(model, os.path.join(MODEL_PATH_TO_SAVE, MODEL_ID))
     

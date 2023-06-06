@@ -221,20 +221,25 @@ def main():
     data = read_data(DATA_PATH)
     model_id = 'ltsm_prototype_tensor_datasets'
     X_train, y_train, X_test, y_test = split_data_by_trial(data, 5)
+    X_train_ds = X_train[::100]
+    y_train_ds = y_train[::100]
+    X_test_ds = X_test[::100]
+    y_test_ds = y_test[::100]
+    
 
-    save_dataframes_to_parquet(
-        ('X_train', X_train),
-        ('X_test', X_test),
-        ('y_train', y_train),
-        ('y_test', y_test), path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
+    # save_dataframes_to_parquet(
+    #     ('X_train', X_train),
+    #     ('X_test', X_test),
+    #     ('y_train', y_train),
+    #     ('y_test', y_test), path_to_save='/projects/p31961/dopamine_modeling/data/prototype_data')
 
     
     # time window is 45 seconds, we will use 90 sequence length for 1/2 second per sequence
-    model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
+    model = build_lstm(sequence_length=90, input_dimentions=X_train_ds.shape[1])
     tensorboard_callback = set_tensorboard(model_id)
-    train_model(model, X_train, y_train, tensorboard_callback)
-    evaluate_model(model, X_test, y_test)
-    inference(model, X_test)
+    train_model(model, X_train_ds, y_train_ds, tensorboard_callback)
+    evaluate_model(model, X_test_ds, y_test_ds, tensorboard_callback)
+    inference(model, X_test_ds)
     tf.keras.models.save_model(model, os.path.join(MODEL_PATH_SAVE, model_id))
 
 
