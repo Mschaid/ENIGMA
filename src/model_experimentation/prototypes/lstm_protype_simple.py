@@ -138,7 +138,7 @@ def train_model(model, X_train, y_train, tensorboard_callback):
               callbacks=[tensorboard_callback])
 
 
-def evaluate_model(model, X_test, y_test):
+def evaluate_model(model, X_test, y_test, callbacks=None):
     """
     Evaluate the trained model on the given testing data.
 
@@ -155,7 +155,7 @@ def evaluate_model(model, X_test, y_test):
     -------
     None
     """
-    model.evaluate(X_test, y_test)
+    model.evaluate(X_test, y_test, callbacks = callbacks)
 
 
 def inference(model, X_test):
