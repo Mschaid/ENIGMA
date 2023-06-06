@@ -224,3 +224,27 @@
 [2023-06-05 16:48:53,404] INFO - saving datasets
 [2023-06-05 16:55:22,596] INFO - data saved
 [2023-06-05 16:55:22,597] INFO - done processing and storing processor
+[2023-06-06 10:37:19,208] INFO - initiating processing and storing processor
+[2023-06-06 10:37:19,235] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-06 10:38:10,084] INFO - one hot encoding
+[2023-06-06 10:38:44,598] INFO - downsampling data
+[2023-06-06 10:38:44,599] INFO - splitting data by query
+[2023-06-06 10:38:45,234] INFO - saving datasets
+[2023-06-06 10:40:42,682] INFO - initiating processing and storing processor
+[2023-06-06 10:40:42,683] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-06 10:41:33,215] INFO - one hot encoding
+[2023-06-06 10:42:07,795] INFO - downsampling data
+[2023-06-06 10:42:07,795] INFO - splitting data by query
+[2023-06-06 10:42:08,439] INFO - saving datasets
+[2023-06-06 10:42:12,248] INFO - data saved
+[2023-06-06 10:42:12,248] INFO - done processing and storing processor
+[2023-06-06 12:07:50,510] INFO - initiating processing and storing processor
+[2023-06-06 12:07:50,512] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp
+[2023-06-06 12:08:40,448] INFO - one hot encoding
+[2023-06-06 12:09:15,755] INFO - splitting data by query
+[2023-06-06 12:09:39,652] INFO - downsampling train and test datasets
+[2023-06-06 12:09:39,652] INFO - saving datasets
+[2023-06-06 12:15:58,279] INFO - data saved
+[2023-06-06 12:15:58,279] INFO - done processing and storing processor
+[2023-06-06 13:37:35,259] INFO - initiating processing and storing processor
+[2023-06-06 13:37:35,261] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp

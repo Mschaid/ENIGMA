@@ -37,27 +37,21 @@ if __name__ == '__main__':
     
     TENSORBOARD_CALLBACK = set_tensorboard(MODEL_ID)
     
-    X_train_path = build_path(PATH_TO_DATA, 'X_train')
-    y_train_path = build_path(PATH_TO_DATA, 'y_train')
-    X_test_path = build_path(PATH_TO_DATA, 'X_test')
-    y_test_path = build_path(PATH_TO_DATA, 'y_test')
+    X_train_path = build_path(PATH_TO_DATA, 'X_train_downsampled')
+    y_train_path = build_path(PATH_TO_DATA, 'y_train_downsampled')
+    X_test_path = build_path(PATH_TO_DATA, 'X_test_downsampled')
+    y_test_path = build_path(PATH_TO_DATA, 'y_test_downsampled')
+    
     
     # # read data from parquet files
     X_train = pd.read_parquet(X_train_path)
-    y_train = pd.read_parquet(y_train_path)
+    y_train = pd.read_parquet(y_train_path) 
     X_test = pd.read_parquet(X_test_path)
     y_test = pd.read_parquet(y_test_path)
     
-    def downsample(df, n = 100):
-        return df[::n]
-    X_train_ds = downsample(X_train, 100)
-    y_train_ds = downsample(y_train, 100)
-    X_test_ds = downsample(X_test, 100)
-    y_test_ds = downsample(y_test, 100)
-    
-    
-    
-    # #build lodel
+
+
+    # # #build lodel
     model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
     train_model(model, X_train, y_train, TENSORBOARD_CALLBACK)
     evaluate_model(model, X_test, y_test, TENSORBOARD_CALLBACK)
