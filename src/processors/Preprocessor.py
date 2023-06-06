@@ -92,6 +92,7 @@ class Preprocessor:
         self.y_test = y_test
         self.features = features
         self.target = target
+        self._is_downsampled = False
 
     def load_data(self, load_processed_data: str =False) -> Type['Preprocessor']:
         """
@@ -102,7 +103,7 @@ class Preprocessor:
 
         # attributes
         stores data from path_to_data into data attribute as a Pd.DataFrame object.
-
+        
         Returns:
             self
         """
@@ -116,10 +117,12 @@ class Preprocessor:
         check_parquet_file(self.path_to_data)
         
         if self.path_to_data is not None:
-            self.data = pd.read_parquet(self.path_to_data)
+            self._data = pd.read_parquet(self.path_to_data)
+            self.data = self._data.dropna()
 
         if load_processed_data == True and self.path_to_processed_data is not None:
-            self.processed_data = pd.read_parquet(self.path_to_processed_data)
+            self._processed_data = pd.read_parquet(self.path_to_processed_data)
+            self.processed_data = self._processed_data.dropna()
 
         return self
     # FEATURE ENGINEERING METHODS
@@ -245,6 +248,20 @@ class Preprocessor:
         
         return self
     
+    def downsample_data(self, n: int) -> Type['Preprocessor']:
+        #TODO mod functionality for processed data or store new attribute
+        """
+        downsamples the processed data by storing dataframes sampling every nth row.
+        
+        Attributes  
+        __________
+        self.processed_data : pd.DataFrame - if processed_data is previously loaded, it overwrites the processed_data attribute
+        
+        returns self
+        """
+        self.processed_data = self.processed_data[::n]
+        self._is_downsampled = True
+        return self
     # DATA SAVING METHODS   
     def save_datasets_to_parquet(self, path=None, save_downsampled = False):
         """
