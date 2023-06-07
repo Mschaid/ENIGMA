@@ -49,12 +49,16 @@ if __name__ == '__main__':
     X_test = pd.read_parquet(X_test_path)
     y_test = pd.read_parquet(y_test_path)
     
-
+    # # for testing purposes
+    # X_train = X_train[::100]
+    # X_test = X_test[::100]
+    # y_train = y_train[::100]
+    # y_test = y_test[::100]
 
     # # #build lodel
     model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
     train_model(model, X_train, y_train, TENSORBOARD_CALLBACK)
     evaluate_model(model, X_test, y_test, TENSORBOARD_CALLBACK)
     inference(model, X_test)
-    tf.keras.save_model(model, os.path.join(MODEL_PATH_TO_SAVE, MODEL_ID))
+    tf.keras.models.save_model(model, os.path.join(MODEL_PATH_TO_SAVE, MODEL_ID))
     
