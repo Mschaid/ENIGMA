@@ -14,7 +14,7 @@ from src.modeling.prototyping.lstm_protype_simple import (build_lstm,
 
 
 
-def build_path(path_to_data,dataset_name, data_set_prefix = '5_day_training_gaby_', suffix = '.parquet.gzip'):
+def build_path(path_to_data,dataset_name, data_set_prefix = '5_day_training_gaby_ds25_', suffix = '.parquet.gzip'):
     path =  os.path.join(path_to_data, f'{data_set_prefix}{dataset_name}{suffix}')
     return path
 
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # set global variables
     PATH_TO_DATA = '/projects/p31961/gaby_data/aggregated_data/data_pipeline/datasets'
     
-    MODEL_ID = 'lstm_simple_initial_training_with_downsampling'
+    MODEL_ID = 'LSTM_02_simple'
     MODEL_PATH_TO_SAVE = '/projects/p31961/dopamine_modeling/results/models/'
     
     TENSORBOARD_CALLBACK = set_tensorboard(MODEL_ID)
