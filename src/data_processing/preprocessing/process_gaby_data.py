@@ -22,6 +22,11 @@ gaby_processor = Preprocessor(
 def process_and_store_data():
     logging.info(f'loading data from {gaby_processor.path_to_data}')
     gaby_processor.load_data()
+    #TODO add downsample_raw_data method and run
+    # gaby_processor.downsample_raw_data(
+        
+        
+    # )
     logging.info('one hot encoding')
     gaby_processor.one_hot_encode(labels = ['event', 'sensor'])
     # logging.info('downsampling data')

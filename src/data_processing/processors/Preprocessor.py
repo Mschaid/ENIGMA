@@ -126,7 +126,8 @@ class Preprocessor:
 
         return self
     # FEATURE ENGINEERING METHODS
-    def down_sample_dataframe(self, group_by_cols, agg_dict, ignore_for_sorting, downsample_rate):
+    #TODO finish method
+    def down_sample_raw_data(self, group_by_cols, agg_dict, ignore_for_sorting, downsample_rate):
         # self._is_downsampled = True
         
         # sort_by_list = [col for col in group_by_cols if col != ignore_for_sorting]
