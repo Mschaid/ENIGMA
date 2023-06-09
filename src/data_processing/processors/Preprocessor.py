@@ -126,6 +126,11 @@ class Preprocessor:
 
         return self
     # FEATURE ENGINEERING METHODS
+    def down_sample_dataframe(self, group_by_columns:str, sort_by_cols:str, agg_dict:dict, n:int) -> Type['Preprocessor']:
+        pass
+
+                    
+        
     def one_hot_encode(self, labels: List[str], data: pd.DataFrame = None):
         """# Summary
 
@@ -228,41 +233,6 @@ class Preprocessor:
     
     #DATA PREPERATION METHODS
 
-    def downsample_train_and_test_datasets(self, n: int) -> Type['Preprocessor']:
-        """
-        downsamples the processed data by storing dataframes sampling every nth row.
-        
-        Attributes  
-        __________
-        X_train_downsampled : pd.DataFrame
-        y_train_downsampled : pd.Series
-        X_test_downsampled : pd.DataFrame
-        y_test_downsampled : pd.Series
-        
-        returns self
-        """
-        self.X_train_downsampled = self.X_train[::n]
-        self.y_train_downsampled = self.y_train[::n]
-        self.X_test_downsampled = self.X_test[::n]
-        self.y_test_downsampled = self.y_test[::n]
-        
-        return self
-    
-    def downsample_data(self, n: int) -> Type['Preprocessor']:
-        #TODO mod functionality for processed data or store new attribute
-        """
-        downsamples the processed data by storing dataframes sampling every nth row.
-        
-        Attributes  
-        __________
-        self.processed_data : pd.DataFrame - if processed_data is previously loaded, it overwrites the processed_data attribute
-        
-        returns self
-        """
-        self.processed_data = self.processed_data[::n]
-        self._is_downsampled = True
-        return self
-    # DATA SAVING METHODS   
     def save_datasets_to_parquet(self, path=None, save_downsampled = False):
         """
         saves the processed datasets (X_train, X_test, y_train, y_test, to parquet files
