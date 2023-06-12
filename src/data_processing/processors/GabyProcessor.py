@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pyarrow as pa
 
-from src.data_processsing.processors.SchemaBuilder import SchemaBuilder
+from src.data_processing.processors.SchemaBuilder import SchemaBuilder
 
 
 class GabyProcessor:
