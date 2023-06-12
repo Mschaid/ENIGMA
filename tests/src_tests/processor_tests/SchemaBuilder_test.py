@@ -1,20 +1,26 @@
 import unittest
 from sys import platform
 import logging
+import os
 
 import pandas as pd
-from src.processors.SchemaBuilder import SchemaBuilder
+from src.data_processing.processors.SchemaBuilder import SchemaBuilder
 from src.utilities.exceptions import *
 from src.utilities.logger_helpers import *
 
-if platform == 'win32':
+current_dir = os.getcwd()
 
-    test_logs_dir = r'C:\Users\mds8301\Documents\Github\dopamine_modeling\results\logs\test_logs'
-    test_data_path = r'C:\Users\mds8301\Documents\Github\dopamine_modeling\data'
+test_logs_dir = os.path.join(current_dir, 'tests', 'test_logs')
+test_data_path = os.path.join(current_dir, 'data')
 
-elif platform == 'darwin':
-    test_logs_dir = test_logs_dir.replace('\\', '/')
-    test_data_path = test_data_path.replace('\\', '/')
+# if platform == 'win32':
+
+#     test_logs_dir = r'C:\Users\mds8301\Documents\Github\dopamine_modeling\results\logs\test_logs'
+#     test_data_path = r'C:\Users\mds8301\Documents\Github\dopamine_modeling\data'
+
+# elif platform == 'darwin':
+#     test_logs_dir = test_logs_dir.replace('\\', '/')
+#     test_data_path = test_data_path.replace('\\', '/')
 
 TestLogger = set_logger_config(
     directory=test_logs_dir,

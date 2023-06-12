@@ -1,0 +1,24 @@
+[2023-06-12 13:57:59,567] INFO-test_aggregate_data (__main__.TestSchemaBuilder.test_aggregate_data) ... ok
+test_collect_data_files (__main__.TestSchemaBuilder.test_collect_data_files) ... FAIL
+test_load_schema (__main__.TestSchemaBuilder.test_load_schema) ... expected failure
+test_save_schema (__main__.TestSchemaBuilder.test_save_schema) ... ok
+
+======================================================================
+FAIL: test_collect_data_files (__main__.TestSchemaBuilder.test_collect_data_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/projects/p31961/dopamine_modeling/tests/src_tests/processor_tests/SchemaBuilder_test.py", line 52, in test_collect_data_files
+    self.assertEqual(self.sb.expected_filesearch_results,
+AssertionError: Lists differ: ['C:\\Users\\mds8301\\Documents\\Github\\do[598 chars]pkl'] != ['/projects/p31961/dopamine_modeling/data/t[442 chars]her']
+
+First differing element 0:
+'C:\\Users\\mds8301\\Documents\\Github\\do[56 chars].csv'
+'/projects/p31961/dopamine_modeling/data/t[30 chars].pkl'
+
+Diff is 1172 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.125s
+
+FAILED (failures=1, expected failures=1)
+
