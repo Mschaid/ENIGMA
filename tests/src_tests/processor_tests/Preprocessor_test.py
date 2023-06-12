@@ -4,7 +4,7 @@ import pandas as pd
 import shutil
 import unittest
 
-from src.processors.Preprocessor import Preprocessor
+from src.data_processing.processors.Preprocessor import Preprocessor
 from src.utilities.logger_helpers import LoggingTestRunner
 from src.utilities.exceptions import *
 
