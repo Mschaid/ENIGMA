@@ -62,6 +62,7 @@ class GabyProcessor:
 
         self.data = (
             df
+            .iloc[::100]
             # drop columns that are not needed
             .drop(columns=['timestamps', 'mean', 'err'])
             # .iloc[::2, :]
