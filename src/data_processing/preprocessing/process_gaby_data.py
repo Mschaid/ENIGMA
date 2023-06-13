@@ -8,10 +8,10 @@ logging.basicConfig(filename = '/projects/p31961/dopamine_modeling/results/logs/
                     level = logging.DEBUG,
                     format='[%(asctime)s] %(levelname)s - %(message)s')
 
-PATH_TO_DATA = r'/projects/p31961/gaby_data/aggregated_data/aggregated_data.parquet.gzp'
-PATH_TO_SAVE = r'/projects/p31961/gaby_data/aggregated_data/data_pipeline'
+PATH_TO_DATA = r'/projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp'
+PATH_TO_SAVE = r'/projects/p31961/gaby_data/aggregated_data/data_pipeline_downsampled'
 gaby_processor = Preprocessor(
-    processor_name = '5_day_training_gaby_ds25',
+    processor_name = '5_day_training_gaby_downsampled',
     path_to_data = PATH_TO_DATA,
     path_to_save = PATH_TO_SAVE,
     features = ['day', 'time', 'trial','event_cue', 
@@ -33,10 +33,8 @@ def process_and_store_data():
     # gaby_processor.downsample_data(n = 100)
     logging.info('splitting data by query')
     gaby_processor.split_train_by_query('day', 5, processed_data=True)
-    logging.info('downsampling train and test datasets')
-    gaby_processor.downsample_train_and_test_datasets(n = 25)
-    logging.info('saving datasets')
-    gaby_processor.save_datasets_to_parquet(save_downsampled = True)
+    logging.info('saving data')
+    gaby_processor.save_datasets_to_parquet(save_downsampled = False)
     # gaby_processor.save_data_to_h5()
     # logging.info('saving processor')
     logging.info('data saved')
