@@ -20,29 +20,24 @@ gaby_processor = Preprocessor(
     target = 'signal')
     
 def process_and_store_data():
+    
     logging.info(f'loading data from {gaby_processor.path_to_data}')
     gaby_processor.load_data()
-    #TODO add downsample_raw_data method and run
-    # gaby_processor.downsample_raw_data(
-        
-        
-    # )
+
     logging.info('one hot encoding')
     gaby_processor.one_hot_encode(labels = ['event', 'sensor'])
-    # logging.info('downsampling data')
-    # gaby_processor.downsample_data(n = 100)
+
     logging.info('splitting data by query')
     gaby_processor.split_train_by_query('day', 5, processed_data=True)
+    
     logging.info('saving data')
     gaby_processor.save_datasets_to_parquet(save_downsampled = False)
-    # gaby_processor.save_data_to_h5()
-    # logging.info('saving processor')
+
     logging.info('data saved')
-    # gaby_processor.save_processor()
-    # logging.info(f'processor saved to {gaby_processor.path_to_save_processor}')
+
     
 if __name__ == '__main__':
-    # process_and_store_processor()
+
     logging.info('initiating processing and storing processor')
     process_and_store_data()
     logging.info('done processing and storing processor')
