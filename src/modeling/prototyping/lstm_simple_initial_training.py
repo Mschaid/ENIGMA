@@ -12,8 +12,6 @@ from src.modeling.prototyping.lstm_protype_simple import (build_lstm,
                                                           ) 
 
 
-
-
 def build_path(path_to_data,dataset_name, data_set_prefix = '5_day_training_gaby_downsampled_', suffix = '.parquet.gzip'):
     path =  os.path.join(path_to_data, f'{data_set_prefix}{dataset_name}{suffix}')
     return path
