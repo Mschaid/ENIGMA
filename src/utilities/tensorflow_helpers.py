@@ -24,7 +24,6 @@ def set_tensorboard(model_id, save_directory):
     
     if not os.path.exists(save_directory): os.makedirs(save_directory)
     
-    
     date_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     
     logs_dir = f"{save_directory}/{model_id}/{date_time}"
