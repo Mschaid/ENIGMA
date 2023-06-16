@@ -25,21 +25,28 @@ def stacked_lstm_experiment_01(units):
     y_train = pd.read_parquet(y_train_path)
     y_test = pd.read_parquet(y_test_path)
     
-    save_dir = "/projects/p31961/dopamine_modeling/results/logs/training_logs/model_experimentation/stacked_lstm_experiment_01"
+    experiment_tracking_dir = "/projects/p31961/dopamine_modeling/results/logs/models/model_experimentation/stacked_lstm_experiment_01"
+    model_save_dir = '/projects/p31961/dopamine_modeling/results/models/experiments/stacked_lstm_experiment_01'
+    if not os.path.exists(model_save_dir): os.makedirs(model_save_dir)
     
     for unit in units:
         
         model_name = f'StackedLSTM_{unit}_units'
-        tensorboard_callback = set_tensorboard(model_name, save_dir)
+        tensorboard_callback = set_tensorboard(model_name, experiment_tracking_dir)
         
         model = StackedLSTM(sequence_length = 90,
                            num_features = X_train.shape[1],
-                           lstm_1_units=units
+                           lstm_1_units=unit
                            )
         model.compile(optimizer='adam', loss='mse', metrics=['mse', 'mae'])
-        model.fit(X_train, y_train, epochs = 10,  callbacks = [tensorboard_callback])
+        model.fit(X_train, y_train, epochs = 50,  callbacks = [tensorboard_callback])
         model.evaluate(X_test, y_test, callbacks = [tensorboard_callback])
+        model.save(os.path.join(model_save_dir, model_name))
         
-if __name__ == "__main__":
+        
+def main():
     units = range(30, 150, 30)
     stacked_lstm_experiment_01(units)
+    
+if __name__ == "__main__":
+    main()
