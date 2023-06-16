@@ -14,7 +14,7 @@ from tensorflow.keras.layers import (Bidirectional,
 
 class SimpleLSTM(Model):
     def __init__(self, sequence_length, input_dimensions):
-        super().__init__()
+        super(SimpleLSTM, self).__init__()
         
         self.lstm_input_shape = (sequence_length, input_dimensions)
         
