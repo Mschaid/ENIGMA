@@ -24,6 +24,9 @@ def stacked_lstm_experiment_01(units):
     X_test = pd.read_parquet(X_test_path)
     y_train = pd.read_parquet(y_train_path)
     y_test = pd.read_parquet(y_test_path)
+
+    
+
     
     experiment_tracking_dir = "/projects/p31961/dopamine_modeling/results/logs/models/model_experimentation/stacked_lstm_experiment_01"
     model_save_dir = '/projects/p31961/dopamine_modeling/results/models/experiments/stacked_lstm_experiment_01'
