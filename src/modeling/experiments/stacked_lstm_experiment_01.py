@@ -32,7 +32,8 @@ def stacked_lstm_experiment_01(units):
     X_test = X_test[::100]
     y_train = y_train[::100]
     y_test = y_test[::100]
-
+    
+    
     experiment_tracking_dir = "/projects/p31961/dopamine_modeling/results/logs/models/model_experimentation/stacked_lstm_experiment_01"
     model_save_dir = '/projects/p31961/dopamine_modeling/results/models/experiments/stacked_lstm_experiment_01'
     if not os.path.exists(model_save_dir):
@@ -44,10 +45,10 @@ def stacked_lstm_experiment_01(units):
         tensorboard_callback = set_tensorboard(
             model_name, experiment_tracking_dir)
 
-        model = SimpleLSTM(sequence_length=90,
-                           num_features=X_train.shape[1],
-                           lstm_1_units=unit
-                           )
+        model = StackedLSTM(sequence_length=90,
+                            num_features=X_train.shape[1],
+                            lstm_1_units=unit
+                            )
         model.compile(optimizer='adam', loss='mse', metrics=['mse', 'mae'])
         model.fit(X_train, y_train, epochs=50,
                   callbacks=[tensorboard_callback])
@@ -56,7 +57,7 @@ def stacked_lstm_experiment_01(units):
 
 
 def main():
-    units = 30
+    units = range(32, 129, 32)
     stacked_lstm_experiment_01(units)
 
 
