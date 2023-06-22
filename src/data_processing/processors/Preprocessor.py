@@ -126,30 +126,7 @@ class Preprocessor:
 
         return self
     # FEATURE ENGINEERING METHODS
-    #TODO finish method
-    def down_sample_raw_data(self, group_by_cols, agg_dict, ignore_for_sorting, downsample_rate):
-        # self._is_downsampled = True
-        
-        # sort_by_list = [col for col in group_by_cols if col != ignore_for_sorting]
-        
-        # self.data = (
-        #     self.data
-        #     .dropna(axis = 0, how = 'any') # drop any rows with nans
-        #     .groupby(by=group_by_cols, as_index=False).agg(agg_dict)
-        #     .pipe(flatten_dataframe) # flatten the multi-index
-        #     .pipe(strip_columns) # fixes the column names by stripping _
-        #     .drop(columns = 'index') # drop the index column
-        #     # sort by everything but time and signal columns, 
-        #     # by default puts time column in the correct orientation for downsampling
-        #     .sort_values(by = sort_by_list)
-        #     .rename(columns = {'signal_mean': 'signal'}) # rename signal_mean to signal
-        #     [::downsample_rate] # downsample by saving every 100th row
-        #     )
-
-        pass
-        
       
-        
     def one_hot_encode(self, labels: List[str], data: pd.DataFrame = None):
         """# Summary
 

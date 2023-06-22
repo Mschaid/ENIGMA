@@ -32,8 +32,7 @@ def stacked_lstm_experiment_01(units):
     X_test = X_test[::100]
     y_train = y_train[::100]
     y_test = y_test[::100]
-    
-    
+
     experiment_tracking_dir = "/projects/p31961/dopamine_modeling/results/logs/models/model_experimentation/stacked_lstm_experiment_01"
     model_save_dir = '/projects/p31961/dopamine_modeling/results/models/experiments/stacked_lstm_experiment_01'
     if not os.path.exists(model_save_dir):
@@ -49,7 +48,7 @@ def stacked_lstm_experiment_01(units):
                             num_features=X_train.shape[1],
                             lstm_1_units=unit
                             )
-        model.compile(optimizer='adam', loss='mse', metrics=['mse', 'mae'])
+        model.compile(optimizer='adam', loss='mean_squared_error')
         model.fit(X_train, y_train, epochs=50,
                   callbacks=[tensorboard_callback])
         model.evaluate(X_test, y_test, callbacks=[tensorboard_callback])
