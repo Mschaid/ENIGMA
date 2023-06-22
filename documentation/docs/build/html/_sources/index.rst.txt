@@ -7,10 +7,15 @@ Welcome to ENIGMA's documentation!
 ==================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
-.. automodule:: src.data_processing.processors
+src.data_processing module
+__________________________
+.. automodule:: src
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 
 

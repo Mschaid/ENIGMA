@@ -12,7 +12,7 @@ Welcome to ENIGMA's documentation!
 
 src.data_processing module
 __________________________
-.. automodule:: src.data_processing
+.. automodule:: src.data_processing.processors
     :members:
     :undoc-members:
     :show-inheritance:
