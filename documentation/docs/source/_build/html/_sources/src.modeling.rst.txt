@@ -1,4 +1,4 @@
-src.modeling package
+Modeling module
 ====================
 
 Subpackages

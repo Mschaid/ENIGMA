@@ -1,4 +1,4 @@
-src.data\_processing package
+Data processing
 ============================
 
 Subpackages
