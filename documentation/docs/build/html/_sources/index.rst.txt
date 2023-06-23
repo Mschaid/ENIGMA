@@ -6,15 +6,10 @@
 Welcome to ENIGMA's documentation!
 ==================================
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
    :caption: Contents:
 
-   data_processing module
-   -----------------------
-   .. automodule:: data_processing
-      :members: 
-      :undoc-members:
-      :show-inheritance:
+   src/index
 
 Indices and tables
 ==================
@@ -22,3 +17,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. automodule:: Preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
