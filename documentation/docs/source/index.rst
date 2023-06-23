@@ -9,7 +9,7 @@ Welcome to ENIGMA's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   src/index
+
 
 Indices and tables
 ==================
@@ -18,9 +18,14 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. automodule:: Preprocessor
+.. automodule:: src.modeling.Models
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. .. automodule:: modeling.Models
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:
 
 
