@@ -61,11 +61,11 @@ class Preprocessor:
 
     def __init__(self,
                  processor_name: str = None,
-                 path_to_data: str =None,
-                 path_to_processed_data: str =None,
-                 path_to_save:str = None,
-                 features: List[str] =None,
-                 target:str =None,
+                 path_to_data: str = None,
+                 path_to_processed_data: str = None,
+                 path_to_save: str = None,
+                 features: List[str] = None,
+                 target: str = None,
                  X_train: pd.DataFrame = None,
                  X_test: pd.DataFrame = None,
                  y_train: pd.Series = None,
@@ -94,7 +94,7 @@ class Preprocessor:
         self.target = target
         self._is_downsampled = False
 
-    def load_data(self, load_processed_data: str =False) -> Type['Preprocessor']:
+    def load_data(self, load_processed_data: str = False) -> Type['Preprocessor']:
         """
         # Summary
         loads data from path_to_data into data attribute.
@@ -103,19 +103,20 @@ class Preprocessor:
 
         # attributes
         stores data from path_to_data into data attribute as a Pd.DataFrame object.
-        
+
         Returns:
             self
         """
         #! needs tesing
         def check_parquet_file(path):
             if path is not None and not path.endswith('.gzp'):
-                raise FileTypeError('Filetype must be a parquet file and gzipped. Please provide a valid path to a parquet gzi')
-            else: 
+                raise FileTypeError(
+                    'Filetype must be a parquet file and gzipped. Please provide a valid path to a parquet gzi')
+            else:
                 pass
-            
+
         check_parquet_file(self.path_to_data)
-        
+
         if self.path_to_data is not None:
             self._data = pd.read_parquet(self.path_to_data)
             self.data = self._data.dropna()
@@ -126,7 +127,7 @@ class Preprocessor:
 
         return self
     # FEATURE ENGINEERING METHODS
-      
+
     def one_hot_encode(self, labels: List[str], data: pd.DataFrame = None):
         """# Summary
 
@@ -226,10 +227,10 @@ class Preprocessor:
 
         self.X_test = over_cut_off_data[self.features]
         self.y_test = over_cut_off_data[self.target]
-    
-    #DATA PREPERATION METHODS
 
-    def save_datasets_to_parquet(self, path=None, save_downsampled = False):
+    # DATA PREPERATION METHODS
+
+    def save_datasets_to_parquet(self, path=None, save_downsampled=False):
         """
         saves the processed datasets (X_train, X_test, y_train, y_test, to parquet files
         Parameters
@@ -247,8 +248,7 @@ class Preprocessor:
             self.path_to_save_datasets = path
         else:
             path = self.path_to_save_datasets
-            
-          
+
         # create_dir(self.path_to_save_datasets)
         save_dataframes_to_parquet(
             (f'{self.processor_name}_X_train', self.X_train),
@@ -256,16 +256,21 @@ class Preprocessor:
             (f'{self.processor_name}_y_train', self.y_train),
             (f'{self.processor_name}_y_test', self.y_test),
             path_to_save=path)
-        
+
         if save_downsampled == True:
             save_dataframes_to_parquet(
-                (f'{self.processor_name}_X_train_downsampled', self.X_train_downsampled),
-                (f'{self.processor_name}_X_test_downsampled', self.X_test_downsampled),
-                (f'{self.processor_name}_y_train_downsampled', self.y_train_downsampled),
-                (f'{self.processor_name}_y_test_downsampled', self.y_test_downsampled),
+                (f'{self.processor_name}_X_train_downsampled',
+                 self.X_train_downsampled),
+                (f'{self.processor_name}_X_test_downsampled',
+                 self.X_test_downsampled),
+                (f'{self.processor_name}_y_train_downsampled',
+                 self.y_train_downsampled),
+                (f'{self.processor_name}_y_test_downsampled',
+                 self.y_test_downsampled),
                 path_to_save=path)
         return self
     #! currently not implemented - should likely be removed
+
     def save_data_to_h5(self, path=None, file_name=None):
         """
         method to save specific attributes of the processor object to an hdf5 file
@@ -303,7 +308,7 @@ class Preprocessor:
 
         if file_name is None:
             file_name = f'{self.processor_name}_dataset.h5'
-            
+
         file_path = os.path.join(path, file_name)
 
         dataframe_dict = {
@@ -311,7 +316,7 @@ class Preprocessor:
             'X_test': self.X_test,
             'y_train': self.y_train,
             'y_test': self.y_test
-            
+
         }
 
         attrs_dict = {
@@ -325,24 +330,24 @@ class Preprocessor:
             'features': self.features,
             'target': self.target
         }
-        
+
         def save_to_h5(file_path, dataframe_dict, attrs_dict):
-                with h5py.File(file_path, 'w') as file:
-                    # save dataframes 
-                    dataframe_group = file.create_group('dataframes')
-                    for key, value in dataframe_dict.items():
-                        dataframe_group[key] = value
-                    # save attributes
-                    attrs_group = file.create_group('attributes')
-                    for key, value in attrs_dict.items():
-                        attrs_group[key] = value    
-                        
+            with h5py.File(file_path, 'w') as file:
+                # save dataframes
+                dataframe_group = file.create_group('dataframes')
+                for key, value in dataframe_dict.items():
+                    dataframe_group[key] = value
+                # save attributes
+                attrs_group = file.create_group('attributes')
+                for key, value in attrs_dict.items():
+                    attrs_group[key] = value
+
         save_to_h5(file_path, dataframe_dict, attrs_dict)
 
-            # ? possible implementiation but need to resolve speed issues
-    
+        # ? possible implementiation but need to resolve speed issues
+
      #! currently not implemented - should likely be removed
-   
+
     def save_processor(self, path_to_save_processor=None):
         """
         Summary
@@ -384,25 +389,6 @@ class Preprocessor:
         with open(self.path_to_save_processor, 'wb') as f:
             cPickle.dump(self, f)
 
-    #! currently not implemented - should likely be removed
-    def save_processor_to_h5(self):
-        
-        '''self.filename = os.path.join(self.path_to_save_processor, f'{self.processor_name}.h5')
-        with h5py.File(self.filename, 'w') as file:
-            instance_group = file.create_group('instance')
-
-            for attr_name, attr_value in vars(self).items():
-                if isinstance(attr_value, pd.DataFrame):
-                    # Save DataFrame as a separate group
-                    df_group = instance_group.create_group(attr_name)
-                    for col_name, col_data in attr_value.items():
-                        df_group.create_dataset(col_name, data=col_data)
-                elif isinstance(attr_value, (int, float, str)):
-                    instance_group.create_dataset(attr_name, data=attr_value)
-                else:
-                    # Convert non-compatible types to string representation
-                    instance_group.create_dataset(attr_name, data=str(attr_value))'''
-        pass
 
     #! currently not implemented
     @classmethod
