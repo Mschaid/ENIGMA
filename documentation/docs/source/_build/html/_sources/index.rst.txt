@@ -10,6 +10,14 @@ Welcome to ENIGMA's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   modules
+   src.data_processing
+   src.data_processing.processors
+   src.modeling
+   src.modeling.modelsr
+   src
+
+
 
 
 Indices and tables
