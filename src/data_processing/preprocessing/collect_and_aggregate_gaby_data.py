@@ -6,6 +6,7 @@ import pyarrow as pa
 from src.data_processing.processors.SchemaBuilder import SchemaBuilder
 from src.data_processing.processors.GabyProcessor import GabyProcessor
 
+
 def process_data(file) -> pd.DataFrame:
     """
     # Summary:
@@ -35,7 +36,7 @@ def main():
     print('aggregate data')
     aggregated_data = pd.concat(data)
     aggregated_data = aggregated_data.reset_index(drop=True)
-    
+
     save_path = os.path.join(path, 'downsampled_aggregated_data.parquet.gzp')
     aggregated_data.to_parquet(save_path, compression='gzip')
 
