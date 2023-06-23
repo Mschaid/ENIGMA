@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
 
-from src.modeling.Models.SimpleLSTM import SimpleLSTM
-from src.modeling.Models.StackedLSTM import StackedLSTM
+from src.modeling.models.SimpleLSTM import SimpleLSTM
+from src.modeling.models.StackedLSTM import StackedLSTM
 from src.utilities.tensorflow_helpers import set_tensorboard
 
 
