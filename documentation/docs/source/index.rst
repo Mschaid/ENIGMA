@@ -10,10 +10,11 @@ Welcome to ENIGMA's documentation!
    :maxdepth: 5
    :caption: Contents:
 
-src.data_processing module
+   data_processing module
 __________________________
-.. automodule:: src.data_processing.processors.Preprocessor
-    :members:
+.. automodule:: src.data_processing.processors
+    
+    :members: processors
     :undoc-members:
     :show-inheritance:
 
