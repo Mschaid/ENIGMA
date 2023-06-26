@@ -1,13 +1,9 @@
-import datetime
+import numpy as np
 import os
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 import tensorflow as tf
 
-from src.modeling.models.SimpleLSTM import SimpleLSTM
-from src.modeling.models.StackedLSTM import StackedLSTM
+from src.models.StackedLSTM import StackedLSTM
 from src.utilities.tensorflow_helpers import set_tensorboard
 
 
@@ -28,11 +24,6 @@ def stacked_lstm_experiment_01(units):
     y_train = pd.read_parquet(y_train_path)
     y_test = pd.read_parquet(y_test_path)
 
-    X_train = X_train[::100]
-    X_test = X_test[::100]
-    y_train = y_train[::100]
-    y_test = y_test[::100]
-
     experiment_tracking_dir = "/projects/p31961/dopamine_modeling/results/logs/models/model_experimentation/stacked_lstm_experiment_01"
     model_save_dir = '/projects/p31961/dopamine_modeling/results/models/experiments/stacked_lstm_experiment_01'
     if not os.path.exists(model_save_dir):
@@ -46,9 +37,9 @@ def stacked_lstm_experiment_01(units):
 
         model = StackedLSTM(sequence_length=90,
                             num_features=X_train.shape[1],
-                            lstm_1_units=unit
+                            lstm_units=unit
                             )
-        model.compile(optimizer='adam', loss='mean_squared_error')
+        model.compile(optimizer='adam', loss='mean_squared_error', metrics = ['mse', 'mae'])
         model.fit(X_train, y_train, epochs=50,
                   callbacks=[tensorboard_callback])
         model.evaluate(X_test, y_test, callbacks=[tensorboard_callback])
