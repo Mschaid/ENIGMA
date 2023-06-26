@@ -3,13 +3,13 @@ import tensorflow as tf
 import pandas as pd
 
 
-from src.modeling.prototyping.lstm_protype_simple import (build_lstm,
-                                                          set_tensorboard,
-                                                          train_model,
-                                                          evaluate_model,
-                                                          validated_tf,
-                                                          inference
-                                                          )
+from src.modeling.experiments.prototyping.lstm_protype_simple import (build_lstm,
+                                                                      set_tensorboard,
+                                                                      train_model,
+                                                                      evaluate_model,
+                                                                      validated_tf,
+                                                                      inference
+                                                                      )
 
 
 def build_path(path_to_data, dataset_name, data_set_prefix='5_day_training_gaby_downsampled_', suffix='.parquet.gzip'):
@@ -45,12 +45,6 @@ if __name__ == '__main__':
     y_train = pd.read_parquet(y_train_path)
     X_test = pd.read_parquet(X_test_path)
     y_test = pd.read_parquet(y_test_path)
-    
-    X_train = X_train[::100]
-    X_test = X_test[::100]
-    y_train = y_train[::100]
-    y_test = y_test[::100]
-
 
     # # #build lodel
     model = build_lstm(sequence_length=90, input_dimentions=X_train.shape[1])
