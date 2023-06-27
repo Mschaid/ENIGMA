@@ -32,14 +32,15 @@ The deployment module provides tools to deploy the trained models in production 
 ### Getting Started
 To get started with the ENIGMA project, follow these steps:
 
-Clone the repository.
-Install the required dependencies.
-Run the preprocessing module to preprocess the raw data.
-Run the data processing module to extract behavioral features.
-Run the modeling module to train deep learning models.
-Run the inference and visualization module to make predictions on new data and visualize the results.
-Deploy the trained models in production environments using the deployment module.
-License
+* Clone the repository.
+* Install the required dependencies.
+* Run the preprocessing module to preprocess the raw data.
+* Run the data processing module to extract behavioral features.
+* Run the modeling module to train deep learning models.
+* Run the inference and visualization module to make predictions on new data and visualize the results.
+* Deploy the trained models in production environments using the deployment module.
+
+### License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ### Documentation
