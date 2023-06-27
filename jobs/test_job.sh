@@ -1,4 +1,3 @@
-#!/bin/bash
 #SBATCH -A p31961
 #SBATCH -p gengpu
 #SBATCH --gres=gpu:a100:2
