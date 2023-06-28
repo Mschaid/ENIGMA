@@ -30,7 +30,7 @@ y_test = y_test[::100]
 
 space = {
     'sequence_length': hp.choice('sequence_legnth',  range(30, 181, 30)),
-    'units': hp.choice('units', range(32, 129, 32)),
+    # 'units': hp.choice('units', range(32, 129, 32)),
     'learning_rate': hp.loguniform('learning_rate', -5, -1),
     'optimizer': hp.choice('optimizer', ['adam', 'rmsprop', 'sgd'])
 }
