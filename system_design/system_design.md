@@ -43,15 +43,7 @@ Apart from the Azure SDK, you may need the following Python packages:
 
 ```mermaid 
 
-
 graph LR
-
-style GettingStarted fill:#F5F7FA, stroke:#172B4D, stroke-width:2px;
-style IngestionMigration fill:#C2E0C6, stroke:#296E42, stroke-width:2px;
-style AggregationStorage fill:#E6D9A8, stroke:#A67A36, stroke-width:2px;
-style PreprocessingML fill:#D3C4F3, stroke:#6D63A7, stroke-width:2px;
-style FeatureImportance fill:#F0C9D1, stroke:#C14B60, stroke-width:2px;
-style ModelDeployment fill:#C5E9F6, stroke:#3E9ACD, stroke-width:2px;
 
 subgraph "Getting Started with Azure"
   AB[Sign up for Azure account] --> AC[Install Azure SDK for Python]
@@ -107,4 +99,5 @@ subgraph "Model Deployment and User Querying"
 end
 
 AB --> A
+
 ```
