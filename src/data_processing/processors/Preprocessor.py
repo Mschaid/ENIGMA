@@ -251,6 +251,7 @@ class Preprocessor:
 
         # create_dir(self.path_to_save_datasets)
         save_dataframes_to_parquet(
+            (f'{self.processor_name}_full_dataset', self.processed_data),
             (f'{self.processor_name}_X_train', self.X_train),
             (f'{self.processor_name}_X_test', self.X_test),
             (f'{self.processor_name}_y_train', self.y_train),
@@ -389,8 +390,8 @@ class Preprocessor:
         with open(self.path_to_save_processor, 'wb') as f:
             cPickle.dump(self, f)
 
-
     #! currently not implemented
+
     @classmethod
     def load_processor(cls, file_path):
         """ load a saved processor object from a pickle file
