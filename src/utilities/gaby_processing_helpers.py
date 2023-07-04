@@ -28,7 +28,6 @@ def merge_latency_data(data, path):
     latency_data = pd.read_xcel(path)
     latency_data = tweak_lat_data(latency_data)
     return (data
-            .dropna()
             .merge(latency_data, on=['mouse_id', 'day', 'trial', 'event'], how='left')
             .assign(latency=lambda df: df['latency'].fillna(0))
             )
