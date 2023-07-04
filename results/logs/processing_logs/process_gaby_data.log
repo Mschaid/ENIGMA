@@ -298,3 +298,46 @@
 [2023-06-13 13:42:38,738] INFO - saving data
 [2023-06-13 13:42:41,140] INFO - data saved
 [2023-06-13 13:42:41,141] INFO - done processing and storing processor
+[2023-07-04 12:35:13,064] INFO - initiating processing and storing processor
+[2023-07-04 12:35:13,090] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-07-04 12:35:15,798] INFO - merging latency data
+[2023-07-04 12:35:38,675] INFO - initiating processing and storing processor
+[2023-07-04 12:35:38,677] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-07-04 12:35:41,332] INFO - merging latency data
+[2023-07-04 12:35:43,403] INFO - merging sex data
+[2023-07-04 12:35:44,562] INFO - extracting features
+[2023-07-04 12:35:45,689] INFO - one hot encoding
+[2023-07-04 12:35:46,657] INFO - splitting data by query
+[2023-07-04 12:35:47,037] INFO - saving data
+[2023-07-04 12:35:54,774] INFO - data saved
+[2023-07-04 12:35:54,774] INFO - done processing and storing processor
+[2023-07-04 12:38:41,596] INFO - initiating processing and storing processor
+[2023-07-04 12:38:41,599] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-07-04 12:38:44,435] INFO - merging latency data
+[2023-07-04 12:38:46,497] INFO - merging sex data
+[2023-07-04 12:38:47,654] INFO - extracting features
+[2023-07-04 12:38:48,793] INFO - one hot encoding
+[2023-07-04 12:38:49,766] INFO - splitting data by query
+[2023-07-04 12:38:50,145] INFO - saving data
+[2023-07-04 12:38:57,655] INFO - data saved
+[2023-07-04 12:38:57,655] INFO - done processing and storing processor
+[2023-07-04 12:40:28,406] INFO - initiating processing and storing processor
+[2023-07-04 12:40:28,408] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-07-04 12:40:31,063] INFO - merging latency data
+[2023-07-04 12:40:33,121] INFO - merging sex data
+[2023-07-04 12:40:34,275] INFO - extracting features
+[2023-07-04 12:40:35,402] INFO - one hot encoding
+[2023-07-04 12:40:36,367] INFO - splitting data by query
+[2023-07-04 12:40:36,762] INFO - saving data
+[2023-07-04 12:40:44,458] INFO - data saved
+[2023-07-04 12:40:44,458] INFO - done processing and storing processor
+[2023-07-04 12:42:01,865] INFO - initiating processing and storing processor
+[2023-07-04 12:42:01,867] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-07-04 12:42:04,835] INFO - merging latency data
+[2023-07-04 12:42:06,900] INFO - merging sex data
+[2023-07-04 12:42:08,056] INFO - extracting features
+[2023-07-04 12:42:09,195] INFO - one hot encoding
+[2023-07-04 12:42:10,170] INFO - splitting data by query
+[2023-07-04 12:42:10,567] INFO - saving data
+[2023-07-04 12:42:23,130] INFO - data saved
+[2023-07-04 12:42:23,130] INFO - done processing and storing processor
