@@ -341,3 +341,13 @@
 [2023-07-04 12:42:10,567] INFO - saving data
 [2023-07-04 12:42:23,130] INFO - data saved
 [2023-07-04 12:42:23,130] INFO - done processing and storing processor
+[2023-07-05 12:46:17,542] INFO - initiating processing and storing processor
+[2023-07-05 12:46:17,546] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-07-05 12:46:20,378] INFO - merging latency data
+[2023-07-05 12:46:22,449] INFO - merging sex data
+[2023-07-05 12:46:23,608] INFO - extracting features
+[2023-07-05 12:46:24,743] INFO - one hot encoding
+[2023-07-05 12:46:25,712] INFO - splitting data by query
+[2023-07-05 12:46:26,168] INFO - saving data
+[2023-07-05 12:46:38,687] INFO - data saved
+[2023-07-05 12:46:38,687] INFO - done processing and storing processor
