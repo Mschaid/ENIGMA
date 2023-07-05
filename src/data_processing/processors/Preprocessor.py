@@ -81,17 +81,18 @@ class Preprocessor:
         self.path_to_save = create_dir(path_to_save)
         self.path_to_processed_data = path_to_processed_data
         self.path_to_processed_data_dir = create_new_directoy(
-            path_to_save, 'processed_data')
+            'processed_data', root_dir=self.path_to_save)
         self.path_to_save_processor = create_new_directoy(
-            path_to_save, 'processors')
+            'processors', root_dir=self.path_to_save)
         self.path_to_save_datasets = create_new_directoy(
-            path_to_save, 'datasets')
+            'datasets', root_dir=self.path_to_save)
         self.X_train = X_train
         self.y_train = y_train
         self.X_test = X_test
         self.y_test = y_test
         self.features = features
         self.target = target
+        self._all_data = self.features + self.target
         self._is_downsampled = False
 
     def load_data(self, load_processed_data: str = False) -> Type['Preprocessor']:
@@ -176,7 +177,7 @@ class Preprocessor:
       features and target data.
         """
         if processed_data is True:
-            data = self.processed_data
+            data = self.processed_data[self._all_data]
 
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             data[self.features],
@@ -215,6 +216,7 @@ class Preprocessor:
 
         if processed_data is True:
             data = self.processed_data
+            data = self.processed_data[self._all_data]
 
         under_cut_off_data = data.query(
             f"{column_name} <= {cutoff}")
