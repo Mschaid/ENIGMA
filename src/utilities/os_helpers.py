@@ -3,7 +3,6 @@ import os
 import pandas as pd
 
 
-
 def create_dir(path):
     """# Summary
     creates a directory if it does not exist
@@ -13,14 +12,16 @@ def create_dir(path):
     """
     if path is not None and not os.path.exists(path):
         os.makedirs(path)
-        
+
     return path
-def create_new_directoy(*directory_extensions, root_dir: str,) -> str:
+
+
+def create_new_directoy(directory_extension, root_dir: str,) -> str:
     """
     # Summary
     creates new empty directory for file management downstream
     ## Args
-    directory extensions: *args - list of directory names to be created
+    directory extensions:  directory names to be created
     root_dir:str - path for new directory to be stored
 
     ## Returns: None
@@ -28,17 +29,24 @@ def create_new_directoy(*directory_extensions, root_dir: str,) -> str:
 
     if directory already exists, does nothing and prints "directory already exists"
     ### example
-        >>> create_new_dir( "my_folder_1", "my_folder_2", root_dir = "my/root/directory")
+        >>> create_new_dir( "my_folder_1", root_dir = "my/root/directory")
         >>> "my/root/directory/my_folder_1"
-        >>> "my/root/directory/my_folder_2"
 
 
     """
-    
-    for extension in directory_extensions:
-        new_directory = os.path.join(root_dir, extension)
-        if not os.path.exists(new_directory):
-                os.makedirs(new_directory)
+
+    new_directory = os.path.join(root_dir, directory_extension)
+    if not os.path.exists(new_directory):
+        os.makedirs(new_directory)
+    return new_directory
+
+
+def create_directories(*paths):
+    """creates new directories in batch using create_new_directory function"""
+    for path in paths:
+        create_new_directoy(path)
+
+
 
 def save_dataframes_to_parquet(*dataframes, path_to_save):
     """
@@ -67,10 +75,7 @@ def save_dataframes_to_parquet(*dataframes, path_to_save):
     for df_name, df in dataframes:
         path = os.path.join(path_to_save, f'{df_name}.parquet.gzip')
 
-        if isinstance(df,pd.Series):
+        if isinstance(df, pd.Series):
             df.to_frame().to_parquet(path, compression='gzip')
         else:
             df.to_parquet(path, compression='gzip')
-        
-
-        
