@@ -15,29 +15,30 @@ def create_dir(path):
         os.makedirs(path)
         
     return path
-def create_new_directoy(file_path: str, new_dir_extension=None) -> str:
+def create_new_directoy(*directory_extensions, root_dir: str,) -> str:
     """
     # Summary
     creates new empty directory for file management downstream
     ## Args
-    file_path:str - path for new directory to be stored
-    new_dir__ext:str - name of new created directory
+    directory extensions: *args - list of directory names to be created
+    root_dir:str - path for new directory to be stored
+
     ## Returns: None
     if directory does not already exists, creates new directory and prints directory created
 
     if directory already exists, does nothing and prints "directory already exists"
     ### example
-        >>> create_new_dir(file_path='/Users/user/Desktop/', new_dir_ext='my_folder')
-        >>>'/Users/user/Desktop/my_folder'
-        >>> 'directroy created'
+        >>> create_new_dir( "my_folder_1", "my_folder_2", root_dir = "my/root/directory")
+        >>> "my/root/directory/my_folder_1"
+        >>> "my/root/directory/my_folder_2"
+
+
     """
-    new_directory = os.path.join(file_path, new_dir_extension)
-    print(new_directory)
-
-    if not os.path.exists(new_directory):
-        os.mkdir(new_directory)
-
-    return new_directory
+    
+    for extension in directory_extensions:
+        new_directory = os.path.join(root_dir, extension)
+        if not os.path.exists(new_directory):
+                os.makedirs(new_directory)
 
 def save_dataframes_to_parquet(*dataframes, path_to_save):
     """
