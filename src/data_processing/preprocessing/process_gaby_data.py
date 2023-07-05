@@ -14,9 +14,9 @@ PATH_TO_LATENCY_DATA = "/projects/p31961/gaby_all_raw_data/AA_Latencies.xlsx"
 PATH_TO_SEX_DATA = "/projects/p31961/gaby_all_raw_data/AA_ListofSex.xlsx"
 
 
-PATH_TO_SAVE = r'/projects/p31961/gaby_data/aggregated_data/data_pipeline_downsampled'
+PATH_TO_SAVE = r'/projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset'
 gaby_processor = Preprocessor(
-    processor_name='5_day_training_gaby_downsampled',
+    processor_name='5_day_training_full_dataset',
     path_to_data=PATH_TO_DATA,
     path_to_save=PATH_TO_SAVE,
     features=['day', 'time', 'trial', 'event_cue', 'event_escape', 'event_avoid',
@@ -56,4 +56,4 @@ if __name__ == '__main__':
     logging.info('initiating processing and storing processor')
     process_and_store_data()
     logging.info('done processing and storing processor')
-
+    print(gaby_processor.X_train.head())
