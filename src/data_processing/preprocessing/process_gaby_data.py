@@ -5,9 +5,15 @@ from src.utilities.gaby_processing_helpers import merge_latency_data, merge_sex_
 
 
 # Set up logging
-logging.basicConfig(filename='/projects/p31961/ENIGMA/results/logs/processing_logs/process_gaby_data.log',
+LOG_FILE_PATH = '/projects/p31961/ENIGMA/results/logs/processing_logs/process_gaby_data.log'
+with open(LOG_FILE_PATH, 'w') as f:
+    f.write('')
+logging.basicConfig(filename=LOG_FILE_PATH,
                     level=logging.DEBUG,
                     format='[%(asctime)s] %(levelname)s - %(message)s')
+
+# clear logging file from previous runs
+
 
 PATH_TO_DATA = r'/projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp'
 PATH_TO_LATENCY_DATA = "/projects/p31961/gaby_all_raw_data/AA_Latencies.xlsx"
@@ -19,10 +25,11 @@ gaby_processor = Preprocessor(
     processor_name='5_day_training_full_dataset',
     path_to_data=PATH_TO_DATA,
     path_to_save=PATH_TO_SAVE,
-    features=['day', 'time', 'trial', 'event_cue', 'event_escape', 'event_avoid',
-              'event_shock', 'sensor_D1', 'sensor_D2', 'sex_M',
-              'sensor_DA'],
-    target='signal')
+    features=['time', 'mouse_id', 'sex_M', 'day', 'trial', 'learning_phase',
+              'event_cue', 'event_escape', 'event_avoid',
+              'latency', 'event_shock', 'sensor_D1', 'sensor_D2', 'sensor_DA'],
+    target='signal'
+)
 
 
 def process_and_store_data():
@@ -56,4 +63,3 @@ if __name__ == '__main__':
     logging.info('initiating processing and storing processor')
     process_and_store_data()
     logging.info('done processing and storing processor')
-    print(gaby_processor.X_train.head())
