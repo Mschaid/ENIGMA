@@ -80,11 +80,11 @@ class Preprocessor:
         self.path_to_data = path_to_data
         self.path_to_save = create_dir(path_to_save)
         self.path_to_processed_data = path_to_processed_data
-        self.path_to_processed_data_dir = create_new_directoy(
+        self.path_to_processed_data_dir = create_new_directory(
             'processed_data', root_dir=self.path_to_save)
-        self.path_to_save_processor = create_new_directoy(
+        self.path_to_save_processor = create_new_directory(
             'processors', root_dir=self.path_to_save)
-        self.path_to_save_datasets = create_new_directoy(
+        self.path_to_save_datasets = create_new_directory(
             'datasets', root_dir=self.path_to_save)
         self.X_train = X_train
         self.y_train = y_train
