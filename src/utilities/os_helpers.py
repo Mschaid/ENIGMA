@@ -44,7 +44,7 @@ def create_new_directory(directory_extension, root_dir: str,) -> str:
 def create_directories(*paths):
     """creates new directories in batch using create_new_directory function"""
     for path in paths:
-        create_new_directoy(path)
+        create_new_directory(path)
 
 
 def save_dataframes_to_parquet(*dataframes, path_to_save):

@@ -6,13 +6,12 @@ from src.utilities.gaby_processing_helpers import merge_latency_data, merge_sex_
 
 # Set up logging
 LOG_FILE_PATH = '/projects/p31961/ENIGMA/results/logs/processing_logs/process_gaby_data.log'
-with open(LOG_FILE_PATH, 'w') as f:
-    f.write('')
+
 logging.basicConfig(filename=LOG_FILE_PATH,
+                    filemode='w',
                     level=logging.DEBUG,
                     format='[%(asctime)s] %(levelname)s - %(message)s')
 
-# clear logging file from previous runs
 
 
 PATH_TO_DATA = r'/projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp'

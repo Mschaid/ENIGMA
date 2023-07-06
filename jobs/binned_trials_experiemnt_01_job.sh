@@ -6,5 +6,5 @@
 #SBATCH -n 1
 #SBATCH -t 1:00:00
 #SBATCH --mem=100G
-conda activate enigma
+source activate enigma
 python /projects/p31961/ENIGMA/src/modeling/experiments/binned_trial_experiment_01.py
