@@ -16,7 +16,6 @@ from src.utilities.pandas_helpers import get_features
 from src.models.StackedLSTM import StackedLSTM
 from src.utilities.tensorflow_helpers import set_tensorboard
 
-# TODO refactor create new directory to use built in exsist_ok = True
 
 MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
 EXPERIMENT_NAME = 'binned_trial_experiment_01'
@@ -33,7 +32,7 @@ os.makedirs(EXPERIMENT_DIR, exist_ok=True)
 
 logging.basicConfig(filename=LOG_FILE_PATH,
                     filemode='w',
-                    level=logging.DEBUG, 
+                    level=logging.DEBUG,
                     format='[%(asctime)s] %(levelname)s - %(message)s')
 
 
@@ -115,9 +114,13 @@ def experiment():
     logging.info('Dropped binned trials model training complete')
 
 
+@atexit.register
+def early_termination():
+    logging.info('Experiment terminated early')
+
+
 if __name__ == '__main__':
 
-    atexit.register(logging.error('Program exited unexpectedly'))
     logging.info('Starting experiment')
     experiment()
     logging.info('Experiment complete')

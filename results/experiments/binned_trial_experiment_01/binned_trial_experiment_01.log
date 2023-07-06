@@ -1,1 +1,7 @@
-[2023-07-06 11:07:43,956] ERROR - Program exited unexpectedly
+[2023-07-06 13:58:32,571] INFO - Starting experiment
+[2023-07-06 13:58:32,604] INFO - New directories created
+[2023-07-06 13:58:32,604] INFO - Loading data
+[2023-07-06 13:58:33,405] INFO - Splitting data into training, validation and testing sets
+[2023-07-06 13:58:34,506] INFO - Training control model
+[2023-07-06 13:58:36,491] DEBUG - Layer LSTM_1 will use cuDNN kernels when running on GPU.
+[2023-07-06 13:58:36,498] DEBUG - Layer LSTM_2 will use cuDNN kernels when running on GPU.
