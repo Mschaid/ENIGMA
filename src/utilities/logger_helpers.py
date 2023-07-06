@@ -26,3 +26,5 @@ def set_logger_config(directory, file_name,  format: str = '[%(asctime)s] %(leve
         format=format
     )
     return logger
+
+
