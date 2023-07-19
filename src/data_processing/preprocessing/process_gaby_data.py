@@ -1,7 +1,7 @@
 import logging
 
 from src.data_processing.processors.Preprocessor import Preprocessor
-from src.utilities.gaby_processing_helpers import merge_latency_data, merge_sex_data, full_data_feature_extraction
+from src.utilities.gaby_processing_helpers import merge_latency_data, merge_sex_data, full_data_feature_extraction, assign_cumulative_trials
 
 
 # Set up logging
@@ -11,7 +11,6 @@ logging.basicConfig(filename=LOG_FILE_PATH,
                     filemode='w',
                     level=logging.DEBUG,
                     format='[%(asctime)s] %(levelname)s - %(message)s')
-
 
 
 PATH_TO_DATA = r'/projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp'
@@ -45,6 +44,9 @@ def process_and_store_data():
 
     logging.info('extracting features')
     gaby_processor.data = full_data_feature_extraction(gaby_processor.data)
+
+    logging.info("assigning cumulative trials")
+    gaby_processor.data = assign_cumulative_trials(gaby_processor.data)
 
     logging.info('one hot encoding')
     gaby_processor.one_hot_encode(labels=['event', 'sensor', 'sex'])
