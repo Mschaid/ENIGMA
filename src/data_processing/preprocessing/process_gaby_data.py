@@ -20,10 +20,10 @@ PATH_TO_SEX_DATA = "/projects/p31961/gaby_all_raw_data/AA_ListofSex.xlsx"
 
 PATH_TO_SAVE = r'/projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset'
 gaby_processor = Preprocessor(
-    processor_name='5_day_training_full_dataset',
+    processor_name='5_day_full_dataset',
     path_to_data=PATH_TO_DATA,
     path_to_save=PATH_TO_SAVE,
-    features=['time', 'mouse_id', 'sex_M', 'day', 'trial', 'learning_phase',
+    features=['time', 'mouse_id', 'sex_M', 'day', 'trial', 'trial_count', 'learning_phase',
               'event_cue', 'event_escape', 'event_avoid',
               'latency', 'event_shock', 'sensor_D1', 'sensor_D2', 'sensor_DA'],
     target='signal'
