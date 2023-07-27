@@ -55,20 +55,20 @@ class SequenceProcessor:
         self.subject_ids: List[str] = None
         self.batches: List[pd.DataFrame] = None
         self.feature_batches: List[pd.DataFrame] = None
-        self.target_batches: List[pd.DataFrame]= None
+        self.target_batches: List[pd.DataFrame] = None
 
         # training split
-        self.train_batches_X: List[pd.DataFrame]= None
-        self.train_batches_y: List[pd.DataFrame]= None
-        self.train_subject_ids: List[pd.DataFrame]= None
+        self.train_batches_X: List[pd.DataFrame] = None
+        self.train_batches_y: List[pd.DataFrame] = None
+        self.train_subject_ids: List[pd.DataFrame] = None
 
         # validation split
         self.val_batches_X: List[pd.DataFrame] = None
-        self.val_batches_y: List[pd.DataFrame]= None
+        self.val_batches_y: List[pd.DataFrame] = None
         self.val_subject_ids: List[pd.DataFrame] = None
 
         # testing split
-        self.test_batches_X: List[pd.DataFrame]= None
+        self.test_batches_X: List[pd.DataFrame] = None
         self.test_batches_y: List[pd.DataFrame] = None
         self.test_subject_ids: List[pd.DataFrame] = None
 
