@@ -51,6 +51,7 @@ class SequenceProcessor:
     """
 
     def __init__(self, data):
+        self._data = data
         self.data = data
         self.subject_ids: List[str] = None
         self.batches: List[pd.DataFrame] = None
@@ -71,6 +72,24 @@ class SequenceProcessor:
         self.test_batches_X: List[pd.DataFrame] = None
         self.test_batches_y: List[pd.DataFrame] = None
         self.test_subject_ids: List[pd.DataFrame] = None
+
+    def query_sensor_and_sort_time_subject(self, sensor):
+        """
+        Filters and sorts the data
+
+        Parameters
+        ----------
+        query : str
+            The query to filter the data
+        sort_by : List[str]
+            The list of columns to sort the data by
+        """
+        sensor_cols = [col for col in self._data.columns if "sensor_" in col]
+        mouse_cols = [col for col in self._data.columns if "mouse_id_" in col]
+
+        self.data = self._data.query(
+            f'senor_{sensor}==1').sort_values(by=sort_by)
+        return self
 
     def encode_cyclic_time(self):
         max_time = self.data.time.max()
@@ -181,5 +200,17 @@ class SequenceProcessor:
         self.test_batches_X = self.feature_batches[val_idx:]
         self.test_batches_y = self.target_batches[val_idx:]
         self.test_subject_ids = self.subject_ids[val_idx:]
+
+        return self
+
+    def reshape_batches(self):
+        def batches_to_np(batches):
+            return np.stack([batch.to_numpy() for batch in batches])
+
+        batch_attr_name = [name for name in dir(self) if '_batches_' in name]
+
+        for name in batch_attr_name:
+            arr = getattr(self, name)
+            setattr(self, name, batches_to_np(arr))
 
         return self
