@@ -29,15 +29,12 @@ class BatchStackedLSTM(Model):
         self.lstm_units = lstm_units
 
         # Define layers
-        # self.lambda_1 = Lambda(lambda x: tf.expand_dims(
-        #     x, axis=-1), input_shape=[None], name='Lambda_1')
         self.lstm_1 = LSTM(self.lstm_units, input_shape=self.input_dimensions,
                            return_sequences=True, name='LSTM_1')
         self.lstm_2 = LSTM(self.lstm_units, name='LSTM_2')
         self.dense = Dense(1, name='Dense_output')
 
     def call(self, inputs):
-        # x = self.lambda_1(inputs)
         x = self.lstm_1(inputs)
         x = self.lstm_2(x)
         x = self.dense(x)
