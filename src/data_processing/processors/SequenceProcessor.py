@@ -84,11 +84,16 @@ class SequenceProcessor:
         sort_by : List[str]
             The list of columns to sort the data by
         """
-        sensor_cols = [col for col in self._data.columns if "sensor_" in col]
-        mouse_cols = [col for col in self._data.columns if "mouse_id_" in col]
+        sensor_cols = [col for col in self.data.columns if "sensor_" in col]
+        mouse_cols = [col for col in self.data.columns if "mouse_id_" in col]
 
-        self.data = self._data.query(
-            f'senor_{sensor}==1').sort_values(by=sort_by)
+        self.data = (self.data
+                     .query(f'sensor_{sensor}==1')
+                     .drop(sensor_cols, axis=1)
+                     .reset_index(drop=True)
+                     .sort_values(by=mouse_cols + ['trial_count', 'time'])
+                     )
+# )
         return self
 
     def encode_cyclic_time(self):
