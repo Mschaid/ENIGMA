@@ -1,0 +1,30 @@
+[2023-07-28 19:25:33,747] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/dopamine_batched_stacked_lstm, /projects/p31961/ENIGMA/results/experiments/dopamine_batched_stacked_lstm/models, /projects/p31961/ENIGMA/results/experiments/dopamine_batched_stacked_lstm/tensorboard
+[2023-07-28 19:25:34,683] INFO - Data loaded and processing initiated
+[2023-07-28 19:25:36,880] INFO - Data processing complete
+[2023-07-28 19:25:36,880] INFO - Running experiment dopamine_batched_stacked_lstm
+[2023-07-28 19:25:38,920] DEBUG - Layer LSTM_1 will use cuDNN kernels when running on GPU.
+[2023-07-28 19:25:38,922] DEBUG - Layer LSTM_2 will use cuDNN kernels when running on GPU.
+[2023-07-28 19:25:38,923] INFO - Compiling model dopamine_batched_stacked_lstm
+[2023-07-28 19:25:38,937] INFO - Fitting model dopamine_batched_stacked_lstm
+[2023-07-28 19:40:02,839] INFO - Evaluating model dopamine_batched_stacked_lstm
+[2023-07-28 19:40:07,791] INFO - Saving model dopamine_batched_stacked_lstm
+[2023-07-28 19:40:10,209] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(14, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9faa906fd0>, 47964919052496), {}).
+[2023-07-28 19:40:10,209] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3ece750>, 47964919091184), {}).
+[2023-07-28 19:40:10,210] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(512,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f21ad0>, 47964919053456), {}).
+[2023-07-28 19:40:10,210] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fb2d92c10>, 47964919094320), {}).
+[2023-07-28 19:40:10,210] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f1f250>, 47964919094432), {}).
+[2023-07-28 19:40:10,210] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(512,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f33c50>, 47965188868976), {}).
+[2023-07-28 19:40:10,210] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f3fe10>, 47965253404880), {}).
+[2023-07-28 19:40:10,210] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f4d090>, 47965253404592), {}).
+[2023-07-28 19:40:11,535] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(14, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9faa906fd0>, 47964919052496), {}).
+[2023-07-28 19:40:11,535] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3ece750>, 47964919091184), {}).
+[2023-07-28 19:40:11,535] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(512,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f21ad0>, 47964919053456), {}).
+[2023-07-28 19:40:11,535] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fb2d92c10>, 47964919094320), {}).
+[2023-07-28 19:40:11,535] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 512), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f1f250>, 47964919094432), {}).
+[2023-07-28 19:40:11,537] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(512,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f33c50>, 47965188868976), {}).
+[2023-07-28 19:40:11,537] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(128, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f3fe10>, 47965253404880), {}).
+[2023-07-28 19:40:11,537] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b9fd3f4d090>, 47965253404592), {}).
+[2023-07-28 19:40:11,553] WARNING - Found untraced functions such as _update_step_xla, lstm_cell_layer_call_fn, lstm_cell_layer_call_and_return_conditional_losses, lstm_cell_1_layer_call_fn, lstm_cell_1_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+[2023-07-28 19:40:12,184] INFO - Assets written to: /projects/p31961/ENIGMA/results/experiments/dopamine_batched_stacked_lstm/models/dopamine_batched_stacked_lstm/assets
+[2023-07-28 19:40:12,323] INFO - Experiment dopamine_batched_stacked_lstm complete
+[2023-07-28 19:40:12,330] INFO - Experiment terminated early

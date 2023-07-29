@@ -18,6 +18,11 @@ def early_termination():  # helper function to log if experiment is terminated e
     logging.info('Experiment terminated early')
 
 
+def set_up_directories(*dirs):
+    for dir in dirs:
+        os.makedirs(dir, exist_ok=True)
+
+
 def processes_data(path):
     data = pd.read_parquet(path)  # read data into dataframe
     logging.info(f'Data loaded and processing initiated')
@@ -55,7 +60,7 @@ def experiment(processor,
     model.fit(processor.train_batches_X,
               processor.train_batches_y,
               epochs=50,
-              batches=processor.train_batches_X.shape[0],
+              batch_size=processor.train_batches_X.shape[0],
               validation_data=(processor.val_batches_X,
                                processor.val_batches_y),
               callbacks=[tensorboard_callback]
@@ -63,19 +68,14 @@ def experiment(processor,
     logging.info(f'Evaluating model {model_id}')
     model.evaluate(processor.test_batches_X, processor.test_batches_y)
     logging.info(f'Saving model {model_id}')
-    model.save(model_save_dir)
+    model.save(os.path.join(model_save_dir, model_id))
     logging.info(f'Experiment {model_id} complete')
 
 
 def main():
 
-    # set up logger
-    logging.basicConfig(filename=LOG_FILE_PATH,
-                        filemode='w',
-                        level=logging.DEBUG,
-                        format='[%(asctime)s] %(levelname)s - %(message)s')
-
     # set up directories and paths
+    DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset/datasets/full_dataset.parquet.gzip'
 
     # where all experiment results are saved
     MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
@@ -90,22 +90,28 @@ def main():
     LOG_FILE_PATH = os.path.join(
         EXPERIMENT_DIR, f'{EXPERIMENT_NAME}.log')  # path to save log file
 
+    # create new directoriues if they don't exist
+    set_up_directories(EXPERIMENT_DIR, MODEL_SAVE_DIR, TENSORBOARD_DIR)
+
+    # set up logger
+    logging.basicConfig(filename=LOG_FILE_PATH,
+                        filemode='w',
+                        level=logging.DEBUG,
+                        format='[%(asctime)s] %(levelname)s - %(message)s')
+
     # path to preprocessed data
-    DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset/datasets/full_dataset.parquet.gzip'
 
     # initialize new directories
-    new_dirs = [EXPERIMENT_DIR, MODEL_SAVE_DIR, TENSORBOARD_DIR]
 
-    for dirs in new_dirs:  # create new directoriues if they don't exist
-        os.makedirs(dirs, exist_ok=True)
-
-    logging.info(f'Created new directories: {new_dirs}')
+    logging.info(
+        f'Created new directories: {EXPERIMENT_DIR}, {MODEL_SAVE_DIR}, {TENSORBOARD_DIR}')
 
     # preprocess data
 
     dopamine_processor = processes_data(DATA_PATH)
     # run experiment
     experiment(processor=dopamine_processor,
+               model_id='dopamine_batched_stacked_lstm',
                tensorboard_dir=TENSORBOARD_DIR,
                model_save_dir=MODEL_SAVE_DIR
                )
