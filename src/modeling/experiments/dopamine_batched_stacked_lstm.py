@@ -99,9 +99,8 @@ def main():
                         level=logging.DEBUG,
                         format='[%(asctime)s] %(levelname)s - %(message)s')
 
-    # path to preprocessed data
 
-    # initialize new directories
+
 
     logging.info(
         f'Created new directories: {EXPERIMENT_DIR}, {MODEL_SAVE_DIR}, {TENSORBOARD_DIR}')

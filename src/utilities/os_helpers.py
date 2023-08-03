@@ -78,3 +78,7 @@ def save_dataframes_to_parquet(*dataframes, path_to_save):
             df.to_frame().to_parquet(path, compression='gzip')
         else:
             df.to_parquet(path, compression='gzip')
+            
+def set_up_directories(*dirs):
+    for dir in dirs:
+        os.makedirs(dir, exist_ok=True)
