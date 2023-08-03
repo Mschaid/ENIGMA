@@ -144,15 +144,11 @@ class Preprocessor:
         if data is None:
             data = self.data
 
-        # dataframes_w_dummies = [pd.get_dummies(
-        #     data[label], prefix=label) for label in labels]
-        # concat_df = pd.concat([data, *dataframes_w_dummies], axis=1)
-        # packed_labels = list(labels)
-        # self.dummy_data = concat_df.drop(columns=packed_labels)
-
-        self.processed_data = pd.get_dummies(data=data,
-                                             prefix=labels,
-                                             columns=labels)
+        self.processed_data = (pd.get_dummies(data=data,
+                                              prefix=labels,
+                                              columns=labels)
+                               .dropna()
+                               )
         return self
 
     def split_train_test(self, test_size=0.2, random_state=42, processed_data=False, data=None):

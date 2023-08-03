@@ -1,5 +1,6 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
+import re
 
 from sklearn.preprocessing import LabelEncoder
 
@@ -67,3 +68,31 @@ def assign_cumulative_trials(df):
     data_merged = df.merge(
         data_agg_trials[["mouse_id", "trial", "trial_count", "day"]], how="left")
     return data_merged
+
+
+def format_behavior_data(df, key):
+    def strip_int_from_string(string):
+        return int(re.search(r'\d+', string).group())
+
+    unnamed_cols = [col for col in df.columns if 'Unnamed' in col]
+    return (df
+            .set_index('Trial')
+            .drop(columns=unnamed_cols)
+            .applymap(lambda x: 'avoid' if x == 1 else 'escape')
+            .reset_index(drop=False)
+            .iloc[1:-1, :]
+            .melt(id_vars='Trial', var_name='mouse_id', value_name='action')
+            .assign(
+                mouse_id=lambda df_: df_['mouse_id'].str.replace(
+                    '-', '_').astype('category'),
+                Trial=lambda df_: df_.Trial - 1)  # minus 1 to match trial numbers in other dataframes
+            .rename(columns={'Trial': 'trial'})
+            .assign(day=strip_int_from_string(key))
+            )
+
+
+def merge_behavior_data(df, path):
+    behavior_data = pd.read_excel(path, sheet_name=None)
+    formatted_behavior_dfs = pd.concat([format_behavior_data(
+        behavior_data[sheet], sheet) for sheet in behavior_data.keys()])
+    return (df.merge(formatted_behavior_dfs, on=['mouse_id', 'day', 'trial'], how='left'))

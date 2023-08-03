@@ -8,3 +8,5 @@
 [2023-08-02 20:30:20,257] INFO - one hot encoding
 [2023-08-02 20:30:22,875] INFO - splitting data by query
 [2023-08-02 20:30:23,632] INFO - saving data
+[2023-08-02 20:30:37,238] INFO - data saved
+[2023-08-02 20:30:37,242] INFO - done processing and storing processor
