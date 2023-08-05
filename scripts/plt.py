@@ -19,4 +19,3 @@ plt.legend()
 
 # Display the plot
 plt.savefig('/projects/p31961/ENIGMA/tests/testfig.png')
-#git test
