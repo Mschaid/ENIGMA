@@ -36,24 +36,24 @@ def experiment(processor,
     tensorboard_callback = set_tensorboard(
         save_directory=tensorboard_dir, model_id=model_id)
 
-    model = Stacked_LSTM(
+    model = StackedLSTM(
         sequence_length=processor.data.time.nunique(),
-        num_features=processor.x_train.columns.nunique(),
-        lstm_units=processor.x_train.columns.nunique() * 2
+        num_features=processor.train_x.columns.nunique(),
+        lstm_units=processor.train_x.columns.nunique() * 2
     )
     logging.info('Model compiled')
     model.compile(optimizer='adam', loss='mse', metrics=[
         'mae', 'mse', 'mape', 'cosine_similarity'])
 
-    model.fit(processor.x_train,
-              processor.y_train,
+    model.fit(processor.train_x,
+              processor.train_y,
               epochs=50,
-              validation=(processor.x_val, processor.y_val),
+              validation_data=(processor.val_x, processor.val_y),
               callbacks=[tensorboard_callback]
               )
     logging.info('Model fit')
 
-    model.evaluate(processor.x_test, processor.y_test)
+    model.evaluate(processor.test_x, processor.test_y)
     logging.info('Model evaluated')
     model.save(os.path.join(model_save_dir, model_id))
     logging.info('Model saved')
@@ -91,7 +91,7 @@ def main():
     experiment(processor=dopamine_processor,
                model_id=EXPERIMENT_NAME,
                tensorboard_dir=TENSORBOARD_DIR,
-               model_sav_dir=MODEL_SAVE_DIR)
+               model_save_dir=MODEL_SAVE_DIR)
 
 
 if __name__ == "__main__":
