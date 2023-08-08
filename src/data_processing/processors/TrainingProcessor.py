@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from typing import List
+import json
 
 
 class TrainingProcessor:
@@ -59,3 +60,20 @@ class TrainingProcessor:
         self.test_x, self.test_y = split_x_y(self.testing_data, target)
 
         return self
+    
+    def save_subjects_by_category(self, path):
+
+            path_to_save = os.path.join(path, "subjects_by_category.json")
+            subjects_category = {
+                "training": self.training_subjects,
+                "validation": self.validation_subjects,
+                "testing": self.testing_subjects
+            }
+
+            with open(path_to_save, "w") as f:
+                json.dump(subjects_category, f)
+
+    def load_subjects_by_category(self, path):
+        with open(path, "r") as f:
+            subjects_category = json.load(f)
+        return subjects_category
