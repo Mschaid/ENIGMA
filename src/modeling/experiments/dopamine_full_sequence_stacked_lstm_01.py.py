@@ -17,12 +17,13 @@ def early_exit():
     logging.info("experiment terminated early")
 
 
-def read_in_process_data(path):
-    data = pd.read_parquet(path)
-    logging.info(f'Data loaded from {path}')
+def read_in_process_data(path_to_data, path_to_save_meta_data):
+    data = pd.read_parquet(path_to_data)
+    logging.info(f'Data loaded from {path_to_data}')
     train_processor = (TrainingProcessor(data)
                        .query_sensor_and_sort_trials_by_subject(sensor='DA')
                        .split_train_val_test_by_subject(target='signal', shuffle=True)
+                       .save_subjects_by_category(path_to_save_meta_data)
                        )
     logging.info('Data processed')
     return train_processor
@@ -87,7 +88,7 @@ def main():
 
     logging.info(
         f'Created new directories: {EXPERIMENT_DIR}, {MODEL_SAVE_DIR}, {TENSORBOARD_DIR}')
-    dopamine_processor = read_in_process_data(DATA_PATH)
+    dopamine_processor = read_in_process_data(DATA_PATH, EXPERIMENT_DIR)
     experiment(processor=dopamine_processor,
                model_id=EXPERIMENT_NAME,
                tensorboard_dir=TENSORBOARD_DIR,
