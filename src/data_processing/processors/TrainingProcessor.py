@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -8,8 +9,12 @@ import json
 class TrainingProcessor:
     def __init__(self, data: pd.DataFrame):
 
-        self._data = data
-        self.data = data
+        self._data = data  # orignal data
+        self.data = data  # origianl data that is modified by the processor
+
+    def drop_colinear_columns(self, colinearity_cols: List[str] = []):
+        self.data = self.data.drop(columns=colinearity_cols)
+        return self
 
     def query_sensor_and_sort_trials_by_subject(self, sensor: str):
         sensor_cols = [col for col in self.data.columns if "sensor_" in col]
@@ -60,18 +65,18 @@ class TrainingProcessor:
         self.test_x, self.test_y = split_x_y(self.testing_data, target)
 
         return self
-    
+
     def save_subjects_by_category(self, path):
 
-            path_to_save = os.path.join(path, "subjects_by_category.json")
-            subjects_category = {
-                "training": self.training_subjects,
-                "validation": self.validation_subjects,
-                "testing": self.testing_subjects
-            }
+        path_to_save = os.path.join(path, "subjects_by_category.json")
+        subjects_category = {
+            "training": self.training_subjects,
+            "validation": self.validation_subjects,
+            "testing": self.testing_subjects
+        }
 
-            with open(path_to_save, "w") as f:
-                json.dump(subjects_category, f)
+        with open(path_to_save, "w") as f:
+            json.dump(subjects_category, f)
 
     def load_subjects_by_category(self, path):
         with open(path, "r") as f:
