@@ -77,6 +77,7 @@ class TrainingProcessor:
 
         with open(path_to_save, "w") as f:
             json.dump(subjects_category, f)
+        return self
 
     def load_subjects_by_category(self, path):
         with open(path, "r") as f:
