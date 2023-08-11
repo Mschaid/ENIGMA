@@ -18,14 +18,12 @@ class BaseClassifier(Model):
                  number_of_units,
                  dropout_rate):
         super(BaseClassifier, self).__init__()
-        # self.x_shape = x_shape
+
         self.number_of_layers = number_of_layers
         self.number_of_units = number_of_units
         self.dropout_rate = dropout_rate
 
         # define layers
-        # self.input_layer = tf.keras.layers.Input(
-        #     shape=self.x_shape, name='Input')
         self.normalization = tf.keras.layers.Normalization()
         self.dense_layers = [Dense(self.number_of_units, activation='relu',
                                    name=f'Dense_{i}') for i in range(self.number_of_layers)]
