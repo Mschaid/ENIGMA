@@ -1,0 +1,7 @@
+[2023-08-14 15:46:51,624] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/dopamine_full_sequence_stacked_lstm_02, /projects/p31961/ENIGMA/results/experiments/dopamine_full_sequence_stacked_lstm_02/models, /projects/p31961/ENIGMA/results/experiments/dopamine_full_sequence_stacked_lstm_02/tensorboard
+[2023-08-14 15:46:53,591] INFO - Data loaded from /projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset/datasets/full_dataset.parquet.gzip
+[2023-08-14 15:46:55,325] INFO - Data processed
+[2023-08-14 15:46:55,325] INFO - Running experiment dopamine_full_sequence_stacked_lstm_02
+[2023-08-14 15:46:57,924] DEBUG - Layer LSTM_1 will use cuDNN kernels when running on GPU.
+[2023-08-14 15:46:57,927] DEBUG - Layer LSTM_2 will use cuDNN kernels when running on GPU.
+[2023-08-14 15:46:57,929] INFO - Model compiled
