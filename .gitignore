@@ -1,4 +1,4 @@
 /data/
 /documentation/
 /jobs/
-*.pyc
+*.cpython*
