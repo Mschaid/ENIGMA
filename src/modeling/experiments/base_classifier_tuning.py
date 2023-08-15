@@ -1,23 +1,31 @@
+import json
 import os
 import pandas as pd
 import tensorflow as tf
 
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 
+from src.utilities.os_helpers import set_up_directories
 from src.data_processing.processors.TrainingProcessor import TrainingProcessor
 from src.models.BaseClassifier import BaseClassifier
 
+DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset/datasets/full_dataset.parquet.gzip'
+MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
+EXPERIMENT_NAME = "base_classifier_tuning"
 
-DATA_PATH = "/Users/mds8301/iterm_data_storage/full_dataset.parquet.gzip"
+# path to experiment directory
+EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
+set_up_directories(EXPERIMENT_DIR)
+
 data = pd.read_parquet(DATA_PATH)
-# data = data[::100]
+
 
 classifier_processor = (TrainingProcessor(data)
                         .calculate_max_min_signal()
                         .drop_colinear_columns('action_escape')
                         .query_sensor_and_sort_trials_by_subject(sensor = 'DA')
                         .split_train_val_test_by_subject(target = 'action_avoid')
-                        .save_subjects_by_category(path = "/Users/mds8301/iterm_data_storage")
+                        .save_subjects_by_category(path = EXPERIMENT_DIR)
 )
 
 space = {
@@ -34,6 +42,7 @@ space = {
 trials = Trials()
 
 def objective(params):
+    # all_results=[]
     number_of_layers = params['number of layers']
     number_of_units = params['number of units']
     dropout_rate = params['dropout rate']
@@ -70,11 +79,14 @@ def objective(params):
     evaluation = model.evaluate(classifier_processor.test_x, classifier_processor.test_y)
     
     results ={}
+    results['params'] = params
     for name, value in zip(model.metrics_names, evaluation):
         results[name] = value
-    results['model'] = model
+    # results['model'] = model
     results['status'] = STATUS_OK
-    
+    # all_results.append(results)
+    with open(os.path.join(EXPERIMENT_DIR, 'results.json'), 'a+') as f:
+        json.dump(results, f, indent=1)
 
     return results
 
@@ -84,12 +96,15 @@ def run_trials():
                        algo=tpe.suggest,
                        max_evals=100,
                        trials = trials)
-    best_trials.to_json(os.path.join(os.getcwd(), 'best_trials.json'))
+    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'w') as f:
+        json.dump(best_trials, f)
     
     return best_trials
 
 if __name__ == "__main__":
     print("Running hyperparameter optimization")
+
+    
     best_trials = run_trials()
     
     print(best_trials)
