@@ -2,3 +2,4 @@
 /documentation/
 /jobs/
 *.cpython*
+*.pyc
