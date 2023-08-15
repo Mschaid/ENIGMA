@@ -3,3 +3,4 @@
 /jobs/
 *.cpython*
 *.pyc
+*.cpython-311.pyc
