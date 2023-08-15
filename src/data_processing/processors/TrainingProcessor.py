@@ -5,6 +5,8 @@ import tensorflow as tf
 from typing import List
 import json
 
+from src.utilities.pandas_helpers import filter_columns_by_search, flatten_dataframe
+
 
 class TrainingProcessor:
     def __init__(self, data: pd.DataFrame):
@@ -83,3 +85,18 @@ class TrainingProcessor:
         with open(path, "r") as f:
             subjects_category = json.load(f)
         return subjects_category
+
+    def calculate_max_min_signal(self):
+        
+        events = filter_columns_by_search(self.data, 'event')
+        actions = filter_columns_by_search(self.data, 'action')
+        mouse = filter_columns_by_search(self.data, 'mouse')
+        sensors = filter_columns_by_search(self.data, 'sensor')
+        self.data =  (
+            self.data
+            .groupby(by = mouse+events+actions+sensors+['day', 'trial_count'], as_index = False).agg({"signal": ["max", "min"]})
+            .pipe(flatten_dataframe)
+            .rename(columns = lambda c: c.strip("_"))
+            .drop(columns ='index')
+        )
+        return self
