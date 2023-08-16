@@ -1,1 +1,1 @@
-{"training": ["mouse_id_1", "mouse_id_7", "mouse_id_0", "mouse_id_2", "mouse_id_5", "mouse_id_9", "mouse_id_11", "mouse_id_13", "mouse_id_8"], "validation": ["mouse_id_6", "mouse_id_10"], "testing": ["mouse_id_4", "mouse_id_3", "mouse_id_12"]}
+{"training": ["mouse_id_8", "mouse_id_4", "mouse_id_13", "mouse_id_2", "mouse_id_7", "mouse_id_0", "mouse_id_12", "mouse_id_10", "mouse_id_6"], "validation": ["mouse_id_9", "mouse_id_1"], "testing": ["mouse_id_11", "mouse_id_3", "mouse_id_5"]}
