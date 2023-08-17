@@ -92,7 +92,7 @@ class Preprocessor:
         self.y_test = y_test
         self.features = features
         self.target = target
-        self._all_data = self.features + [self.target]
+        # self._all_data = self.features + [self.target]
         self._is_downsampled = False
 
     def load_data(self, load_processed_data: str = False) -> Type['Preprocessor']:

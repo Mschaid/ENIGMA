@@ -1,12 +1,10 @@
-[2023-08-02 20:29:30,707] INFO - initiating processing and storing processor
-[2023-08-02 20:29:30,707] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
-[2023-08-02 20:29:33,356] INFO - merging behavioral data
-[2023-08-02 20:29:35,465] INFO - merging latency data
-[2023-08-02 20:29:38,914] INFO - merging sex data
-[2023-08-02 20:29:40,348] INFO - extracting features
-[2023-08-02 20:29:42,154] INFO - assigning cumulative trials
-[2023-08-02 20:30:20,257] INFO - one hot encoding
-[2023-08-02 20:30:22,875] INFO - splitting data by query
-[2023-08-02 20:30:23,632] INFO - saving data
-[2023-08-02 20:30:37,238] INFO - data saved
-[2023-08-02 20:30:37,242] INFO - done processing and storing processor
+[2023-08-17 12:17:55,689] INFO - initiating processing and storing processor
+[2023-08-17 12:17:55,689] INFO - loading data from /projects/p31961/gaby_data/aggregated_data/downsampled_aggregated_data.parquet.gzp
+[2023-08-17 12:17:57,736] INFO - merging behavioral data
+[2023-08-17 12:18:03,192] INFO - merging latency data
+[2023-08-17 12:18:06,726] INFO - merging sex data
+[2023-08-17 12:18:08,251] INFO - extracting features
+[2023-08-17 12:18:10,117] INFO - assigning cumulative trials
+[2023-08-17 12:18:49,353] INFO - saving data
+[2023-08-17 12:18:55,324] INFO - data saved
+[2023-08-17 12:18:55,325] INFO - done processing and storing processor
