@@ -29,6 +29,8 @@ Attributes:
 - X_train, X_dev, X_test: The transformed input data for training, development, and testing.
 - y_train, y_dev, y_test: The transformed target data for training, development, and testing.
 """
+
+
 class ClassifierPipe:
     def __init__(self, path_to_data):
         self.path_to_data = path_to_data
@@ -134,6 +136,7 @@ class ClassifierPipe:
             self.subject_category = {
                 "training": train_subjects,
                 "dev": dev_subjects,
+                "test": test_subjects
 
             }
             with open(os.path.join(path_to_save, 'subjects.json'), 'w') as f:
