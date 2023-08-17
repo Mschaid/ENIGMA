@@ -120,66 +120,11 @@ class Preprocessor:
 
         if self.path_to_data is not None:
             self._data = pd.read_parquet(self.path_to_data)
-            self.data = self._data.dropna()
+            self.data = self._data
 
         if load_processed_data == True and self.path_to_processed_data is not None:
             self._processed_data = pd.read_parquet(self.path_to_processed_data)
             self.processed_data = self._processed_data.dropna()
-
-        return self
-    # FEATURE ENGINEERING METHODS
-
-    def one_hot_encode(self, labels: List[str], data: pd.DataFrame = None):
-        """# Summary
-
-        ## Args:
-            - df (pd.DataFrame, optional): dataframe . Defaults to self.data.
-            - labels (list, optional): list of column names to one hot encode, these columns are prefixed to the name, and original columns are dropped.
-        ## Attributes:
-        - processed_data: pd.DataFrame this is the processed encoded data that joined with the original data- ready for model input
-        - labels: list of column names to one hot encode, these columns are prefixed to the name, and original columns are dropped.
-        Returns:
-            self
-        """
-        if data is None:
-            data = self.data
-
-        self.processed_data = (pd.get_dummies(data=data,
-                                              prefix=labels,
-                                              columns=labels)
-                               .dropna()
-                               )
-        return self
-
-    def split_train_test(self, test_size=0.2, random_state=42, processed_data=False, data=None):
-        """
-
-    Summary
-    -------
-    Split the processed data into training and testing sets using the train_test_split method from scikit-learn.
-
-    Parameters
-    ----------
-    - test_size (float, optional): the proportion of the data to use for testing, should be between 0 and 1.
-      Defaults to 0.2 (i.e., 20% of the data is used for testing).
-    - random_state (int, optional): controls the randomness of the data splitting process.
-      Defaults to 42, which means that the same random seed will be used every time the method is called,
-      ensuring reproducibility of the results.
-
-    Returns:
-    -------
-    - self: the class instance with attributes X_train, X_test, y_train, and y_test.
-      X_train and y_train are the training features and target data, while X_test and y_test are the testing
-      features and target data.
-        """
-        if processed_data is True:
-            data = self.processed_data[self._all_data]
-
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            data[self.features],
-            data[self.target],
-            test_size=test_size,
-            random_state=random_state)
 
         return self
 
@@ -248,13 +193,16 @@ class Preprocessor:
 
         # create_dir(self.path_to_save_datasets)
         save_dataframes_to_parquet(
-            (f'full_dataset',
-             self.processed_data[self._all_data]),
-            (f'{self.processor_name}_X_train', self.X_train),
-            (f'{self.processor_name}_X_test', self.X_test),
-            (f'{self.processor_name}_y_train', self.y_train),
-            (f'{self.processor_name}_y_test', self.y_test),
-            path_to_save=path)
+            (f'raw_data_{self.processor_name}',
+             self.data), path_to_save=path)
+
+        if self.X_train is not None:
+            save_dataframes_to_parquet(
+                (f'{self.processor_name}_X_train', self.X_train),
+                (f'{self.processor_name}_X_test', self.X_test),
+                (f'{self.processor_name}_y_train', self.y_train),
+                (f'{self.processor_name}_y_test', self.y_test),
+                path_to_save=path)
 
         if save_downsampled == True:
             save_dataframes_to_parquet(
