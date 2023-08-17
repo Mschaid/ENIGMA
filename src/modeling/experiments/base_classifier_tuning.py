@@ -4,7 +4,7 @@ import pandas as pd
 import tensorflow as tf
 
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-
+from src.data_processing.processors.ClassifierPipe import ClassifierPipe
 from src.utilities.os_helpers import set_up_directories
 from src.data_processing.processors.TrainingProcessor import TrainingProcessor
 from src.models.BaseClassifier import BaseClassifier
@@ -14,32 +14,35 @@ MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
 EXPERIMENT_NAME = "base_classifier_tuning"
 
 # path to experiment directory
-EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
+EXPERIMENT_DIR = os.path.join(MAIN_DIR, DATA_PATH)
 set_up_directories(EXPERIMENT_DIR)
 
-data = pd.read_parquet(DATA_PATH)
+processor_pipe = (ClassifierPipe(DATA_PATH)
+                  .read_raw_data()
+                  .calculate_max_min_signal()
+                  .split_data(test_size=0.2,
+                              test_val_size=0.5,
+                              stratify_by=['mouse_id', 'sex'],
+                              target='action',
+                              save_subject_ids=True,
+                              path_to_save=os.path.dirname(raw_path))
+                  .transorm_data(numeric_target_dict={'avoid': 1, 'escape': 0})
+                  )
 
-
-classifier_processor = (TrainingProcessor(data)
-                        .calculate_max_min_signal()
-                        .drop_colinear_columns('action_escape')
-                        .query_sensor_and_sort_trials_by_subject(sensor = 'DA')
-                        .split_train_val_test_by_subject(target = 'action_avoid')
-                        .save_subjects_by_category(path = EXPERIMENT_DIR)
-)
 
 space = {
     "number of layers": hp.choice('number of layers', [3, 6, 9]),
-    "number of units": hp.choice('number of units', [5, 10, 15, 20,25,30]),
+    "number of units": hp.choice('number of units', [5, 10, 15, 20, 25, 30]),
     "dropout rate": hp.choice('dropout rate', [0.1, 0.2, 0.3]),
     "learning rate": hp.choice('learning rate', [0.00001, 0.0001, 0.001, 0.01, 0.1]),
     "batch size": hp.choice('batch size', [32, 64, 128, 256, 512]),
     "epochs": hp.choice('epochs', [100, 200, 300, 400, 500]),
     "optimizers": hp.choice('optimizers', ['adam', 'sgd'])
-    
+
 }
 
 trials = Trials()
+
 
 def objective(params):
     # all_results=[]
@@ -50,35 +53,34 @@ def objective(params):
     batch_size = params['batch size']
     epochs = params['epochs']
     optimizer = params['optimizers']
-    
-    #set up model
+
+    # set up model
     model = BaseClassifier(number_of_layers, number_of_units, dropout_rate)
-    
+
     if optimizer == "adam":
-        optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate)
+        optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     elif optimizer == "sgd":
-        optimizer = tf.keras.optimizers.SGD(learning_rate = learning_rate)
-        
-        
+        optimizer = tf.keras.optimizers.SGD(learning_rate=learning_rate)
+
     metrics = [tf.keras.metrics.BinaryAccuracy(name='accuracy'),
-           tf.keras.metrics.Precision(name='precision'),
-           tf.keras.metrics.Recall(name='recall'),
-           tf.keras.metrics.AUC(name='auc-roc')]
-    
-    model.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = metrics)
-    
-    #train model
-    model.fit(classifier_processor.train_x,
-              classifier_processor.train_y,
-              batch_size = batch_size,
-              epochs = epochs,
-              validation_data = (classifier_processor.val_x, classifier_processor.val_y),
+               tf.keras.metrics.Precision(name='precision'),
+               tf.keras.metrics.Recall(name='recall'),
+               tf.keras.metrics.AUC(name='auc-roc')]
+
+    model.compile(optimizer=optimizer,
+                  loss='binary_crossentropy', metrics=metrics)
+
+    # train model
+    model.fit(processor_pipe.X_train,
+              processor_pipe.y_train,
+              batch_size=batch_size,
+              epochs=epochs,
+              validation_data=(processor_pipe.X_dev, processor_pipe.y_dev),
               )
-     
-    
-    evaluation = model.evaluate(classifier_processor.test_x, classifier_processor.test_y)
-    
-    results ={}
+
+    evaluation = model.evaluate(processor_pipe.X_test, processor_pipe.y_test)
+
+    results = {}
     results['params'] = params
     for name, value in zip(model.metrics_names, evaluation):
         results[name] = value
@@ -90,21 +92,22 @@ def objective(params):
 
     return results
 
+
 def run_trials():
     best_trials = fmin(objective,
                        space=space,
                        algo=tpe.suggest,
                        max_evals=100,
-                       trials = trials)
-    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'w') as f:
+                       trials=trials)
+    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'a+') as f:
         json.dump(best_trials, f)
-    
+
     return best_trials
+
 
 if __name__ == "__main__":
     print("Running hyperparameter optimization")
 
-    
     best_trials = run_trials()
-    
+
     print(best_trials)
