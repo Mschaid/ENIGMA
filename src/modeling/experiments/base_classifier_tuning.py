@@ -25,7 +25,7 @@ processor_pipe = (ClassifierPipe(DATA_PATH)
                               stratify_by=['mouse_id', 'sex'],
                               target='action',
                               save_subject_ids=True,
-                              path_to_save=os.path.dirname(raw_path))
+                              path_to_save=os.path.dirname(DATA_PATH))
                   .transorm_data(numeric_target_dict={'avoid': 1, 'escape': 0})
                   )
 
