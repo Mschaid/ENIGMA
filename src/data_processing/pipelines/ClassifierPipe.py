@@ -122,6 +122,8 @@ class ClassifierPipe:
 
         X = df.drop(columns=target)
         y = df[target]
+        
+        #! something is wrong here, the attributes are not returning split data, all subjects are in every dataset
         self.X_train, X_temp, self.y_train, y_temp = train_test_split(
             X, y, test_size=test_size, stratify=df[stratify_by])
         self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split(
