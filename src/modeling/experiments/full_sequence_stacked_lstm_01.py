@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 
-from src.data_processing.processors.LSTMPipe import LSTMPipe
+from src.data_processing.pipelines.LSTMPipe import LSTMPipe
 from src.data_processing.processors.TrainingProcessor import TrainingProcessor
 from src.models.experimental_dropout_StackedLSTM import StackedLSTM
 from src.utilities.os_helpers import set_up_directories
