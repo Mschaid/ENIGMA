@@ -85,7 +85,7 @@ def main():
     DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip'
     # where all experiment results are saved
     MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
-    EXPERIMENT_NAME = "dopamine_full_sequence_stacked_lstm_03"
+    EXPERIMENT_NAME = "full_sequence_stacked_lstm_01"
 
     # path to experiment directory
     EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
