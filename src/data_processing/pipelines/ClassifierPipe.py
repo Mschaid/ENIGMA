@@ -5,7 +5,7 @@ import pandas as pd
 import json
 
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GroupShuffleSplit, StratifiedShuffleSplit
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -82,8 +82,9 @@ class ClassifierPipe:
     # split data into train and test and save subject ids to json
     def split_data(self,
                    test_size=0.2,
-                   test_val_size=0.5,
-                   stratify_by=None,
+                   test_dev_size=0.5,
+                   split_group=None,
+                   stratify_group=None,
                    target=None,
                    processed_data=True,
                    save_subject_ids=True,
@@ -122,12 +123,34 @@ class ClassifierPipe:
 
         X = df.drop(columns=target)
         y = df[target]
-        
-        #! something is wrong here, the attributes are not returning split data, all subjects are in every dataset
-        self.X_train, X_temp, self.y_train, y_temp = train_test_split(
-            X, y, test_size=test_size, stratify=df[stratify_by])
-        self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split(
-            X_temp, y_temp, test_size=test_val_size, stratify=X_temp[stratify_by])
+
+        def train_test_split_by_group_stratify(X, y, group_col, stratify_col, test_size, random_state=42):
+
+            group_splitter = GroupShuffleSplit(
+                n_splits=1, test_size=test_size, random_state=random_state)
+            group_train_idx, group_test_idx = next(
+                group_splitter.split(X, y, groups=X[group_col]))
+
+            strat_splitter = StratifiedShuffleSplit(
+                n_splits=1, test_size=0.5, random_state=random_state)
+            strat_train_idx, _ = next(strat_splitter.split(
+                X.iloc[group_train_idx], X.iloc[group_train_idx][stratify_col]))
+
+            train_idx = group_train_idx[strat_train_idx]
+            test_idx = group_test_idx
+
+            x_train = X.iloc[train_idx]
+            x_test = X.iloc[test_idx]
+            y_train = y.iloc[train_idx]
+            y_test = y.iloc[test_idx]
+
+            return x_train, x_test, y_train, y_test
+
+        self.X_train, X_temp, self.y_train, y_temp = train_test_split_by_group_stratify(
+            X, y, group_col=split_group, stratify_col=stratify_group, test_size=test_size)
+        self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split_by_group_stratify(
+            X_temp, y_temp, group_col=split_group, stratify_col=stratify_group, test_size=test_dev_size)
+
         # save subject ids to json
 
         if save_subject_ids is True:
@@ -236,15 +259,15 @@ class ClassifierPipe:
             ('imputer', SimpleImputer(strategy='most_frequent')),
             ('ohe', OneHotEncoder(handle_unknown='ignore')),
         ])
-        processor = ColumnTransformer([
+        self.processor = ColumnTransformer([
             ('num', numeric_pipeline, numeric_features),
             ('cat', categorical_pipeline, categorical_features),
         ]
 
         )
 
-        processor.fit(self.X_train)
-        self.X_train = processor.transform(self.X_train)
-        self.X_dev = processor.transform(self.X_dev)
-        self.X_test = processor.transform(self.X_test)
+        self.processor.fit(self.X_train)
+        self.X_train = self.processor.transform(self.X_train)
+        self.X_dev = self.processor.transform(self.X_dev)
+        self.X_test = self.processor.transform(self.X_test)
         return self

@@ -9,7 +9,7 @@ from src.utilities.os_helpers import set_up_directories
 from src.data_processing.processors.TrainingProcessor import TrainingProcessor
 from src.models.BaseClassifier import BaseClassifier
 
-DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/data_pipeline_full_dataset/datasets/full_dataset.parquet.gzip'
+DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip'
 MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
 EXPERIMENT_NAME = "base_classifier_tuning"
 
@@ -20,9 +20,10 @@ set_up_directories(EXPERIMENT_DIR)
 processor_pipe = (ClassifierPipe(DATA_PATH)
                   .read_raw_data()
                   .calculate_max_min_signal()
-                  .split_data(test_size=0.2,
-                              test_val_size=0.5,
-                              stratify_by=['mouse_id', 'sex'],
+                  .split_data(test_size=0.3,
+                              test_dev_size=0.5,
+                              split_group="mouse_id",
+                              stratify_group="sex",
                               target='action',
                               save_subject_ids=True,
                               path_to_save=os.path.dirname(DATA_PATH))
@@ -31,7 +32,7 @@ processor_pipe = (ClassifierPipe(DATA_PATH)
 
 
 space = {
-    "number of layers": hp.choice('number of layers', [3, 6, 9]),
+    "number of layers": hp.choice('number of layers', [1, 3, 6, 9, 18]),
     "number of units": hp.choice('number of units', [5, 10, 15, 20, 25, 30]),
     "dropout rate": hp.choice('dropout rate', [0.1, 0.2, 0.3]),
     "learning rate": hp.choice('learning rate', [0.00001, 0.0001, 0.001, 0.01, 0.1]),
