@@ -4,7 +4,7 @@ import pandas as pd
 import tensorflow as tf
 
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from src.data_processing.processors.ClassifierPipe import ClassifierPipe
+from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 from src.utilities.os_helpers import set_up_directories
 from src.data_processing.processors.TrainingProcessor import TrainingProcessor
 from src.models.BaseClassifier import BaseClassifier
