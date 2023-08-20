@@ -14,7 +14,7 @@ MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
 EXPERIMENT_NAME = "base_classifier_tuning"
 
 # path to experiment directory
-EXPERIMENT_DIR = os.path.join(MAIN_DIR, DATA_PATH)
+EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
 set_up_directories(EXPERIMENT_DIR)
 
 processor_pipe = (ClassifierPipe(DATA_PATH)
@@ -26,7 +26,7 @@ processor_pipe = (ClassifierPipe(DATA_PATH)
                               stratify_group="sex",
                               target='action',
                               save_subject_ids=True,
-                              path_to_save=os.path.dirname(DATA_PATH))
+                              path_to_save=os.path.dirname(EXPERIMENT_DIR))
                   .transorm_data(numeric_target_dict={'avoid': 1, 'escape': 0})
                   )
 
