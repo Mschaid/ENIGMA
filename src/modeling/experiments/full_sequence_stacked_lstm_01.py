@@ -51,7 +51,7 @@ def experiment(processor,
 
     model = StackedLSTM(
         sequence_length=processor.raw_data['time'].nunique(),
-        num_features=processor.X_train.shape[1]
+        num_features=processor.X_train.shape[1],
         lstm_units=processor.X_train.shape[1] * 2
     )
     logging.info('Model compiled')
