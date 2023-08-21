@@ -100,8 +100,8 @@ def run_trials():
                        algo=tpe.suggest,
                        max_evals=100,
                        trials=trials)
-    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'a+') as f:
-        json.dump(best_trials, f)
+    with open(os.path.join(EXPERIMENT_DIR, 'all_trials.json'), 'a+') as f:
+        json.dump(trials.trials, f)
 
     return best_trials
 
