@@ -3,10 +3,9 @@ import os
 import pandas as pd
 import tensorflow as tf
 
-from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
+from hyperopt import fmin, tpe, hp, STATUS_OK, Trials, space_eval
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 from src.utilities.os_helpers import set_up_directories
-from src.data_processing.processors.TrainingProcessor import TrainingProcessor
 from src.models.BaseClassifier import BaseClassifier
 
 DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip'
@@ -81,17 +80,25 @@ def objective(params):
 
     evaluation = model.evaluate(processor_pipe.X_test, processor_pipe.y_test)
 
-    results = {}
-    results['params'] = params
-    for name, value in zip(model.metrics_names, evaluation):
-        results[name] = value
-    # results['model'] = model
-    results['status'] = STATUS_OK
-    # all_results.append(results)
-    with open(os.path.join(EXPERIMENT_DIR, 'results.json'), 'a+') as f:
-        json.dump(results, f, indent=1)
+    def calculate_f1_score(precission, recall):
+        f1 = 2 * (precission * recall) / (precission + recall)
+        return f1
 
-    return results
+    all_results = {}
+    all_results['params'] = params
+    for name, value in zip(model.metrics_names, evaluation):
+        all_results[name] = value
+    # results['model'] = model
+    all_results['f1_score'] = calculate_f1_score(evaluation[1], evaluation[2])
+    all_results['status'] = STATUS_OK
+    evaluation.append(all_results['f1_score'])
+
+    with open(os.path.join(EXPERIMENT_DIR, 'results.json'), 'a+') as f:
+        json.dump(all_results, f, indent=1)
+
+    f1_score = evaluation[-1]
+
+    return -1 * f1_score
 
 
 def run_trials():
@@ -100,8 +107,15 @@ def run_trials():
                        algo=tpe.suggest,
                        max_evals=100,
                        trials=trials)
+<<<<<<< HEAD
     with open(os.path.join(EXPERIMENT_DIR, 'all_trials.json'), 'a+') as f:
         json.dump(trials.trials, f)
+=======
+    best_params = space_eval(space, best_trials)
+
+    with open(os.path.join(EXPERIMENT_DIR, 'best_params.json'), 'a+') as f:
+        json.dump(best_params, f)
+>>>>>>> 861a291 (fix hyperopt for f1)
 
     return best_trials
 
