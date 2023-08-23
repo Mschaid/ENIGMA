@@ -109,7 +109,8 @@ def run_trials():
                        trials=trials)
     with open(os.path.join(EXPERIMENT_DIR, 'all_trials.json'), 'a+') as f:
         json.dump(trials.trials, f)
-
+    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'a+') as f:
+        json.dump(best_trials, f)
     return best_trials
 
 
@@ -117,5 +118,6 @@ if __name__ == "__main__":
     print("Running hyperparameter optimization")
 
     best_trials = run_trials()
+
 
     print(best_trials)
