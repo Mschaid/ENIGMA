@@ -107,15 +107,8 @@ def run_trials():
                        algo=tpe.suggest,
                        max_evals=100,
                        trials=trials)
-<<<<<<< HEAD
     with open(os.path.join(EXPERIMENT_DIR, 'all_trials.json'), 'a+') as f:
         json.dump(trials.trials, f)
-=======
-    best_params = space_eval(space, best_trials)
-
-    with open(os.path.join(EXPERIMENT_DIR, 'best_params.json'), 'a+') as f:
-        json.dump(best_params, f)
->>>>>>> 861a291 (fix hyperopt for f1)
 
     return best_trials
 
