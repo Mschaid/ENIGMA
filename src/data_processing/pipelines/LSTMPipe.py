@@ -160,6 +160,8 @@ class LSTMPipe:
         return self
     # create pipeline
 
+
+    #! add option to save data
     def transorm_data(self, numeric_target_dict=None):
         """
         Transforms the data by converting the target to numeric encoding. 
