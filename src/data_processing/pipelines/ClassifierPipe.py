@@ -49,7 +49,7 @@ class ClassifierPipe:
         return self
     # reduce signal to max and min
 
-    def calculate_max_min_signal(self):
+    def calculate_max_min_signal(self, cols_to_drop=[]):
         """
         Calculate the maximum and minimum signal values for each combination of mouse, event, action, sensor, sex, day, and trial count.
 
@@ -71,15 +71,47 @@ class ClassifierPipe:
         sex = filter_columns_by_search(self.raw_data, 'sex')
         self.processed_data = (
             self.raw_data
-            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count'], as_index=False).agg({"signal": ["max", "min"]})
+            .query("time > -0.10 and time < 10.1")
+            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min"]})
             .pipe(flatten_dataframe)
             .rename(columns=lambda c: c.strip("_"))
             .drop(columns='index')
+            .drop(columns=cols_to_drop)
         )
 
         return self
 
+    def calculate_percent_avoid(self):
+
+        #calculate max trials
+        max_trials = self.processed_data.groupby(["mouse_id", "day"], as_index=False)[
+            "trial"].max().rename(columns={"trial": "max_trial"})
+        
+        #merge max_trials
+        merged_df = self.processed_data.merge(
+            max_trials, on=["mouse_id", "day"], how="right")
+        
+        num_avoids = (merged_df
+                      .query("event == 'cue' & sensor=='DA' & action=='avoid'")
+                      .groupby(by=["mouse_id", "day", "action"], as_index=False).size().rename(columns={"size": "num_avoids"})
+                      .drop(columns="action")
+                      )
+        
+        #calualte ratio avoid and update processed data  
+        self.processed_data = (
+            self.processed_data
+            .merge(num_avoids, on=["mouse_id", "day"], how="right")
+            .merge(max_trials, on=["mouse_id", "day"], how="left")
+            .assign(ratio_avoid = lambda df_: (df_.num_avoids/df_.max_trial))
+        )
+        return self
+    
+    def drop_columns(self, cols_to_drop):
+        self.processed_data = self.processed_data.drop(columns=cols_to_drop)
+        return self
+
     # split data into train and test and save subject ids to json
+
     def split_data(self,
                    test_size=0.2,
                    test_dev_size=0.5,
