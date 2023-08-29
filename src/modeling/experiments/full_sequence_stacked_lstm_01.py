@@ -20,7 +20,7 @@ def early_exit():
 
 def process_data(path_to_data, path_to_save_meta_data):
     processor_pipe = (LSTMPipe(path_to_data)
-    .read_raw_data(sort_by=['mouse_id','sensor','event', 'trial_count'])
+    .read_raw_data(sort_by=['mouse_id','sensor','event', 'trial_count'], dropna=True)
     .split_data(processed_data = False, 
                 test_size=0.3,
                 test_dev_size=0.5, 
