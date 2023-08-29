@@ -37,7 +37,7 @@ class LSTMPipe:
 
     # read raw data
 
-    def read_raw_data(self, sort_by: List = None):
+    def read_raw_data(self, sort_by: List = None, dropna=False):
         """read raw data from path_to_data
 
         Returns
@@ -49,7 +49,8 @@ class LSTMPipe:
         else:
             self.raw_data = pd.read_parquet(
                 self.path_to_data).sort_values(by=sort_by)
-
+        if dropna:
+            self.raw_data = self.raw_data.dropna().reset_index(drop=True)
         return self
     # reduce signal to max and min
 
