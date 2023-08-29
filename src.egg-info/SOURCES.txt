@@ -10,11 +10,16 @@ src/data_processing/__init__.py
 src/data_processing/processors/GabyProcessor.py
 src/data_processing/processors/Preprocessor.py
 src/data_processing/processors/SchemaBuilder.py
+src/data_processing/processors/SequenceProcessor.py
+src/data_processing/processors/TrainingProcessor.py
 src/data_processing/processors/__init__.py
+src/models/BaseClassifier.py
+src/models/BatchStackedLSTM.py
 src/models/CovLSTM.py
 src/models/SimpleLSTM.py
 src/models/StackedLSTM.py
 src/models/__init__.py
+src/models/experimental_dropout_StackedLSTM.py
 tests/__init__.py
 tests/src_tests/__init__.py
 tests/src_tests/model_tests/SimpleLSTM_test.py
