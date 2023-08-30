@@ -1,29 +1,29 @@
-[2023-08-21 13:42:30,247] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01, /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01/models, /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01/tensorboard
-[2023-08-21 13:43:14,631] INFO - Data processed
-[2023-08-21 13:43:14,631] INFO - Running experiment full_sequence_stacked_lstm_01
-[2023-08-21 13:43:17,592] DEBUG - Layer LSTM_1 will use cuDNN kernels when running on GPU.
-[2023-08-21 13:43:17,594] DEBUG - Layer LSTM_2 will use cuDNN kernels when running on GPU.
-[2023-08-21 13:43:17,596] INFO - Model compiled
-[2023-08-22 07:15:39,483] INFO - Model fit
-[2023-08-22 07:17:13,169] INFO - Model evaluated
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd6a6c0890>, 47268011173680), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834a9150>, 47268011186800), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834af890>, 47268011179152), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834b8850>, 47268011758992), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd8349d110>, 47268012071872), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834cd9d0>, 47268011758704), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834de350>, 47268024655696), {}).
-[2023-08-22 07:17:15,911] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd71d12f10>, 47268024656272), {}).
-[2023-08-22 07:17:17,118] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd6a6c0890>, 47268011173680), {}).
-[2023-08-22 07:17:17,118] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834a9150>, 47268011186800), {}).
-[2023-08-22 07:17:17,118] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834af890>, 47268011179152), {}).
-[2023-08-22 07:17:17,118] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834b8850>, 47268011758992), {}).
-[2023-08-22 07:17:17,118] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd8349d110>, 47268012071872), {}).
-[2023-08-22 07:17:17,119] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834cd9d0>, 47268011758704), {}).
-[2023-08-22 07:17:17,120] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd834de350>, 47268024655696), {}).
-[2023-08-22 07:17:17,121] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2afd71d12f10>, 47268024656272), {}).
-[2023-08-22 07:17:17,139] WARNING - Found untraced functions such as _update_step_xla, lstm_cell_layer_call_fn, lstm_cell_layer_call_and_return_conditional_losses, lstm_cell_1_layer_call_fn, lstm_cell_1_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
-[2023-08-22 07:17:19,258] INFO - Assets written to: /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01/models/full_sequence_stacked_lstm_01/assets
-[2023-08-22 07:17:19,414] INFO - Model saved
-[2023-08-22 07:17:19,414] INFO - Experiment full_sequence_stacked_lstm_01 complete
-[2023-08-22 07:17:19,454] INFO - experiment terminated early
+[2023-08-29 15:02:41,415] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01, /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01/models, /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01/tensorboard
+[2023-08-29 15:02:57,729] INFO - Data processed
+[2023-08-29 15:02:57,729] INFO - Running experiment full_sequence_stacked_lstm_01
+[2023-08-29 15:03:18,675] DEBUG - Layer LSTM_1 will use cuDNN kernels when running on GPU.
+[2023-08-29 15:03:18,677] DEBUG - Layer LSTM_2 will use cuDNN kernels when running on GPU.
+[2023-08-29 15:03:18,679] INFO - Model compiled
+[2023-08-30 08:22:49,136] INFO - Model fit
+[2023-08-30 08:25:11,258] INFO - Model evaluated
+[2023-08-30 08:25:14,176] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80de5efe90>, 47832701445648), {}).
+[2023-08-30 08:25:14,176] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae08210>, 47832701459280), {}).
+[2023-08-30 08:25:14,176] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae68190>, 47832701450736), {}).
+[2023-08-30 08:25:14,176] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae00fd0>, 47832713435088), {}).
+[2023-08-30 08:25:14,176] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae71a10>, 47832713813040), {}).
+[2023-08-30 08:25:14,176] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae8a690>, 47832713434896), {}).
+[2023-08-30 08:25:14,177] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae96d90>, 47832713993680), {}).
+[2023-08-30 08:25:14,177] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80faea7750>, 47832713994256), {}).
+[2023-08-30 08:25:15,399] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80de5efe90>, 47832701445648), {}).
+[2023-08-30 08:25:15,399] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae08210>, 47832701459280), {}).
+[2023-08-30 08:25:15,399] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae68190>, 47832701450736), {}).
+[2023-08-30 08:25:15,399] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae00fd0>, 47832713435088), {}).
+[2023-08-30 08:25:15,399] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 144), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae71a10>, 47832713813040), {}).
+[2023-08-30 08:25:15,399] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(144,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae8a690>, 47832713434896), {}).
+[2023-08-30 08:25:15,401] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(36, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80fae96d90>, 47832713993680), {}).
+[2023-08-30 08:25:15,401] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b80faea7750>, 47832713994256), {}).
+[2023-08-30 08:25:15,419] WARNING - Found untraced functions such as _update_step_xla, lstm_cell_layer_call_fn, lstm_cell_layer_call_and_return_conditional_losses, lstm_cell_1_layer_call_fn, lstm_cell_1_layer_call_and_return_conditional_losses while saving (showing 5 of 5). These functions will not be directly callable after loading.
+[2023-08-30 08:25:16,184] INFO - Assets written to: /projects/p31961/ENIGMA/results/experiments/full_sequence_stacked_lstm_01/models/full_sequence_stacked_lstm_01/assets
+[2023-08-30 08:25:16,430] INFO - Model saved
+[2023-08-30 08:25:16,431] INFO - Experiment full_sequence_stacked_lstm_01 complete
+[2023-08-30 08:25:16,479] INFO - experiment terminated early

@@ -4898,4 +4898,1704 @@
  "auc-roc": 0.6295899152755737,
  "f1_score": 0.6126572489738464,
  "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.2,
+  "epochs": 500,
+  "learning rate": 0.1,
+  "number of layers": 9,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.6690831184387207,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 100,
+  "learning rate": 0.1,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.48539045453071594,
+ "accuracy": 0.7964163422584534,
+ "precision": 0.7920522689819336,
+ "recall": 0.905413806438446,
+ "auc-roc": 0.8306394219398499,
+ "f1_score": 0.794228310810026,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.2,
+  "epochs": 100,
+  "learning rate": 0.1,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.487726092338562,
+ "accuracy": 0.7956538200378418,
+ "precision": 0.8013505935668945,
+ "recall": 0.8861232399940491,
+ "auc-roc": 0.8428409099578857,
+ "f1_score": 0.7984920461452137,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.01,
+  "number of layers": 9,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 2.07489013671875,
+ "accuracy": 0.6786122918128967,
+ "precision": 0.7284688949584961,
+ "recall": 0.757934033870697,
+ "auc-roc": 0.6975970268249512,
+ "f1_score": 0.7026573178147533,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.2,
+  "epochs": 100,
+  "learning rate": 0.01,
+  "number of layers": 3,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.7825912237167358,
+ "accuracy": 0.7243614196777344,
+ "precision": 0.7581775784492493,
+ "recall": 0.8077162504196167,
+ "auc-roc": 0.7752577662467957,
+ "f1_score": 0.7408838321112211,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.3,
+  "epochs": 100,
+  "learning rate": 1e-05,
+  "number of layers": 6,
+  "number of units": 15,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6925661563873291,
+ "accuracy": 0.5062904953956604,
+ "precision": 0.625806450843811,
+ "recall": 0.4828873574733734,
+ "auc-roc": 0.5337114334106445,
+ "f1_score": 0.5597397980304988,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 0.001,
+  "number of layers": 9,
+  "number of units": 10,
+  "optimizers": "sgd"
+ },
+ "loss": 0.588019609451294,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.7983146905899048,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 200,
+  "learning rate": 0.001,
+  "number of layers": 18,
+  "number of units": 30,
+  "optimizers": "sgd"
+ },
+ "loss": 0.668873131275177,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.2,
+  "epochs": 500,
+  "learning rate": 0.001,
+  "number of layers": 3,
+  "number of units": 15,
+  "optimizers": "sgd"
+ },
+ "loss": 0.5352504253387451,
+ "accuracy": 0.7483797073364258,
+ "precision": 0.7942821383476257,
+ "recall": 0.7952706813812256,
+ "auc-roc": 0.7895826101303101,
+ "f1_score": 0.7706480015723279,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.2,
+  "epochs": 100,
+  "learning rate": 0.001,
+  "number of layers": 9,
+  "number of units": 5,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6644464731216431,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.7564108371734619,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 200,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.4857400059700012,
+ "accuracy": 0.7899351716041565,
+ "precision": 0.7920354008674622,
+ "recall": 0.8911014199256897,
+ "auc-roc": 0.8309399485588074,
+ "f1_score": 0.7909838921002181,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 18,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.7437534928321838,
+ "accuracy": 0.7216927409172058,
+ "precision": 0.7605466246604919,
+ "recall": 0.7965152263641357,
+ "auc-roc": 0.7591677904129028,
+ "f1_score": 0.7406104451053157,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.2,
+  "epochs": 500,
+  "learning rate": 0.01,
+  "number of layers": 18,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 0.5649862885475159,
+ "accuracy": 0.7255051732063293,
+ "precision": 0.8188353776931763,
+ "recall": 0.7087740898132324,
+ "auc-roc": 0.7309142351150513,
+ "f1_score": 0.7693501309341914,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 0.1,
+  "number of layers": 6,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 0.674286961555481,
+ "accuracy": 0.43156689405441284,
+ "precision": 0.8866666555404663,
+ "recall": 0.08276291191577911,
+ "auc-roc": 0.5330153703689575,
+ "f1_score": 0.5805586949456888,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.3,
+  "epochs": 100,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 0.520171046257019,
+ "accuracy": 0.7609607577323914,
+ "precision": 0.7454909682273865,
+ "recall": 0.925948977470398,
+ "auc-roc": 0.8207743763923645,
+ "f1_score": 0.7531464331570791,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.1,
+  "number of layers": 18,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.6688708662986755,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.48892539739608765,
+ "accuracy": 0.7903164029121399,
+ "precision": 0.8117994070053101,
+ "recall": 0.8562538623809814,
+ "auc-roc": 0.830032229423523,
+ "f1_score": 0.8009138705942894,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 0.01,
+  "number of layers": 6,
+  "number of units": 25,
+  "optimizers": "sgd"
+ },
+ "loss": 0.5900349020957947,
+ "accuracy": 0.7224552035331726,
+ "precision": 0.7623880505561829,
+ "recall": 0.7946484088897705,
+ "auc-roc": 0.7576743960380554,
+ "f1_score": 0.741884657143319,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 0.1,
+  "number of layers": 3,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 0.5677937269210815,
+ "accuracy": 0.7529546618461609,
+ "precision": 0.7911353707313538,
+ "recall": 0.8108276128768921,
+ "auc-roc": 0.7361224889755249,
+ "f1_score": 0.7715729691606042,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.2,
+  "epochs": 100,
+  "learning rate": 0.1,
+  "number of layers": 3,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 0.6169672012329102,
+ "accuracy": 0.7487609386444092,
+ "precision": 0.762749433517456,
+ "recall": 0.8562538623809814,
+ "auc-roc": 0.7845649123191833,
+ "f1_score": 0.755690456790146,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.48096027970314026,
+ "accuracy": 0.7964163422584534,
+ "precision": 0.7901568412780762,
+ "recall": 0.9091475009918213,
+ "auc-roc": 0.8361709713935852,
+ "f1_score": 0.7932742439758875,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5014846920967102,
+ "accuracy": 0.7895539402961731,
+ "precision": 0.8047371506690979,
+ "recall": 0.8668326139450073,
+ "auc-roc": 0.8322937488555908,
+ "f1_score": 0.7970732469298383,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.2,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.4869919419288635,
+ "accuracy": 0.7815478444099426,
+ "precision": 0.7872222065925598,
+ "recall": 0.8817672729492188,
+ "auc-roc": 0.8322888612747192,
+ "f1_score": 0.7843747631985769,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.6200807690620422,
+ "accuracy": 0.6656500101089478,
+ "precision": 0.8312159776687622,
+ "recall": 0.570006251335144,
+ "auc-roc": 0.7650737762451172,
+ "f1_score": 0.7392764996409249,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.2,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5194615125656128,
+ "accuracy": 0.7697293162345886,
+ "precision": 0.8015634417533875,
+ "recall": 0.8294959664344788,
+ "auc-roc": 0.8084487915039062,
+ "f1_score": 0.785323901994589,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.2,
+  "epochs": 200,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.6327608227729797,
+ "accuracy": 0.6770873069763184,
+ "precision": 0.6911469101905823,
+ "recall": 0.8550093173980713,
+ "auc-roc": 0.6767241358757019,
+ "f1_score": 0.6840448722513727,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.522731602191925,
+ "accuracy": 0.7716355323791504,
+ "precision": 0.796470582485199,
+ "recall": 0.842563807964325,
+ "auc-roc": 0.8009201288223267,
+ "f1_score": 0.783856393536816,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.2,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5027202367782593,
+ "accuracy": 0.7845978140830994,
+ "precision": 0.7966970205307007,
+ "recall": 0.8705662488937378,
+ "auc-roc": 0.8163657188415527,
+ "f1_score": 0.7906011290393812,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.1,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.8246220350265503,
+ "accuracy": 0.7571483254432678,
+ "precision": 0.7382121682167053,
+ "recall": 0.9352831244468689,
+ "auc-roc": 0.7881138920783997,
+ "f1_score": 0.7475603499716607,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.2,
+  "epochs": 300,
+  "learning rate": 0.1,
+  "number of layers": 6,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.5159204006195068,
+ "accuracy": 0.7575295567512512,
+ "precision": 0.7844170928001404,
+ "recall": 0.8332296013832092,
+ "auc-roc": 0.802098274230957,
+ "f1_score": 0.7707389004540143,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 200,
+  "learning rate": 0.1,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.7130517959594727,
+ "accuracy": 0.7666793465614319,
+ "precision": 0.7498744130134583,
+ "recall": 0.9290603399276733,
+ "auc-roc": 0.7645337581634521,
+ "f1_score": 0.7581837720457086,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.2,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 9,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.5196133255958557,
+ "accuracy": 0.7491422295570374,
+ "precision": 0.7546967267990112,
+ "recall": 0.8749222159385681,
+ "auc-roc": 0.8129875659942627,
+ "f1_score": 0.7519092202845574,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6992566585540771,
+ "accuracy": 0.6210445761680603,
+ "precision": 0.6797654032707214,
+ "recall": 0.7212196588516235,
+ "auc-roc": 0.514286994934082,
+ "f1_score": 0.6490796095369955,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.2,
+  "epochs": 100,
+  "learning rate": 0.01,
+  "number of layers": 9,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.9638186097145081,
+ "accuracy": 0.7148303389549255,
+ "precision": 0.7758510112762451,
+ "recall": 0.7517112493515015,
+ "auc-roc": 0.761894941329956,
+ "f1_score": 0.7440917420522017,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.1,
+  "number of layers": 3,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.5782573819160461,
+ "accuracy": 0.6812809705734253,
+ "precision": 0.6614997982978821,
+ "recall": 0.9825762510299683,
+ "auc-roc": 0.8075383305549622,
+ "f1_score": 0.6712446812852714,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.2,
+  "epochs": 100,
+  "learning rate": 0.0001,
+  "number of layers": 6,
+  "number of units": 30,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6838541030883789,
+ "accuracy": 0.6130384802818298,
+ "precision": 0.6132364273071289,
+ "recall": 0.9975109100341797,
+ "auc-roc": 0.6285815238952637,
+ "f1_score": 0.6131374378180353,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.8508047461509705,
+ "accuracy": 0.4513915479183197,
+ "precision": 0.5439790487289429,
+ "recall": 0.6465463638305664,
+ "auc-roc": 0.33953261375427246,
+ "f1_score": 0.49337914073005157,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.2,
+  "epochs": 200,
+  "learning rate": 0.1,
+  "number of layers": 18,
+  "number of units": 15,
+  "optimizers": "sgd"
+ },
+ "loss": 0.5326203107833862,
+ "accuracy": 0.7678231000900269,
+ "precision": 0.8013284802436829,
+ "recall": 0.8257622718811035,
+ "auc-roc": 0.8010531067848206,
+ "f1_score": 0.7842180775936048,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 100,
+  "learning rate": 0.01,
+  "number of layers": 9,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.493966281414032,
+ "accuracy": 0.7796416282653809,
+ "precision": 0.7856746315956116,
+ "recall": 0.8805227279663086,
+ "auc-roc": 0.8224332332611084,
+ "f1_score": 0.7826465038041612,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 3,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6027839183807373,
+ "accuracy": 0.6580251455307007,
+ "precision": 0.6565255522727966,
+ "recall": 0.926571249961853,
+ "auc-roc": 0.7520971298217773,
+ "f1_score": 0.6572744935600936,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.2,
+  "epochs": 400,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.48817887902259827,
+ "accuracy": 0.7868852615356445,
+ "precision": 0.7805139422416687,
+ "recall": 0.9072806239128113,
+ "auc-roc": 0.8330973386764526,
+ "f1_score": 0.7836866525042726,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.1,
+  "number of layers": 18,
+  "number of units": 30,
+  "optimizers": "sgd"
+ },
+ "loss": 1.0389269590377808,
+ "accuracy": 0.7251238822937012,
+ "precision": 0.746384859085083,
+ "recall": 0.8350964784622192,
+ "auc-roc": 0.6998687386512756,
+ "f1_score": 0.7356007769249064,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 0.01,
+  "number of layers": 9,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.6787038445472717,
+ "accuracy": 0.7373237013816833,
+ "precision": 0.7486457228660583,
+ "recall": 0.8599875569343567,
+ "auc-roc": 0.766412615776062,
+ "f1_score": 0.7429415792812966,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.2,
+  "epochs": 200,
+  "learning rate": 0.001,
+  "number of layers": 6,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 1.6661572456359863,
+ "accuracy": 0.7201677560806274,
+ "precision": 0.7461928725242615,
+ "recall": 0.8232731819152832,
+ "auc-roc": 0.7298598885536194,
+ "f1_score": 0.7329493661057007,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.493289053440094,
+ "accuracy": 0.7857415080070496,
+ "precision": 0.8119403123855591,
+ "recall": 0.8462974429130554,
+ "auc-roc": 0.8332051038742065,
+ "f1_score": 0.7986261060525435,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5518331527709961,
+ "accuracy": 0.7502859234809875,
+ "precision": 0.7757821679115295,
+ "recall": 0.8332296013832092,
+ "auc-roc": 0.7883631587028503,
+ "f1_score": 0.7628210609402937,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.8574545383453369,
+ "accuracy": 0.3915364146232605,
+ "precision": 0.6279069781303406,
+ "recall": 0.016801493242383003,
+ "auc-roc": 0.5320172905921936,
+ "f1_score": 0.48231897657411377,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 3,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5159028172492981,
+ "accuracy": 0.7563858032226562,
+ "precision": 0.8036386370658875,
+ "recall": 0.7971374988555908,
+ "auc-roc": 0.8131219744682312,
+ "f1_score": 0.7792965806169183,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 18,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.49169811606407166,
+ "accuracy": 0.7823103070259094,
+ "precision": 0.815468966960907,
+ "recall": 0.8332296013832092,
+ "auc-roc": 0.8288993835449219,
+ "f1_score": 0.7985455667120541,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 6,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.505465030670166,
+ "accuracy": 0.7720167636871338,
+ "precision": 0.7990515828132629,
+ "recall": 0.8388301134109497,
+ "auc-roc": 0.8206119537353516,
+ "f1_score": 0.785301566741764,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.755381166934967,
+ "accuracy": 0.5535646080970764,
+ "precision": 0.5937231183052063,
+ "recall": 0.8593652844429016,
+ "auc-roc": 0.3961847126483917,
+ "f1_score": 0.5729410290711217,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 9,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 0.6084439754486084,
+ "accuracy": 0.7232176661491394,
+ "precision": 0.7419000267982483,
+ "recall": 0.8406969308853149,
+ "auc-roc": 0.7687837481498718,
+ "f1_score": 0.7324397329713781,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.48725321888923645,
+ "accuracy": 0.7872664928436279,
+ "precision": 0.7756174206733704,
+ "recall": 0.9184816479682922,
+ "auc-roc": 0.8301408290863037,
+ "f1_score": 0.7813985431430495,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 18,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 1.476421594619751,
+ "accuracy": 0.712161660194397,
+ "precision": 0.7401353120803833,
+ "recall": 0.8170503973960876,
+ "auc-roc": 0.7430017590522766,
+ "f1_score": 0.725879076638239,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 200,
+  "learning rate": 0.01,
+  "number of layers": 3,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.49114900827407837,
+ "accuracy": 0.7842165231704712,
+ "precision": 0.8013896942138672,
+ "recall": 0.8612321019172668,
+ "auc-roc": 0.8283784985542297,
+ "f1_score": 0.7927101102539529,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.3,
+  "epochs": 400,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5551130771636963,
+ "accuracy": 0.7495234608650208,
+ "precision": 0.7507919669151306,
+ "recall": 0.8848786354064941,
+ "auc-roc": 0.7883503437042236,
+ "f1_score": 0.7501571776336428,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.49226704239845276,
+ "accuracy": 0.7857415080070496,
+ "precision": 0.8064516186714172,
+ "recall": 0.8556315898895264,
+ "auc-roc": 0.8276077508926392,
+ "f1_score": 0.7959618721775447,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 6,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 0.4932616949081421,
+ "accuracy": 0.7842165231704712,
+ "precision": 0.8006932139396667,
+ "recall": 0.862476646900177,
+ "auc-roc": 0.824816882610321,
+ "f1_score": 0.7923692228768492,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.4776511788368225,
+ "accuracy": 0.7956538200378418,
+ "precision": 0.8010118007659912,
+ "recall": 0.8867455124855042,
+ "auc-roc": 0.8389648795127869,
+ "f1_score": 0.7983238204302189,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 18,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6821780800819397,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5126590132713318,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.3,
+  "epochs": 200,
+  "learning rate": 0.01,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.4848124086856842,
+ "accuracy": 0.7807853817939758,
+ "precision": 0.7718651294708252,
+ "recall": 0.9116365909576416,
+ "auc-roc": 0.8328660726547241,
+ "f1_score": 0.7762996314172499,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 3,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 0.48873233795166016,
+ "accuracy": 0.786122739315033,
+ "precision": 0.7842391133308411,
+ "recall": 0.8979464769363403,
+ "auc-roc": 0.8296616077423096,
+ "f1_score": 0.7851797966320819,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 1e-05,
+  "number of layers": 9,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.559489905834198,
+ "accuracy": 0.7235989570617676,
+ "precision": 0.7615658640861511,
+ "recall": 0.7990043759346008,
+ "auc-roc": 0.7721282243728638,
+ "f1_score": 0.7420971156058614,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.4879598617553711,
+ "accuracy": 0.7922226190567017,
+ "precision": 0.8108899593353271,
+ "recall": 0.8618543744087219,
+ "auc-roc": 0.8338392972946167,
+ "f1_score": 0.8014476038804056,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 6,
+  "number of units": 25,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6678786277770996,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5482417941093445,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5105597376823425,
+ "accuracy": 0.7678231000900269,
+ "precision": 0.8042683005332947,
+ "recall": 0.8207840919494629,
+ "auc-roc": 0.8140041828155518,
+ "f1_score": 0.7856232526617266,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.499001145362854,
+ "accuracy": 0.7807853817939758,
+ "precision": 0.7986111044883728,
+ "recall": 0.8587430119514465,
+ "auc-roc": 0.8229718208312988,
+ "f1_score": 0.7895976488976334,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5010589361190796,
+ "accuracy": 0.786122739315033,
+ "precision": 0.8040697574615479,
+ "recall": 0.8606098294258118,
+ "auc-roc": 0.8192081451416016,
+ "f1_score": 0.7949949727688279,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.4987383484840393,
+ "accuracy": 0.7834540605545044,
+ "precision": 0.8094103336334229,
+ "recall": 0.8456751704216003,
+ "auc-roc": 0.8249461650848389,
+ "f1_score": 0.796220713895957,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.49287575483322144,
+ "accuracy": 0.7758291959762573,
+ "precision": 0.7950202822685242,
+ "recall": 0.8543870449066162,
+ "auc-roc": 0.8275146484375,
+ "f1_score": 0.7853075102604985,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.49310755729675293,
+ "accuracy": 0.7941288352012634,
+ "precision": 0.8009024262428284,
+ "recall": 0.883634090423584,
+ "auc-roc": 0.8293440937995911,
+ "f1_score": 0.7975012480774208,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.49160251021385193,
+ "accuracy": 0.7868852615356445,
+ "precision": 0.8008036613464355,
+ "recall": 0.8680771589279175,
+ "auc-roc": 0.8254539370536804,
+ "f1_score": 0.7937834539443884,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 0.4859474003314972,
+ "accuracy": 0.7880289554595947,
+ "precision": 0.8014916777610779,
+ "recall": 0.8693217039108276,
+ "auc-roc": 0.8324891328811646,
+ "f1_score": 0.7947033041727565,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.1,
+  "epochs": 200,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5189587473869324,
+ "accuracy": 0.7823103070259094,
+ "precision": 0.8015133738517761,
+ "recall": 0.8568761944770813,
+ "auc-roc": 0.8192427158355713,
+ "f1_score": 0.7917954266675464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 0.01,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5039466023445129,
+ "accuracy": 0.7773541808128357,
+ "precision": 0.7736757397651672,
+ "recall": 0.8998132944107056,
+ "auc-roc": 0.8189619183540344,
+ "f1_score": 0.7755105983716839,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 9,
+  "number of units": 10,
+  "optimizers": "adam"
+ },
+ "loss": 0.5100913047790527,
+ "accuracy": 0.7754479646682739,
+ "precision": 0.7859550714492798,
+ "recall": 0.8705662488937378,
+ "auc-roc": 0.8149412870407104,
+ "f1_score": 0.7806661654655149,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 0.1,
+  "number of layers": 3,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5371143817901611,
+ "accuracy": 0.7556233406066895,
+ "precision": 0.7642232179641724,
+ "recall": 0.8693217039108276,
+ "auc-roc": 0.7989189624786377,
+ "f1_score": 0.759898948575812,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 18,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.6790581345558167,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.4793727695941925,
+ "accuracy": 0.7914601564407349,
+ "precision": 0.7789473533630371,
+ "recall": 0.9209707379341125,
+ "auc-roc": 0.8438570499420166,
+ "f1_score": 0.7851539047069895,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.2,
+  "epochs": 300,
+  "learning rate": 0.001,
+  "number of layers": 6,
+  "number of units": 25,
+  "optimizers": "sgd"
+ },
+ "loss": 0.5112438201904297,
+ "accuracy": 0.7811666131019592,
+ "precision": 0.8094667196273804,
+ "recall": 0.8406969308853149,
+ "auc-roc": 0.8227596282958984,
+ "f1_score": 0.7950649125465928,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.3,
+  "epochs": 400,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5129132270812988,
+ "accuracy": 0.7804040908813477,
+ "precision": 0.8005830645561218,
+ "recall": 0.8543870449066162,
+ "auc-roc": 0.8145588636398315,
+ "f1_score": 0.7903648002719457,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 0.01,
+  "number of layers": 1,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 0.5187868475914001,
+ "accuracy": 0.7723979949951172,
+ "precision": 0.7611168622970581,
+ "recall": 0.9159925580024719,
+ "auc-roc": 0.8369899392127991,
+ "f1_score": 0.7667159344426419,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 200,
+  "learning rate": 0.0001,
+  "number of layers": 9,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5388171672821045,
+ "accuracy": 0.7548608183860779,
+ "precision": 0.7957054972648621,
+ "recall": 0.8070939779281616,
+ "auc-roc": 0.7942952513694763,
+ "f1_score": 0.774745197024996,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.1,
+  "number of layers": 3,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.990667998790741,
+ "accuracy": 0.6763248443603516,
+ "precision": 0.7483617067337036,
+ "recall": 0.7106409668922424,
+ "auc-roc": 0.7273979783058167,
+ "f1_score": 0.7105220645807936,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.2,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 18,
+  "number of units": 10,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6921762228012085,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.4960629940032959,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.48724204301834106,
+ "accuracy": 0.7868852615356445,
+ "precision": 0.793393075466156,
+ "recall": 0.8817672729492188,
+ "auc-roc": 0.8308829069137573,
+ "f1_score": 0.7901257684430869,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.1,
+  "epochs": 500,
+  "learning rate": 0.001,
+  "number of layers": 1,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 0.5224136710166931,
+ "accuracy": 0.7670606374740601,
+ "precision": 0.7591050863265991,
+ "recall": 0.9079028964042664,
+ "auc-roc": 0.7976428270339966,
+ "f1_score": 0.7630621266705073,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 1e-05,
+  "number of layers": 6,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.6909353733062744,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.5251128077507019,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.3,
+  "epochs": 300,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 25,
+  "optimizers": "sgd"
+ },
+ "loss": 0.5347418189048767,
+ "accuracy": 0.7479984760284424,
+ "precision": 0.7740440368652344,
+ "recall": 0.831362783908844,
+ "auc-roc": 0.8066912293434143,
+ "f1_score": 0.7607984074680627,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 512,
+  "dropout rate": 0.2,
+  "epochs": 400,
+  "learning rate": 0.01,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5822625160217285,
+ "accuracy": 0.7460922598838806,
+ "precision": 0.7325753569602966,
+ "recall": 0.9222152829170227,
+ "auc-roc": 0.8006289601325989,
+ "f1_score": 0.7392720275787928,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.1,
+  "epochs": 200,
+  "learning rate": 0.1,
+  "number of layers": 3,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 1.0754469633102417,
+ "accuracy": 0.7720167636871338,
+ "precision": 0.7562214136123657,
+ "recall": 0.926571249961853,
+ "auc-roc": 0.7945641875267029,
+ "f1_score": 0.7640374609664179,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 18,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.5621713995933533,
+ "accuracy": 0.7190240025520325,
+ "precision": 0.7963215112686157,
+ "recall": 0.7274424433708191,
+ "auc-roc": 0.754654586315155,
+ "f1_score": 0.7557012907333709,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 300,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.5627816915512085,
+ "accuracy": 0.7285550832748413,
+ "precision": 0.7529677748680115,
+ "recall": 0.8288736939430237,
+ "auc-roc": 0.7814093828201294,
+ "f1_score": 0.7405602916041414,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 128,
+  "dropout rate": 0.3,
+  "epochs": 500,
+  "learning rate": 0.0001,
+  "number of layers": 9,
+  "number of units": 10,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6642710566520691,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.7534776926040649,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 32,
+  "dropout rate": 0.2,
+  "epochs": 300,
+  "learning rate": 0.001,
+  "number of layers": 6,
+  "number of units": 15,
+  "optimizers": "adam"
+ },
+ "loss": 1.0849521160125732,
+ "accuracy": 0.7174990177154541,
+ "precision": 0.7559101581573486,
+ "recall": 0.7958929538726807,
+ "auc-roc": 0.7324004769325256,
+ "f1_score": 0.7362039070209412,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 64,
+  "dropout rate": 0.1,
+  "epochs": 100,
+  "learning rate": 1e-05,
+  "number of layers": 1,
+  "number of units": 5,
+  "optimizers": "adam"
+ },
+ "loss": 0.6859450936317444,
+ "accuracy": 0.6195196509361267,
+ "precision": 0.6454849243164062,
+ "recall": 0.8406969308853149,
+ "auc-roc": 0.5270659923553467,
+ "f1_score": 0.6322358081862305,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 20,
+  "optimizers": "adam"
+ },
+ "loss": 0.4933820068836212,
+ "accuracy": 0.7983225584030151,
+ "precision": 0.79911208152771,
+ "recall": 0.8960796594619751,
+ "auc-roc": 0.8251451849937439,
+ "f1_score": 0.7987171248566711,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 1,
+  "number of units": 25,
+  "optimizers": "adam"
+ },
+ "loss": 0.4830171465873718,
+ "accuracy": 0.7926039099693298,
+ "precision": 0.8011331558227539,
+ "recall": 0.8799004554748535,
+ "auc-roc": 0.834224283695221,
+ "f1_score": 0.7968457097979319,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.3,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 9,
+  "number of units": 20,
+  "optimizers": "sgd"
+ },
+ "loss": 0.6797773241996765,
+ "accuracy": 0.6126572489738464,
+ "precision": 0.6126572489738464,
+ "recall": 1.0,
+ "auc-roc": 0.4737694263458252,
+ "f1_score": 0.6126572489738464,
+ "status": "ok"
+}{
+ "params": {
+  "batch size": 256,
+  "dropout rate": 0.1,
+  "epochs": 400,
+  "learning rate": 0.0001,
+  "number of layers": 3,
+  "number of units": 30,
+  "optimizers": "adam"
+ },
+ "loss": 0.488321453332901,
+ "accuracy": 0.7838352918624878,
+ "precision": 0.7841529846191406,
+ "recall": 0.8929682374000549,
+ "auc-roc": 0.8298637270927429,
+ "f1_score": 0.7839941060566809,
+ "status": "ok"
 }

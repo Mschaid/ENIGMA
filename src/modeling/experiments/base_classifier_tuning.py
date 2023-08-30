@@ -110,7 +110,7 @@ def run_trials():
     with open(os.path.join(EXPERIMENT_DIR, 'all_trials.json'), 'a+') as f:
         json.dump(trials.trials, f)
     with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'a+') as f:
-        json.dump(best_trials, f)
+        json.dump(best_trials, f, indent = 2)
     return best_trials
 
 
