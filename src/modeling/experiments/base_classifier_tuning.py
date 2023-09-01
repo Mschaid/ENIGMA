@@ -2,6 +2,7 @@ import json
 import os
 import pandas as pd
 import tensorflow as tf
+import logging
 
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials, space_eval
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
@@ -16,6 +17,12 @@ EXPERIMENT_NAME = "base_classifier_tuning"
 EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
 set_up_directories(EXPERIMENT_DIR)
 
+LOG_FILE_PATH = os.path.join(EXPERIMENT_DIR, f'{EXPERIMENT_NAME}.log') 
+logging.basicConfig(filename=LOG_FILE_PATH,
+                    filemode='w',
+                    level=logging.DEBUG,
+                    format='[%(asctime)s] %(levelname)s - %(message)s')
+
 processor_pipe = (ClassifierPipe(DATA_PATH)
                   .read_raw_data()
                   .calculate_max_min_signal()
@@ -28,7 +35,7 @@ processor_pipe = (ClassifierPipe(DATA_PATH)
                               path_to_save=os.path.dirname(EXPERIMENT_DIR))
                   .transorm_data(numeric_target_dict={'avoid': 1, 'escape': 0})
                   )
-
+logging.info('Data processed')
 
 space = {
     "number of layers": hp.choice('number of layers', [1, 3, 6, 9, 18]),
@@ -40,7 +47,7 @@ space = {
     "optimizers": hp.choice('optimizers', ['adam', 'sgd'])
 
 }
-
+logging.info(f"space: {space}")
 trials = Trials()
 
 
@@ -102,22 +109,29 @@ def objective(params):
 
 
 def run_trials():
+    logging.info('Running hyperparameter optimization')
     best_trials = fmin(objective,
                        space=space,
                        algo=tpe.suggest,
-                       max_evals=100,
+                       max_evals=400,
                        trials=trials)
-    with open(os.path.join(EXPERIMENT_DIR, 'all_trials.json'), 'a+') as f:
-        json.dump(trials.trials, f)
-    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'a+') as f:
-        json.dump(best_trials, f, indent = 2)
+    
+    for k,v in best_trials.items():
+        best_trials[k] = float(v)
+    with open(os.path.join(EXPERIMENT_DIR, 'best_tril.json'), 'a+') as f:
+        json.dump(best_trials, f)
+
     return best_trials
 
 
 if __name__ == "__main__":
-    print("Running hyperparameter optimization")
+
 
     best_trials = run_trials()
+    logging.info('Hyperparameter optimization complete')
+    logging.info(f'Best trials: {best_trials}')
+    
+    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'w') as f:
+        json.dump(best_trials, f, indent=2)
 
-
-    print(best_trials)
+    logging.info('Hyperparameter optimization complete')
