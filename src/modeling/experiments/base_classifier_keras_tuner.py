@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
-from src.utilities.os_helpers import set_up_directories
+from src.utilities.os_helpers import set_up_directories, set_up_logger
 
 
     
