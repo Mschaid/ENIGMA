@@ -1,0 +1,9 @@
+{
+  "batch size": 2.0,
+  "dropout rate": 0.0,
+  "epochs": 0.0,
+  "learning rate": 3.0,
+  "number of layers": 0.0,
+  "number of units": 4.0,
+  "optimizers": 1.0
+}
