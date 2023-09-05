@@ -3,4 +3,5 @@
 *.pbtxt linguist-vendored
 *.pb linguist-vendored
 *.ipy
+*.sh linguist-vendored
 *.py linguist-detectable=true
