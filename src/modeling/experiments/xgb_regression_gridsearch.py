@@ -68,11 +68,11 @@ def main():
     MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
     EXPERIMENT_NAME = "xgb_regression_gridsearch"
     EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
+    set_up_directories(EXPERIMENT_DIR)
     LOG_FILE_PATH = os.path.join(EXPERIMENT_DIR, f'{EXPERIMENT_NAME}.log') 
     
     # set up logger and directories
     set_up_logger(LOG_FILE_PATH)
-    set_up_directories(EXPERIMENT_DIR)
     
     #EXPERIMENT
     logging.info(f'Created new directories: {EXPERIMENT_DIR}')
