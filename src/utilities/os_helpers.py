@@ -80,7 +80,7 @@ def save_dataframes_to_parquet(*dataframes, path_to_save):
             df.to_parquet(path, compression='gzip')
             
 def set_up_directories(*dirs):
-        """
+    """
     Create directories if they do not exist.
 
     Parameters
@@ -104,7 +104,7 @@ def set_up_directories(*dirs):
         os.makedirs(dir, exist_ok=True)
 
 def set_up_logger(file_path):
-        """
+    """
     Set up a logger that writes to a file.
 
     Parameters
