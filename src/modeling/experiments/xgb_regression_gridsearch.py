@@ -28,10 +28,11 @@ def process_data(data_path, experiment_dir):
                 split_group = "mouse_id", 
                 stratify_group = "sex", 
                 target='ratio_avoid',
-                save_subject_ids=False),
-                path_to_save =os.path.dirname(experiment_dir)
+                save_subject_ids=True,
+                path_to_save =os.path.dirname(experiment_dir))
             .transorm_data()
-)
+            )
+            
     return processor_pipe
 
 def grid_search(processor, model, experiment_dir, search_space):
