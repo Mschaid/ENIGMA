@@ -1,3 +1,4 @@
 *.html linguist-vendored
+*.ipynb linguist-vendored
 *.ipy
 *.py linguist-detectable=true
