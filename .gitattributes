@@ -3,5 +3,6 @@
 *.pbtxt linguist-vendored
 *.pb linguist-vendored
 *.ipy
+*.cython linguist-vendored
 *.sh linguist-vendored
 *.py linguist-detectable=true
