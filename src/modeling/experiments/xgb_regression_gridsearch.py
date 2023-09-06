@@ -10,7 +10,7 @@ from sklearn.model_selection import GridSearchCV
 
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 from src.utilities.os_helpers import set_up_directories
-
+print('imports')
 def set_up_logger(file_path):
 
     logging.basicConfig(filename=file_path,
@@ -64,6 +64,7 @@ def grid_search(processor, model, experiment_dir, search_space):
 
 def main():
     # global variables
+    print('starting')
     DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip'
     MAIN_DIR = '/projects/p31961/ENIGMA/results/experiments'
     EXPERIMENT_NAME = "xgb_regression_gridsearch"
@@ -87,14 +88,17 @@ def main():
     'gamma': np.arange(0, 5, 0.5),
     'min_child_weight': np.arange(1, 10, 1)
     }
-    
+    print('model')
     model = xgb.XGBRegressor(objective='reg:squarederror', eval_metric=['rmse', 'mae'])
     logging.info('Model defined, preproessing data')
+    print('preprocessing')
     processor = process_data(DATA_PATH, EXPERIMENT_DIR)
     logging.info('Data processed')
     logging.info('Starting grid search')
+    print('grid search')
     grid_search(processor, model, EXPERIMENT_DIR, SEARCH_SPACE)
     logging.info(f'Grid search complete: saved at {EXPERIMENT_DIR}')
     
 if __name__=='__main__':
+    print('main')
     main()
