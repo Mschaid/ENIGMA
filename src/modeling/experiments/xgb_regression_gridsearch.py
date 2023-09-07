@@ -24,7 +24,7 @@ def process_data(data_path, experiment_dir):
              .calculate_max_min_signal()
              .calculate_percent_avoid()
              .drop_columns(["event", "action", "trial", "trial_count", "num_avoids", "max_trial"])
-             .split_data(test_size=0.2,
+             .split_data(test_size=0.3,
                 test_dev_size=0.5, 
                 split_group = "mouse_id", 
                 stratify_group = "sex", 
@@ -40,7 +40,7 @@ def grid_search(processor, model, experiment_dir, search_space):
     
     # set up and run grid search 
     grid = GridSearchCV(model, search_space, cv=5)
-    grid.fit(processor.X_train, processor.y_train, refit = False)
+    grid.fit(processor.X_train, processor.y_train)
     
     # get best parameters
     best_params = grid.best_params_
