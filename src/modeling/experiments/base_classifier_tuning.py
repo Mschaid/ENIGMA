@@ -17,10 +17,10 @@ EXPERIMENT_NAME = "base_classifier_tuning"
 EXPERIMENT_DIR = os.path.join(MAIN_DIR, EXPERIMENT_NAME)
 set_up_directories(EXPERIMENT_DIR)
 
-LOG_FILE_PATH = os.path.join(EXPERIMENT_DIR, f'{EXPERIMENT_NAME}.log') 
+LOG_FILE_PATH = os.path.join(EXPERIMENT_DIR, f'{EXPERIMENT_NAME}.log')
 logging.basicConfig(filename=LOG_FILE_PATH,
                     filemode='w',
-                    level=logging.DEBUG,
+                    level=logging.INFO,
                     format='[%(asctime)s] %(levelname)s - %(message)s')
 
 processor_pipe = (ClassifierPipe(DATA_PATH)
@@ -100,8 +100,10 @@ def objective(params):
     all_results['status'] = STATUS_OK
     evaluation.append(all_results['f1_score'])
 
+    results_list = []
+    results_list.append(all_results)
     with open(os.path.join(EXPERIMENT_DIR, 'results.json'), 'a+') as f:
-        json.dump(all_results, f, indent=1)
+        json.dump(results_list, f, indent='auto')
 
     f1_score = evaluation[-1]
 
@@ -115,23 +117,20 @@ def run_trials():
                        algo=tpe.suggest,
                        max_evals=400,
                        trials=trials)
-    
-    for k,v in best_trials.items():
+
+    for k, v in best_trials.items():
         best_trials[k] = float(v)
-    with open(os.path.join(EXPERIMENT_DIR, 'best_tril.json'), 'a+') as f:
-        json.dump(best_trials, f)
+
+    best_trials_list = []
+    best_trials_list.append(best_trials)
+    with open(os.path.join(EXPERIMENT_DIR, 'best_trial.json'), 'a+') as f:
+        json.dump(best_trials_list, f, indent='auto')
 
     return best_trials
 
 
 if __name__ == "__main__":
-
-
+    logging.info('Running hyperparameter optimization')
     best_trials = run_trials()
     logging.info('Hyperparameter optimization complete')
     logging.info(f'Best trials: {best_trials}')
-    
-    with open(os.path.join(EXPERIMENT_DIR, 'best_trials.json'), 'w') as f:
-        json.dump(best_trials, f, indent=2)
-
-    logging.info('Hyperparameter optimization complete')
