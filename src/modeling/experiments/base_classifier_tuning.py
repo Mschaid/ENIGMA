@@ -103,7 +103,9 @@ def objective(params):
     results_list = []
     results_list.append(all_results)
     with open(os.path.join(EXPERIMENT_DIR, 'results.json'), 'a+') as f:
-        json.dump(results_list, f, indent='auto')
+        for result in results_list:
+            json.dump(result, f)
+            f.write('\n')
 
     f1_score = evaluation[-1]
 
@@ -118,13 +120,11 @@ def run_trials():
                        max_evals=400,
                        trials=trials)
 
-    for k, v in best_trials.items():
-        best_trials[k] = float(v)
 
-    best_trials_list = []
-    best_trials_list.append(best_trials)
-    with open(os.path.join(EXPERIMENT_DIR, 'best_trial.json'), 'a+') as f:
-        json.dump(best_trials_list, f, indent='auto')
+    
+
+    with open(os.path.join(EXPERIMENT_DIR, 'best_trial.json'), 'w') as f:
+        json.dump(best_trials, f)
 
     return best_trials
 
