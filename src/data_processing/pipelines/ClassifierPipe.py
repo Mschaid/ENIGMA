@@ -217,7 +217,7 @@ class ClassifierPipe:
         return self
     # create pipeline
 
-    def transorm_data(self, numeric_target_dict=None):
+    def transform_data(self, numeric_target_dict=None):
         """
         Transforms the data by converting the target to numeric encoding. 
 
