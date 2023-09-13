@@ -1,0 +1,5 @@
+[2023-09-12 16:36:46,314] INFO - Created new directories: /projects/p31961/ENIGMA/results/optimized_models, /projects/p31961/ENIGMA/results/models/optimzied_models
+[2023-09-12 16:36:46,314] INFO - Processing data
+[2023-09-12 16:36:49,055] INFO - Loading optimzied paramteres
+[2023-09-12 16:36:49,077] INFO - Training model
+[2023-09-12 16:38:21,724] INFO - Saving model
