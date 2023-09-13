@@ -60,7 +60,7 @@ def load_parameters(best_params_file_path):
     return results["params"]
 
 
-def train_optimized_model(processor, best_params, directory_to_save, model_name): 
+def train_optimized_model(processor, best_params, tensorboard_dir, model_name): 
     """
     Train an optimized model using the given processor, best parameters, directory to save,
     and model name.
@@ -82,7 +82,7 @@ def train_optimized_model(processor, best_params, directory_to_save, model_name)
         The trained model.
     """
     
-    tensorboard_callback = set_tensorboard(save_directory=directory_to_save, model_id=model_name)
+    tensorboard_callback = set_tensorboard(save_directory=tensorboard_dir, model_id=model_name)
     
     model = (BaseClassifier(
         number_of_layers=best_params["number of layers"],
@@ -157,7 +157,7 @@ def main():
     logging.info('Loading optimzied paramteres')
     best_params = load_parameters(PARAM_FILE_PATH)
     logging.info('Training model')
-    model = train_optimized_model(processor=processor, best_params=best_params, directory_to_save=MODEL_SAVE_DIR, model_name=MODEL_NAME)
+    model = train_optimized_model(processor=processor, best_params=best_params, tensorboard_dir=TENSOR_BOARD_DIR, model_name=MODEL_NAME)
     logging.info('Saving model')
     model.save_model(EXPERIMENT_DIR)
     logging.info(f'{MODEL_NAME} training and saving complete')

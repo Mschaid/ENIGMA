@@ -31,7 +31,7 @@ def process_data(data_path, experiment_dir):
                 target='ratio_avoid',
                 save_subject_ids=True,
                 path_to_save =os.path.dirname(experiment_dir))
-            .transorm_data()
+            .transform_data()
             )
             
     return processor_pipe

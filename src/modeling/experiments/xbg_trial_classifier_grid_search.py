@@ -25,7 +25,7 @@ def process_data(data_path, experiment_dir):
                 target='action',
                 save_subject_ids=True,
                 path_to_save =os.path.dirname(experiment_dir))
-            .transorm_data(numeric_target_dict={'avoid': 1, 'escape': 0})
+            .transform_data(numeric_target_dict={'avoid': 1, 'escape': 0})
     )
     return processor_pipe
 
