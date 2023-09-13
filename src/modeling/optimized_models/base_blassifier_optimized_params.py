@@ -159,7 +159,7 @@ def main():
     logging.info('Training model')
     model = train_optimized_model(processor=processor, best_params=best_params, tensorboard_dir=TENSOR_BOARD_DIR, model_name=MODEL_NAME)
     logging.info('Saving model')
-    model.save_model(EXPERIMENT_DIR)
+    model.save(EXPERIMENT_DIR)
     logging.info(f'{MODEL_NAME} training and saving complete')
 
     
