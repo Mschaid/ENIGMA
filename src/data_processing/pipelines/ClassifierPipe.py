@@ -37,15 +37,17 @@ class ClassifierPipe:
 
     # read raw data
 
-    def read_raw_data(self):
+    def read_raw_data(self, features_to_drop = None):
         """read raw data from path_to_data
 
         Returns
         -------
             ClassifierPipe object
         """
-
-        self.raw_data = pd.read_parquet(self.path_to_data)
+        if features_to_drop is not None:
+            self.raw_data = pd.read_parquet(self.path_to_data).drop(columns=features_to_drop)
+        else:
+            self.raw_data = pd.read_parquet(self.path_to_data)
         return self
     # reduce signal to max and min
 
@@ -75,9 +77,9 @@ class ClassifierPipe:
             .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min"]})
             .pipe(flatten_dataframe)
             .rename(columns=lambda c: c.strip("_"))
-            .drop(columns='index')
-            .drop(columns=cols_to_drop)
-        )
+            .drop(columns='index'))
+        self.processed_data = self.processed_data.drop(columns=cols_to_drop)
+        
 
         return self
 
@@ -106,7 +108,7 @@ class ClassifierPipe:
         )
         return self
     
-    def drop_columns(self, cols_to_drop):
+    def drop_features(self, cols_to_drop):
         self.processed_data = self.processed_data.drop(columns=cols_to_drop)
         return self
 
@@ -121,7 +123,9 @@ class ClassifierPipe:
                    processed_data=True,
                    save_subject_ids=True,
                    save_datasets=False,
-                   path_to_save=None
+                   path_to_save=None, 
+                   load_subject_ids=False,
+                   subject_ids_path=None
                    ):
         """
         Calculate the maximum and minimum signal values for each combination of event, action, mouse, sensor, sex, day, and trial count.
@@ -152,6 +156,24 @@ class ClassifierPipe:
             df = self.processed_data
         else:
             df = self.raw_data
+            
+        if load_subject_ids is True:
+            with open(subject_ids_path) as f:
+                self.subject_category = json.load(f)
+                
+            def query_mouse_id(self, category):
+                mice = self.subject_category[category]
+                query = " or ".join([f"mouse_id == {mouse}" for mouse in mice])
+                return query
+            
+            train_query, dev_query, test_query = query_mouse_id(self, 'training'), query_mouse_id(self, 'dev'), query_mouse_id(self, 'test')
+            training_set, dev_set, test_set = self.processed_data.query(train_query), self.processed_data.query(dev_query), self.processed_data.query(test_query)
+            
+            
+            self.X_train, self.X_dev, self.X_test = training_set.drop(columns=target), dev_set.drop(columns=target), test_set.drop(columns=target)
+            self.y_train, self.y_dev, self.y_test = training_set[target], dev_set[target], test_set[target]
+            return self
+    
 
         X = df.drop(columns=target)
         y = df[target]
@@ -213,8 +235,10 @@ class ClassifierPipe:
                 path_to_save, 'y_dev.parquet.gzip'), compression='gzip')
             self.y_test.to_parquet(os.path.join(
                 path_to_save, 'y_test.parquet.gzip'), compression='gzip')
+        
+        #if loading from stored subject ids
 
-        return self
+
     # create pipeline
 
     def transform_data(self, numeric_target_dict=None):
