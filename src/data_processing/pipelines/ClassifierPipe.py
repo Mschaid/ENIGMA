@@ -110,6 +110,10 @@ class ClassifierPipe:
     
     def drop_features(self, cols_to_drop):
         self.processed_data = self.processed_data.drop(columns=cols_to_drop)
+        if hasattr(self, 'X_train'):
+            self.X_train = self.X_train.drop(columns=cols_to_drop)
+            self.X_dev = self.X_dev.drop(columns=cols_to_drop)
+            self.X_test = self.X_test.drop(columns=cols_to_drop)
         return self
 
     # split data into train and test and save subject ids to json
