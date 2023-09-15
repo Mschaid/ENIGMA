@@ -137,7 +137,7 @@ def main():
     PARAM_FILE_PATH = '/projects/p31961/ENIGMA/results/experiments/base_classifier_tuning/best_params.json'
     EXPERIMENT_MAIN_DIR = '/projects/p31961/ENIGMA/results/optimized_models'
     MODEL_SAVE_MAIN_DIR= '/projects/p31961/ENIGMA/results/models/optimzied_models'
-    MODEL_NAME = "BaseClassifier_optimized"
+    MODEL_NAME = "BaseClassifier_optimized_fp_only"
     
     #directories to create
     EXPERIMENT_DIR = os.path.join(EXPERIMENT_MAIN_DIR, MODEL_NAME)

@@ -1,24 +1,24 @@
-[2023-09-13 14:38:32,138] INFO - Created new directories: /projects/p31961/ENIGMA/results/optimized_models, /projects/p31961/ENIGMA/results/models/optimzied_models
-[2023-09-13 14:38:32,139] INFO - Processing data
-[2023-09-13 14:38:34,701] INFO - Loading optimzied paramteres
-[2023-09-13 14:38:34,751] INFO - Training model
-[2023-09-13 14:40:01,891] INFO - Saving model
-[2023-09-13 14:40:02,389] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(15, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba72ee5bd50>, 47997046095280), {}).
-[2023-09-13 14:40:02,389] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba72ee39b90>, 47997046135024), {}).
-[2023-09-13 14:40:02,389] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba736640f90>, 47997046135984), {}).
-[2023-09-13 14:40:02,389] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba73664e750>, 47997046136464), {}).
-[2023-09-13 14:40:02,389] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba73665af90>, 47997046137616), {}).
-[2023-09-13 14:40:02,390] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba736667a10>, 47997046138288), {}).
-[2023-09-13 14:40:02,390] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba73666bad0>, 47997046141360), {}).
-[2023-09-13 14:40:02,390] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba736688e10>, 47997046728592), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(15, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba72ee5bd50>, 47997046095280), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba72ee39b90>, 47997046135024), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba736640f90>, 47997046135984), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba73664e750>, 47997046136464), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba73665af90>, 47997046137616), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba736667a10>, 47997046138288), {}).
-[2023-09-13 14:40:02,414] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba73666bad0>, 47997046141360), {}).
-[2023-09-13 14:40:02,416] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2ba736688e10>, 47997046728592), {}).
-[2023-09-13 14:40:02,455] WARNING - Found untraced functions such as _update_step_xla while saving (showing 1 of 1). These functions will not be directly callable after loading.
-[2023-09-13 14:40:03,332] INFO - Assets written to: /projects/p31961/ENIGMA/results/optimized_models/BaseClassifier_optimized/assets
-[2023-09-13 14:40:03,364] INFO - BaseClassifier_optimized training and saving complete
+[2023-09-14 17:16:12,091] INFO - Created new directories: /projects/p31961/ENIGMA/results/optimized_models, /projects/p31961/ENIGMA/results/models/optimzied_models
+[2023-09-14 17:16:12,097] INFO - Processing data
+[2023-09-14 17:16:14,826] INFO - Loading optimzied paramteres
+[2023-09-14 17:16:14,927] INFO - Training model
+[2023-09-14 17:18:50,393] INFO - Saving model
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(15, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43bb9c5d50>, 47570208603568), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43cd670dd0>, 47570208643312), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e4eb50>, 47570208644272), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e53d90>, 47570208644752), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e67e50>, 47570208645904), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e6d110>, 47570208646576), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e81b10>, 47570208649648), {}).
+[2023-09-14 17:18:50,796] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e8e6d0>, 47570209236000), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(15, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43bb9c5d50>, 47570208603568), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43cd670dd0>, 47570208643312), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e4eb50>, 47570208644272), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e53d90>, 47570208644752), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 20), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e67e50>, 47570208645904), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e6d110>, 47570208646576), {}).
+[2023-09-14 17:18:50,821] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(20, 1), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e81b10>, 47570208649648), {}).
+[2023-09-14 17:18:50,823] INFO - Unsupported signature for serialization: ((TensorSpec(shape=(1,), dtype=tf.float32, name='gradient'), <tensorflow.python.framework.func_graph.UnknownArgument object at 0x2b43d3e8e6d0>, 47570209236000), {}).
+[2023-09-14 17:18:50,861] WARNING - Found untraced functions such as _update_step_xla while saving (showing 1 of 1). These functions will not be directly callable after loading.
+[2023-09-14 17:18:51,287] INFO - Assets written to: /projects/p31961/ENIGMA/results/optimized_models/BaseClassifier_optimized/assets
+[2023-09-14 17:18:51,468] INFO - BaseClassifier_optimized training and saving complete
