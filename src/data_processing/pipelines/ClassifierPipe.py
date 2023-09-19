@@ -37,7 +37,7 @@ class ClassifierPipe:
 
     # read raw data
 
-    def read_raw_data(self, features_to_drop = None):
+    def read_raw_data(self, features_to_drop=None):
         """read raw data from path_to_data
 
         Returns
@@ -45,7 +45,8 @@ class ClassifierPipe:
             ClassifierPipe object
         """
         if features_to_drop is not None:
-            self.raw_data = pd.read_parquet(self.path_to_data).drop(columns=features_to_drop)
+            self.raw_data = pd.read_parquet(
+                self.path_to_data).drop(columns=features_to_drop)
         else:
             self.raw_data = pd.read_parquet(self.path_to_data)
         return self
@@ -53,61 +54,74 @@ class ClassifierPipe:
 
     def calculate_max_min_signal(self, cols_to_drop=[]):
         """
-        Calculate the maximum and minimum signal values for each combination of mouse, event, action, sensor, sex, day, and trial count.
+        Calculate the maximum and minimum signal values for each combination of mouse, event, action, sensor, sex, day, trial_count, and trial in the raw data.
 
         Parameters:
-            self (object): The current instance of the class.
+            calculate_auc : bool, optional
+                If True, calculate the area under the curve (AUC) for the signal values. Default is False.
+            cols_to_drop : list, optional
+                A list of column names to drop from the processed data. Default is an empty list.
 
         Returns:
-            self (object): The updated object.
+            self : ClassifierPipe
+                The modified ClassifierPipe object with the processed data.
 
         Examples:
-            >>> data = DataProcessor()
-            >>> data.calculate_max_min_signal()
-        """
+            # Example 
+            >>> pipe = ClassifierPipe(PATH_TO_DATA)
+            >>> pipe.read_raw_data()
+            >>> pipe.calculate_max_min_signal(calculate_auc=True, cols_to_drop=["A", "B"])
+
+            """
 
         events = filter_columns_by_search(self.raw_data, 'event')
         actions = filter_columns_by_search(self.raw_data, 'action')
         mouse = filter_columns_by_search(self.raw_data, 'mouse')
         sensors = filter_columns_by_search(self.raw_data, 'sensor')
         sex = filter_columns_by_search(self.raw_data, 'sex')
+
         self.processed_data = (
             self.raw_data
             .query("time > -0.10 and time < 10.1")
-            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min"]})
+            .assign(
+                neg_signal=lambda df_: np.where(df_.signal < 0, df_.signal, 0),
+                pos_signal=lambda df_: np.where(df_.signal > 0, df_.signal, 0)
+            )
+            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min", np.trapz],                                                                                                           "pos_signal": np.trapz})
             .pipe(flatten_dataframe)
             .rename(columns=lambda c: c.strip("_"))
-            .drop(columns='index'))
+            .drop(columns='index')
+            .dropna()
+        )
         self.processed_data = self.processed_data.drop(columns=cols_to_drop)
-        
 
         return self
 
     def calculate_percent_avoid(self):
 
-        #calculate max trials
+        # calculate max trials
         max_trials = self.processed_data.groupby(["mouse_id", "day"], as_index=False)[
             "trial"].max().rename(columns={"trial": "max_trial"})
-        
-        #merge max_trials
+
+        # merge max_trials
         merged_df = self.processed_data.merge(
             max_trials, on=["mouse_id", "day"], how="right")
-        
+
         num_avoids = (merged_df
                       .query("event == 'cue' & sensor=='DA' & action=='avoid'")
                       .groupby(by=["mouse_id", "day", "action"], as_index=False).size().rename(columns={"size": "num_avoids"})
                       .drop(columns="action")
                       )
-        
-        #calualte ratio avoid and update processed data  
+
+        # calualte ratio avoid and update processed data
         self.processed_data = (
             self.processed_data
             .merge(num_avoids, on=["mouse_id", "day"], how="right")
             .merge(max_trials, on=["mouse_id", "day"], how="left")
-            .assign(ratio_avoid = lambda df_: (df_.num_avoids/df_.max_trial))
+            .assign(ratio_avoid=lambda df_: (df_.num_avoids/df_.max_trial))
         )
         return self
-    
+
     def drop_features(self, cols_to_drop):
         self.processed_data = self.processed_data.drop(columns=cols_to_drop)
         if hasattr(self, 'X_train'):
@@ -127,7 +141,7 @@ class ClassifierPipe:
                    processed_data=True,
                    save_subject_ids=True,
                    save_datasets=False,
-                   path_to_save=None, 
+                   path_to_save=None,
                    load_subject_ids=False,
                    subject_ids_path=None
                    ):
@@ -160,24 +174,26 @@ class ClassifierPipe:
             df = self.processed_data
         else:
             df = self.raw_data
-            
+
         if load_subject_ids is True:
             with open(subject_ids_path) as f:
                 self.subject_category = json.load(f)
-                
+
             def query_mouse_id(self, category):
                 mice = self.subject_category[category]
                 query = " or ".join([f"mouse_id == {mouse}" for mouse in mice])
                 return query
-            
-            train_query, dev_query, test_query = query_mouse_id(self, 'training'), query_mouse_id(self, 'dev'), query_mouse_id(self, 'test')
-            training_set, dev_set, test_set = self.processed_data.query(train_query), self.processed_data.query(dev_query), self.processed_data.query(test_query)
-            
-            
-            self.X_train, self.X_dev, self.X_test = training_set.drop(columns=target), dev_set.drop(columns=target), test_set.drop(columns=target)
-            self.y_train, self.y_dev, self.y_test = training_set[target], dev_set[target], test_set[target]
+
+            train_query, dev_query, test_query = query_mouse_id(
+                self, 'training'), query_mouse_id(self, 'dev'), query_mouse_id(self, 'test')
+            training_set, dev_set, test_set = self.processed_data.query(
+                train_query), self.processed_data.query(dev_query), self.processed_data.query(test_query)
+
+            self.X_train, self.X_dev, self.X_test = training_set.drop(
+                columns=target), dev_set.drop(columns=target), test_set.drop(columns=target)
+            self.y_train, self.y_dev, self.y_test = training_set[
+                target], dev_set[target], test_set[target]
             return self
-    
 
         X = df.drop(columns=target)
         y = df[target]
@@ -239,9 +255,8 @@ class ClassifierPipe:
                 path_to_save, 'y_dev.parquet.gzip'), compression='gzip')
             self.y_test.to_parquet(os.path.join(
                 path_to_save, 'y_test.parquet.gzip'), compression='gzip')
-        
-        #if loading from stored subject ids
 
+        # if loading from stored subject ids
 
     # create pipeline
 
