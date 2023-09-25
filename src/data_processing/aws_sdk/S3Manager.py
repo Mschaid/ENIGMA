@@ -6,19 +6,28 @@ class S3Manager:
         pass
 
     def connect_to_s3(self):
-        +"""
-+        Connects to the Amazon S3 service using the boto3 library.
-+
-+        Parameters
-+        ----------
-+        self : object
-+            The current object.
-+        
-+        Returns
-+        -------
-+        None
-+            This function does not return anything.
-+        """
+        """
+        Establishes a connection to the Amazon S3 service.
+
+        Initializes the `s3_connection` attribute of the current instance with a client object
+        from the boto3 library, which enables communication with the Amazon S3 service. The client
+        object is created using the `boto3.client()` method, passing in the string 's3' as the
+        service name.
+
+        Parameters
+        ----------
+        self : object
+            The current instance of the class.
+
+        Attributes
+        ----------
+        s3_connection : object
+            A client object from the boto3 library.
+
+        Returns
+        -------
+        None
+        """
 
         try:
             self.s3_connection = boto3.client('s3')
