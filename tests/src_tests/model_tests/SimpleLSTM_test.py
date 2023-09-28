@@ -1,5 +1,5 @@
 import unittest
-from src.modeling.Models.SimpleLSTM import SimpleLSTM
+from src.modeling.models.SimpleLSTM import SimpleLSTM
 import tensorflow as tf
 
 # write unit tests for SimpleLSTM

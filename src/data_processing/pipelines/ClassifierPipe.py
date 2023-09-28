@@ -82,12 +82,14 @@ class ClassifierPipe:
 
         self.processed_data = (
             self.raw_data
-            .query("time > -0.10 and time < 10.1")
+            # .query("time > -10 and time < 10.1")
             .assign(
                 neg_signal=lambda df_: np.where(df_.signal < 0, df_.signal, 0),
                 pos_signal=lambda df_: np.where(df_.signal > 0, df_.signal, 0)
             )
-            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min", np.trapz],                                                                                                           "pos_signal": np.trapz})
+            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min", np.trapz],
+                                                                                                               "pos_signal": np.trapz,
+                                                                                                              "neg_signal": np.trapz})
             .pipe(flatten_dataframe)
             .rename(columns=lambda c: c.strip("_"))
             .drop(columns='index')

@@ -1,5 +1,6 @@
 import logging
 import numpy as np
+import pprint
 import os
 import glob
 import pandas as pd
@@ -8,11 +9,16 @@ import re
 from loguru import logger
 
 
-# TODO implement loguru 
+# TODO implement loguru
 
-class ServerScraper:
+
+class FileScraper:
     def __init__(self, data_directory: str = None):
-        self._directory = None
+
+        if data_directory is not None:
+            self._directory = data_directory
+        else:
+            self._directory = None
         self._file_names = None
 
     @property
@@ -24,6 +30,11 @@ class ServerScraper:
     @directory.setter
     def directory(self, value):
         self._directory = value
+
+    def set_directory(self, directory=None):
+        if directory is None:
+            self.directory
+        self._directory = directory
 
     @property
     def file_names(self):
@@ -50,10 +61,10 @@ class ServerScraper:
         try:
             assert len(filtered_files) > 0
             self._file_names = filtered_files
-            ic(self._file_names)
+            logger.info(f"files found: {self._file_names}")
 
         except AssertionError as e:
-            print(f"No files found with the specified extention(s).")
+            logger.info(f"No files found with the specified extention(s).")
 
     def filter_files_by_keywords(self, *keywords):
         filtered_files = filter(lambda list_: any(
@@ -62,7 +73,7 @@ class ServerScraper:
         try:
             assert len(filtered_files) > 0
             self._file_names = filtered_files
-            print(f"files collected{self._file_names}")
+            logger.info(f"files found: {self._file_names}")
 
         except AssertionError as e:
-            print(f"No files found with the specified keywords(s).")
+            logger.info(f"No files found with the specified extention(s).")
