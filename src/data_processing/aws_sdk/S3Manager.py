@@ -3,7 +3,8 @@ import boto3
 
 class S3Manager:
     def __init__(self):
-        pass
+
+        self._s3_connection = None
 
     def connect_to_s3(self):
         """
@@ -14,34 +15,39 @@ class S3Manager:
         object is created using the `boto3.client()` method, passing in the string 's3' as the
         service name.
 
-        Parameters
-        ----------
-        self : object
-            The current instance of the class.
-
-        Attributes
-        ----------
-        s3_connection : object
-            A client object from the boto3 library.
-
         Returns
         -------
         None
         """
 
         try:
-            self.s3_connection = boto3.client('s3')
+            self._s3_connection = boto3.client('s3')
         except Exception as e:
             print(f"Error: {e}")
 
+    @property
+    def s3_connection(self):
+        """
+        Get the S3 connection.
+
+        Returns:
+            The S3 connection object.
+        """
+        if self._s3_connection is None:
+            print(f"Connection not established: Calling connect_to_s3() now.")
+            self.connect_to_s3()
+        return self._s3_connection
+
+# @property
     def get_available_buckets(self):
         """
         Retrieves a list of available S3 buckets.
 
+        Prints the name of each bucket.
+
         Returns
         -------
         None
-            Prints the name of each bucket.
 
         Raises
         ------
@@ -60,6 +66,8 @@ class S3Manager:
 def main():
     s3_manager = S3Manager()
     s3_manager.connect_to_s3()
+    s3_manager.s3_connection
+
     s3_manager.get_available_buckets()
 
 
