@@ -17,7 +17,7 @@ def process_data(data_path, experiment_dir):
     processor_pipe = (ClassifierPipe(data_path)
              .read_raw_data()
              .calculate_max_min_signal()
-             .drop_columns(["event", "trial"])
+             .drop_features(["event", "trial"])
              .split_data(test_size=0.2,
                 test_dev_size=0.5, 
                 split_group = "mouse_id", 
