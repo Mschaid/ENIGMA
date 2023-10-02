@@ -1,10 +1,14 @@
 import boto3
+from loguru import logger
+from typing import Tuple
+from src.data_processing.processors.FileScraper import FileScraper
 
 
 class S3Manager:
     def __init__(self):
 
         self._s3_connection = None
+        self.scraper = FileScraper()
 
     def connect_to_s3(self):
         """
@@ -38,7 +42,16 @@ class S3Manager:
             self.connect_to_s3()
         return self._s3_connection
 
-# @property
+    # @property
+    # def s3_buckets(self):
+    #     """
+    #     Get the S3 buckets.
+
+    #     Returns:
+    #         The S3 buckets.
+    #     """
+    #     return self.s3_connection.list_buckets()
+
     def get_available_buckets(self):
         """
         Retrieves a list of available S3 buckets.
@@ -62,17 +75,45 @@ class S3Manager:
         except Exception as e:
             print(f"Error: {e}")
 
+    def scrape_directoy(self, directory: str = None, file_extensions: str = None, keywords: str = None) -> None:
+        """
+        Scrapes a directory for files based on specified file extensions and keywords.
 
-def main():
-    s3_manager = S3Manager()
-    s3_manager.connect_to_s3()
-    s3_manager.s3_connection
+        Parameters:
+            directory (str): The directory to scrape. If None, the user will be prompted to enter a directory.
+            file_extensions (str): The file extensions to search for, separated by commas or spaces. If None, the user will be prompted to enter file extensions.
+            keywords (str): The keywords to search for, separated by commas or spaces. If None, the user will be prompted to enter keywords.
 
-    s3_manager.get_available_buckets()
+        Returns:
+            None
+        """
 
+        def format_user_input(user_input: str) -> list:
+            """
 
-# function to upload all files in a directory to s3 bucket
+            Formats the user input by splitting it into a list of strings.
+            Parameters:
+                user_input (str): The input provided by the user.
+            Returns:
+                list: A list of strings after splitting the input by spaces or commas.
+            """
+            if " " in user_input:
+                user_input = user_input.split(" ")
+            elif "," in user_input:
+                user_input = user_input.split(",")
+            else:
+                user_input = [user_input]
+            return user_input
 
+        # self.scraper.directroy = directory
+        file_extensions = file_extensions or input(
+            "Enter the file extensions to search seperated by a comma or space: ")
 
-if __name__ == '__main__':
-    main()
+        keywords = keywords or input(
+            "Enter the keywords to search seperated by a comma or space: ")
+
+        file_extensions = format_user_input(file_extensions)
+        keywords = format_user_input(keywords)
+
+        self.scraper.filter_files_by_extention(*file_extensions)
+        self.scraper.filter_files_by_keywords(*keywords)
