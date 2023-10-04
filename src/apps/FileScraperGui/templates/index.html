@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS File Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            color: #007BFF;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #007BFF;
+        }
+
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .progress {
+            height: 20px;
+            width: 50%; /* Update this width dynamically to reflect progress */
+            background-color: #007BFF;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }
+
+        .output {
+            width: 50%;
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin: 10px 0;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">FMS File Search</div>
+    <form method="POST" action="/">
+        <label for="directory">Directory:</label>
+        <input type="text" name="directory" value="{{ directory }}" required>
+        <label for="file_extensions">File Extensions (comma separated):</label>
+        <input type="text" name="file_extensions" value="{{ file_extensions }}" required>
+        <label for="keywords">Keywords:</label>
+        <input type="text" name="keywords" value="{{ keywords }}" required>
+        <button type="submit">Search</button>
+    </form>
+    <div class="progress-bar">
+        <div class="progress" style="width:0%;">0%</div> <!-- Update width and text dynamically -->
+    </div>
+    <div class="output">
+        <!-- Append search results here dynamically -->
+        {% if directory and file_extensions and keywords %}
+            <p>You searched in directory: {{ directory }}</p>
+            <p>For files with extensions: {{ file_extensions }}</p>
+            <p>Containing keywords: {{ keywords }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
