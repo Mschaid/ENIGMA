@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #1f1f1f;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,17 +18,17 @@
         }
 
         .header {
-            color: #007BFF;
+            color: #5edf98;
             font-size: 48px;
             font-weight: bold;
             margin-bottom: 20px;
         }
 
         form {
-            background-color: #ffffff;
+            background-color: #4d4f50;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 15px 1px rgba(0, 3, 0, 0.2);
             width: 50%;
             margin-bottom: 20px;
         }
@@ -36,7 +36,7 @@
         label {
             display: block;
             margin: 10px 0 5px;
-            color: #007BFF;
+            color: #000000;
         }
 
         input {
@@ -49,8 +49,8 @@
         }
 
         button {
-            background-color: #007BFF;
-            color: #ffffff;
+            background-color: #3b3b3b;
+            color: #5edf98;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;
@@ -59,60 +59,55 @@
         }
 
         button:hover {
-            background-color: #0056b3;
-        }
-
-        .progress-bar {
-            width: 100%;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            margin: 10px 0;
-        }
-
-        .progress {
-            height: 20px;
-            width: 50%; /* Update this width dynamically to reflect progress */
-            background-color: #007BFF;
-            border-radius: 4px;
-            text-align: center;
-            line-height: 20px;
-            color: white;
+            background-color: #000000;
         }
 
         .output {
             width: 50%;
             height: 200px;
             overflow-y: scroll;
-            border: 1px solid #ced4da;
+            border: 1px solid grey;
             border-radius: 4px;
             padding: 10px;
             box-sizing: border-box;
             margin: 10px 0;
-            background-color: white;
+            background-color: grey;
         }
     </style>
 </head>
 <body>
     <div class="header">FMS File Search</div>
-    <form method="POST" action="/">
+    <form id = "searchForm" method="POST" action="/">
         <label for="directory">Directory:</label>
         <input type="text" name="directory" value="{{ directory }}" required>
         <label for="file_extensions">File Extensions (comma separated):</label>
         <input type="text" name="file_extensions" value="{{ file_extensions }}" required>
         <label for="keywords">Keywords:</label>
         <input type="text" name="keywords" value="{{ keywords }}" required>
-        <button type="submit">Search</button>
+        <button type="button" onclick="submitForm()">Search</button>
     </form>
-    <div class="progress-bar">
-        <div class="progress" style="width:0%;">0%</div> <!-- Update width and text dynamically -->
     </div>
-    <div class="output">
+    <div class = "header">Search Results</div>
+    <div class="output" id = "output">
         <!-- Append search results here dynamically -->
-        {% if directory and file_extensions and keywords %}
-            <p>You searched in directory: {{ directory }}</p>
-            <p>For files with extensions: {{ file_extensions }}</p>
-            <p>Containing keywords: {{ keywords }}</p>
-        {% endif %}
     </div>
+    <script>
+        function submitForm(){
+            event.preventDefault();
+            var formData = new FormData(document.getElementById('searchForm'));
+            fetch ('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);  // Log received data to console for debugging
+                document.getElementById('output').innerHTML = data.html_content;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+        }
+    </script>
 </body>
 </html>
