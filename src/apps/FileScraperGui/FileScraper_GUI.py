@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from src.data_processing.aws_sdk.S3Manager import S3Manager
+from src.data_processing.processors.FileScraper import FileScraper
 
 app = Flask(__name__)
 
@@ -14,18 +15,18 @@ def index():
     results = 'show me'
 
     # Initialize S3Manager
-    s3_manager = S3Manager()
+    file_scraper = FileScraper()
 
     if request.method == "POST":
-        DIRECTORY = request.form.get('directory')
-        FILE_EXTENSIONS = request.form.get('file_extensions')
-        KEYWORDS = request.form.get('keywords')
+        DIRECTORY = request.form.get('directory') or ''
+        FILE_EXTENSIONS = request.form.get('file_extensions') or ''
+        KEYWORDS = request.form.get('keywords') or None
 
-        s3_manager.scrape_directoy(directory=DIRECTORY,
-                                   file_extensions=FILE_EXTENSIONS,
-                                   keywords=KEYWORDS)
-        results = s3_manager.scraper.file_names
-        s3_manager.scraper.fetch_all_file_names()
+        file_scraper.scrape_directoy(directory=DIRECTORY,
+                                     file_extensions=FILE_EXTENSIONS,
+                                     keywords=KEYWORDS)
+        results = file_scraper.file_names
+        file_scraper.fetch_all_file_names()
 
         html_content = f"""{results}</p>"""
         return jsonify({"html_content": html_content})

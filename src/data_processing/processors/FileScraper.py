@@ -166,3 +166,47 @@ class FileScraper:
             return formatted_input if formatted_input.startswith(".") else f".{formatted_input}"
         elif format_type == "keyword":
             return formatted_input
+    def scrape_directoy(self, directory: str = None, file_extensions: str = None, keywords: str = None) -> None:
+        """
+        Scrapes a directory for files based on specified file extensions and keywords.
+
+        Parameters:
+            directory (str): The directory to scrape. If None, the user will be prompted to enter a directory.
+            file_extensions (str): The file extensions to search for, separated by commas or spaces. If None, the user will be prompted to enter file extensions.
+            keywords (str): The keywords to search for, separated by commas or spaces. If None, the user will be prompted to enter keywords.
+
+        Returns:
+            None
+        """
+
+        def format_user_input(user_input: str) -> list:
+            """
+
+            Formats the user input by splitting it into a list of strings.
+            Parameters:
+                user_input (str): The input provided by the user.
+            Returns:
+                list: A list of strings after splitting the input by spaces or commas.
+            """
+            if " " in user_input:
+                user_input = user_input.split(" ")
+            elif "," in user_input:
+                user_input = user_input.split(",")
+            else:
+                user_input = [user_input]
+            return user_input
+
+        self.directory = directory
+        # self.scraper.directroy = directory
+        if file_extensions is None:
+            file_extensions = None
+        else:
+            file_extensions = format_user_input(file_extensions)
+            self.filter_files_by_extention(*file_extensions)
+            
+
+        if keywords is None:
+            keywords = None
+        else:
+            keywords = format_user_input(keywords)
+            self.filter_files_by_keywords(*keywords)
