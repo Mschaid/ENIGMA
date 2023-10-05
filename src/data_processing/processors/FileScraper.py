@@ -9,9 +9,6 @@ import re
 from loguru import logger
 
 
-# TODO implement loguru
-
-
 class FileScraper:
     def __init__(self, data_directory: str = None) -> None:
 
@@ -20,18 +17,25 @@ class FileScraper:
         else:
             self._directory = None
         self._file_names = None
+        self._search_results = {"directory": self.directory,
+                                "file_names": self.file_names,
+                                "extensions_found": None,
+                                "extensions_not_found": None,
+                                "keywords_found": None,
+                                "keywords_not_found": None}
 
     @property
     def directory(self):
-        if self._directory is None:
-            self._directory = input("Enter the directory of the data files: ")
+        # if self._directory is None:
+        #     self._directory = input("Enter the directory of the data files: ")
         return self._directory
 
     @directory.setter
-    def directory(self, value):
-        self._directory = value
+    def directory(self, directory: str):
+        self._directory = directory
 
     def set_directory(self, directory: str = None):
+        """used to programmaticly set directory instead of user input"""
         if directory is None:
             self.directory
         self._directory = directory
@@ -45,6 +49,14 @@ class FileScraper:
     @file_names.setter
     def file_names(self, value):
         self._file_names = value
+
+    @property
+    def search_results(self):
+        return self._search_results
+
+    def update_search_results(self, **kwargs):
+        for key, value in kwargs.items():
+            self._search_results[key] = value
 
     def fetch_all_file_names(self):
         """
@@ -97,7 +109,10 @@ class FileScraper:
                 pass
 
         # updates _file_names stored as the filtered_files
-            self._file_names = filtered_files
+            # self._file_names = filtered_files
+            self.update_search_results(file_names=filtered_files,
+                                       extensions_found=extensions_found,
+                                       extensions_not_found=extensions_not_found)
         # if no files are found with the specified extensions, all files in directory still saved and info is logged
         except AssertionError as e:
             logger.info(
@@ -139,7 +154,10 @@ class FileScraper:
                 logger.info(
                     f"Files of keyword type: {keywords_not_found} not found.")
 
-            self._file_names = filtered_files
+            # self._file_names = filtered_files
+            self.update_search_results(file_names=filtered_files,
+                                       keywords_found=keywords_found,
+                                       keywords_not_found=keywords_not_found)
 
         except AssertionError as e:
             logger.info(
@@ -166,47 +184,46 @@ class FileScraper:
             return formatted_input if formatted_input.startswith(".") else f".{formatted_input}"
         elif format_type == "keyword":
             return formatted_input
+
+    def format_user_input(self, user_input: str) -> list:
+        """
+
+        Formats the user input by splitting it into a list of strings.
+        Parameters:
+            user_input (str): The input provided by the user.
+        Returns:
+            list: A list of strings after splitting the input by spaces or commas.
+        """
+        if " " in user_input:
+            user_input = user_input.split(" ")
+        elif "," in user_input:
+            user_input = user_input.split(",")
+        else:
+            user_input = [user_input]
+        return user_input
+
     def scrape_directoy(self, directory: str = None, file_extensions: str = None, keywords: str = None) -> None:
         """
-        Scrapes a directory for files based on specified file extensions and keywords.
 
-        Parameters:
-            directory (str): The directory to scrape. If None, the user will be prompted to enter a directory.
-            file_extensions (str): The file extensions to search for, separated by commas or spaces. If None, the user will be prompted to enter file extensions.
-            keywords (str): The keywords to search for, separated by commas or spaces. If None, the user will be prompted to enter keywords.
-
-        Returns:
-            None
         """
+        if directory is None:
+            directory = self.directory
 
-        def format_user_input(user_input: str) -> list:
-            """
-
-            Formats the user input by splitting it into a list of strings.
-            Parameters:
-                user_input (str): The input provided by the user.
-            Returns:
-                list: A list of strings after splitting the input by spaces or commas.
-            """
-            if " " in user_input:
-                user_input = user_input.split(" ")
-            elif "," in user_input:
-                user_input = user_input.split(",")
-            else:
-                user_input = [user_input]
-            return user_input
-
-        self.directory = directory
-        # self.scraper.directroy = directory
         if file_extensions is None:
             file_extensions = None
         else:
-            file_extensions = format_user_input(file_extensions)
+            file_extensions = self.format_user_input(file_extensions)
             self.filter_files_by_extention(*file_extensions)
-            
 
         if keywords is None:
             keywords = None
         else:
-            keywords = format_user_input(keywords)
+            keywords = self.format_user_input(keywords)
             self.filter_files_by_keywords(*keywords)
+
+        if file_extensions is None and keywords is None:
+            self.update_search_results(file_names=self.file_names,
+                                       extensions_found=None,
+                                       extensions_not_found=None,
+                                       keywords_found=None,
+                                       keywords_not_found=None)
