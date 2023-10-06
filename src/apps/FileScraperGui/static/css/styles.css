@@ -1,0 +1,103 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #121212;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.header {
+  color: #6bdee4; /* Adjusted to your original green */
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subheader {
+  color: #d7fdff; /* Adjusted to your original subheader color */
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.subheader2 {
+  color: #d7fdff; /* Adjusted to your original subheader color */
+  font-size: 16px;
+  /* margin-bottom: 20px; */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+form {
+  background-color: #212121;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e7fff2; /* Adjusted to your original green */
+  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5);
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  color: #e7fff2; /* Adjusted to your original green */
+}
+
+input {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #313131;
+  color: #ffffff;
+}
+
+button {
+  background-color: #e7fff2; /* Adjusted to your original green */
+  color: #36a4bd;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #000000; /* Slightly darker green for hover effect */
+}
+
+.output {
+  width: 50%;
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #e7fff2; /* Adjusted to your original green */
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px 0;
+  background-color: #212121;
+  color: #e7fff2; /* Adjusted to your original subheader color */
+}
+.output-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.left {
+  width: 49.5%;
+  margin: 0;
+}
+.right {
+  width: 49.5%;
+}

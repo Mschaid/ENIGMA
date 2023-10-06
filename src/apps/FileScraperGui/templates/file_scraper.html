@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS File Search</title>
+
+</head>
+<body>
+    <nav>
+        <a href="/">FMS File Search</a> |
+        <a href="/s3">AWS Manager</a>
+    </nav>
+    <!-- <h1>File Scraper</h1> -->
+    <div class="header">FMS File Search</div>
+    <form id = "searchForm" method="POST" action="/">
+        <label for="directory">Directory:</label>
+        <input type="text" name="directory" value="{{ directory }}" required>
+        <label for="file_extensions">File Extensions (comma separated):</label>
+        <input type="text" name="file_extensions" value="{{ file_extensions }}" required>
+        <label for="keywords">Keywords:</label>
+        <input type="text" name="keywords" value="{{ keywords }}" required>
+        <button type="button" onclick="submitForm()">Search</button>
+    </form>
+    </div>
+    <div class = "header">Search Results</div>
+    <div class = "subheader"> Files Found </div>
+    <div class="output" id = "search_results_output"></div>
+    <div class="output-container">
+        <div class="left">
+          <div class="subheader2">File Types Not Found</div>
+          <div class="output" id="filetypes_not_found"></div>
+        </div>
+        <div class="right">
+          <div class="subheader2">Key Words Not Found</div>
+          <div class="output" id="keywords_not_found_output"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+        function submitForm(){
+            event.preventDefault();
+            var formData = new FormData(document.getElementById('searchForm'));
+            fetch ('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);  // Log received data to console for debugging
+                document.getElementById('search_results_output').innerHTML = data.files_found_content;
+                document.getElementById('filetypes_not_found').innerHTML = data.filetypes_not_found_content;
+                document.getElementById('keywords_not_found_output').innerHTML = data.keywords_not_found_content;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+        }
+    </script>
+</body>
+</html>
