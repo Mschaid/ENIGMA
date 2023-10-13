@@ -227,7 +227,6 @@ class ClassifierPipe:
             X_temp, y_temp, group_col=split_group, stratify_col=stratify_group, test_size=test_dev_size)
 
         # save subject ids to json
-
         if save_subject_ids is True:
 
             train_subjects = self.X_train['mouse_id'].unique().tolist()
