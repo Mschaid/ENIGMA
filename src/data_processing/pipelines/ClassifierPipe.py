@@ -195,7 +195,6 @@ class ClassifierPipe:
                 columns=target), dev_set.drop(columns=target), test_set.drop(columns=target)
             self.y_train, self.y_dev, self.y_test = training_set[
                 target], dev_set[target], test_set[target]
-            return self
 
         X = df.drop(columns=target)
         y = df[target]
@@ -258,8 +257,8 @@ class ClassifierPipe:
             self.y_test.to_parquet(os.path.join(
                 path_to_save, 'y_test.parquet.gzip'), compression='gzip')
 
-        # if loading from stored subject ids
-
+    # if loading from stored subject ids
+        return self
     # create pipeline
 
     def transform_data(self, numeric_target_dict=None):
