@@ -1,5 +1,3 @@
-[2023-09-13 09:46:18,317] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/xbg_trial_classifier_ray_tuner
-[2023-09-13 09:46:18,317] INFO - Starting experiment: xbg_trial_classifier_ray_tuner
-[2023-09-13 09:46:18,317] INFO - Model defined, preproessing data
-[2023-09-13 09:46:20,578] INFO - Data processed
-[2023-09-13 09:46:20,578] INFO - Starting grid search
+[2023-10-13 11:50:49,097] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/xbg_trial_classifier_ray_tuner
+[2023-10-13 11:50:49,098] INFO - Starting experiment: xbg_trial_classifier_ray_tuner
+[2023-10-13 11:50:49,098] INFO - Model defined, preproessing data
