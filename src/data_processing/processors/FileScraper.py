@@ -10,53 +10,98 @@ from loguru import logger
 
 
 class FileScraper:
-    def __init__(self, data_directory: str = None) -> None:
+    def __init__(self, directory: str = None) -> None:
 
-        if data_directory is not None:
-            self._directory = data_directory
+        if directory is not None:
+            self._directory = directory
+            self.fetch_all_file_names()
+            self.file_search_results = self._all_files
+
         else:
             self._directory = None
-        self._file_names = None
-        self._search_results = {"directory": self.directory,
-                                "file_names": self.file_names,
-                                "extensions_found": None,
-                                "extensions_not_found": None,
-                                "keywords_found": None,
-                                "keywords_not_found": None}
+            self._all_files = None
+
+        self._extensions_found = []
+        self._extensions_not_found = []
+        self._keywords_found = []
+        self._keywords_not_found = []
 
     @property
     def directory(self):
-        # if self._directory is None:
-        #     self._directory = input("Enter the directory of the data files: ")
         return self._directory
 
     @directory.setter
     def directory(self, directory: str):
         self._directory = directory
-
-    def set_directory(self, directory: str = None):
-        """used to programmaticly set directory instead of user input"""
-        if directory is None:
-            self.directory
-        self._directory = directory
+        self.fetch_all_file_names()
 
     @property
-    def file_names(self):
-        if self._file_names is None:
-            self.fetch_all_file_names()
-        return self._file_names
+    def all_files(self):
+        return self._all_files
 
-    @file_names.setter
-    def file_names(self, value):
-        self._file_names = value
+    @all_files.setter
+    def all_files(self, value):
+        self._all_files = value
+
+    @property
+    def extensions_found(self):
+        if self._extensions_found == ['']:
+            return []
+        else:
+            return self._extensions_found
+
+    @extensions_found.setter
+    def extensions_found(self, value):
+        self._extensions_found = value
+
+    @property
+    def extensions_not_found(self):
+        return self._extensions_not_found
+
+    @extensions_not_found.setter
+    def extensions_not_found(self, value):
+        self._extensions_not_found = value
+
+    @property
+    def keywords_found(self):
+        if self._keywords_found == ['']:
+            return []
+        return self._keywords_found
+
+    @keywords_found.setter
+    def keywords_found(self, value):
+        self._keywords_found = value
+
+    @property
+    def keywords_not_found(self):
+        return self._keywords_not_found
+
+    @keywords_not_found.setter
+    def keywords_not_found(self, value):
+        self._keywords_not_found = value
+
+    @property
+    def file_search_results(self):
+        if self.extensions_found is None or self.keywords_found is None:
+            return []
+        elif len(self.extensions_found) == 0 and len(self.keywords_found) == 0:
+            return self.all_files
+        else:
+            return self._file_search_results
+
+    @file_search_results.setter
+    def file_search_results(self, value):
+        self._file_search_results = value
 
     @property
     def search_results(self):
-        return self._search_results
-
-    def update_search_results(self, **kwargs):
-        for key, value in kwargs.items():
-            self._search_results[key] = value
+        search_results = {"directory": self.directory,
+                          "file_search_results": self.file_search_results,
+                          "extensions_found": self.extensions_found,
+                          "extensions_not_found": self.extensions_not_found,
+                          "keywords_found": self.keywords_found,
+                          "keywords_not_found": self.keywords_not_found}
+        return search_results
 
     def fetch_all_file_names(self):
         """
@@ -66,9 +111,10 @@ class FileScraper:
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 all_file_names.append(os.path.join(root, file))
-        self.file_names = all_file_names
+        self._all_files = all_file_names
+        # self.update_search_results(file_names=self.file_names)
 
-    def filter_files_by_extention(self, *extensions: str):
+    def filter_files_by_extention(self, *extensions):
         """
         Filters the files in the directory by the specified extensions.
 
@@ -82,41 +128,41 @@ class FileScraper:
         None
         """
 
-        # formats extensions if not already formatted correctly
         formatted_extensions = [
             self.format_input(ext) for ext in extensions]
 
         # filters files by extension in in the stored file names of the directory
-        filtered_files = [file for file in self.file_names if any(
-            ext in file for ext in formatted_extensions)]
+        filtered_files = [
+            file for file
+            in self.all_files
+            if any(file.endswith(ext) for ext in formatted_extensions
+                   # if any(ext in file for ext in formatted_extensions
+                   )
+        ]
 
-        # checks if any files were found with the specified extensions, if not, looged and keeps all files in directory
-        try:
-            assert len(filtered_files) > 0
-            extensions_found = [ext for ext in formatted_extensions if any(
-                ext in file for file in filtered_files)]
-            extensions_not_found = [
-                ext for ext in formatted_extensions if ext not in extensions_found]
+        extensions_found = [ext for ext
+                            in formatted_extensions
+                            if any(ext in file for file in filtered_files)
+                            ]
 
-            # loggs the files found
-            logger.info(
-                f"Files filtered by extensions found: {filtered_files}")
-            # what ever extensions are not found are logged
-            if len(extensions_not_found) > 0:
-                logger.info(
-                    f"Files of extension type: {extensions_not_found} not found.")
-            else:
-                pass
+        extensions_not_found = [ext for ext
+                                in formatted_extensions
+                                if ext not in extensions_found
+                                ]
 
-        # updates _file_names stored as the filtered_files
-            # self._file_names = filtered_files
-            self.update_search_results(file_names=filtered_files,
-                                       extensions_found=extensions_found,
-                                       extensions_not_found=extensions_not_found)
+        if len(extensions_found) > 0:
+            self.extensions_found = extensions_found
+
+        elif len(extensions) == 0:
+            self.extensions_found = []
+
+        else:
+            self.extensions_found = None
+
+        self.extensions_not_found = extensions_not_found
+        self._file_search_results = filtered_files
+
         # if no files are found with the specified extensions, all files in directory still saved and info is logged
-        except AssertionError as e:
-            logger.info(
-                f"No files found with the specified extention(s), all files in directory returned.")
 
     def filter_files_by_keywords(self, *keywords: str):
         """
@@ -132,36 +178,49 @@ class FileScraper:
         None
         """
 
-        # formats keywords into list for searching
-        formatted_keywords = [self.format_input(
-            word, format_type="keyword") for word in keywords]
-        print(formatted_keywords)
+        formatted_keywords = [
+            self.format_input(word, format_type="keyword")
+            for word in keywords
+        ]
 
-        filtered_files = [file for file in self.file_names if any(
-            word in file for word in formatted_keywords)]
+        def filter_files_for_keywords(files_to_filter, keywords):
+            filtered_files = [file for file in files_to_filter if any(
+                word in file for word in keywords)]
+            return filtered_files
 
-        try:
-            assert (len(filtered_files) > 0)
+        if self.extensions_found == []:
+            filtered_files = filter_files_for_keywords(
+                self.all_files, formatted_keywords)
 
-            keywords_found = [word for word in formatted_keywords if any(
-                word in file for file in filtered_files)]
+        elif self.extensions_found is None:
+            return []
+        else:
+            filtered_files = filter_files_for_keywords(
+                self.file_search_results, formatted_keywords)
 
-            keywords_not_found = [
-                word for word in formatted_keywords if word not in keywords_found]
+        keywords_found = [word for word
+                          in formatted_keywords
+                          if any(
+                              word in file
+                              for file in self.file_search_results
+                          )
+                          ]
 
-            logger.info(f"Files filtered by keywords found: {filtered_files}")
-            if len(keywords_not_found) > 0:
-                logger.info(
-                    f"Files of keyword type: {keywords_not_found} not found.")
+        keywords_not_found = [word for word
+                              in formatted_keywords
+                              if word not in keywords_found]
 
-            # self._file_names = filtered_files
-            self.update_search_results(file_names=filtered_files,
-                                       keywords_found=keywords_found,
-                                       keywords_not_found=keywords_not_found)
+        self._file_search_results = filtered_files
 
-        except AssertionError as e:
-            logger.info(
-                f"No files found with the specified keyword(s), all files that were searched returned.")
+        if len(keywords_found) > 0:
+            self.keywords_found = keywords_found
+
+        elif len(keywords) == 0:
+            self.keywords_found = []
+        else:
+            self.keywords_found = None
+
+        self.keywords_not_found = keywords_not_found
 
     def format_input(self, input, format_type="extension"):
         """
@@ -174,6 +233,9 @@ class FileScraper:
         str
             The formatted input.
         """
+        if input == '':
+            return ''
+
         formatted_input = (
             input
             .strip()
@@ -181,7 +243,9 @@ class FileScraper:
         )
 
         if format_type == "extension":
-            return formatted_input if formatted_input.startswith(".") else f".{formatted_input}"
+            formatted_input = formatted_input if formatted_input.startswith(
+                ".") else f".{formatted_input}"
+            return formatted_input
         elif format_type == "keyword":
             return formatted_input
 
@@ -194,6 +258,9 @@ class FileScraper:
         Returns:
             list: A list of strings after splitting the input by spaces or commas.
         """
+        # if user_input is None:
+        #     return []
+
         if " " in user_input:
             user_input = user_input.split(" ")
         elif "," in user_input:
@@ -202,28 +269,13 @@ class FileScraper:
             user_input = [user_input]
         return user_input
 
-    def scrape_directoy(self, directory: str = None, file_extensions: str = None, keywords: str = None) -> None:
-        """
+    def scrape_directoy(self, directory: str = '', file_extensions: str = '', keywords: str = '') -> None:
 
-        """
-        if directory is None:
-            directory = self.directory
+        if directory != '':
+            self.directory = directory
 
-        if file_extensions is None:
-            file_extensions = None
-        else:
-            file_extensions = self.format_user_input(file_extensions)
-            self.filter_files_by_extention(*file_extensions)
+        formatted_extensions = self.format_user_input(file_extensions)
+        self.filter_files_by_extention(*formatted_extensions)
 
-        if keywords is None:
-            keywords = None
-        else:
-            keywords = self.format_user_input(keywords)
-            self.filter_files_by_keywords(*keywords)
-
-        if file_extensions is None and keywords is None:
-            self.update_search_results(file_names=self.file_names,
-                                       extensions_found=None,
-                                       extensions_not_found=None,
-                                       keywords_found=None,
-                                       keywords_not_found=None)
+        formatted_keywords = self.format_user_input(keywords)
+        self.filter_files_by_keywords(*formatted_keywords)

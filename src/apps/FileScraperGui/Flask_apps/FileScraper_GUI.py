@@ -9,9 +9,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def file_scraper():
     # Initialize variables
-    directory = ''
-    file_extensions = ''
-    keywords = ''
     files_found_results = ''
     filetypes_not_found = ''
     keywords_not_found = ''

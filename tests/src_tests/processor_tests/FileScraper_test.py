@@ -16,7 +16,7 @@ class TestFileScraper(unittest.TestCase):
 
         # Assert
         self.assertIsNone(scraper._directory)
-        self.assertIsNone(scraper._file_names)
+        self.assertIsNone(scraper._all_files)
 
     def test_init_with_data_directory(self):
         # Arrange
@@ -55,12 +55,12 @@ class TestFileScraper(unittest.TestCase):
             self.file_scraper.fetch_all_file_names()
 
             # Assert
-            self.assertEqual(self.file_scraper._file_names,
+            self.assertEqual(self.file_scraper._all_files,
                              expected_file_names)
 
     def test_filter_files_by_extention(self):
         # Arrange
-        self.file_scraper._file_names = [
+        self.file_scraper._all_files = [
             "/path/to/test_directory/file1.txt",
             "/path/to/test_directory/file2.csv",
             "/path/to/test_directory/file3.txt"
@@ -74,7 +74,7 @@ class TestFileScraper(unittest.TestCase):
         expected_file_names = [
             "/path/to/test_directory/file2.csv"
         ]
-        self.assertEqual(self.file_scraper._file_names, expected_file_names)
+        self.assertEqual(self.file_scraper._all_files, expected_file_names)
 
     def test_filter_files_by_extention_no_files_found(self):
         # Arrange
@@ -83,18 +83,18 @@ class TestFileScraper(unittest.TestCase):
             "/path/to/test_directory/file2.csv",
             "/path/to/test_directory/file3.txt"
         ]
-        self.file_scraper._file_names = assumed_files
+        self.file_scraper._all_files = assumed_files
         none_extensions = (".png")
 
         # Act
         self.file_scraper.filter_files_by_extention(*none_extensions)
 
         # Assert
-        self.assertEqual(self.file_scraper._file_names, assumed_files)
+        self.assertEqual(self.file_scraper._all_files, assumed_files)
 
     def test_filter_files_by_keywords(self):
         # Arrange
-        self.file_scraper._file_names = [
+        self.file_scraper._all_files = [
             "/path/to/test_directory/file1.txt",
             "/path/to/test_directory/file2.csv",
             "/path/to/test_directory/file3.txt"
@@ -109,7 +109,7 @@ class TestFileScraper(unittest.TestCase):
             "/path/to/test_directory/file1.txt",
             "/path/to/test_directory/file3.txt"
         ]
-        self.assertEqual(self.file_scraper._file_names, expected_file_names)
+        self.assertEqual(self.file_scraper._all_files, expected_file_names)
 
     def test_filter_files_by_keywords_no_files_found(self):
         # Arrange
@@ -118,14 +118,14 @@ class TestFileScraper(unittest.TestCase):
             "/path/to/test_directory/file2.csv",
             "/path/to/test_directory/file3.txt"
         ]
-        self.file_scraper._file_names = assumed_files
+        self.file_scraper._all_files = assumed_files
         keywords = ("file4",)
 
         # Act
         self.file_scraper.filter_files_by_keywords(*keywords)
 
         # Assert
-        self.assertEqual(self.file_scraper._file_names, assumed_files)
+        self.assertEqual(self.file_scraper._all_files, assumed_files)
 
 
 if __name__ == "__main__":
