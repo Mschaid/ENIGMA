@@ -25,7 +25,7 @@ def process_data(data_path, experiment_dir):
                                   stratify_group="sex",
                                   target='action',
                                   save_subject_ids=True,
-                                  path_to_save=os.path.dirname(experiment_dir))
+                                  path_to_save=experiment_dir)
                       .transform_data(numeric_target_dict={'avoid': 1, 'escape': 0})
                       )
     return processor_pipe
@@ -72,7 +72,7 @@ def main():
 
     SEARCH_SPACE = {
         "n_estimators": np.arange(50, 500, 100),
-        "learning_rate": np.arange(0.01, 0.3, 0.05),
+        'learning_rate': [0.01, 0.05, 0.1, 0.2],
         "max_depth": np.arange(3, 15, 2),
         "min_child_weight": np.arange(1, 10, 1),
         "gamma": np.arange(0, 5, 1),

@@ -33,7 +33,7 @@ def process_data(data_path, experiment_dir):
                                   stratify_group="sex",
                                   target='ratio_avoid',
                                   save_subject_ids=True,
-                                  path_to_save=os.path.dirname(experiment_dir))
+                                  path_to_save=experiment_dir)
                       .transform_data()
                       )
 
