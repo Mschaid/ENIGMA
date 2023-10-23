@@ -37,7 +37,7 @@ class ClassifierPipe:
 
     # read raw data
 
-    def read_raw_data(self, features_to_drop=None):
+    def read_raw_data(self, features_to_drop=None, drop_na=False):
         """read raw data from path_to_data
 
         Returns
@@ -49,6 +49,9 @@ class ClassifierPipe:
                 self.path_to_data).drop(columns=features_to_drop)
         else:
             self.raw_data = pd.read_parquet(self.path_to_data)
+
+        if drop_na is True:
+            self.raw_data = self.raw_data.dropna()
         return self
     # reduce signal to max and min
 
