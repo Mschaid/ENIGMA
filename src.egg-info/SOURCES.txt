@@ -7,6 +7,7 @@ src.egg-info/SOURCES.txt
 src.egg-info/dependency_links.txt
 src.egg-info/top_level.txt
 src/data_processing/__init__.py
+src/data_processing/processors/FileScraper.py
 src/data_processing/processors/GabyProcessor.py
 src/data_processing/processors/Preprocessor.py
 src/data_processing/processors/SchemaBuilder.py
@@ -26,6 +27,7 @@ tests/src_tests/model_tests/SimpleLSTM_test.py
 tests/src_tests/model_tests/StackedLSTM_test.py
 tests/src_tests/model_tests/__init__.py
 tests/src_tests/model_tests/experiment_tests/__init__.py
+tests/src_tests/processor_tests/FileScraper_test.py
 tests/src_tests/processor_tests/GabyProcessor_test.py
 tests/src_tests/processor_tests/Preprocessor_test.py
 tests/src_tests/processor_tests/SchemaBuilder_test.py
