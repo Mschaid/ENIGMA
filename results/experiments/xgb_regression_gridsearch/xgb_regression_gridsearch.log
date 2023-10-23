@@ -1,3 +1,5 @@
-[2023-10-13 11:58:31,507] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/xgb_regression_gridsearch
-[2023-10-13 11:58:31,507] INFO - Starting experiment: xgb_regression_gridsearch
-[2023-10-13 11:58:31,508] INFO - Model defined, preproessing data
+[2023-10-16 11:17:42,100] INFO - Created new directories: /projects/p31961/ENIGMA/results/experiments/xgb_regression_gridsearch
+[2023-10-16 11:17:42,100] INFO - Starting experiment: xgb_regression_gridsearch
+[2023-10-16 11:17:42,100] INFO - Model defined, preproessing data
+[2023-10-16 11:17:46,476] INFO - Data processed
+[2023-10-16 11:17:46,477] INFO - Starting grid search
