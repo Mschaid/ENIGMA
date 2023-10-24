@@ -44,7 +44,7 @@ def hyperopt_experiment(processor, space, max_evals):
     best = fmin(fn=objective, 
                 space=space, 
                 algo=tpe.suggest, 
-                max_evals=max_evals
+                max_evals=max_evals,
                 trials = trials)
     logging.info('Hyperopt complete')
     logging.info(f'Best params: {space_eval(space, best)}')
