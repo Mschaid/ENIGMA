@@ -35,12 +35,13 @@ def process_data(data_path, experiment_dir):
 def hyperopt_experiment(processor, space, max_evals):
     logging.info('Running hyperopt')
     def objective(params):
-        model = xgb.XGBClassifier(objective='binary:logistic', **params)
+        model = xgb.XGBRegressor(
+        objective='reg:squarederror', eval_metric=['rmse', 'mae'], **params)
         predictions = cross_val_predict(model, processor.X_train, processor.y_train, cv=5)
         score = f1_score(processor.y_train, predictions)
         return {'loss': -score, 'status': STATUS_OK}
     
-    trils = Trials()
+    trials = Trials()
     best = fmin(fn=objective, 
                 space=space, 
                 algo=tpe.suggest, 
