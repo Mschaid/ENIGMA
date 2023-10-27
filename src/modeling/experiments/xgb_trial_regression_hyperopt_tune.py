@@ -4,13 +4,13 @@ import numpy as np
 import os
 import xgboost as xgb
 
-from sklearn.metrics import f1_score
-from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import cross_val_score
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials, space_eval
 #local imports
 from src.utilities.os_helpers import set_up_directories, set_up_logger
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
-from src.utilities.os_helpers import set_up_directories, set_up_logger
+
 
 
 def process_data(data_path, experiment_dir):
@@ -37,9 +37,10 @@ def hyperopt_experiment(processor, space, max_evals):
     def objective(params):
         model = xgb.XGBRegressor(
         objective='reg:squarederror', eval_metric=['rmse', 'mae'], **params)
-        predictions = cross_val_predict(model, processor.X_train, processor.y_train, cv=5)
-        score = f1_score(processor.y_train, predictions)
-        return {'loss': -score, 'status': STATUS_OK}
+        model.fit(processor.X_train, processor.y_train)
+        scores = -cross_val_score(model, processor.X_dev, processor.y_dev, cv=5)
+        mean_score=np.mean(scores)
+        return {'loss': mean_score, 'status': STATUS_OK}
     
     trials = Trials()
     best = fmin(fn=objective, 
@@ -47,6 +48,10 @@ def hyperopt_experiment(processor, space, max_evals):
                 algo=tpe.suggest, 
                 max_evals=max_evals,
                 trials = trials)
+    # best_trials_path = os.path.join(experiment_dir, 'best_trial.json')
+    # with open(best_trials_path, 'w') as f:
+    #     json.dump(best, f, indent=4)
+        
     logging.info('Hyperopt complete')
     logging.info(f'Best params: {space_eval(space, best)}')
 
@@ -64,21 +69,23 @@ def main():
     PROCESSOR = process_data(DATA_PATH, EXPERIMENT_DIR)
 
     SEARCH_SPACE = {
-        "n_estimators": hp.uniform('n_estimators', 50, 500),
-        "learning_rate": hp.uniform('learning_rate', 0.01, 0.2),
-        "max_depth": hp.uniform('max_depth', 3, 15),
+        "n_estimators": hp.choice('n_estimators', [50,100,150,200,250]),
+        "learning_rate": hp.choice('learning_rate', np.arange(0.05, 0.2, 0.5)),
+        "max_depth": hp.quniform('max_depth', 3, 15),
         "min_child_weight": hp.uniform('min_child_weight', 1, 10),
         "gamma": hp.uniform('gamma', 0, 5),
         "booster": hp.choice('booster', ['gbtree', 'gblinear', 'dart']),
         "subsample": hp.uniform('subsample', 0, 1),
         "reg_lambda": hp.uniform('reg_lambda', 0, 5)
-    }
+        }
 
-    hyperopt_experiment(processor=PROCESSOR, space=SEARCH_SPACE, max_evals=100)
+    hyperopt_experiment(processor=PROCESSOR,
+                        space=SEARCH_SPACE, 
+                        max_evals=100)
+                        
 
-if __name__ == "__main__":
-    logging.info('Starting experiment')
-    main()
-    logging.info('Experiment complete')
+
+main()
+
 
     
