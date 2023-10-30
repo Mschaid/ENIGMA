@@ -71,7 +71,7 @@ def main():
     SEARCH_SPACE = {
         "n_estimators": hp.choice('n_estimators', [50,100,150,200,250]),
         "learning_rate": hp.choice('learning_rate', np.arange(0.05, 0.2, 0.5)),
-        "max_depth": hp.quniform('max_depth', 3, 15),
+        "max_depth": hp.choice('max_depth', np.arange(3, 15, 3),
         "min_child_weight": hp.uniform('min_child_weight', 1, 10),
         "gamma": hp.uniform('gamma', 0, 5),
         "booster": hp.choice('booster', ['gbtree', 'gblinear', 'dart']),
