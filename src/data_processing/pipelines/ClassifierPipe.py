@@ -150,8 +150,7 @@ class ClassifierPipe:
                    load_subject_ids=False,
                    subject_ids_path=None
                    ):
-        """
-        Calculate the maximum and minimum signal values for each combination of event, action, mouse, sensor, sex, day, and trial count.
+        """.
 
         This function filters the columns of the raw data based on specific search terms ('event', 'action', 'mouse', 'sensor', 'sex') and assigns the filtered columns to variables. Then, it performs the following operations on the raw data:
         - Groups the data by the filtered columns and additional columns ('day', 'trial_count')
@@ -183,51 +182,45 @@ class ClassifierPipe:
         if load_subject_ids is True:
             with open(subject_ids_path) as f:
                 self.subject_category = json.load(f)
+                
+            self.training_subjects = self.processed_data.query(f'mouse_id in {self.subject_category["training"]}')
+            self.dev_subjects = self.processed_data.query(f'mouse_id in {self.subject_category["dev"]}')
+            self.test_subjects = self.processed_data.query(f'mouse_id in {self.subject_category["test"]}')
+            
+            self.X_train, self.y_train = self.training_subjects.drop(columns=target), self.training_subjects[target]
+            self.X_dev, self.y_dev = self.dev_subjects.drop(columns=target), self.dev_subjects[target]
+            self.X_test, self.y_test = self.test_subjects.drop(columns=target), self.test_subjects[target]
+        
+        else:
+            X = df.drop(columns=target)
+            y = df[target]
 
-            def query_mouse_id(self, category):
-                mice = self.subject_category[category]
-                query = " or ".join([f"mouse_id == {mouse}" for mouse in mice])
-                return query
+            def train_test_split_by_group_stratify(X, y, group_col, stratify_col, test_size, random_state=42):
 
-            train_query, dev_query, test_query = query_mouse_id(
-                self, 'training'), query_mouse_id(self, 'dev'), query_mouse_id(self, 'test')
-            training_set, dev_set, test_set = self.processed_data.query(
-                train_query), self.processed_data.query(dev_query), self.processed_data.query(test_query)
+                group_splitter = GroupShuffleSplit(
+                    n_splits=1, test_size=test_size, random_state=random_state)
+                group_train_idx, group_test_idx = next(
+                    group_splitter.split(X, y, groups=X[group_col]))
 
-            self.X_train, self.X_dev, self.X_test = training_set.drop(
-                columns=target), dev_set.drop(columns=target), test_set.drop(columns=target)
-            self.y_train, self.y_dev, self.y_test = training_set[
-                target], dev_set[target], test_set[target]
+                strat_splitter = StratifiedShuffleSplit(
+                    n_splits=1, test_size=0.5, random_state=random_state)
+                strat_train_idx, _ = next(strat_splitter.split(
+                    X.iloc[group_train_idx], X.iloc[group_train_idx][stratify_col]))
 
-        X = df.drop(columns=target)
-        y = df[target]
+                train_idx = group_train_idx[strat_train_idx]
+                test_idx = group_test_idx
 
-        def train_test_split_by_group_stratify(X, y, group_col, stratify_col, test_size, random_state=42):
+                x_train = X.iloc[train_idx]
+                x_test = X.iloc[test_idx]
+                y_train = y.iloc[train_idx]
+                y_test = y.iloc[test_idx]
 
-            group_splitter = GroupShuffleSplit(
-                n_splits=1, test_size=test_size, random_state=random_state)
-            group_train_idx, group_test_idx = next(
-                group_splitter.split(X, y, groups=X[group_col]))
+                return x_train, x_test, y_train, y_test
 
-            strat_splitter = StratifiedShuffleSplit(
-                n_splits=1, test_size=0.5, random_state=random_state)
-            strat_train_idx, _ = next(strat_splitter.split(
-                X.iloc[group_train_idx], X.iloc[group_train_idx][stratify_col]))
-
-            train_idx = group_train_idx[strat_train_idx]
-            test_idx = group_test_idx
-
-            x_train = X.iloc[train_idx]
-            x_test = X.iloc[test_idx]
-            y_train = y.iloc[train_idx]
-            y_test = y.iloc[test_idx]
-
-            return x_train, x_test, y_train, y_test
-
-        self.X_train, X_temp, self.y_train, y_temp = train_test_split_by_group_stratify(
-            X, y, group_col=split_group, stratify_col=stratify_group, test_size=test_size)
-        self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split_by_group_stratify(
-            X_temp, y_temp, group_col=split_group, stratify_col=stratify_group, test_size=test_dev_size)
+            self.X_train, X_temp, self.y_train, y_temp = train_test_split_by_group_stratify(
+                X, y, group_col=split_group, stratify_col=stratify_group, test_size=test_size)
+            self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split_by_group_stratify(
+                X_temp, y_temp, group_col=split_group, stratify_col=stratify_group, test_size=test_dev_size)
 
         # save subject ids to json
         if save_subject_ids is True:
