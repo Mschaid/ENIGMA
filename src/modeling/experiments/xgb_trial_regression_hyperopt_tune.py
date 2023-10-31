@@ -71,17 +71,17 @@ def main():
     SEARCH_SPACE = {
         "n_estimators": hp.choice('n_estimators', [50,100,150,200,250]),
         "learning_rate": hp.choice('learning_rate', np.arange(0.05, 0.2, 0.5)),
-        "max_depth": hp.choice('max_depth', np.arange(3, 15, 3),
-        "min_child_weight": hp.uniform('min_child_weight', 1, 10),
-        "gamma": hp.uniform('gamma', 0, 5),
+        "max_depth": hp.choice('max_depth', np.arange(3, 15, 3)),
+        "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
+        "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
         "booster": hp.choice('booster', ['gbtree', 'gblinear', 'dart']),
-        "subsample": hp.uniform('subsample', 0, 1),
-        "reg_lambda": hp.uniform('reg_lambda', 0, 5)
+        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)),
+        "reg_lambda": hp.choice('reg_lambda', np.arange(0, 5, 0.5))
         }
 
     hyperopt_experiment(processor=PROCESSOR,
                         space=SEARCH_SPACE, 
-                        max_evals=100)
+                        max_evals=1000)
                         
 
 
