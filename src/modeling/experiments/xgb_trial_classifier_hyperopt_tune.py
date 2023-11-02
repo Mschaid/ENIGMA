@@ -33,7 +33,7 @@ def hyperopt_experiment(processor, space, max_evals):
     logging.info('Running hyperopt')
     
     def objective(params):
-        model = xgb.XGBClassifier(objective='binary:logistic'**params)
+        model = xgb.XGBClassifier(objective='binary:logistic',**params)
         model.fit(processor.X_train, processor.y_train)
         predict = model.predict(processor.X_dev)
         score = f1_score(processor.y_dev, predict)
@@ -80,3 +80,4 @@ def main():
 
 
 main()
+import shap
