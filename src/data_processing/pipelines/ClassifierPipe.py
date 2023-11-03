@@ -127,6 +127,10 @@ class ClassifierPipe:
         )
         return self
 
+    def query_by_col(self, query="event == 'cue'"):
+        self.processed_data = self.processed_data.query(query)
+        return self
+
     def drop_features(self, cols_to_drop):
         self.processed_data = self.processed_data.drop(columns=cols_to_drop)
         if hasattr(self, 'X_train'):
@@ -182,15 +186,21 @@ class ClassifierPipe:
         if load_subject_ids is True:
             with open(subject_ids_path) as f:
                 self.subject_category = json.load(f)
-                
-            self.training_subjects = self.processed_data.query(f'mouse_id in {self.subject_category["training"]}')
-            self.dev_subjects = self.processed_data.query(f'mouse_id in {self.subject_category["dev"]}')
-            self.test_subjects = self.processed_data.query(f'mouse_id in {self.subject_category["test"]}')
-            
-            self.X_train, self.y_train = self.training_subjects.drop(columns=target), self.training_subjects[target]
-            self.X_dev, self.y_dev = self.dev_subjects.drop(columns=target), self.dev_subjects[target]
-            self.X_test, self.y_test = self.test_subjects.drop(columns=target), self.test_subjects[target]
-        
+
+            self.training_subjects = self.processed_data.query(
+                f'mouse_id in {self.subject_category["training"]}')
+            self.dev_subjects = self.processed_data.query(
+                f'mouse_id in {self.subject_category["dev"]}')
+            self.test_subjects = self.processed_data.query(
+                f'mouse_id in {self.subject_category["test"]}')
+
+            self.X_train, self.y_train = self.training_subjects.drop(
+                columns=target), self.training_subjects[target]
+            self.X_dev, self.y_dev = self.dev_subjects.drop(
+                columns=target), self.dev_subjects[target]
+            self.X_test, self.y_test = self.test_subjects.drop(
+                columns=target), self.test_subjects[target]
+
         else:
             X = df.drop(columns=target)
             y = df[target]
@@ -342,7 +352,3 @@ class ClassifierPipe:
         self.X_dev = self.processor.transform(self.X_dev)
         self.X_test = self.processor.transform(self.X_test)
         return self
-    
-
-    
-
