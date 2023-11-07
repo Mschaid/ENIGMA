@@ -52,8 +52,20 @@ class ClassifierPipe:
 
         if drop_na is True:
             self.raw_data = self.raw_data.dropna()
+
+        self.processed_data = self.raw_data
         return self
     # reduce signal to max and min
+
+    def bin_trial_count(self):
+
+        self.processed_data = (
+            self.processed_data.assign(trial_count_bins=lambda df_: pd.qcut(df_['trial_count'],
+                                                                            q=df_.trial_count.max()//10,
+                                                                            labels=False)
+                                       )
+        )
+        return self
 
     def calculate_max_min_signal(self, cols_to_drop=[]):
         """
@@ -77,22 +89,24 @@ class ClassifierPipe:
 
             """
 
-        events = filter_columns_by_search(self.raw_data, 'event')
-        actions = filter_columns_by_search(self.raw_data, 'action')
-        mouse = filter_columns_by_search(self.raw_data, 'mouse')
-        sensors = filter_columns_by_search(self.raw_data, 'sensor')
-        sex = filter_columns_by_search(self.raw_data, 'sex')
+        events = filter_columns_by_search(self.processed_data, 'event')
+        actions = filter_columns_by_search(self.processed_data, 'action')
+        mouse = filter_columns_by_search(self.processed_data, 'mouse')
+        sensors = filter_columns_by_search(self.processed_data, 'sensor')
+        sex = filter_columns_by_search(self.processed_data, 'sex')
+        trial_count_bins = filter_columns_by_search(
+            self.processed_data, 'trial_count_bins')
 
         self.processed_data = (
-            self.raw_data
+            self.processed_data
             # .query("time > -10 and time < 10.1")
             .assign(
                 neg_signal=lambda df_: np.where(df_.signal < 0, df_.signal, 0),
                 pos_signal=lambda df_: np.where(df_.signal > 0, df_.signal, 0)
             )
-            .groupby(by=mouse+events+actions+sensors+sex+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min", np.trapz],
-                                                                                                               "pos_signal": np.trapz,
-                                                                                                              "neg_signal": np.trapz})
+            .groupby(by=mouse+events+actions+sensors+sex+trial_count_bins+['day', 'trial_count', 'trial'], as_index=False).agg({"signal": ["max", "min", np.trapz],
+                                                                                                                                "pos_signal": np.trapz,
+                                                                                                                                "neg_signal": np.trapz})
             .pipe(flatten_dataframe)
             .rename(columns=lambda c: c.strip("_"))
             .drop(columns='index')
