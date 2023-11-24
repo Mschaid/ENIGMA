@@ -16,6 +16,7 @@ This model was optimzied using hyperopt in base_classifier_tuning.py
 
 """
 
+
 def process_data(file_path, path_to_save):
     """
     Process the data from a given file path and save the processed data to a specified path.
@@ -27,20 +28,21 @@ def process_data(file_path, path_to_save):
     Returns:
         ClassifierPipe: The processed data.
     """
-    
+
     processor = (ClassifierPipe(file_path)
-                  .read_raw_data()
-                  .calculate_max_min_signal()
-                  .split_data(test_size=0.3,
-                              test_dev_size=0.5,
-                              split_group="mouse_id",
-                              stratify_group="sex",
-                              target='action',
-                              save_subject_ids=True,
-                              path_to_save=os.path.dirname(path_to_save))
-                  .transform_data(numeric_target_dict={'avoid': 1, 'escape': 0})
-                  )
+                 .read_raw_data()
+                 .calculate_max_min_signal()
+                 .strategy_and_split_by_mouse(test_size=0.3,
+                                              test_dev_size=0.5,
+                                              split_group="mouse_id",
+                                              stratify_group="sex",
+                                              target='action',
+                                              save_subject_ids=True,
+                                              path_to_save=os.path.dirname(path_to_save))
+                 .transform_data(numeric_target_dict={'avoid': 1, 'escape': 0})
+                 )
     return processor
+
 
 def load_parameters(best_params_file_path):
     """
@@ -60,11 +62,11 @@ def load_parameters(best_params_file_path):
     return results["params"]
 
 
-def train_optimized_model(processor, best_params, tensorboard_dir, model_name): 
+def train_optimized_model(processor, best_params, tensorboard_dir, model_name):
     """
     Train an optimized model using the given processor, best parameters, directory to save,
     and model name.
-    
+
     Parameters
     ----------
     processor : Processor
@@ -75,94 +77,89 @@ def train_optimized_model(processor, best_params, tensorboard_dir, model_name):
         The directory where the trained model will be saved.
     model_name : str
         The name of the model.
-        
+
     Returns
     -------
     model : BaseClassifier
         The trained model.
     """
-    
-    tensorboard_callback = set_tensorboard(save_directory=tensorboard_dir, model_id=model_name)
-    
+
+    tensorboard_callback = set_tensorboard(
+        save_directory=tensorboard_dir, model_id=model_name)
+
     model = (BaseClassifier(
         number_of_layers=best_params["number of layers"],
         number_of_units=best_params["number of units"],
         dropout_rate=best_params["dropout rate"])
-             )
+    )
     metrics = [tf.keras.metrics.BinaryAccuracy(name='accuracy'),
-            tf.keras.metrics.Precision(name='precision'),
-            tf.keras.metrics.Recall(name='recall'),
-            tf.keras.metrics.AUC(name='auc-roc')]
-    
+               tf.keras.metrics.Precision(name='precision'),
+               tf.keras.metrics.Recall(name='recall'),
+               tf.keras.metrics.AUC(name='auc-roc')]
+
     model.compile(optimizer=best_params["optimizers"],
-                  loss='binary_crossentropy', 
+                  loss='binary_crossentropy',
                   metrics=metrics)
-    
+
     model.fit(processor.X_train,
               processor.y_train,
               batch_size=best_params["batch size"],
               epochs=best_params["epochs"],
-              validation_data=(processor.X_dev, processor.y_dev), 
+              validation_data=(processor.X_dev, processor.y_dev),
               callbacks=[tensorboard_callback])
 
     return model
-    
-    
 
-
-        
-        
-    
 
 def main():
     """
     Runs the main function of the program.
-    
+
     This function sets up the necessary directories for logging, training results, and model saving.
     It then processes the data, loads the optimized parameters, trains the model, and finally saves the model.
-    
+
     Parameters
     ----------
     None
-    
+
     Returns
     -------
     None
     """
-    
+
     # data path and main directioes to save logs, training results and model
     DATA_PATH = '/projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip'
-    
 
     PARAM_FILE_PATH = '/projects/p31961/ENIGMA/results/experiments/base_classifier_tuning/best_params.json'
     EXPERIMENT_MAIN_DIR = '/projects/p31961/ENIGMA/results/optimized_models'
-    MODEL_SAVE_MAIN_DIR= '/projects/p31961/ENIGMA/results/models/optimzied_models'
+    MODEL_SAVE_MAIN_DIR = '/projects/p31961/ENIGMA/results/models/optimzied_models'
     MODEL_NAME = "BaseClassifier_optimized"
-    
-    #directories to create
+
+    # directories to create
     EXPERIMENT_DIR = os.path.join(EXPERIMENT_MAIN_DIR, MODEL_NAME)
     TENSOR_BOARD_DIR = os.path.join(EXPERIMENT_DIR, 'tensorboard')
     MODEL_SAVE_DIR = os.path.join(MODEL_SAVE_MAIN_DIR, MODEL_NAME)
     set_up_directories(EXPERIMENT_DIR, MODEL_SAVE_DIR, TENSOR_BOARD_DIR)
-    
+
     LOG_FILE_PATH = os.path.join(EXPERIMENT_DIR, f'{MODEL_NAME}.log')
     logging.basicConfig(filename=LOG_FILE_PATH,
-                    filemode='w',
-                    level=logging.INFO,
-                    format='[%(asctime)s] %(levelname)s - %(message)s')
-    logging.info(f'Created new directories: {EXPERIMENT_MAIN_DIR}, {MODEL_SAVE_MAIN_DIR}')
-    
+                        filemode='w',
+                        level=logging.INFO,
+                        format='[%(asctime)s] %(levelname)s - %(message)s')
+    logging.info(
+        f'Created new directories: {EXPERIMENT_MAIN_DIR}, {MODEL_SAVE_MAIN_DIR}')
+
     logging.info('Processing data')
     processor = process_data(DATA_PATH, EXPERIMENT_DIR)
     logging.info('Loading optimzied paramteres')
     best_params = load_parameters(PARAM_FILE_PATH)
     logging.info('Training model')
-    model = train_optimized_model(processor=processor, best_params=best_params, tensorboard_dir=TENSOR_BOARD_DIR, model_name=MODEL_NAME)
+    model = train_optimized_model(processor=processor, best_params=best_params,
+                                  tensorboard_dir=TENSOR_BOARD_DIR, model_name=MODEL_NAME)
     logging.info('Saving model')
     model.save(EXPERIMENT_DIR)
     logging.info(f'{MODEL_NAME} training and saving complete')
 
-    
 
 if __name__ == "__main__":
     main()

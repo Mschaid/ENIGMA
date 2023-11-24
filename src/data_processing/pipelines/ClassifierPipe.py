@@ -5,7 +5,7 @@ import pandas as pd
 import json
 
 
-from sklearn.model_selection import GroupShuffleSplit, StratifiedShuffleSplit
+from sklearn.model_selection import GroupShuffleSplit, StratifiedShuffleSplit, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -34,6 +34,13 @@ Attributes:
 class ClassifierPipe:
     def __init__(self, path_to_data):
         self.path_to_data = path_to_data
+        # self.processed_data = None
+        # self.X_train = None
+        # self.X_dev = None
+        # self.X_test = None
+        # self.y_train = None
+        # self.y_dev = None
+        # self.y_test = None
 
     # read raw data
 
@@ -45,15 +52,15 @@ class ClassifierPipe:
             ClassifierPipe object
         """
         if features_to_drop is not None:
-            self.raw_data = pd.read_parquet(
+            raw_data = pd.read_parquet(
                 self.path_to_data).drop(columns=features_to_drop)
         else:
-            self.raw_data = pd.read_parquet(self.path_to_data)
+            raw_data = pd.read_parquet(self.path_to_data)
 
         if drop_na is True:
-            self.raw_data = self.raw_data.dropna()
+            raw_data = raw_data.dropna()
 
-        self.processed_data = self.raw_data
+        self.processed_data = raw_data
         return self
     # reduce signal to max and min
 
@@ -137,7 +144,7 @@ class ClassifierPipe:
             self.processed_data
             .merge(num_avoids, on=["mouse_id", "day"], how="right")
             .merge(max_trials, on=["mouse_id", "day"], how="left")
-            .assign(ratio_avoid=lambda df_: (df_.num_avoids/df_.max_trial))
+            .assign(ratio_avoid=lambda df_: (df_.num_avoids/df_.max_trial).astype("float64"))
         )
         return self
 
@@ -154,20 +161,23 @@ class ClassifierPipe:
         return self
 
     # split data into train and test and save subject ids to json
+    def pipe_custom(self, custom_function):
+        self.processed_data = custom_function(self.processed_data)
+        return self
 
-    def split_data(self,
-                   test_size=0.2,
-                   test_dev_size=0.5,
-                   split_group=None,
-                   stratify_group=None,
-                   target=None,
-                   processed_data=True,
-                   save_subject_ids=True,
-                   save_datasets=False,
-                   path_to_save=None,
-                   load_subject_ids=False,
-                   subject_ids_path=None
-                   ):
+    def strategy_and_split_by_mouse(self,
+                                    test_size=0.2,
+                                    test_dev_size=0.5,
+                                    split_group=None,
+                                    stratify_group=None,
+                                    target=None,
+                                    processed_data=True,
+                                    save_subject_ids=True,
+                                    save_datasets=False,
+                                    path_to_save=None,
+                                    load_subject_ids=False,
+                                    subject_ids_path=None
+                                    ):
         """.
 
         This function filters the columns of the raw data based on specific search terms ('event', 'action', 'mouse', 'sensor', 'sex') and assigns the filtered columns to variables. Then, it performs the following operations on the raw data:
@@ -279,6 +289,18 @@ class ClassifierPipe:
     # if loading from stored subject ids
         return self
     # create pipeline
+
+    def split_by_ratio(self, target,
+                       test_size=0.2,
+                       test_dev_size=0.5,
+                       seed=42):
+        X = self.processed_data.drop(columns=target)
+        y = self.processed_data[target]
+        self.X_train, X_temp, self.y_train, y_temp = train_test_split(
+            X, y, test_size=test_size, random_state=seed)
+        self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split(
+            X_temp, y_temp, test_size=test_dev_size, random_state=seed)
+        return self
 
     def transform_data(self, numeric_target_dict=None):
         """

@@ -26,13 +26,13 @@ logging.basicConfig(filename=LOG_FILE_PATH,
 processor_pipe = (ClassifierPipe(DATA_PATH)
                   .read_raw_data()
                   .calculate_max_min_signal()
-                  .split_data(test_size=0.3,
-                              test_dev_size=0.5,
-                              split_group="mouse_id",
-                              stratify_group="sex",
-                              target='action',
-                              save_subject_ids=True,
-                              path_to_save=os.path.dirname(EXPERIMENT_DIR))
+                  .strategy_and_split_by_mouse(test_size=0.3,
+                                               test_dev_size=0.5,
+                                               split_group="mouse_id",
+                                               stratify_group="sex",
+                                               target='action',
+                                               save_subject_ids=True,
+                                               path_to_save=os.path.dirname(EXPERIMENT_DIR))
                   .transorm_data(numeric_target_dict={'avoid': 1, 'escape': 0})
                   )
 logging.info('Data processed')
@@ -119,9 +119,6 @@ def run_trials():
                        algo=tpe.suggest,
                        max_evals=400,
                        trials=trials)
-
-
-    
 
     with open(os.path.join(EXPERIMENT_DIR, 'best_trial.json'), 'w') as f:
         json.dump(best_trials, f)

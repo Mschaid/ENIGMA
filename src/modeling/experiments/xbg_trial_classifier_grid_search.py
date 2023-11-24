@@ -19,13 +19,13 @@ def process_data(data_path, experiment_dir):
                       .read_raw_data()
                       .calculate_max_min_signal()
                       .drop_features(["event", "trial"])
-                      .split_data(test_size=0.2,
-                                  test_dev_size=0.5,
-                                  split_group="mouse_id",
-                                  stratify_group="sex",
-                                  target='action',
-                                  save_subject_ids=True,
-                                  path_to_save=experiment_dir)
+                      .strategy_and_split_by_mouse(test_size=0.2,
+                                                   test_dev_size=0.5,
+                                                   split_group="mouse_id",
+                                                   stratify_group="sex",
+                                                   target='action',
+                                                   save_subject_ids=True,
+                                                   path_to_save=experiment_dir)
                       .transform_data(numeric_target_dict={'avoid': 1, 'escape': 0})
                       )
     return processor_pipe
