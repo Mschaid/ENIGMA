@@ -55,18 +55,17 @@ def hyperopt_experiment(processor, space, max_evals):
     # best_trials_path = os.path.
 
 
-@hydra.main(version_base=None, 
-            config_path="conf", 
+@hydra.main(version_base=None,
+            config_path="conf",
             config_name="quest_config")
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
     cfg.quest_config.experiment_name = "xgb_regression_da_only_hyperopt_tune"
     EXPERIMENT_NAME = cfg.quest_config.experiment_name
-    
-    
+
     DATA_PATH = Path(cfg.quest_config.data_path)
     MAIN_DIR = Path(cfg.quest_config.main_dir)
-    EXPERIMENT_PATH = Path(cfg.quest_config.experiment_path)
+    EXPERIMENT_PATH = Path(cfg.quest_config.experiment_dir)
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
