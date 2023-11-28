@@ -26,7 +26,7 @@ logging.basicConfig(filename=LOG_FILE_PATH,
 processor_pipe = (ClassifierPipe(DATA_PATH)
                   .read_raw_data()
                   .calculate_max_min_signal()
-                  .strategy_and_split_by_mouse(test_size=0.3,
+                  .stratify_and_split_by_mouse(test_size=0.3,
                                                test_dev_size=0.5,
                                                split_group="mouse_id",
                                                stratify_group="sex",

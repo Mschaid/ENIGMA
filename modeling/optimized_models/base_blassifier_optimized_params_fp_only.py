@@ -32,7 +32,7 @@ def process_data(file_path, subject_ids_path, features_to_drop):
     processor = (ClassifierPipe(file_path)
                  .read_raw_data()
                  .calculate_max_min_signal()
-                 .strategy_and_split_by_mouse(load_subject_ids=True,
+                 .stratify_and_split_by_mouse(load_subject_ids=True,
                                               subject_ids_path=subject_ids_path,
                                               target='action')
                  .drop_features(features_to_drop)

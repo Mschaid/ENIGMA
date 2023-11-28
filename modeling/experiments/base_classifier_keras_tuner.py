@@ -15,7 +15,7 @@ def process_data(data_path, experiment_dir):
     processor_pipe = (ClassifierPipe(data_path)
                       .read_raw_data()
                       .calculate_max_min_signal()
-                      .strategy_and_split_by_mouse(test_size=0.3,
+                      .stratify_and_split_by_mouse(test_size=0.3,
                                                    test_dev_size=0.5,
                                                    split_group="mouse_id",
                                                    stratify_group="sex",

@@ -27,7 +27,7 @@ def process_data(data_path, experiment_dir):
                       .calculate_max_min_signal()
                       .calculate_percent_avoid()
                       .drop_features(["event", "action", "trial", "trial_count", "num_avoids", "max_trial"])
-                      .strategy_and_split_by_mouse(test_size=0.3,
+                      .stratify_and_split_by_mouse(test_size=0.3,
                                                    test_dev_size=0.5,
                                                    split_group="mouse_id",
                                                    stratify_group="sex",

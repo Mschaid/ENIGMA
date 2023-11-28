@@ -19,7 +19,7 @@ def process_data(data_path, experiment_dir):
                       .read_raw_data()
                       .calculate_max_min_signal()
                       .drop_features(["event", "trial"])
-                      .strategy_and_split_by_mouse(test_size=0.2,
+                      .stratify_and_split_by_mouse(test_size=0.2,
                                                    test_dev_size=0.5,
                                                    split_group="mouse_id",
                                                    stratify_group="sex",

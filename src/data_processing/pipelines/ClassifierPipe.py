@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import json
-
+from typing import Callable
 
 from sklearn.model_selection import GroupShuffleSplit, StratifiedShuffleSplit, train_test_split
 from sklearn.pipeline import Pipeline
@@ -34,13 +34,6 @@ Attributes:
 class ClassifierPipe:
     def __init__(self, path_to_data):
         self.path_to_data = path_to_data
-        # self.processed_data = None
-        # self.X_train = None
-        # self.X_dev = None
-        # self.X_test = None
-        # self.y_train = None
-        # self.y_dev = None
-        # self.y_test = None
 
     # read raw data
 
@@ -64,6 +57,7 @@ class ClassifierPipe:
         return self
     # reduce signal to max and min
 
+    # not used, but left in for reproducibility
     def bin_trial_count(self):
 
         self.processed_data = (
@@ -73,6 +67,8 @@ class ClassifierPipe:
                                        )
         )
         return self
+
+    # not used, but left in for reproducibility
 
     def calculate_max_min_signal(self, cols_to_drop=[]):
         """
@@ -123,6 +119,8 @@ class ClassifierPipe:
 
         return self
 
+    # not used, but left in for reproducibility
+
     def calculate_percent_avoid(self):
 
         # calculate max trials
@@ -148,10 +146,12 @@ class ClassifierPipe:
         )
         return self
 
+    # not used, but left in for reproducibility
     def query_by_col(self, query="event == 'cue'"):
         self.processed_data = self.processed_data.query(query)
         return self
 
+    # not used, but left in for reproducibility
     def drop_features(self, cols_to_drop):
         self.processed_data = self.processed_data.drop(columns=cols_to_drop)
         if hasattr(self, 'X_train'):
@@ -160,12 +160,11 @@ class ClassifierPipe:
             self.X_test = self.X_test.drop(columns=cols_to_drop)
         return self
 
-    # split data into train and test and save subject ids to json
-    def pipe_custom(self, custom_function):
+    def pandas_pipe(self, custom_function,):
         self.processed_data = custom_function(self.processed_data)
         return self
 
-    def strategy_and_split_by_mouse(self,
+    def stratify_and_split_by_mouse(self,
                                     test_size=0.2,
                                     test_dev_size=0.5,
                                     split_group=None,
