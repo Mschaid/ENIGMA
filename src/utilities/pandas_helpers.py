@@ -3,6 +3,9 @@ import pandas as pd
 from typing import List
 
 
+""" THESE FUNCTIONS HAVE BEEN MOVED TO PANDAS PROCESSORS. SHOULD BE REMOVED UPON REFACTOR """
+
+
 def flatten_dataframe(df):
     """Flatten a multi-indexed dataframe to a single index."""
     df.columns = ['_'.join(col) for col in df.columns.values]
