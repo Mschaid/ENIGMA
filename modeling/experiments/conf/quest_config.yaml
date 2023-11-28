@@ -1,0 +1,9 @@
+quest_config:
+  data_path: /projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip
+  main_dir: /projects/p31961/ENIGMA/results/experiments
+  experiment_name: default_experiment_name
+  experiment_dir: ${quest_config.main_dir}/${quest_config.experiment_name}
+
+hydra:
+  run:
+    dir: ${quest_config.experiment_dir}
