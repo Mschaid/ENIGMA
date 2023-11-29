@@ -20,7 +20,7 @@ def df_pipeline(df):
     drop_columns = ["action", "sex", "trial_count", "trial"]
     df_ = (
         df
-        .query("sensor=='DA' & sensor == 'D1'")
+        .query("sensor=='DA' or sensor == 'D1'")
         .pipe(calculate_max_min_signal)
         .pipe(calculate_percent_avoid)
         .drop(columns=drop_columns)
