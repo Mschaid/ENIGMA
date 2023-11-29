@@ -20,7 +20,7 @@ def df_pipeline(df):
     drop_columns = ["action", "sex", "trial_count", "trial"]
     df_ = (
         df
-        .query("sensor=='DA'")
+        .query("sensor=='DA' & sensor == 'D1'")
         .pipe(calculate_max_min_signal)
         .pipe(calculate_percent_avoid)
         .drop(columns=drop_columns)
@@ -60,7 +60,6 @@ def hyperopt_experiment(processor, space, max_evals):
             config_name="quest_config")
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
-    cfg.quest_config.experiment_name = "xgb_regression_da_only_hyperopt_tune"
     EXPERIMENT_NAME = cfg.quest_config.experiment_name
 
     DATA_PATH = Path(cfg.quest_config.data_path)
