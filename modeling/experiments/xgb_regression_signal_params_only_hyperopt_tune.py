@@ -74,7 +74,7 @@ def save_results(best_params, results,  experiment_name, experiment_path):
             config_name="config")
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
-    EXPERIMENT_NAME = cfg.quest_config.experiment_name
+    EXPERIMENT_NAME = cfg.experiment_config.experiment_name
 
     DATA_PATH = Path(cfg.quest_config.data_path)
     MAIN_DIR = Path(cfg.quest_config.main_dir)
@@ -82,7 +82,7 @@ def main(cfg: DictConfig) -> None:
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
     
-    queried_df_pipeline = partial(df_pipeline, query=cfg.quest_config.experiment)
+    queried_df_pipeline = partial(df_pipeline, query=cfg.experiment_config.experiment_query)
     
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
