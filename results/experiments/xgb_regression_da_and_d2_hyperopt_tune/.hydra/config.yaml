@@ -1,11 +1,6 @@
-experiment_query: "sensor == 'DA'"
-experiment_name: xgb_regression_da_only_hyperopt_tune
-
+experiment_query: sensor!='D1'
+experiment_name: xgb_regression_da_and_d2_hyperopt_tune
 quest_config:
   data_path: /projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip
   main_dir: /projects/p31961/ENIGMA/results/experiments
   experiment_dir: ${quest_config.main_dir}/${experiment_name}
-
-hydra:
-  run:
-    dir: ${quest_config.experiment_dir}

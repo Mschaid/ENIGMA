@@ -93,7 +93,7 @@ def main(cfg: DictConfig) -> None:
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
-    queried_df_pipeline = partial(df_pipeline, query=str(cfg.experiment_query))
+    queried_df_pipeline = partial(df_pipeline, cols_to_drop=['day'],  query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
