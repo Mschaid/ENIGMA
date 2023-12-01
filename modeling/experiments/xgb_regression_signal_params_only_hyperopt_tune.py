@@ -15,7 +15,9 @@ from src.data_processing.preprocessing.pandas_preprocessors import *
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 
 from omegaconf import DictConfig, OmegaConf
-def df_pipeline(df, query=None):
+
+
+def df_pipeline(df, query=None, cols_to_drop=['mouse_id', 'day']):
     '''pandas preprocessing specific to this experiment'''
     drop_columns = ["action", "sex", "trial_count", "trial"]
     df_ = (
@@ -25,16 +27,16 @@ def df_pipeline(df, query=None):
         .pipe(calculate_percent_avoid)
         .drop(columns=drop_columns)
         .pipe(expand_df)
-        .drop(columns=['mouse_id', 'day'])
+        .drop(columns=cols_to_drop)
     )
     return df_
-# ids = assign_ids(df)
 
 
 def hyperopt_experiment(processor, space, max_evals):
     logging.info('Running hyperopt')
 
     def objective(params):
+
         model = xgb.XGBRegressor(
             objective='reg:squarederror', eval_metric=['rmse', 'mae'], **params)
         model.fit(processor.X_train, processor.y_train)
@@ -42,6 +44,7 @@ def hyperopt_experiment(processor, space, max_evals):
                                   processor.y_dev, cv=5,
                                   scoring='neg_root_mean_squared_error')
         mean_score = np.mean(scores)
+
         return {'loss': mean_score, 'status': STATUS_OK}
 
     trials = Trials()
@@ -54,36 +57,43 @@ def hyperopt_experiment(processor, space, max_evals):
     logging.info('Hyperopt complete')
     logging.info(f'Best params: {space_eval(space, best)}')
     results = pd.DataFrame(trials.results)
-    
+
     return best_params, results
 
-    
+
 def save_results(best_params, results,  experiment_name, experiment_path):
     '''Writes experiment parameters to yaml file'''
+    for key, value in best_params.items():
+        if isinstance(value, np.generic):
+            best_params[key] = value.item()
+
     params = {'experiment_name': experiment_name,
               'best_params': best_params}
     with open(experiment_path / 'params.yaml', 'w') as file:
-        yaml.dump(params, file)
-    logging.info(f'Parameters written to {experiment_path}/params.yaml')
-    logging.info(f'Writing results to {experiment_path}/hyper_opt_results.parquet')
-    pd.to_parquet(results, experiment_path / 'hyper_opt_results.parquet')
-    return None
+        yaml.dump(params, file, default_flow_style=False)
+    logging.info(f'Parameters written to {experiment_path}/best_params.yaml')
+    logging.info(
+        f'Writing results to {experiment_path}/hyper_opt_results.parquet')
+
+    results.to_parquet(path=experiment_path / 'hyper_opt_results.parquet',
+                       engine='pyarrow', compression='gzip')
+    return
+
 
 @hydra.main(version_base=None,
             config_path="conf",
             config_name="config")
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
-    EXPERIMENT_NAME = cfg.experiment_config.experiment_name
+    EXPERIMENT_NAME = cfg.experiment_name
 
     DATA_PATH = Path(cfg.quest_config.data_path)
     MAIN_DIR = Path(cfg.quest_config.main_dir)
     EXPERIMENT_PATH = Path(cfg.quest_config.experiment_dir)
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
-    
-    queried_df_pipeline = partial(df_pipeline, query=cfg.experiment_config.experiment_query)
-    
+
+    queried_df_pipeline = partial(df_pipeline, query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
@@ -102,13 +112,15 @@ def main(cfg: DictConfig) -> None:
         "reg_lambda": hp.choice('reg_lambda', np.arange(0, 5, 0.2))
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
-                        space=SEARCH_SPACE,
-                        max_evals=1000)
-    
+                                               space=SEARCH_SPACE,
+                                               max_evals=500)
+
     save_results(best_params=best_params,
                  results=results,
                  experiment_name=EXPERIMENT_NAME,
                  experiment_path=EXPERIMENT_PATH)
+    logging.info('Experiment complete')
+
 
 if __name__ == "__main__":
     main()
