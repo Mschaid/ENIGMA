@@ -4,7 +4,6 @@ import pandas as pd
 from typing import List
 
 
-
 def flatten_dataframe(df):
     """Flatten a multi-indexed dataframe to a single index."""
     df.columns = ['_'.join(col) for col in df.columns.values]
@@ -122,3 +121,21 @@ def max_trials(df):
             keep="last")
         .reset_index(drop=True)
     )
+
+
+def xgb_reg_signal_params_only_pd_preprocessor(df: pd.DataFrame, query: str = None, cls_to_drop: List = None) -> pd.DataFrame:
+    '''pandas preprocessing specific to this experiment'''
+
+    if cls_to_drop is None:
+        cls_to_drop = ['mouse_id', 'day']
+    drop_columns = ["action", "sex", "trial_count", "trial"]
+    df_ = (
+        df
+        .query(query)
+        .pipe(calculate_max_min_signal)
+        .pipe(calculate_percent_avoid)
+        .drop(columns=drop_columns)
+        .pipe(expand_df)
+        .drop(columns=cls_to_drop)
+    )
+    return df_

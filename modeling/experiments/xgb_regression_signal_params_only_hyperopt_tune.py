@@ -17,21 +17,6 @@ from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 from omegaconf import DictConfig, OmegaConf
 
 
-def df_pipeline(df, query=None, cols_to_drop=['mouse_id', 'day']):
-    '''pandas preprocessing specific to this experiment'''
-    drop_columns = ["action", "sex", "trial_count", "trial"]
-    df_ = (
-        df
-        .query(query)
-        .pipe(calculate_max_min_signal)
-        .pipe(calculate_percent_avoid)
-        .drop(columns=drop_columns)
-        .pipe(expand_df)
-        .drop(columns=cols_to_drop)
-    )
-    return df_
-
-
 def hyperopt_experiment(processor, space, max_evals):
     logging.info('Running hyperopt')
 
@@ -93,7 +78,8 @@ def main(cfg: DictConfig) -> None:
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
-    queried_df_pipeline = partial(df_pipeline, cols_to_drop=['day'],  query=str(cfg.experiment_query))
+    queried_df_pipeline = partial(xgb_reg_signal_params_only_pd_preprocessor, cols_to_drop=[
+                                  'day'],  query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
@@ -124,3 +110,4 @@ def main(cfg: DictConfig) -> None:
 
 if __name__ == "__main__":
     main()
+
