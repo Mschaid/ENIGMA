@@ -1,7 +1,50 @@
 import boto3
 from loguru import logger
 from typing import Tuple
+
+import yaml
+
 from src.data_processing.processors.FileScraper import FileScraper
+from pathlib import Path
+
+
+
+class DataLoader:
+    def __init__(self, config_path: str):
+        self.config_path = Path(config_path)
+        # self.filescraper = FileScraper()
+        # self._meta_data = None
+
+    # @property
+    # def meta_data(self):
+    #     if self._meta_data is None:
+    #         self._meta_data = self._load_config()
+    #     return self._meta_data
+    
+    # def _load_config(self):
+    #     with open(self.config_path, 'r') as f:
+    #         config = yaml.safe_load(f)
+    #     return config
+
+
+class DataProcessor:
+    def __init__(self, meta_data: DataLoader):
+        self.meta_data = meta_data
+
+
+class Visualizer:
+    pass
+
+
+def main():
+    CONFIG_PATH = '/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Shudi/LHA_dopamine/conf/config.yaml'
+    meta_data = DataLoader(CONFIG_PATH)
+    # data_processor = DataProcessor(meta_data)
+    # print(meta_data.meta_data)
+
+
+if __name__ == '__main__':
+    main()
 
 
 class S3Manager:

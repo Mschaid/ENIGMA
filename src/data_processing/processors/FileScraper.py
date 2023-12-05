@@ -269,7 +269,7 @@ class FileScraper:
             user_input = [user_input]
         return user_input
 
-    def scrape_directoy(self, directory: str = '', file_extensions: str = '', keywords: str = '') -> None:
+    def scrape_directory(self, directory: str = '', file_extensions: str = '', keywords: str = '') -> None:
 
         if directory != '':
             self.directory = directory
