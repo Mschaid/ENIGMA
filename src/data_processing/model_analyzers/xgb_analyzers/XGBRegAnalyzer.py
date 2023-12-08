@@ -153,10 +153,10 @@ class XGBRegAnalyzer:
 
     # Plotters
     def plot_feature_importance(self) -> pd.DataFrame:
-        return (
+        (
             (pd.DataFrame({'feature': self._feature_names,
-                           'importance': self.best_xgb_model.feature_importances_})
-                .sort_values('importance', ascending=True)
+                          'importance': self.best_xgb_model.feature_importances_})
+             .sort_values('importance', ascending=True)
              )
             .plot
             .barh(x='feature',
@@ -168,6 +168,7 @@ class XGBRegAnalyzer:
                   title='Feature importance'
                   )
         )
+        plt.show()
 
     def plot_metrics(self):
 
@@ -197,6 +198,7 @@ class XGBRegAnalyzer:
                     alpha=.6,  kind='kde', fill=True, palette=['grey', 'darkred'])
         plt.title('Distribution of Ratio Avoid for Test Set')
         plt.xlabel('Ratio Avoid')
+        plt.show()
 
     def plot_shap_cluster_bar(self):
         clustering = shap.utils.hclust(
@@ -206,7 +208,7 @@ class XGBRegAnalyzer:
 
     def plot_shap_decision_plot(self):
         shap.decision_plot(self.shap_explainer.expected_value,
-                           self.shap_explanation.values, self.feature_names)
+                           self.shap_explanation.values, self.feature_names, max_display=len(self.feature_names)
 
     def plot_shapley_heatmap(self):
         shap.plots.heatmap(self.shap_explanation, max_display=20,
@@ -216,19 +218,21 @@ class XGBRegAnalyzer:
         return xgb.plot_tree(self.best_xgb_model, num_trees=tree_index)
 
     def plot_shapley_beeswarm(self):
-        shap.plots.beeswarm(self.shap_explanation, max_display=20)
-
+        shap.plots.beeswarm(self.shap_explanation, max_display=len(self.feature_names)))
 
     def plot_model_results(self):
         self.plot_metrics()
         self.plot_feature_importance()
         self.plot_distribution()
+        plt.show()
 
     def plot_shap_results(self):
         self.plot_shap_cluster_bar()
         self.plot_shap_decision_plot()
         self.plot_shapley_heatmap()
         self.plot_shapley_beeswarm()
+        plt.show()
+
 
 class XGBRegAnalyzerFactory:
     def __init__(self, path_to_results: str):
@@ -239,5 +243,3 @@ class XGBRegAnalyzerFactory:
         analyzer.create_pipeline(cls_to_drop)
         analyzer.fit_best_xgb_model()
         return analyzer
-    
-    
