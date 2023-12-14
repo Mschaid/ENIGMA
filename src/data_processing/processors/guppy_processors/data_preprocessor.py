@@ -4,9 +4,12 @@ import polars as pl
 import h5py
 
 import yaml
+
 from typing import List, Dict, Union, Tuple, Any, NewType
 from src.data_processing.processors.FileScraper import FileScraper
-from src.data_processing.processors.guppy_processors.experimental_metadata import ExperimentMetaData
+from src.data_processing.processors.guppy_processors.experimental_metadata import ExperimentMetaData, MetaDataFactory
+from src.data_processing.processors.guppy_processors.config_loader import ConfigLoader
+from src.data_processing.processors.guppy_processors.processing_strategies import ProcessingStrategy
 from pathlib import Path
 
 Event = NewType('Event', str)
@@ -25,11 +28,11 @@ class DataPreprocessor:
         self._processed_data_df = None
 
     @property
-    def processed_data_df(self)->pd.DataFrame:
+    def processed_data_df(self) -> pd.DataFrame:
         """ returns the processed data as a pandas dataframe"""
         return self._processed_data_df
 
-    def _load_hdf5_file_to_numpy(self, file_path: Path, keyword='timestamps')->np.ndarray:
+    def _load_hdf5_file_to_numpy(self, file_path: Path, keyword='timestamps') -> np.ndarray:
         """ loads the hdf5 file into a numpy array"""
         time_stamps = h5py.File(file_path, "r").get(keyword)
         return np.array(time_stamps)
@@ -37,13 +40,13 @@ class DataPreprocessor:
     def _create_dict_from_config(self, config_key) -> Dict[str, np.ndarray]:
         """ creates a dictionary of the behavior files from the config file. 
         The keys are the names of the events and the values are the numpy arrays of the timestamps.
-        
+
         Returns
         -------
         Dict[str, np.ndarray]
-    
+
         """
-        
+
         config_dict = {f.stem: self._load_hdf5_file_to_numpy(
             f) for f in self.metadata.behavior_files}
 
@@ -53,7 +56,7 @@ class DataPreprocessor:
                 config_dict.pop(stem)
         return config_dict
 
-    def _pad_array_with_nan(self, array: np.array, length: int)->np.array:
+    def _pad_array_with_nan(self, array: np.array, length: int) -> np.array:
         """ pads the array with nan values to the specified length """
         new_arr = np.full(length, np.nan)
         new_arr[:array.shape[0]] = array
@@ -62,7 +65,7 @@ class DataPreprocessor:
     def generate_df_from_config_dict(self, config_key) -> pd.DataFrame:
         """ generates a dataframe from the config dictionary. 
         The dataframe is padded with nan values to the length of the longest array."""
-        
+
         config_dict = self._create_dict_from_config(config_key=config_key)
         max_length = max([v.shape[0] for v in config_dict.values()])
         padded_behavior_dict = {k: self._pad_array_with_nan(
@@ -70,7 +73,7 @@ class DataPreprocessor:
 
         return pd.DataFrame(padded_behavior_dict)
 
-    def _align_events(self, df, events: Tuple[Event, EventToAlign])->Dict[str, pd.DataFrame]:
+    def _align_events(self, df, events: Tuple[Event, EventToAlign]) -> Dict[str, pd.DataFrame]:
         """ aligns the events to the specified event.
         Returns 
         -------
@@ -96,9 +99,9 @@ class DataPreprocessor:
             f"{event_to_align}_aligned_to_{event}": new_df
         }
 
-    def _calculate_mean_event_frequency(self, data: Dict[str, pd.DataFrame], time_window: Tuple[int, int])-> Dict[str, np.ndarray]:
+    def _calculate_mean_event_frequency(self, data: Dict[str, pd.DataFrame], time_window: Tuple[int, int]) -> Dict[str, np.ndarray]:
         """ calculate frequency of events around specifc EPOCH and returns a dictionary of the mean frequencies of the events.
-        
+
         Returns  
         -------
         Dict[str, np.ndarray]
@@ -116,23 +119,27 @@ class DataPreprocessor:
 
         return mean_frequencies
 
-    def batch_calculate_mean_event_frequency(self, data: Dict[str, pd.DataFrame], time_window: Tuple[int, int], *events:Tuple[Event, EventToAlign]):
+    def batch_calculate_mean_event_frequency(self, data: Dict[str, pd.DataFrame], time_window: Tuple[int, int], *events: Tuple[Event, EventToAlign]):
         """ calculates the mean event frequency for a batch of events.
         * args are the events to be calculated.
-        
+
         Returns
         -------
         Dict[str, np.ndarray]
         """
         results = {}
         for event in events:
-            aligned_events = self._align_events(data, event)
-            results.update(self._calculate_mean_event_frequency(
-                aligned_events, time_window))
+            try:
+                aligned_events = self._align_events(data, event)
+                results.update(self._calculate_mean_event_frequency(
+                    aligned_events, time_window))
+            except KeyError:
+                print(
+                    f'event {event} not found for {self.metadata.experiment_id} ')
 
         return results
 
-    def _format_meta_df(self)->pd.DataFrame:
+    def _format_meta_df(self) -> pd.DataFrame:
         """ formats the metadata dictionary into a pandas dataframe"""
         data = self.metadata.data
         df = (
@@ -146,9 +153,9 @@ class DataPreprocessor:
         )
         return df
 
-    def aggreate_processed_results(self, data: Dict[str, np.ndarray], return_df: bool = True, save=True)->Union[None, pd.DataFrame]:
+    def aggreate_processed_results(self, data: Dict[str, np.ndarray], return_df: bool = True, save=True) -> Union[None, pd.DataFrame]:
         """ aggregates the processed results into a pandas dataframe and saves it as a parquet file.
-        
+
         Parameters
         ----------
         data : Dict[str, np.ndarray]
@@ -158,13 +165,13 @@ class DataPreprocessor:
         save : bool, optional
             saves the dataframe as a parquet file, by default True
             file is saved into the experiment directory.
-            
+
         Returns
         -------
         Union[None, pd.DataFrame]
             returns the dataframe if return_df is True
         """
-        
+
         meta_df = self._format_meta_df()
         data_df = pd.DataFrame(data)
         joined_df = data_df.join(meta_df, how='outer').fillna(method='ffill')
@@ -179,3 +186,17 @@ class DataPreprocessor:
             return self.processed_data_df
         else:
             return
+
+
+class BatchPreprocessor:
+    def __init__(self, metadata_factory: MetaDataFactory, processing_strategy: ProcessingStrategy):
+        self.metadata_factory = metadata_factory
+        self.processing_strategy = processing_strategy
+
+    def preprocessor_factory(self) -> List[DataPreprocessor]:
+        """ creates a data preprocessor for a each experiment"""
+        return [DataPreprocessor(metadata) for metadata in self.metadata_factory.all_meta_data]
+
+    def process_data(self):
+        for preprocessor in self.preprocessor_factory():
+            self.processing_strategy.process(preprocessor)
