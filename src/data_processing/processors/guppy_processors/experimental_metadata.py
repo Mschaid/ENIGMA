@@ -3,21 +3,30 @@ import pandas as pd
 from pathlib import Path
 from typing import List, Dict, Union, Tuple, Any
 import yaml
+from src.data_processing.processors.guppy_processors.config_loader import ConfigLoader
 
 
 class ExperimentMetaData:
     """ This class is used to extract metadata from the guppy experiment. It is used by the DataPreprocessor class to load and format data from the individual experiments."""
 
-    def __init__(self, main_path: str, config_path: str):
+    def __init__(self, configs: ConfigLoader, main_path: str):
+        self.configs = configs
         self._main_path = main_path  # this is the path from tdt
-        self._config_path = config_path
-        self._config_data: Dict[str, Any] = None
         self._stores_list: Dict[int, pd.DataFrame] = None
         self._data: Dict[str, Any] = None
         self._guppy_paths: Dict[str, Path] = None
         self._behavioral_events = None
         self._behavior_files = None
         self._stores_list_frame = None
+
+    @property
+    def config_path(self) -> Path:
+        """ this is the path to the yaml file that contains the metadata for the experiment. This should be located in the parent directory of the main_path."""
+        return self.configs.config_path
+
+    @property
+    def config_data(self) -> Dict[str, Any]:
+        return self.configs.config_data
 
     @property
     def main_path(self) -> Path:
@@ -33,28 +42,6 @@ class ExperimentMetaData:
     def experiment_id(self) -> str:
         """ returns the name of the directory eg 4756-231109-111759"""
         return self.main_path.name
-
-    @property
-    def config_path(self) -> Path:
-        """ this is the path to the yaml file that contains the metadata for the experiment. This should be located in the parent directory of the main_path."""
-        if not isinstance(self._config_path, Path):
-            self._config_path = Path(self._config_path)
-        return self._config_path
-
-    def _load_config(self):
-        """ loads the yaml file into a dictionary. is called by the config_data property."""
-        with open(self.config_path, 'r') as f:
-            config = yaml.safe_load(f)
-        return config
-
-    @property
-    def config_data(self) -> Dict[str, Any]:
-        """ laods the config into the _config_data property if it does not exsits
-
-            returns the config_data."""
-        if self._config_data is None:
-            self._config_data = self._load_config()
-        return self._config_data
 
     def _get_output_paths(self) -> List[Path]:
         """
@@ -104,7 +91,7 @@ class ExperimentMetaData:
         """ returns a list of behavioral events from the config_data property."""
         if not self._behavioral_events:
             self._behavioral_events = list(
-                self.config_data['behavioral_events'].keys())
+                self.configs.config_data['behavioral_events'].keys())
         return self._behavioral_events
 
     def _get_stores_list_paths(self) -> List[Path]:
@@ -145,3 +132,19 @@ class ExperimentMetaData:
             self._guppy_paths['behavior_files'] = self.behavior_files
             # self._guppy_paths[]
         return self._guppy_paths
+
+
+class MetaDataFactory:
+    def __init__(self, configs: ConfigLoader):
+        self.configs = configs
+
+    @property
+    def data_path(self):
+        return Path(self.configs.config_data['data_path'])
+
+    def fetch_batch_metadata(self):
+        return [d for d in self.data_path.iterdir() if d.is_dir()]
+    
+    @property
+    def all_meta_data(self):
+        return [ExperimentMetaData(self.configs, d) for d in self.fetch_batch_metadata()]
