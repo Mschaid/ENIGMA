@@ -20,7 +20,7 @@ class BehaviorProcessingStrategy(ProcessingStrategy):
         self.events = events
         self.return_df = return_df
 
-    def process(self, data_preprocessor):
+    def process(self, data_preprocessor, return_dfs: bool = False):
 
         behavior_df = data_preprocessor.generate_df_from_config_dict(
             config_key='behavioral_events')
@@ -30,3 +30,4 @@ class BehaviorProcessingStrategy(ProcessingStrategy):
 
         data_preprocessor.aggreate_processed_results(
             mean_dict, return_df=self.return_df)
+        

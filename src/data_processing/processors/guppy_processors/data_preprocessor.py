@@ -1,3 +1,4 @@
+import multiprocessing as mp
 import numpy as np
 import pandas as pd
 import polars as pl
@@ -14,6 +15,8 @@ from pathlib import Path
 
 Event = NewType('Event', str)
 EventToAlign = NewType('EventToAlign', str)
+
+
 
 
 class DataPreprocessor:
@@ -67,7 +70,12 @@ class DataPreprocessor:
         The dataframe is padded with nan values to the length of the longest array."""
 
         config_dict = self._create_dict_from_config(config_key=config_key)
-        max_length = max([v.shape[0] for v in config_dict.values()])
+
+        config_dict_values = [v.shape[0] for v in config_dict.values()]
+        if config_dict_values:
+            max_length = max([v.shape[0] for v in config_dict.values()])
+        else:
+            max_length = 0
         padded_behavior_dict = {k: self._pad_array_with_nan(
             v, max_length) for k, v in config_dict.items()}
 
@@ -197,6 +205,18 @@ class BatchPreprocessor:
         """ creates a data preprocessor for a each experiment"""
         return [DataPreprocessor(metadata) for metadata in self.metadata_factory.all_meta_data]
 
-    def process_data(self):
-        for preprocessor in self.preprocessor_factory():
-            self.processing_strategy.process(preprocessor)
+    def process_data(self, num_processors: int = 2)->None:
+        """ processes the data for each experiment in parallel
+        
+        Attributes
+        ----------
+        num_processors : int
+            number of processors to use, by default 2
+        """
+        
+        pool = mp.Pool(processes=num_processors)
+        preprocessors = self.preprocessor_factory()
+        pool.map(self.processing_strategy.process, preprocessors)
+        pool.close()
+        pool.join()
+

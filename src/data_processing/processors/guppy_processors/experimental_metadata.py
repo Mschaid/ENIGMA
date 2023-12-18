@@ -5,7 +5,7 @@ from typing import List, Dict, Union, Tuple, Any
 import yaml
 from src.data_processing.processors.guppy_processors.config_loader import ConfigLoader
 
-
+# TODO  Add logging
 class ExperimentMetaData:
     """ This class is used to extract metadata from the guppy experiment. It is used by the DataPreprocessor class to load and format data from the individual experiments."""
 
