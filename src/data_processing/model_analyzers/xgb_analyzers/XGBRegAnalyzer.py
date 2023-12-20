@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from functools import partial
 from pathlib import Path
 from typing import List, Optional, Tuple, Dict, Any, Literal, Callable
-import toolz
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -55,23 +55,6 @@ class XGBRegAnalyzer:
                               .pandas_pipe(df_processor)
                               .split_by_ratio(target='ratio_avoid')
                               .transform_data()
-                              )
-        if not self._feature_names:
-            self._feature_names = self.pipeline.processor.named_transformers_[
-                "num"].get_feature_names_out().tolist()
-        return
-
-    def create_debug_pipeline(self, cls_to_drop: List[str] = None) -> None:
-
-        df_processor = partial(xgb_reg_signal_params_only_pd_preprocessor,
-                               query=self.results.experiment_query,
-                               cls_to_drop=cls_to_drop)
-        if not self._pipeline:
-            self._pipeline = (ClassifierPipe(self.results.data_path)
-                              .read_raw_data()
-                              .pandas_pipe(df_processor)
-                              #   .split_by_ratio(target='ratio_avoid')
-                              #   .transform_data()
                               )
         if not self._feature_names:
             self._feature_names = self.pipeline.processor.named_transformers_[
