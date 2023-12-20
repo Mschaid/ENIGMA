@@ -261,4 +261,4 @@ class XGBRegAnalyzerFactory:
         analyzer.create_pipeline(cls_to_drop)
         analyzer.fit_best_xgb_model()
         return analyzer
-# recommt
+# recommit
