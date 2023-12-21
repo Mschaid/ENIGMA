@@ -44,7 +44,7 @@ class XGBRegAnalyzer:
 
         return self._xgb_model
 
-    def create_pipeline(self, cls_to_drop: List[str] = None) -> None:
+    def create_pipeline(self, cls_to_drop: List[str] = None, random_seed=None, shuffle=True) -> None:
 
         df_processor = partial(xgb_reg_signal_params_only_pd_preprocessor,
                                query=self.results.experiment_query,
@@ -53,7 +53,7 @@ class XGBRegAnalyzer:
             self._pipeline = (ClassifierPipe(self.results.data_path)
                               .read_raw_data()
                               .pandas_pipe(df_processor)
-                              .split_by_ratio(target='ratio_avoid')
+                              .split_by_ratio(target='ratio_avoi', random_seed=random_seed, shuffle=shuffle)
                               .transform_data()
                               )
         if not self._feature_names:

@@ -292,13 +292,13 @@ class ClassifierPipe:
     def split_by_ratio(self, target,
                        test_size=0.2,
                        test_dev_size=0.5,
-                       seed=42):
+                       random_seed=None, shuffle=True):
         X = self.processed_data.drop(columns=target)
         y = self.processed_data[target]
         self.X_train, X_temp, self.y_train, y_temp = train_test_split(
-            X, y, test_size=test_size, random_state=seed)
+            X, y, test_size=test_size, random_state=random_seed, shuffle=shuffle)
         self.X_dev, self.X_test, self.y_dev, self.y_test = train_test_split(
-            X_temp, y_temp, test_size=test_dev_size, random_state=seed)
+            X_temp, y_temp, test_size=test_dev_size, random_state=random_seed, shuffle=shuffle)
         return self
 
     def transform_data(self, numeric_target_dict=None):
