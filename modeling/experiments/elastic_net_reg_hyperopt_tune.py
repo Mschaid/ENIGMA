@@ -70,6 +70,7 @@ def save_results(best_params, results,  experiment_name, experiment_path):
             config_path="conf",
             config_name="config")
 def main(cfg: DictConfig) -> None:
+    # TODO: this current overrides everything and it needs to be fixed so it outputs to new directory.
     OmegaConf.to_yaml(cfg)
     EXPERIMENT_NAME = cfg.experiment_name
     ORIG_EXPERIMENT_NAME = cfg.original_experiment_name
