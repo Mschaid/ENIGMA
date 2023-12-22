@@ -30,6 +30,7 @@ class XGBRegAnalyzer:
         self.__datasets = None
         self.__datasets_w_predictions = None
         self._feature_names = None
+        self._feature_importance_df = None
         self._shap_explainer = None
         self._shap_explanation = None
 
@@ -53,7 +54,7 @@ class XGBRegAnalyzer:
             self._pipeline = (ClassifierPipe(self.results.data_path)
                               .read_raw_data()
                               .pandas_pipe(df_processor)
-                              .split_by_ratio(target='ratio_avoi', random_seed=random_seed, shuffle=shuffle)
+                              .split_by_ratio(target='ratio_avoid', random_seed=random_seed, shuffle=shuffle)
                               .transform_data()
                               )
         if not self._feature_names:
@@ -151,23 +152,27 @@ class XGBRegAnalyzer:
             self._shap_explanation.feature_names = self._feature_names
         return self._shap_explanation
 
-    # Plotters
+    @property
+    def feature_importance_df(self) -> pd.DataFrame:
+        if self._feature_importance_df is None:
+            self._feature_importance_df = (pd.DataFrame({'feature': self._feature_names,
+                                                        'importance': self.best_xgb_model.feature_importances_})
+                                           .sort_values('importance', ascending=True)
+                                           )
+        return self._feature_importance_df
+
     def plot_feature_importance(self) -> pd.DataFrame:
-        (
-            (pd.DataFrame({'feature': self._feature_names,
-                          'importance': self.best_xgb_model.feature_importances_})
-             .sort_values('importance', ascending=True)
-             )
-            .plot
-            .barh(x='feature',
-                  y='importance',
-                  figsize=(5, 5),
-                  color='darkred',
-                  edgecolor='black',
-                  linewidth=0.2,
-                  title='Feature importance'
-                  )
-        )
+        (self.feature_importance_df
+         .plot
+         .barh(x='feature',
+               y='importance',
+               figsize=(5, 5),
+               color='darkred',
+               edgecolor='black',
+               linewidth=0.2,
+               title='Feature importance'
+               )
+         )
         plt.show()
 
     def plot_metrics(self):
