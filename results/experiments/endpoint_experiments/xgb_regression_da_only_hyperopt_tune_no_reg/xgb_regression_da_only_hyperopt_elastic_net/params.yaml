@@ -4,7 +4,7 @@ best_params:
   max_depth: 12
   min_child_weight: 2
   n_estimators: 100
-  reg_alpha: 0.8498824998395585
-  reg_lambda: 0.4783831070988416
+  reg_alpha: 3.1860971082238474
+  reg_lambda: 8.975789829191166
   subsample: 0.4
 experiment_name: xgb_regression_da_only_hyperopt_elastic_net
