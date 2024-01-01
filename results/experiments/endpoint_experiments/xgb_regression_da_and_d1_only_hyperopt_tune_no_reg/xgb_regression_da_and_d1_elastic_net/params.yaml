@@ -1,0 +1,10 @@
+best_params:
+  gamma: 0
+  learning_rate: 0.505
+  max_depth: 3
+  min_child_weight: 2
+  n_estimators: 200
+  reg_alpha: 0.11606352411982751
+  reg_lambda: 3.7803450513103476
+  subsample: 0.6000000000000001
+experiment_name: xgb_regression_da_and_d1_elastic_net

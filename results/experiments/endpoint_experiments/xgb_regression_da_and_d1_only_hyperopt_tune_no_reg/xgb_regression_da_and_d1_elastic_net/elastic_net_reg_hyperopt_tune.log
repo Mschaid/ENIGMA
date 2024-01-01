@@ -1,0 +1,1007 @@
+[2024-01-01 15:44:47,237][root][INFO] - Experiment name: xgb_regression_da_and_d1_elastic_net
+[2024-01-01 15:44:51,500][root][INFO] - Running hyperopt
+[2024-01-01 15:44:51,506][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000705 seconds
+[2024-01-01 15:44:51,506][hyperopt.tpe][INFO] - TPE using 0 trials
+[2024-01-01 15:44:51,999][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000635 seconds
+[2024-01-01 15:44:51,999][hyperopt.tpe][INFO] - TPE using 1/1 trials with best loss 0.316369
+[2024-01-01 15:44:52,116][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000614 seconds
+[2024-01-01 15:44:52,116][hyperopt.tpe][INFO] - TPE using 2/2 trials with best loss 0.316369
+[2024-01-01 15:44:52,233][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000680 seconds
+[2024-01-01 15:44:52,233][hyperopt.tpe][INFO] - TPE using 3/3 trials with best loss 0.316369
+[2024-01-01 15:44:52,355][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000597 seconds
+[2024-01-01 15:44:52,355][hyperopt.tpe][INFO] - TPE using 4/4 trials with best loss 0.316369
+[2024-01-01 15:44:52,471][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000598 seconds
+[2024-01-01 15:44:52,472][hyperopt.tpe][INFO] - TPE using 5/5 trials with best loss 0.316369
+[2024-01-01 15:44:52,591][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000601 seconds
+[2024-01-01 15:44:52,591][hyperopt.tpe][INFO] - TPE using 6/6 trials with best loss 0.316369
+[2024-01-01 15:44:52,719][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000590 seconds
+[2024-01-01 15:44:52,719][hyperopt.tpe][INFO] - TPE using 7/7 trials with best loss 0.311325
+[2024-01-01 15:44:52,835][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000579 seconds
+[2024-01-01 15:44:52,835][hyperopt.tpe][INFO] - TPE using 8/8 trials with best loss 0.311325
+[2024-01-01 15:44:52,963][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000705 seconds
+[2024-01-01 15:44:52,963][hyperopt.tpe][INFO] - TPE using 9/9 trials with best loss 0.311325
+[2024-01-01 15:44:53,079][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:44:53,079][hyperopt.tpe][INFO] - TPE using 10/10 trials with best loss 0.311325
+[2024-01-01 15:44:53,198][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:44:53,198][hyperopt.tpe][INFO] - TPE using 11/11 trials with best loss 0.311325
+[2024-01-01 15:44:53,314][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000570 seconds
+[2024-01-01 15:44:53,314][hyperopt.tpe][INFO] - TPE using 12/12 trials with best loss 0.311325
+[2024-01-01 15:44:53,450][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000598 seconds
+[2024-01-01 15:44:53,450][hyperopt.tpe][INFO] - TPE using 13/13 trials with best loss 0.288400
+[2024-01-01 15:44:53,567][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000590 seconds
+[2024-01-01 15:44:53,567][hyperopt.tpe][INFO] - TPE using 14/14 trials with best loss 0.288400
+[2024-01-01 15:44:53,683][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000664 seconds
+[2024-01-01 15:44:53,683][hyperopt.tpe][INFO] - TPE using 15/15 trials with best loss 0.288400
+[2024-01-01 15:44:53,801][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000583 seconds
+[2024-01-01 15:44:53,801][hyperopt.tpe][INFO] - TPE using 16/16 trials with best loss 0.288400
+[2024-01-01 15:44:53,917][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000578 seconds
+[2024-01-01 15:44:53,917][hyperopt.tpe][INFO] - TPE using 17/17 trials with best loss 0.288400
+[2024-01-01 15:44:54,041][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:44:54,042][hyperopt.tpe][INFO] - TPE using 18/18 trials with best loss 0.288400
+[2024-01-01 15:44:54,158][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000587 seconds
+[2024-01-01 15:44:54,159][hyperopt.tpe][INFO] - TPE using 19/19 trials with best loss 0.288400
+[2024-01-01 15:44:54,286][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000784 seconds
+[2024-01-01 15:44:54,287][hyperopt.tpe][INFO] - TPE using 20/20 trials with best loss 0.288400
+[2024-01-01 15:44:54,427][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:44:54,427][hyperopt.tpe][INFO] - TPE using 21/21 trials with best loss 0.288400
+[2024-01-01 15:44:54,546][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000576 seconds
+[2024-01-01 15:44:54,546][hyperopt.tpe][INFO] - TPE using 22/22 trials with best loss 0.288400
+[2024-01-01 15:44:54,690][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:44:54,690][hyperopt.tpe][INFO] - TPE using 23/23 trials with best loss 0.285770
+[2024-01-01 15:44:54,831][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000685 seconds
+[2024-01-01 15:44:54,831][hyperopt.tpe][INFO] - TPE using 24/24 trials with best loss 0.285408
+[2024-01-01 15:44:54,974][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000585 seconds
+[2024-01-01 15:44:54,974][hyperopt.tpe][INFO] - TPE using 25/25 trials with best loss 0.283714
+[2024-01-01 15:44:55,091][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:44:55,091][hyperopt.tpe][INFO] - TPE using 26/26 trials with best loss 0.283714
+[2024-01-01 15:44:55,214][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:44:55,214][hyperopt.tpe][INFO] - TPE using 27/27 trials with best loss 0.283714
+[2024-01-01 15:44:55,333][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:44:55,333][hyperopt.tpe][INFO] - TPE using 28/28 trials with best loss 0.283714
+[2024-01-01 15:44:55,451][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000580 seconds
+[2024-01-01 15:44:55,451][hyperopt.tpe][INFO] - TPE using 29/29 trials with best loss 0.283714
+[2024-01-01 15:44:55,572][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000673 seconds
+[2024-01-01 15:44:55,572][hyperopt.tpe][INFO] - TPE using 30/30 trials with best loss 0.283714
+[2024-01-01 15:44:55,697][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:44:55,697][hyperopt.tpe][INFO] - TPE using 31/31 trials with best loss 0.283714
+[2024-01-01 15:44:55,815][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000578 seconds
+[2024-01-01 15:44:55,815][hyperopt.tpe][INFO] - TPE using 32/32 trials with best loss 0.283714
+[2024-01-01 15:44:55,933][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000576 seconds
+[2024-01-01 15:44:55,934][hyperopt.tpe][INFO] - TPE using 33/33 trials with best loss 0.283714
+[2024-01-01 15:44:56,083][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000589 seconds
+[2024-01-01 15:44:56,083][hyperopt.tpe][INFO] - TPE using 34/34 trials with best loss 0.283714
+[2024-01-01 15:44:56,218][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000582 seconds
+[2024-01-01 15:44:56,218][hyperopt.tpe][INFO] - TPE using 35/35 trials with best loss 0.283714
+[2024-01-01 15:44:56,363][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000590 seconds
+[2024-01-01 15:44:56,363][hyperopt.tpe][INFO] - TPE using 36/36 trials with best loss 0.283714
+[2024-01-01 15:44:56,486][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000587 seconds
+[2024-01-01 15:44:56,486][hyperopt.tpe][INFO] - TPE using 37/37 trials with best loss 0.283714
+[2024-01-01 15:44:56,604][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:44:56,604][hyperopt.tpe][INFO] - TPE using 38/38 trials with best loss 0.283714
+[2024-01-01 15:44:56,737][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000595 seconds
+[2024-01-01 15:44:56,737][hyperopt.tpe][INFO] - TPE using 39/39 trials with best loss 0.283714
+[2024-01-01 15:44:56,860][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000589 seconds
+[2024-01-01 15:44:56,860][hyperopt.tpe][INFO] - TPE using 40/40 trials with best loss 0.283714
+[2024-01-01 15:44:56,985][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000583 seconds
+[2024-01-01 15:44:56,985][hyperopt.tpe][INFO] - TPE using 41/41 trials with best loss 0.283714
+[2024-01-01 15:44:57,103][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:44:57,103][hyperopt.tpe][INFO] - TPE using 42/42 trials with best loss 0.283714
+[2024-01-01 15:44:57,224][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000573 seconds
+[2024-01-01 15:44:57,224][hyperopt.tpe][INFO] - TPE using 43/43 trials with best loss 0.283714
+[2024-01-01 15:44:57,360][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:44:57,360][hyperopt.tpe][INFO] - TPE using 44/44 trials with best loss 0.283714
+[2024-01-01 15:44:57,480][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000586 seconds
+[2024-01-01 15:44:57,480][hyperopt.tpe][INFO] - TPE using 45/45 trials with best loss 0.283714
+[2024-01-01 15:44:57,599][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:44:57,599][hyperopt.tpe][INFO] - TPE using 46/46 trials with best loss 0.283714
+[2024-01-01 15:44:57,717][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000574 seconds
+[2024-01-01 15:44:57,717][hyperopt.tpe][INFO] - TPE using 47/47 trials with best loss 0.283714
+[2024-01-01 15:44:57,839][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000588 seconds
+[2024-01-01 15:44:57,839][hyperopt.tpe][INFO] - TPE using 48/48 trials with best loss 0.283714
+[2024-01-01 15:44:57,963][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000607 seconds
+[2024-01-01 15:44:57,963][hyperopt.tpe][INFO] - TPE using 49/49 trials with best loss 0.283714
+[2024-01-01 15:44:58,081][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:44:58,081][hyperopt.tpe][INFO] - TPE using 50/50 trials with best loss 0.283714
+[2024-01-01 15:44:58,212][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000585 seconds
+[2024-01-01 15:44:58,212][hyperopt.tpe][INFO] - TPE using 51/51 trials with best loss 0.283714
+[2024-01-01 15:44:58,330][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000574 seconds
+[2024-01-01 15:44:58,331][hyperopt.tpe][INFO] - TPE using 52/52 trials with best loss 0.283714
+[2024-01-01 15:44:58,467][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:44:58,467][hyperopt.tpe][INFO] - TPE using 53/53 trials with best loss 0.283714
+[2024-01-01 15:44:58,591][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000588 seconds
+[2024-01-01 15:44:58,591][hyperopt.tpe][INFO] - TPE using 54/54 trials with best loss 0.283714
+[2024-01-01 15:44:58,714][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000668 seconds
+[2024-01-01 15:44:58,715][hyperopt.tpe][INFO] - TPE using 55/55 trials with best loss 0.283714
+[2024-01-01 15:44:58,833][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000587 seconds
+[2024-01-01 15:44:58,833][hyperopt.tpe][INFO] - TPE using 56/56 trials with best loss 0.283714
+[2024-01-01 15:44:58,952][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:44:58,952][hyperopt.tpe][INFO] - TPE using 57/57 trials with best loss 0.283714
+[2024-01-01 15:44:59,095][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000576 seconds
+[2024-01-01 15:44:59,095][hyperopt.tpe][INFO] - TPE using 58/58 trials with best loss 0.269393
+[2024-01-01 15:44:59,213][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:44:59,213][hyperopt.tpe][INFO] - TPE using 59/59 trials with best loss 0.269393
+[2024-01-01 15:44:59,331][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000587 seconds
+[2024-01-01 15:44:59,331][hyperopt.tpe][INFO] - TPE using 60/60 trials with best loss 0.269393
+[2024-01-01 15:44:59,471][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000587 seconds
+[2024-01-01 15:44:59,471][hyperopt.tpe][INFO] - TPE using 61/61 trials with best loss 0.269393
+[2024-01-01 15:44:59,592][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000586 seconds
+[2024-01-01 15:44:59,592][hyperopt.tpe][INFO] - TPE using 62/62 trials with best loss 0.269393
+[2024-01-01 15:44:59,719][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:44:59,719][hyperopt.tpe][INFO] - TPE using 63/63 trials with best loss 0.269393
+[2024-01-01 15:44:59,837][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000573 seconds
+[2024-01-01 15:44:59,837][hyperopt.tpe][INFO] - TPE using 64/64 trials with best loss 0.269393
+[2024-01-01 15:44:59,955][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000586 seconds
+[2024-01-01 15:44:59,955][hyperopt.tpe][INFO] - TPE using 65/65 trials with best loss 0.269393
+[2024-01-01 15:45:00,082][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:00,083][hyperopt.tpe][INFO] - TPE using 66/66 trials with best loss 0.269393
+[2024-01-01 15:45:00,217][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:00,217][hyperopt.tpe][INFO] - TPE using 67/67 trials with best loss 0.269393
+[2024-01-01 15:45:00,348][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000676 seconds
+[2024-01-01 15:45:00,348][hyperopt.tpe][INFO] - TPE using 68/68 trials with best loss 0.269393
+[2024-01-01 15:45:00,485][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:00,485][hyperopt.tpe][INFO] - TPE using 69/69 trials with best loss 0.269393
+[2024-01-01 15:45:00,609][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000580 seconds
+[2024-01-01 15:45:00,609][hyperopt.tpe][INFO] - TPE using 70/70 trials with best loss 0.269393
+[2024-01-01 15:45:00,732][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:00,732][hyperopt.tpe][INFO] - TPE using 71/71 trials with best loss 0.269393
+[2024-01-01 15:45:00,853][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000570 seconds
+[2024-01-01 15:45:00,854][hyperopt.tpe][INFO] - TPE using 72/72 trials with best loss 0.269393
+[2024-01-01 15:45:00,986][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000684 seconds
+[2024-01-01 15:45:00,987][hyperopt.tpe][INFO] - TPE using 73/73 trials with best loss 0.269393
+[2024-01-01 15:45:01,106][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000583 seconds
+[2024-01-01 15:45:01,106][hyperopt.tpe][INFO] - TPE using 74/74 trials with best loss 0.269393
+[2024-01-01 15:45:01,232][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:01,233][hyperopt.tpe][INFO] - TPE using 75/75 trials with best loss 0.269393
+[2024-01-01 15:45:01,355][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:01,355][hyperopt.tpe][INFO] - TPE using 76/76 trials with best loss 0.269393
+[2024-01-01 15:45:01,479][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000576 seconds
+[2024-01-01 15:45:01,479][hyperopt.tpe][INFO] - TPE using 77/77 trials with best loss 0.269393
+[2024-01-01 15:45:01,597][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000584 seconds
+[2024-01-01 15:45:01,597][hyperopt.tpe][INFO] - TPE using 78/78 trials with best loss 0.269393
+[2024-01-01 15:45:01,725][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:45:01,725][hyperopt.tpe][INFO] - TPE using 79/79 trials with best loss 0.269393
+[2024-01-01 15:45:01,854][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000592 seconds
+[2024-01-01 15:45:01,854][hyperopt.tpe][INFO] - TPE using 80/80 trials with best loss 0.269393
+[2024-01-01 15:45:01,988][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000607 seconds
+[2024-01-01 15:45:01,988][hyperopt.tpe][INFO] - TPE using 81/81 trials with best loss 0.269393
+[2024-01-01 15:45:02,109][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000675 seconds
+[2024-01-01 15:45:02,110][hyperopt.tpe][INFO] - TPE using 82/82 trials with best loss 0.269393
+[2024-01-01 15:45:02,229][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:45:02,229][hyperopt.tpe][INFO] - TPE using 83/83 trials with best loss 0.269393
+[2024-01-01 15:45:02,366][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:02,366][hyperopt.tpe][INFO] - TPE using 84/84 trials with best loss 0.269393
+[2024-01-01 15:45:02,494][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000574 seconds
+[2024-01-01 15:45:02,495][hyperopt.tpe][INFO] - TPE using 85/85 trials with best loss 0.269393
+[2024-01-01 15:45:02,615][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000582 seconds
+[2024-01-01 15:45:02,615][hyperopt.tpe][INFO] - TPE using 86/86 trials with best loss 0.269393
+[2024-01-01 15:45:02,740][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000579 seconds
+[2024-01-01 15:45:02,740][hyperopt.tpe][INFO] - TPE using 87/87 trials with best loss 0.269393
+[2024-01-01 15:45:02,858][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000579 seconds
+[2024-01-01 15:45:02,859][hyperopt.tpe][INFO] - TPE using 88/88 trials with best loss 0.269393
+[2024-01-01 15:45:02,982][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:45:02,982][hyperopt.tpe][INFO] - TPE using 89/89 trials with best loss 0.269393
+[2024-01-01 15:45:03,105][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000654 seconds
+[2024-01-01 15:45:03,105][hyperopt.tpe][INFO] - TPE using 90/90 trials with best loss 0.269393
+[2024-01-01 15:45:03,233][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000698 seconds
+[2024-01-01 15:45:03,233][hyperopt.tpe][INFO] - TPE using 91/91 trials with best loss 0.269393
+[2024-01-01 15:45:03,353][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000585 seconds
+[2024-01-01 15:45:03,353][hyperopt.tpe][INFO] - TPE using 92/92 trials with best loss 0.269393
+[2024-01-01 15:45:03,471][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000580 seconds
+[2024-01-01 15:45:03,471][hyperopt.tpe][INFO] - TPE using 93/93 trials with best loss 0.269393
+[2024-01-01 15:45:03,593][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000582 seconds
+[2024-01-01 15:45:03,593][hyperopt.tpe][INFO] - TPE using 94/94 trials with best loss 0.269393
+[2024-01-01 15:45:03,711][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:03,711][hyperopt.tpe][INFO] - TPE using 95/95 trials with best loss 0.269393
+[2024-01-01 15:45:03,845][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000591 seconds
+[2024-01-01 15:45:03,846][hyperopt.tpe][INFO] - TPE using 96/96 trials with best loss 0.269393
+[2024-01-01 15:45:03,982][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000711 seconds
+[2024-01-01 15:45:03,983][hyperopt.tpe][INFO] - TPE using 97/97 trials with best loss 0.269393
+[2024-01-01 15:45:04,104][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000573 seconds
+[2024-01-01 15:45:04,104][hyperopt.tpe][INFO] - TPE using 98/98 trials with best loss 0.269393
+[2024-01-01 15:45:04,231][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:04,231][hyperopt.tpe][INFO] - TPE using 99/99 trials with best loss 0.269393
+[2024-01-01 15:45:04,349][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:04,350][hyperopt.tpe][INFO] - TPE using 100/100 trials with best loss 0.269393
+[2024-01-01 15:45:04,476][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000582 seconds
+[2024-01-01 15:45:04,476][hyperopt.tpe][INFO] - TPE using 101/101 trials with best loss 0.269393
+[2024-01-01 15:45:04,594][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000584 seconds
+[2024-01-01 15:45:04,594][hyperopt.tpe][INFO] - TPE using 102/102 trials with best loss 0.269393
+[2024-01-01 15:45:04,713][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:04,713][hyperopt.tpe][INFO] - TPE using 103/103 trials with best loss 0.269393
+[2024-01-01 15:45:04,833][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000580 seconds
+[2024-01-01 15:45:04,833][hyperopt.tpe][INFO] - TPE using 104/104 trials with best loss 0.269393
+[2024-01-01 15:45:04,956][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:04,956][hyperopt.tpe][INFO] - TPE using 105/105 trials with best loss 0.269393
+[2024-01-01 15:45:05,074][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:05,074][hyperopt.tpe][INFO] - TPE using 106/106 trials with best loss 0.269393
+[2024-01-01 15:45:05,193][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:05,193][hyperopt.tpe][INFO] - TPE using 107/107 trials with best loss 0.269393
+[2024-01-01 15:45:05,324][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000672 seconds
+[2024-01-01 15:45:05,324][hyperopt.tpe][INFO] - TPE using 108/108 trials with best loss 0.269393
+[2024-01-01 15:45:05,442][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:05,442][hyperopt.tpe][INFO] - TPE using 109/109 trials with best loss 0.269393
+[2024-01-01 15:45:05,578][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:05,578][hyperopt.tpe][INFO] - TPE using 110/110 trials with best loss 0.269393
+[2024-01-01 15:45:05,714][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:05,714][hyperopt.tpe][INFO] - TPE using 111/111 trials with best loss 0.269393
+[2024-01-01 15:45:05,861][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000659 seconds
+[2024-01-01 15:45:05,861][hyperopt.tpe][INFO] - TPE using 112/112 trials with best loss 0.269393
+[2024-01-01 15:45:05,981][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:05,981][hyperopt.tpe][INFO] - TPE using 113/113 trials with best loss 0.269393
+[2024-01-01 15:45:06,102][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:06,102][hyperopt.tpe][INFO] - TPE using 114/114 trials with best loss 0.269393
+[2024-01-01 15:45:06,221][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:06,221][hyperopt.tpe][INFO] - TPE using 115/115 trials with best loss 0.269393
+[2024-01-01 15:45:06,344][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:06,345][hyperopt.tpe][INFO] - TPE using 116/116 trials with best loss 0.269393
+[2024-01-01 15:45:06,466][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:06,466][hyperopt.tpe][INFO] - TPE using 117/117 trials with best loss 0.269393
+[2024-01-01 15:45:06,588][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:06,588][hyperopt.tpe][INFO] - TPE using 118/118 trials with best loss 0.269393
+[2024-01-01 15:45:06,719][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:06,719][hyperopt.tpe][INFO] - TPE using 119/119 trials with best loss 0.269393
+[2024-01-01 15:45:06,837][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:06,837][hyperopt.tpe][INFO] - TPE using 120/120 trials with best loss 0.269393
+[2024-01-01 15:45:06,965][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:06,965][hyperopt.tpe][INFO] - TPE using 121/121 trials with best loss 0.269393
+[2024-01-01 15:45:07,084][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:07,084][hyperopt.tpe][INFO] - TPE using 122/122 trials with best loss 0.269393
+[2024-01-01 15:45:07,202][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000545 seconds
+[2024-01-01 15:45:07,202][hyperopt.tpe][INFO] - TPE using 123/123 trials with best loss 0.269393
+[2024-01-01 15:45:07,321][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:07,321][hyperopt.tpe][INFO] - TPE using 124/124 trials with best loss 0.269393
+[2024-01-01 15:45:07,441][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:07,441][hyperopt.tpe][INFO] - TPE using 125/125 trials with best loss 0.269393
+[2024-01-01 15:45:07,559][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:07,560][hyperopt.tpe][INFO] - TPE using 126/126 trials with best loss 0.269393
+[2024-01-01 15:45:07,694][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000570 seconds
+[2024-01-01 15:45:07,694][hyperopt.tpe][INFO] - TPE using 127/127 trials with best loss 0.269393
+[2024-01-01 15:45:07,817][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:07,817][hyperopt.tpe][INFO] - TPE using 128/128 trials with best loss 0.269393
+[2024-01-01 15:45:07,937][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:07,937][hyperopt.tpe][INFO] - TPE using 129/129 trials with best loss 0.269393
+[2024-01-01 15:45:08,082][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:08,082][hyperopt.tpe][INFO] - TPE using 130/130 trials with best loss 0.269393
+[2024-01-01 15:45:08,208][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:08,208][hyperopt.tpe][INFO] - TPE using 131/131 trials with best loss 0.269393
+[2024-01-01 15:45:08,337][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000660 seconds
+[2024-01-01 15:45:08,337][hyperopt.tpe][INFO] - TPE using 132/132 trials with best loss 0.269393
+[2024-01-01 15:45:08,460][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:08,461][hyperopt.tpe][INFO] - TPE using 133/133 trials with best loss 0.269393
+[2024-01-01 15:45:08,579][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:08,579][hyperopt.tpe][INFO] - TPE using 134/134 trials with best loss 0.269393
+[2024-01-01 15:45:08,720][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:08,720][hyperopt.tpe][INFO] - TPE using 135/135 trials with best loss 0.269393
+[2024-01-01 15:45:08,855][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:08,855][hyperopt.tpe][INFO] - TPE using 136/136 trials with best loss 0.269393
+[2024-01-01 15:45:08,977][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:45:08,977][hyperopt.tpe][INFO] - TPE using 137/137 trials with best loss 0.269393
+[2024-01-01 15:45:09,105][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:09,105][hyperopt.tpe][INFO] - TPE using 138/138 trials with best loss 0.269393
+[2024-01-01 15:45:09,236][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:09,236][hyperopt.tpe][INFO] - TPE using 139/139 trials with best loss 0.269393
+[2024-01-01 15:45:09,361][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:45:09,361][hyperopt.tpe][INFO] - TPE using 140/140 trials with best loss 0.269393
+[2024-01-01 15:45:09,491][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000663 seconds
+[2024-01-01 15:45:09,491][hyperopt.tpe][INFO] - TPE using 141/141 trials with best loss 0.269393
+[2024-01-01 15:45:09,609][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:09,610][hyperopt.tpe][INFO] - TPE using 142/142 trials with best loss 0.269393
+[2024-01-01 15:45:09,730][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:09,731][hyperopt.tpe][INFO] - TPE using 143/143 trials with best loss 0.269393
+[2024-01-01 15:45:09,858][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:09,859][hyperopt.tpe][INFO] - TPE using 144/144 trials with best loss 0.269393
+[2024-01-01 15:45:09,977][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:09,977][hyperopt.tpe][INFO] - TPE using 145/145 trials with best loss 0.269393
+[2024-01-01 15:45:10,112][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000634 seconds
+[2024-01-01 15:45:10,112][hyperopt.tpe][INFO] - TPE using 146/146 trials with best loss 0.269393
+[2024-01-01 15:45:10,248][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:10,248][hyperopt.tpe][INFO] - TPE using 147/147 trials with best loss 0.269393
+[2024-01-01 15:45:10,386][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:10,386][hyperopt.tpe][INFO] - TPE using 148/148 trials with best loss 0.269393
+[2024-01-01 15:45:10,512][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:10,512][hyperopt.tpe][INFO] - TPE using 149/149 trials with best loss 0.269393
+[2024-01-01 15:45:10,641][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000652 seconds
+[2024-01-01 15:45:10,641][hyperopt.tpe][INFO] - TPE using 150/150 trials with best loss 0.269393
+[2024-01-01 15:45:10,776][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:10,776][hyperopt.tpe][INFO] - TPE using 151/151 trials with best loss 0.269393
+[2024-01-01 15:45:10,899][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:10,900][hyperopt.tpe][INFO] - TPE using 152/152 trials with best loss 0.269393
+[2024-01-01 15:45:11,034][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:11,034][hyperopt.tpe][INFO] - TPE using 153/153 trials with best loss 0.269393
+[2024-01-01 15:45:11,164][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000691 seconds
+[2024-01-01 15:45:11,164][hyperopt.tpe][INFO] - TPE using 154/154 trials with best loss 0.269393
+[2024-01-01 15:45:11,300][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:11,300][hyperopt.tpe][INFO] - TPE using 155/155 trials with best loss 0.269393
+[2024-01-01 15:45:11,425][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:11,425][hyperopt.tpe][INFO] - TPE using 156/156 trials with best loss 0.269393
+[2024-01-01 15:45:11,554][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:11,554][hyperopt.tpe][INFO] - TPE using 157/157 trials with best loss 0.269393
+[2024-01-01 15:45:11,681][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000650 seconds
+[2024-01-01 15:45:11,682][hyperopt.tpe][INFO] - TPE using 158/158 trials with best loss 0.269393
+[2024-01-01 15:45:11,805][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:11,805][hyperopt.tpe][INFO] - TPE using 159/159 trials with best loss 0.269393
+[2024-01-01 15:45:11,927][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:11,928][hyperopt.tpe][INFO] - TPE using 160/160 trials with best loss 0.269393
+[2024-01-01 15:45:12,049][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:12,049][hyperopt.tpe][INFO] - TPE using 161/161 trials with best loss 0.269393
+[2024-01-01 15:45:12,173][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:12,173][hyperopt.tpe][INFO] - TPE using 162/162 trials with best loss 0.269393
+[2024-01-01 15:45:12,312][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:12,312][hyperopt.tpe][INFO] - TPE using 163/163 trials with best loss 0.269393
+[2024-01-01 15:45:12,437][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:12,438][hyperopt.tpe][INFO] - TPE using 164/164 trials with best loss 0.269393
+[2024-01-01 15:45:12,572][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:12,572][hyperopt.tpe][INFO] - TPE using 165/165 trials with best loss 0.269393
+[2024-01-01 15:45:12,706][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:12,706][hyperopt.tpe][INFO] - TPE using 166/166 trials with best loss 0.269393
+[2024-01-01 15:45:12,834][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:12,834][hyperopt.tpe][INFO] - TPE using 167/167 trials with best loss 0.269393
+[2024-01-01 15:45:12,952][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:12,953][hyperopt.tpe][INFO] - TPE using 168/168 trials with best loss 0.269393
+[2024-01-01 15:45:13,083][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:13,083][hyperopt.tpe][INFO] - TPE using 169/169 trials with best loss 0.269393
+[2024-01-01 15:45:13,205][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:13,205][hyperopt.tpe][INFO] - TPE using 170/170 trials with best loss 0.269393
+[2024-01-01 15:45:13,325][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:13,325][hyperopt.tpe][INFO] - TPE using 171/171 trials with best loss 0.269393
+[2024-01-01 15:45:13,463][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:13,463][hyperopt.tpe][INFO] - TPE using 172/172 trials with best loss 0.269393
+[2024-01-01 15:45:13,592][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:13,593][hyperopt.tpe][INFO] - TPE using 173/173 trials with best loss 0.269393
+[2024-01-01 15:45:13,714][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:13,715][hyperopt.tpe][INFO] - TPE using 174/174 trials with best loss 0.269393
+[2024-01-01 15:45:13,845][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:13,845][hyperopt.tpe][INFO] - TPE using 175/175 trials with best loss 0.269393
+[2024-01-01 15:45:13,966][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:13,966][hyperopt.tpe][INFO] - TPE using 176/176 trials with best loss 0.269393
+[2024-01-01 15:45:14,085][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:14,085][hyperopt.tpe][INFO] - TPE using 177/177 trials with best loss 0.269393
+[2024-01-01 15:45:14,211][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000544 seconds
+[2024-01-01 15:45:14,211][hyperopt.tpe][INFO] - TPE using 178/178 trials with best loss 0.269393
+[2024-01-01 15:45:14,330][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:14,330][hyperopt.tpe][INFO] - TPE using 179/179 trials with best loss 0.269393
+[2024-01-01 15:45:14,470][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:14,471][hyperopt.tpe][INFO] - TPE using 180/180 trials with best loss 0.269393
+[2024-01-01 15:45:14,589][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:14,589][hyperopt.tpe][INFO] - TPE using 181/181 trials with best loss 0.269393
+[2024-01-01 15:45:14,713][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:14,713][hyperopt.tpe][INFO] - TPE using 182/182 trials with best loss 0.269393
+[2024-01-01 15:45:14,848][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:14,849][hyperopt.tpe][INFO] - TPE using 183/183 trials with best loss 0.269393
+[2024-01-01 15:45:14,977][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:14,977][hyperopt.tpe][INFO] - TPE using 184/184 trials with best loss 0.269393
+[2024-01-01 15:45:15,100][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:15,101][hyperopt.tpe][INFO] - TPE using 185/185 trials with best loss 0.269393
+[2024-01-01 15:45:15,220][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:15,221][hyperopt.tpe][INFO] - TPE using 186/186 trials with best loss 0.269393
+[2024-01-01 15:45:15,339][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:15,340][hyperopt.tpe][INFO] - TPE using 187/187 trials with best loss 0.269393
+[2024-01-01 15:45:15,468][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:15,468][hyperopt.tpe][INFO] - TPE using 188/188 trials with best loss 0.269393
+[2024-01-01 15:45:15,600][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:15,600][hyperopt.tpe][INFO] - TPE using 189/189 trials with best loss 0.269393
+[2024-01-01 15:45:15,739][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:15,740][hyperopt.tpe][INFO] - TPE using 190/190 trials with best loss 0.269393
+[2024-01-01 15:45:15,861][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:15,862][hyperopt.tpe][INFO] - TPE using 191/191 trials with best loss 0.269393
+[2024-01-01 15:45:15,986][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:15,986][hyperopt.tpe][INFO] - TPE using 192/192 trials with best loss 0.269393
+[2024-01-01 15:45:16,107][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:16,107][hyperopt.tpe][INFO] - TPE using 193/193 trials with best loss 0.269393
+[2024-01-01 15:45:16,241][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:16,242][hyperopt.tpe][INFO] - TPE using 194/194 trials with best loss 0.269393
+[2024-01-01 15:45:16,367][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:16,368][hyperopt.tpe][INFO] - TPE using 195/195 trials with best loss 0.269393
+[2024-01-01 15:45:16,486][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000579 seconds
+[2024-01-01 15:45:16,487][hyperopt.tpe][INFO] - TPE using 196/196 trials with best loss 0.269393
+[2024-01-01 15:45:16,621][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000574 seconds
+[2024-01-01 15:45:16,621][hyperopt.tpe][INFO] - TPE using 197/197 trials with best loss 0.269393
+[2024-01-01 15:45:16,740][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:16,740][hyperopt.tpe][INFO] - TPE using 198/198 trials with best loss 0.269393
+[2024-01-01 15:45:16,863][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:16,864][hyperopt.tpe][INFO] - TPE using 199/199 trials with best loss 0.269393
+[2024-01-01 15:45:16,987][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:16,987][hyperopt.tpe][INFO] - TPE using 200/200 trials with best loss 0.269393
+[2024-01-01 15:45:17,119][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:17,119][hyperopt.tpe][INFO] - TPE using 201/201 trials with best loss 0.269393
+[2024-01-01 15:45:17,237][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:17,238][hyperopt.tpe][INFO] - TPE using 202/202 trials with best loss 0.269393
+[2024-01-01 15:45:17,357][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000541 seconds
+[2024-01-01 15:45:17,357][hyperopt.tpe][INFO] - TPE using 203/203 trials with best loss 0.269393
+[2024-01-01 15:45:17,491][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000574 seconds
+[2024-01-01 15:45:17,491][hyperopt.tpe][INFO] - TPE using 204/204 trials with best loss 0.269393
+[2024-01-01 15:45:17,611][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:17,611][hyperopt.tpe][INFO] - TPE using 205/205 trials with best loss 0.269393
+[2024-01-01 15:45:17,732][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000547 seconds
+[2024-01-01 15:45:17,732][hyperopt.tpe][INFO] - TPE using 206/206 trials with best loss 0.269393
+[2024-01-01 15:45:17,859][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:17,859][hyperopt.tpe][INFO] - TPE using 207/207 trials with best loss 0.269393
+[2024-01-01 15:45:17,978][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:17,978][hyperopt.tpe][INFO] - TPE using 208/208 trials with best loss 0.269393
+[2024-01-01 15:45:18,103][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:18,104][hyperopt.tpe][INFO] - TPE using 209/209 trials with best loss 0.269393
+[2024-01-01 15:45:18,224][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000546 seconds
+[2024-01-01 15:45:18,224][hyperopt.tpe][INFO] - TPE using 210/210 trials with best loss 0.269393
+[2024-01-01 15:45:18,354][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:18,355][hyperopt.tpe][INFO] - TPE using 211/211 trials with best loss 0.269393
+[2024-01-01 15:45:18,494][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:45:18,494][hyperopt.tpe][INFO] - TPE using 212/212 trials with best loss 0.269393
+[2024-01-01 15:45:18,630][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:18,630][hyperopt.tpe][INFO] - TPE using 213/213 trials with best loss 0.269393
+[2024-01-01 15:45:18,751][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:18,751][hyperopt.tpe][INFO] - TPE using 214/214 trials with best loss 0.269393
+[2024-01-01 15:45:18,874][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:18,874][hyperopt.tpe][INFO] - TPE using 215/215 trials with best loss 0.269393
+[2024-01-01 15:45:18,997][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000574 seconds
+[2024-01-01 15:45:18,998][hyperopt.tpe][INFO] - TPE using 216/216 trials with best loss 0.269393
+[2024-01-01 15:45:19,137][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:19,138][hyperopt.tpe][INFO] - TPE using 217/217 trials with best loss 0.269393
+[2024-01-01 15:45:19,256][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:19,256][hyperopt.tpe][INFO] - TPE using 218/218 trials with best loss 0.269393
+[2024-01-01 15:45:19,388][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:19,388][hyperopt.tpe][INFO] - TPE using 219/219 trials with best loss 0.269393
+[2024-01-01 15:45:19,510][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:19,510][hyperopt.tpe][INFO] - TPE using 220/220 trials with best loss 0.269393
+[2024-01-01 15:45:19,630][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:19,630][hyperopt.tpe][INFO] - TPE using 221/221 trials with best loss 0.269393
+[2024-01-01 15:45:19,749][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:19,749][hyperopt.tpe][INFO] - TPE using 222/222 trials with best loss 0.269393
+[2024-01-01 15:45:19,886][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:19,886][hyperopt.tpe][INFO] - TPE using 223/223 trials with best loss 0.269393
+[2024-01-01 15:45:20,005][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:45:20,005][hyperopt.tpe][INFO] - TPE using 224/224 trials with best loss 0.269393
+[2024-01-01 15:45:20,132][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:20,132][hyperopt.tpe][INFO] - TPE using 225/225 trials with best loss 0.269393
+[2024-01-01 15:45:20,257][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:20,257][hyperopt.tpe][INFO] - TPE using 226/226 trials with best loss 0.269393
+[2024-01-01 15:45:20,388][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000592 seconds
+[2024-01-01 15:45:20,388][hyperopt.tpe][INFO] - TPE using 227/227 trials with best loss 0.269393
+[2024-01-01 15:45:20,518][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:20,518][hyperopt.tpe][INFO] - TPE using 228/228 trials with best loss 0.269393
+[2024-01-01 15:45:20,642][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:20,643][hyperopt.tpe][INFO] - TPE using 229/229 trials with best loss 0.269393
+[2024-01-01 15:45:20,763][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:20,763][hyperopt.tpe][INFO] - TPE using 230/230 trials with best loss 0.269393
+[2024-01-01 15:45:20,894][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000546 seconds
+[2024-01-01 15:45:20,894][hyperopt.tpe][INFO] - TPE using 231/231 trials with best loss 0.269393
+[2024-01-01 15:45:21,013][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:21,013][hyperopt.tpe][INFO] - TPE using 232/232 trials with best loss 0.269393
+[2024-01-01 15:45:21,147][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:21,148][hyperopt.tpe][INFO] - TPE using 233/233 trials with best loss 0.269393
+[2024-01-01 15:45:21,278][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000629 seconds
+[2024-01-01 15:45:21,279][hyperopt.tpe][INFO] - TPE using 234/234 trials with best loss 0.269393
+[2024-01-01 15:45:21,402][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:21,402][hyperopt.tpe][INFO] - TPE using 235/235 trials with best loss 0.269393
+[2024-01-01 15:45:21,543][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000570 seconds
+[2024-01-01 15:45:21,543][hyperopt.tpe][INFO] - TPE using 236/236 trials with best loss 0.269393
+[2024-01-01 15:45:21,665][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:21,665][hyperopt.tpe][INFO] - TPE using 237/237 trials with best loss 0.269393
+[2024-01-01 15:45:21,790][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000546 seconds
+[2024-01-01 15:45:21,790][hyperopt.tpe][INFO] - TPE using 238/238 trials with best loss 0.269393
+[2024-01-01 15:45:21,926][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:21,927][hyperopt.tpe][INFO] - TPE using 239/239 trials with best loss 0.269393
+[2024-01-01 15:45:22,052][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:22,052][hyperopt.tpe][INFO] - TPE using 240/240 trials with best loss 0.269393
+[2024-01-01 15:45:22,175][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:22,175][hyperopt.tpe][INFO] - TPE using 241/241 trials with best loss 0.269393
+[2024-01-01 15:45:22,307][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:22,307][hyperopt.tpe][INFO] - TPE using 242/242 trials with best loss 0.269393
+[2024-01-01 15:45:22,427][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000544 seconds
+[2024-01-01 15:45:22,427][hyperopt.tpe][INFO] - TPE using 243/243 trials with best loss 0.269393
+[2024-01-01 15:45:22,555][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:22,575][hyperopt.tpe][INFO] - TPE using 244/244 trials with best loss 0.269393
+[2024-01-01 15:45:22,695][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:22,696][hyperopt.tpe][INFO] - TPE using 245/245 trials with best loss 0.269393
+[2024-01-01 15:45:22,835][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:22,835][hyperopt.tpe][INFO] - TPE using 246/246 trials with best loss 0.269393
+[2024-01-01 15:45:22,964][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:22,964][hyperopt.tpe][INFO] - TPE using 247/247 trials with best loss 0.269393
+[2024-01-01 15:45:23,083][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:23,083][hyperopt.tpe][INFO] - TPE using 248/248 trials with best loss 0.269393
+[2024-01-01 15:45:23,206][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:23,206][hyperopt.tpe][INFO] - TPE using 249/249 trials with best loss 0.269393
+[2024-01-01 15:45:23,344][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:23,344][hyperopt.tpe][INFO] - TPE using 250/250 trials with best loss 0.269393
+[2024-01-01 15:45:23,463][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:23,463][hyperopt.tpe][INFO] - TPE using 251/251 trials with best loss 0.269393
+[2024-01-01 15:45:23,598][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:45:23,598][hyperopt.tpe][INFO] - TPE using 252/252 trials with best loss 0.269393
+[2024-01-01 15:45:23,728][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:23,729][hyperopt.tpe][INFO] - TPE using 253/253 trials with best loss 0.269393
+[2024-01-01 15:45:23,854][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:23,854][hyperopt.tpe][INFO] - TPE using 254/254 trials with best loss 0.269393
+[2024-01-01 15:45:23,978][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:23,978][hyperopt.tpe][INFO] - TPE using 255/255 trials with best loss 0.269393
+[2024-01-01 15:45:24,098][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:24,098][hyperopt.tpe][INFO] - TPE using 256/256 trials with best loss 0.269393
+[2024-01-01 15:45:24,218][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:24,218][hyperopt.tpe][INFO] - TPE using 257/257 trials with best loss 0.269393
+[2024-01-01 15:45:24,353][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000546 seconds
+[2024-01-01 15:45:24,353][hyperopt.tpe][INFO] - TPE using 258/258 trials with best loss 0.269393
+[2024-01-01 15:45:24,484][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:24,484][hyperopt.tpe][INFO] - TPE using 259/259 trials with best loss 0.269393
+[2024-01-01 15:45:24,618][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:24,618][hyperopt.tpe][INFO] - TPE using 260/260 trials with best loss 0.269393
+[2024-01-01 15:45:24,756][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:24,757][hyperopt.tpe][INFO] - TPE using 261/261 trials with best loss 0.269393
+[2024-01-01 15:45:24,883][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:24,883][hyperopt.tpe][INFO] - TPE using 262/262 trials with best loss 0.269393
+[2024-01-01 15:45:25,012][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:25,013][hyperopt.tpe][INFO] - TPE using 263/263 trials with best loss 0.269393
+[2024-01-01 15:45:25,144][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:25,144][hyperopt.tpe][INFO] - TPE using 264/264 trials with best loss 0.269393
+[2024-01-01 15:45:25,274][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:25,275][hyperopt.tpe][INFO] - TPE using 265/265 trials with best loss 0.269393
+[2024-01-01 15:45:25,418][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:25,418][hyperopt.tpe][INFO] - TPE using 266/266 trials with best loss 0.269393
+[2024-01-01 15:45:25,546][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:25,546][hyperopt.tpe][INFO] - TPE using 267/267 trials with best loss 0.269393
+[2024-01-01 15:45:25,683][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:25,684][hyperopt.tpe][INFO] - TPE using 268/268 trials with best loss 0.269393
+[2024-01-01 15:45:25,808][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:25,808][hyperopt.tpe][INFO] - TPE using 269/269 trials with best loss 0.269393
+[2024-01-01 15:45:25,940][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000543 seconds
+[2024-01-01 15:45:25,941][hyperopt.tpe][INFO] - TPE using 270/270 trials with best loss 0.269393
+[2024-01-01 15:45:26,068][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000547 seconds
+[2024-01-01 15:45:26,068][hyperopt.tpe][INFO] - TPE using 271/271 trials with best loss 0.269393
+[2024-01-01 15:45:26,202][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:26,202][hyperopt.tpe][INFO] - TPE using 272/272 trials with best loss 0.269393
+[2024-01-01 15:45:26,339][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000546 seconds
+[2024-01-01 15:45:26,339][hyperopt.tpe][INFO] - TPE using 273/273 trials with best loss 0.269393
+[2024-01-01 15:45:26,469][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:26,469][hyperopt.tpe][INFO] - TPE using 274/274 trials with best loss 0.269393
+[2024-01-01 15:45:26,595][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:26,596][hyperopt.tpe][INFO] - TPE using 275/275 trials with best loss 0.269393
+[2024-01-01 15:45:26,740][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:26,740][hyperopt.tpe][INFO] - TPE using 276/276 trials with best loss 0.269393
+[2024-01-01 15:45:26,869][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:26,869][hyperopt.tpe][INFO] - TPE using 277/277 trials with best loss 0.269393
+[2024-01-01 15:45:26,992][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000544 seconds
+[2024-01-01 15:45:26,993][hyperopt.tpe][INFO] - TPE using 278/278 trials with best loss 0.269393
+[2024-01-01 15:45:27,133][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:27,133][hyperopt.tpe][INFO] - TPE using 279/279 trials with best loss 0.269393
+[2024-01-01 15:45:27,262][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:27,262][hyperopt.tpe][INFO] - TPE using 280/280 trials with best loss 0.269393
+[2024-01-01 15:45:27,387][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:27,387][hyperopt.tpe][INFO] - TPE using 281/281 trials with best loss 0.269393
+[2024-01-01 15:45:27,523][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:27,523][hyperopt.tpe][INFO] - TPE using 282/282 trials with best loss 0.269393
+[2024-01-01 15:45:27,650][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:27,650][hyperopt.tpe][INFO] - TPE using 283/283 trials with best loss 0.269393
+[2024-01-01 15:45:27,781][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:27,781][hyperopt.tpe][INFO] - TPE using 284/284 trials with best loss 0.269393
+[2024-01-01 15:45:27,905][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:27,905][hyperopt.tpe][INFO] - TPE using 285/285 trials with best loss 0.269393
+[2024-01-01 15:45:28,039][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:28,040][hyperopt.tpe][INFO] - TPE using 286/286 trials with best loss 0.269393
+[2024-01-01 15:45:28,172][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:28,172][hyperopt.tpe][INFO] - TPE using 287/287 trials with best loss 0.269393
+[2024-01-01 15:45:28,295][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:28,295][hyperopt.tpe][INFO] - TPE using 288/288 trials with best loss 0.269393
+[2024-01-01 15:45:28,417][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:28,417][hyperopt.tpe][INFO] - TPE using 289/289 trials with best loss 0.269393
+[2024-01-01 15:45:28,555][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000544 seconds
+[2024-01-01 15:45:28,555][hyperopt.tpe][INFO] - TPE using 290/290 trials with best loss 0.269393
+[2024-01-01 15:45:28,684][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:28,684][hyperopt.tpe][INFO] - TPE using 291/291 trials with best loss 0.269393
+[2024-01-01 15:45:28,808][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:28,809][hyperopt.tpe][INFO] - TPE using 292/292 trials with best loss 0.269393
+[2024-01-01 15:45:28,935][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:28,935][hyperopt.tpe][INFO] - TPE using 293/293 trials with best loss 0.269393
+[2024-01-01 15:45:29,073][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:29,073][hyperopt.tpe][INFO] - TPE using 294/294 trials with best loss 0.269393
+[2024-01-01 15:45:29,192][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:29,192][hyperopt.tpe][INFO] - TPE using 295/295 trials with best loss 0.269393
+[2024-01-01 15:45:29,314][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:29,314][hyperopt.tpe][INFO] - TPE using 296/296 trials with best loss 0.269393
+[2024-01-01 15:45:29,436][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:45:29,437][hyperopt.tpe][INFO] - TPE using 297/297 trials with best loss 0.269393
+[2024-01-01 15:45:29,572][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:29,572][hyperopt.tpe][INFO] - TPE using 298/298 trials with best loss 0.269393
+[2024-01-01 15:45:29,703][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:29,703][hyperopt.tpe][INFO] - TPE using 299/299 trials with best loss 0.269393
+[2024-01-01 15:45:29,822][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:29,822][hyperopt.tpe][INFO] - TPE using 300/300 trials with best loss 0.269393
+[2024-01-01 15:45:29,950][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:29,951][hyperopt.tpe][INFO] - TPE using 301/301 trials with best loss 0.269393
+[2024-01-01 15:45:30,075][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:30,075][hyperopt.tpe][INFO] - TPE using 302/302 trials with best loss 0.269393
+[2024-01-01 15:45:30,196][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000545 seconds
+[2024-01-01 15:45:30,197][hyperopt.tpe][INFO] - TPE using 303/303 trials with best loss 0.269393
+[2024-01-01 15:45:30,326][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:30,326][hyperopt.tpe][INFO] - TPE using 304/304 trials with best loss 0.269393
+[2024-01-01 15:45:30,461][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:30,461][hyperopt.tpe][INFO] - TPE using 305/305 trials with best loss 0.269393
+[2024-01-01 15:45:30,580][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:30,580][hyperopt.tpe][INFO] - TPE using 306/306 trials with best loss 0.269393
+[2024-01-01 15:45:30,699][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:30,700][hyperopt.tpe][INFO] - TPE using 307/307 trials with best loss 0.269393
+[2024-01-01 15:45:30,819][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:30,819][hyperopt.tpe][INFO] - TPE using 308/308 trials with best loss 0.269393
+[2024-01-01 15:45:30,956][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:45:30,957][hyperopt.tpe][INFO] - TPE using 309/309 trials with best loss 0.269393
+[2024-01-01 15:45:31,084][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:31,084][hyperopt.tpe][INFO] - TPE using 310/310 trials with best loss 0.269393
+[2024-01-01 15:45:31,207][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000545 seconds
+[2024-01-01 15:45:31,207][hyperopt.tpe][INFO] - TPE using 311/311 trials with best loss 0.269393
+[2024-01-01 15:45:31,330][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:31,331][hyperopt.tpe][INFO] - TPE using 312/312 trials with best loss 0.269393
+[2024-01-01 15:45:31,450][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:31,450][hyperopt.tpe][INFO] - TPE using 313/313 trials with best loss 0.269393
+[2024-01-01 15:45:31,593][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:31,593][hyperopt.tpe][INFO] - TPE using 314/314 trials with best loss 0.269393
+[2024-01-01 15:45:31,723][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:31,723][hyperopt.tpe][INFO] - TPE using 315/315 trials with best loss 0.269393
+[2024-01-01 15:45:31,851][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:31,851][hyperopt.tpe][INFO] - TPE using 316/316 trials with best loss 0.269393
+[2024-01-01 15:45:31,977][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:31,977][hyperopt.tpe][INFO] - TPE using 317/317 trials with best loss 0.269393
+[2024-01-01 15:45:32,110][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:32,111][hyperopt.tpe][INFO] - TPE using 318/318 trials with best loss 0.269393
+[2024-01-01 15:45:32,230][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:32,230][hyperopt.tpe][INFO] - TPE using 319/319 trials with best loss 0.269393
+[2024-01-01 15:45:32,370][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:32,370][hyperopt.tpe][INFO] - TPE using 320/320 trials with best loss 0.269393
+[2024-01-01 15:45:32,499][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:32,500][hyperopt.tpe][INFO] - TPE using 321/321 trials with best loss 0.269393
+[2024-01-01 15:45:32,638][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:32,638][hyperopt.tpe][INFO] - TPE using 322/322 trials with best loss 0.269393
+[2024-01-01 15:45:32,763][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:32,763][hyperopt.tpe][INFO] - TPE using 323/323 trials with best loss 0.269393
+[2024-01-01 15:45:32,895][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:32,896][hyperopt.tpe][INFO] - TPE using 324/324 trials with best loss 0.269393
+[2024-01-01 15:45:33,015][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:33,015][hyperopt.tpe][INFO] - TPE using 325/325 trials with best loss 0.269393
+[2024-01-01 15:45:33,135][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:33,136][hyperopt.tpe][INFO] - TPE using 326/326 trials with best loss 0.269393
+[2024-01-01 15:45:33,263][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:33,264][hyperopt.tpe][INFO] - TPE using 327/327 trials with best loss 0.269393
+[2024-01-01 15:45:33,386][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:33,386][hyperopt.tpe][INFO] - TPE using 328/328 trials with best loss 0.269393
+[2024-01-01 15:45:33,512][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:33,512][hyperopt.tpe][INFO] - TPE using 329/329 trials with best loss 0.269393
+[2024-01-01 15:45:33,644][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:33,644][hyperopt.tpe][INFO] - TPE using 330/330 trials with best loss 0.269393
+[2024-01-01 15:45:33,773][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:33,774][hyperopt.tpe][INFO] - TPE using 331/331 trials with best loss 0.269393
+[2024-01-01 15:45:33,893][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:45:33,893][hyperopt.tpe][INFO] - TPE using 332/332 trials with best loss 0.269393
+[2024-01-01 15:45:34,033][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000547 seconds
+[2024-01-01 15:45:34,034][hyperopt.tpe][INFO] - TPE using 333/333 trials with best loss 0.269393
+[2024-01-01 15:45:34,170][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:34,170][hyperopt.tpe][INFO] - TPE using 334/334 trials with best loss 0.269393
+[2024-01-01 15:45:34,292][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:34,293][hyperopt.tpe][INFO] - TPE using 335/335 trials with best loss 0.269393
+[2024-01-01 15:45:34,412][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:34,413][hyperopt.tpe][INFO] - TPE using 336/336 trials with best loss 0.269393
+[2024-01-01 15:45:34,543][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:34,543][hyperopt.tpe][INFO] - TPE using 337/337 trials with best loss 0.269393
+[2024-01-01 15:45:34,667][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:34,667][hyperopt.tpe][INFO] - TPE using 338/338 trials with best loss 0.269393
+[2024-01-01 15:45:34,787][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:34,787][hyperopt.tpe][INFO] - TPE using 339/339 trials with best loss 0.269393
+[2024-01-01 15:45:34,920][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:34,920][hyperopt.tpe][INFO] - TPE using 340/340 trials with best loss 0.269393
+[2024-01-01 15:45:35,041][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:35,042][hyperopt.tpe][INFO] - TPE using 341/341 trials with best loss 0.269393
+[2024-01-01 15:45:35,182][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:35,183][hyperopt.tpe][INFO] - TPE using 342/342 trials with best loss 0.269393
+[2024-01-01 15:45:35,308][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000546 seconds
+[2024-01-01 15:45:35,308][hyperopt.tpe][INFO] - TPE using 343/343 trials with best loss 0.269393
+[2024-01-01 15:45:35,439][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:35,440][hyperopt.tpe][INFO] - TPE using 344/344 trials with best loss 0.269393
+[2024-01-01 15:45:35,561][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:35,561][hyperopt.tpe][INFO] - TPE using 345/345 trials with best loss 0.269393
+[2024-01-01 15:45:35,688][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:35,688][hyperopt.tpe][INFO] - TPE using 346/346 trials with best loss 0.269393
+[2024-01-01 15:45:35,822][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:35,823][hyperopt.tpe][INFO] - TPE using 347/347 trials with best loss 0.269393
+[2024-01-01 15:45:35,967][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:35,968][hyperopt.tpe][INFO] - TPE using 348/348 trials with best loss 0.269393
+[2024-01-01 15:45:36,113][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:36,114][hyperopt.tpe][INFO] - TPE using 349/349 trials with best loss 0.269393
+[2024-01-01 15:45:36,242][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:36,243][hyperopt.tpe][INFO] - TPE using 350/350 trials with best loss 0.269393
+[2024-01-01 15:45:36,364][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:36,364][hyperopt.tpe][INFO] - TPE using 351/351 trials with best loss 0.269393
+[2024-01-01 15:45:36,483][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:36,484][hyperopt.tpe][INFO] - TPE using 352/352 trials with best loss 0.269393
+[2024-01-01 15:45:36,608][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:36,608][hyperopt.tpe][INFO] - TPE using 353/353 trials with best loss 0.269393
+[2024-01-01 15:45:36,734][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:36,734][hyperopt.tpe][INFO] - TPE using 354/354 trials with best loss 0.269393
+[2024-01-01 15:45:36,865][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:36,865][hyperopt.tpe][INFO] - TPE using 355/355 trials with best loss 0.269393
+[2024-01-01 15:45:37,002][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:37,003][hyperopt.tpe][INFO] - TPE using 356/356 trials with best loss 0.269393
+[2024-01-01 15:45:37,135][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:45:37,135][hyperopt.tpe][INFO] - TPE using 357/357 trials with best loss 0.269393
+[2024-01-01 15:45:37,258][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:37,259][hyperopt.tpe][INFO] - TPE using 358/358 trials with best loss 0.269393
+[2024-01-01 15:45:37,390][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:37,390][hyperopt.tpe][INFO] - TPE using 359/359 trials with best loss 0.269393
+[2024-01-01 15:45:37,517][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:37,517][hyperopt.tpe][INFO] - TPE using 360/360 trials with best loss 0.269393
+[2024-01-01 15:45:37,637][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:37,637][hyperopt.tpe][INFO] - TPE using 361/361 trials with best loss 0.269393
+[2024-01-01 15:45:37,769][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:37,770][hyperopt.tpe][INFO] - TPE using 362/362 trials with best loss 0.269393
+[2024-01-01 15:45:37,916][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000547 seconds
+[2024-01-01 15:45:37,916][hyperopt.tpe][INFO] - TPE using 363/363 trials with best loss 0.269393
+[2024-01-01 15:45:38,036][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:38,036][hyperopt.tpe][INFO] - TPE using 364/364 trials with best loss 0.269393
+[2024-01-01 15:45:38,155][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:38,156][hyperopt.tpe][INFO] - TPE using 365/365 trials with best loss 0.269393
+[2024-01-01 15:45:38,301][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:38,302][hyperopt.tpe][INFO] - TPE using 366/366 trials with best loss 0.269393
+[2024-01-01 15:45:38,451][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:38,451][hyperopt.tpe][INFO] - TPE using 367/367 trials with best loss 0.269393
+[2024-01-01 15:45:38,587][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:38,588][hyperopt.tpe][INFO] - TPE using 368/368 trials with best loss 0.269393
+[2024-01-01 15:45:38,721][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:38,721][hyperopt.tpe][INFO] - TPE using 369/369 trials with best loss 0.269393
+[2024-01-01 15:45:38,843][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:38,844][hyperopt.tpe][INFO] - TPE using 370/370 trials with best loss 0.269393
+[2024-01-01 15:45:38,973][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:38,974][hyperopt.tpe][INFO] - TPE using 371/371 trials with best loss 0.269393
+[2024-01-01 15:45:39,115][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000649 seconds
+[2024-01-01 15:45:39,115][hyperopt.tpe][INFO] - TPE using 372/372 trials with best loss 0.269393
+[2024-01-01 15:45:39,244][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:39,244][hyperopt.tpe][INFO] - TPE using 373/373 trials with best loss 0.269393
+[2024-01-01 15:45:39,369][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:39,370][hyperopt.tpe][INFO] - TPE using 374/374 trials with best loss 0.269393
+[2024-01-01 15:45:39,490][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:39,491][hyperopt.tpe][INFO] - TPE using 375/375 trials with best loss 0.269393
+[2024-01-01 15:45:39,633][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000576 seconds
+[2024-01-01 15:45:39,634][hyperopt.tpe][INFO] - TPE using 376/376 trials with best loss 0.269393
+[2024-01-01 15:45:39,758][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:39,758][hyperopt.tpe][INFO] - TPE using 377/377 trials with best loss 0.269393
+[2024-01-01 15:45:39,885][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:39,885][hyperopt.tpe][INFO] - TPE using 378/378 trials with best loss 0.269393
+[2024-01-01 15:45:40,018][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:40,019][hyperopt.tpe][INFO] - TPE using 379/379 trials with best loss 0.269393
+[2024-01-01 15:45:40,150][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000571 seconds
+[2024-01-01 15:45:40,151][hyperopt.tpe][INFO] - TPE using 380/380 trials with best loss 0.269393
+[2024-01-01 15:45:40,279][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:40,279][hyperopt.tpe][INFO] - TPE using 381/381 trials with best loss 0.269393
+[2024-01-01 15:45:40,417][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:40,417][hyperopt.tpe][INFO] - TPE using 382/382 trials with best loss 0.269393
+[2024-01-01 15:45:40,540][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:40,541][hyperopt.tpe][INFO] - TPE using 383/383 trials with best loss 0.269393
+[2024-01-01 15:45:40,685][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:40,686][hyperopt.tpe][INFO] - TPE using 384/384 trials with best loss 0.269393
+[2024-01-01 15:45:40,817][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:40,817][hyperopt.tpe][INFO] - TPE using 385/385 trials with best loss 0.269393
+[2024-01-01 15:45:40,939][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:40,939][hyperopt.tpe][INFO] - TPE using 386/386 trials with best loss 0.269393
+[2024-01-01 15:45:41,079][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:41,079][hyperopt.tpe][INFO] - TPE using 387/387 trials with best loss 0.269393
+[2024-01-01 15:45:41,216][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000557 seconds
+[2024-01-01 15:45:41,216][hyperopt.tpe][INFO] - TPE using 388/388 trials with best loss 0.269393
+[2024-01-01 15:45:41,338][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:41,339][hyperopt.tpe][INFO] - TPE using 389/389 trials with best loss 0.269393
+[2024-01-01 15:45:41,465][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:41,465][hyperopt.tpe][INFO] - TPE using 390/390 trials with best loss 0.269393
+[2024-01-01 15:45:41,590][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:41,590][hyperopt.tpe][INFO] - TPE using 391/391 trials with best loss 0.269393
+[2024-01-01 15:45:41,722][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:41,722][hyperopt.tpe][INFO] - TPE using 392/392 trials with best loss 0.269393
+[2024-01-01 15:45:41,843][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:41,844][hyperopt.tpe][INFO] - TPE using 393/393 trials with best loss 0.269393
+[2024-01-01 15:45:41,972][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:41,973][hyperopt.tpe][INFO] - TPE using 394/394 trials with best loss 0.269393
+[2024-01-01 15:45:42,098][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:42,098][hyperopt.tpe][INFO] - TPE using 395/395 trials with best loss 0.269393
+[2024-01-01 15:45:42,237][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:42,237][hyperopt.tpe][INFO] - TPE using 396/396 trials with best loss 0.269393
+[2024-01-01 15:45:42,360][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:42,361][hyperopt.tpe][INFO] - TPE using 397/397 trials with best loss 0.269393
+[2024-01-01 15:45:42,480][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:42,481][hyperopt.tpe][INFO] - TPE using 398/398 trials with best loss 0.269393
+[2024-01-01 15:45:42,624][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:42,625][hyperopt.tpe][INFO] - TPE using 399/399 trials with best loss 0.269393
+[2024-01-01 15:45:42,754][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:45:42,755][hyperopt.tpe][INFO] - TPE using 400/400 trials with best loss 0.269393
+[2024-01-01 15:45:42,874][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:42,875][hyperopt.tpe][INFO] - TPE using 401/401 trials with best loss 0.269393
+[2024-01-01 15:45:43,010][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:43,011][hyperopt.tpe][INFO] - TPE using 402/402 trials with best loss 0.269393
+[2024-01-01 15:45:43,152][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:43,153][hyperopt.tpe][INFO] - TPE using 403/403 trials with best loss 0.269393
+[2024-01-01 15:45:43,287][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:43,287][hyperopt.tpe][INFO] - TPE using 404/404 trials with best loss 0.269393
+[2024-01-01 15:45:43,424][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:43,425][hyperopt.tpe][INFO] - TPE using 405/405 trials with best loss 0.269393
+[2024-01-01 15:45:43,565][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:43,566][hyperopt.tpe][INFO] - TPE using 406/406 trials with best loss 0.269393
+[2024-01-01 15:45:43,709][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:43,709][hyperopt.tpe][INFO] - TPE using 407/407 trials with best loss 0.269393
+[2024-01-01 15:45:43,842][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:43,843][hyperopt.tpe][INFO] - TPE using 408/408 trials with best loss 0.269393
+[2024-01-01 15:45:43,974][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:43,974][hyperopt.tpe][INFO] - TPE using 409/409 trials with best loss 0.269393
+[2024-01-01 15:45:44,110][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:44,111][hyperopt.tpe][INFO] - TPE using 410/410 trials with best loss 0.269393
+[2024-01-01 15:45:44,255][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:44,255][hyperopt.tpe][INFO] - TPE using 411/411 trials with best loss 0.269393
+[2024-01-01 15:45:44,384][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:44,384][hyperopt.tpe][INFO] - TPE using 412/412 trials with best loss 0.269393
+[2024-01-01 15:45:44,516][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:44,516][hyperopt.tpe][INFO] - TPE using 413/413 trials with best loss 0.269393
+[2024-01-01 15:45:44,661][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:44,662][hyperopt.tpe][INFO] - TPE using 414/414 trials with best loss 0.269393
+[2024-01-01 15:45:44,799][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:44,799][hyperopt.tpe][INFO] - TPE using 415/415 trials with best loss 0.269393
+[2024-01-01 15:45:44,929][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:44,930][hyperopt.tpe][INFO] - TPE using 416/416 trials with best loss 0.269393
+[2024-01-01 15:45:45,070][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:45,070][hyperopt.tpe][INFO] - TPE using 417/417 trials with best loss 0.269393
+[2024-01-01 15:45:45,203][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:45,204][hyperopt.tpe][INFO] - TPE using 418/418 trials with best loss 0.269393
+[2024-01-01 15:45:45,334][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:45,335][hyperopt.tpe][INFO] - TPE using 419/419 trials with best loss 0.269393
+[2024-01-01 15:45:45,462][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:45,463][hyperopt.tpe][INFO] - TPE using 420/420 trials with best loss 0.269393
+[2024-01-01 15:45:45,599][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:45,599][hyperopt.tpe][INFO] - TPE using 421/421 trials with best loss 0.269393
+[2024-01-01 15:45:45,719][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:45,719][hyperopt.tpe][INFO] - TPE using 422/422 trials with best loss 0.269393
+[2024-01-01 15:45:45,864][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:45,865][hyperopt.tpe][INFO] - TPE using 423/423 trials with best loss 0.269393
+[2024-01-01 15:45:45,992][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:45,993][hyperopt.tpe][INFO] - TPE using 424/424 trials with best loss 0.269393
+[2024-01-01 15:45:46,134][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000549 seconds
+[2024-01-01 15:45:46,134][hyperopt.tpe][INFO] - TPE using 425/425 trials with best loss 0.269393
+[2024-01-01 15:45:46,267][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:46,268][hyperopt.tpe][INFO] - TPE using 426/426 trials with best loss 0.269393
+[2024-01-01 15:45:46,387][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000560 seconds
+[2024-01-01 15:45:46,388][hyperopt.tpe][INFO] - TPE using 427/427 trials with best loss 0.269393
+[2024-01-01 15:45:46,527][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:46,527][hyperopt.tpe][INFO] - TPE using 428/428 trials with best loss 0.269393
+[2024-01-01 15:45:46,658][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:46,659][hyperopt.tpe][INFO] - TPE using 429/429 trials with best loss 0.269393
+[2024-01-01 15:45:46,786][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:46,786][hyperopt.tpe][INFO] - TPE using 430/430 trials with best loss 0.269393
+[2024-01-01 15:45:46,906][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:46,907][hyperopt.tpe][INFO] - TPE using 431/431 trials with best loss 0.269393
+[2024-01-01 15:45:47,037][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:47,038][hyperopt.tpe][INFO] - TPE using 432/432 trials with best loss 0.269393
+[2024-01-01 15:45:47,180][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:47,180][hyperopt.tpe][INFO] - TPE using 433/433 trials with best loss 0.269393
+[2024-01-01 15:45:47,315][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:47,315][hyperopt.tpe][INFO] - TPE using 434/434 trials with best loss 0.269393
+[2024-01-01 15:45:47,455][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000547 seconds
+[2024-01-01 15:45:47,455][hyperopt.tpe][INFO] - TPE using 435/435 trials with best loss 0.269393
+[2024-01-01 15:45:47,581][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:47,582][hyperopt.tpe][INFO] - TPE using 436/436 trials with best loss 0.269393
+[2024-01-01 15:45:47,705][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:47,706][hyperopt.tpe][INFO] - TPE using 437/437 trials with best loss 0.269393
+[2024-01-01 15:45:47,836][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:47,837][hyperopt.tpe][INFO] - TPE using 438/438 trials with best loss 0.269393
+[2024-01-01 15:45:47,971][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000551 seconds
+[2024-01-01 15:45:47,971][hyperopt.tpe][INFO] - TPE using 439/439 trials with best loss 0.269393
+[2024-01-01 15:45:48,096][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:48,097][hyperopt.tpe][INFO] - TPE using 440/440 trials with best loss 0.269393
+[2024-01-01 15:45:48,225][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:48,226][hyperopt.tpe][INFO] - TPE using 441/441 trials with best loss 0.269393
+[2024-01-01 15:45:48,360][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000564 seconds
+[2024-01-01 15:45:48,361][hyperopt.tpe][INFO] - TPE using 442/442 trials with best loss 0.269393
+[2024-01-01 15:45:48,492][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:48,492][hyperopt.tpe][INFO] - TPE using 443/443 trials with best loss 0.269393
+[2024-01-01 15:45:48,627][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:48,627][hyperopt.tpe][INFO] - TPE using 444/444 trials with best loss 0.269393
+[2024-01-01 15:45:48,766][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:48,766][hyperopt.tpe][INFO] - TPE using 445/445 trials with best loss 0.269393
+[2024-01-01 15:45:48,893][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:48,893][hyperopt.tpe][INFO] - TPE using 446/446 trials with best loss 0.269393
+[2024-01-01 15:45:49,039][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:49,040][hyperopt.tpe][INFO] - TPE using 447/447 trials with best loss 0.269393
+[2024-01-01 15:45:49,172][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:49,172][hyperopt.tpe][INFO] - TPE using 448/448 trials with best loss 0.269393
+[2024-01-01 15:45:49,301][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:49,302][hyperopt.tpe][INFO] - TPE using 449/449 trials with best loss 0.269393
+[2024-01-01 15:45:49,437][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:49,437][hyperopt.tpe][INFO] - TPE using 450/450 trials with best loss 0.269393
+[2024-01-01 15:45:49,557][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:49,558][hyperopt.tpe][INFO] - TPE using 451/451 trials with best loss 0.269393
+[2024-01-01 15:45:49,677][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:45:49,678][hyperopt.tpe][INFO] - TPE using 452/452 trials with best loss 0.269393
+[2024-01-01 15:45:49,821][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:49,821][hyperopt.tpe][INFO] - TPE using 453/453 trials with best loss 0.269393
+[2024-01-01 15:45:49,961][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000558 seconds
+[2024-01-01 15:45:49,962][hyperopt.tpe][INFO] - TPE using 454/454 trials with best loss 0.269393
+[2024-01-01 15:45:50,085][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:50,086][hyperopt.tpe][INFO] - TPE using 455/455 trials with best loss 0.269393
+[2024-01-01 15:45:50,205][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:50,205][hyperopt.tpe][INFO] - TPE using 456/456 trials with best loss 0.269393
+[2024-01-01 15:45:50,336][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:50,336][hyperopt.tpe][INFO] - TPE using 457/457 trials with best loss 0.269393
+[2024-01-01 15:45:50,460][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000554 seconds
+[2024-01-01 15:45:50,461][hyperopt.tpe][INFO] - TPE using 458/458 trials with best loss 0.269393
+[2024-01-01 15:45:50,599][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:50,599][hyperopt.tpe][INFO] - TPE using 459/459 trials with best loss 0.269393
+[2024-01-01 15:45:50,718][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:50,719][hyperopt.tpe][INFO] - TPE using 460/460 trials with best loss 0.269393
+[2024-01-01 15:45:50,847][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000555 seconds
+[2024-01-01 15:45:50,847][hyperopt.tpe][INFO] - TPE using 461/461 trials with best loss 0.269393
+[2024-01-01 15:45:50,972][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:50,973][hyperopt.tpe][INFO] - TPE using 462/462 trials with best loss 0.269393
+[2024-01-01 15:45:51,105][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000553 seconds
+[2024-01-01 15:45:51,106][hyperopt.tpe][INFO] - TPE using 463/463 trials with best loss 0.269393
+[2024-01-01 15:45:51,245][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:51,245][hyperopt.tpe][INFO] - TPE using 464/464 trials with best loss 0.269393
+[2024-01-01 15:45:51,372][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:51,373][hyperopt.tpe][INFO] - TPE using 465/465 trials with best loss 0.269393
+[2024-01-01 15:45:51,493][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:51,494][hyperopt.tpe][INFO] - TPE using 466/466 trials with best loss 0.269393
+[2024-01-01 15:45:51,625][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:51,625][hyperopt.tpe][INFO] - TPE using 467/467 trials with best loss 0.269393
+[2024-01-01 15:45:51,760][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:51,761][hyperopt.tpe][INFO] - TPE using 468/468 trials with best loss 0.269393
+[2024-01-01 15:45:51,893][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:51,893][hyperopt.tpe][INFO] - TPE using 469/469 trials with best loss 0.269393
+[2024-01-01 15:45:52,022][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000550 seconds
+[2024-01-01 15:45:52,022][hyperopt.tpe][INFO] - TPE using 470/470 trials with best loss 0.269393
+[2024-01-01 15:45:52,142][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:52,142][hyperopt.tpe][INFO] - TPE using 471/471 trials with best loss 0.269393
+[2024-01-01 15:45:52,262][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000562 seconds
+[2024-01-01 15:45:52,262][hyperopt.tpe][INFO] - TPE using 472/472 trials with best loss 0.269393
+[2024-01-01 15:45:52,407][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:52,407][hyperopt.tpe][INFO] - TPE using 473/473 trials with best loss 0.269393
+[2024-01-01 15:45:52,544][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:52,544][hyperopt.tpe][INFO] - TPE using 474/474 trials with best loss 0.269393
+[2024-01-01 15:45:52,670][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000548 seconds
+[2024-01-01 15:45:52,670][hyperopt.tpe][INFO] - TPE using 475/475 trials with best loss 0.269393
+[2024-01-01 15:45:52,815][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:52,815][hyperopt.tpe][INFO] - TPE using 476/476 trials with best loss 0.269393
+[2024-01-01 15:45:52,951][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000565 seconds
+[2024-01-01 15:45:52,952][hyperopt.tpe][INFO] - TPE using 477/477 trials with best loss 0.269393
+[2024-01-01 15:45:53,084][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000552 seconds
+[2024-01-01 15:45:53,085][hyperopt.tpe][INFO] - TPE using 478/478 trials with best loss 0.269393
+[2024-01-01 15:45:53,236][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000561 seconds
+[2024-01-01 15:45:53,236][hyperopt.tpe][INFO] - TPE using 479/479 trials with best loss 0.269393
+[2024-01-01 15:45:53,370][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:53,370][hyperopt.tpe][INFO] - TPE using 480/480 trials with best loss 0.269393
+[2024-01-01 15:45:53,516][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000563 seconds
+[2024-01-01 15:45:53,516][hyperopt.tpe][INFO] - TPE using 481/481 trials with best loss 0.269393
+[2024-01-01 15:45:53,644][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000567 seconds
+[2024-01-01 15:45:53,645][hyperopt.tpe][INFO] - TPE using 482/482 trials with best loss 0.269393
+[2024-01-01 15:45:53,776][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000556 seconds
+[2024-01-01 15:45:53,776][hyperopt.tpe][INFO] - TPE using 483/483 trials with best loss 0.269393
+[2024-01-01 15:45:53,900][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:45:53,901][hyperopt.tpe][INFO] - TPE using 484/484 trials with best loss 0.269393
+[2024-01-01 15:45:54,047][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000593 seconds
+[2024-01-01 15:45:54,048][hyperopt.tpe][INFO] - TPE using 485/485 trials with best loss 0.269393
+[2024-01-01 15:45:54,169][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000559 seconds
+[2024-01-01 15:45:54,169][hyperopt.tpe][INFO] - TPE using 486/486 trials with best loss 0.269393
+[2024-01-01 15:45:54,308][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000573 seconds
+[2024-01-01 15:45:54,309][hyperopt.tpe][INFO] - TPE using 487/487 trials with best loss 0.269393
+[2024-01-01 15:45:54,433][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000573 seconds
+[2024-01-01 15:45:54,434][hyperopt.tpe][INFO] - TPE using 488/488 trials with best loss 0.269393
+[2024-01-01 15:45:54,569][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000569 seconds
+[2024-01-01 15:45:54,618][hyperopt.tpe][INFO] - TPE using 489/489 trials with best loss 0.269393
+[2024-01-01 15:45:54,750][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000579 seconds
+[2024-01-01 15:45:54,750][hyperopt.tpe][INFO] - TPE using 490/490 trials with best loss 0.269393
+[2024-01-01 15:45:54,870][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:45:54,871][hyperopt.tpe][INFO] - TPE using 491/491 trials with best loss 0.269393
+[2024-01-01 15:45:55,006][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000577 seconds
+[2024-01-01 15:45:55,007][hyperopt.tpe][INFO] - TPE using 492/492 trials with best loss 0.269393
+[2024-01-01 15:45:55,133][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000572 seconds
+[2024-01-01 15:45:55,134][hyperopt.tpe][INFO] - TPE using 493/493 trials with best loss 0.269393
+[2024-01-01 15:45:55,257][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000589 seconds
+[2024-01-01 15:45:55,258][hyperopt.tpe][INFO] - TPE using 494/494 trials with best loss 0.269393
+[2024-01-01 15:45:55,399][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000568 seconds
+[2024-01-01 15:45:55,399][hyperopt.tpe][INFO] - TPE using 495/495 trials with best loss 0.269393
+[2024-01-01 15:45:55,532][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000581 seconds
+[2024-01-01 15:45:55,532][hyperopt.tpe][INFO] - TPE using 496/496 trials with best loss 0.269393
+[2024-01-01 15:45:55,667][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000576 seconds
+[2024-01-01 15:45:55,667][hyperopt.tpe][INFO] - TPE using 497/497 trials with best loss 0.269393
+[2024-01-01 15:45:55,795][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000566 seconds
+[2024-01-01 15:45:55,796][hyperopt.tpe][INFO] - TPE using 498/498 trials with best loss 0.269393
+[2024-01-01 15:45:55,919][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000589 seconds
+[2024-01-01 15:45:55,920][hyperopt.tpe][INFO] - TPE using 499/499 trials with best loss 0.269393
+[2024-01-01 15:45:56,063][root][INFO] - Hyperopt complete
+[2024-01-01 15:45:56,063][root][INFO] - Best params: {'gamma': 0, 'learning_rate': 0.505, 'max_depth': 3, 'min_child_weight': 2, 'n_estimators': 200, 'reg_alpha': 0.11606352411982751, 'reg_lambda': 3.7803450513103476, 'subsample': 0.6000000000000001}
+[2024-01-01 15:45:56,113][root][INFO] - Parameters written to /projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_and_d1_only_hyperopt_tune_no_reg/xgb_regression_da_and_d1_elastic_net/best_params.yaml
+[2024-01-01 15:45:56,113][root][INFO] - Writing results to /projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_and_d1_only_hyperopt_tune_no_reg/xgb_regression_da_and_d1_elastic_net/hyper_opt_results.parquet
+[2024-01-01 15:45:56,117][root][INFO] - Experiment complete
