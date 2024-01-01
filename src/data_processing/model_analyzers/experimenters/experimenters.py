@@ -56,11 +56,12 @@ class XGBRegExperimenter:
         self.experiment_results: Dict[str, pd.DataFrame] = {}
         self.analyzer_runs: List[XGBRegAnalyzer] = []
 
-    def run_experiment(self, number_of_runs: 10):
+    def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
         feature_importance_runs = []
         for run_numb in range(number_of_runs):
             analyzer = self.analyzer(self.results)
+            analyzer.create_pipeline(cls_to_drop=cls_to_drop)
             self.analyzer_runs.append(analyzer)  # keep track of runs
 
             analyzer.fit_best_xgb_model()
