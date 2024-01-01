@@ -67,18 +67,19 @@ def save_results(best_params, results,  experiment_name, experiment_path):
 
 @hydra.main(version_base=None,
             config_path="conf",
-            config_name="config")
+            config_name="configs_no_reg")
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
     EXPERIMENT_NAME = cfg.experiment_name
 
     DATA_PATH = Path(cfg.quest_config.data_path)
     MAIN_DIR = Path(cfg.quest_config.main_dir)
+    MAIN_DIR.mkdir(parents=True, exist_ok=True)
     EXPERIMENT_PATH = Path(cfg.quest_config.experiment_dir)
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
-    queried_df_pipeline = partial(xgb_reg_signal_params_only_pd_preprocessor, cols_to_drop=[
+    queried_df_pipeline = partial(xgb_reg_signal_params_only_pd_preprocessor, cls_to_drop=[
                                   'day'],  query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
@@ -109,4 +110,3 @@ def main(cfg: DictConfig) -> None:
 
 if __name__ == "__main__":
     main()
-

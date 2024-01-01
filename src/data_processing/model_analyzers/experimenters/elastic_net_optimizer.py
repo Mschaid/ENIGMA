@@ -33,10 +33,12 @@ class ElasticNetOptimizer:
     def initial_params(self):
         return self.configs.config_data['best_params']
 
-    def set_experimental_params(self, experimental_params=None):
-        if experimental_params is None:
+    def set_experimental_params(self, new_params=None):
+        if new_params is None:
             self.experimental_params = None
             return self.initial_params
-        for k, v in experimental_params.items():
-            self.experimental_params = {**self.initial_params, **{k: v}}
-        return self.experimental_params
+        else:
+            self.experimental_params = self.initial_params.copy()
+            for k, v in new_params.items():
+                self.experimental_params.update({k: v})
+            return self.experimental_params

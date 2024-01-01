@@ -49,6 +49,8 @@ def hyperopt_experiment(processor, space, max_evals):
 
 def save_results(best_params, results,  experiment_name, experiment_path):
     '''Writes experiment parameters to yaml file'''
+    experiment_path.mkdir(
+        parents=True, exist_ok=True)  # create experiment folder if not presenti
     for key, value in best_params.items():
         if isinstance(value, np.generic):
             best_params[key] = value.item()
@@ -68,9 +70,9 @@ def save_results(best_params, results,  experiment_name, experiment_path):
 
 @hydra.main(version_base=None,
             config_path="conf",
-            config_name="config")
+            config_name="configs_elastic_net")
 def main(cfg: DictConfig) -> None:
-    # TODO: this current overrides everything and it needs to be fixed so it outputs to new directory.
+
     OmegaConf.to_yaml(cfg)
     EXPERIMENT_NAME = cfg.experiment_name
     ORIG_EXPERIMENT_NAME = cfg.original_experiment_name
@@ -93,13 +95,13 @@ def main(cfg: DictConfig) -> None:
                       )
 
     NET_PARAMS = {
-        'alpha': hp.uniform('alpha', 0, 5),
-        'lambda': hp.uniform('lambda', 0, 5)
+        'reg_lambda': hp.uniform('reg_lambda', 0.1, 10),
+        'reg_alpha': hp.uniform('reg_alpha', 0.1, 10)
     }
 
     net_optimizer = ElasticNetOptimizer(ORIG_EXPERIMENT_PATH)
     SEARCH_SPACE = net_optimizer.set_experimental_params(
-        experimental_params=NET_PARAMS)
+        new_params=NET_PARAMS)
 
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,

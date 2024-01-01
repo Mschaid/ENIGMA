@@ -1,0 +1,2 @@
+- experiment_query='sensor != "D2"'
+- experiment_name=xgb_regression_da_and_d1_only_hyperopt_tune_no_reg

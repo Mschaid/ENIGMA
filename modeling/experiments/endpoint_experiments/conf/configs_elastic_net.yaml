@@ -1,15 +1,17 @@
 experiment_query: "sensor == 'DA'"
-original_experiment_name: xgb_regression_da_only_hyperopt_tune
-experiment_name: xgb_regression_da_only_hyperopt_tune
+original_experiment_name: xgb_regression_da_only_hyperopt_tune_no_reg
+experiment_name: xgb_regression_da_only_hyperopt_elastic_net
+
+
 
 
 quest_config:
   data_path: /projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip
-  main_dir: /projects/p31961/ENIGMA/results/experiments
+  main_dir: /projects/p31961/ENIGMA/results/experiments/endpoint_experiments
   original_experiment_name: ${original_experiment_name}  
   experiment_name: ${experiment_name}
   original_experiment_dir: ${quest_config.main_dir}/${quest_config.original_experiment_name}
-  experiment_dir: ${quest_config.original_experiment_dir}/${quest_config.experiment_name} #TODO fix this so its not hard coded
+  experiment_dir: ${quest_config.original_experiment_dir}/${quest_config.experiment_name}
 
 
 hydra:
