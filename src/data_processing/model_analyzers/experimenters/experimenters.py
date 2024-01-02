@@ -81,18 +81,19 @@ class XGBRegExperimenter:
         self.experiment_results.update(
             feature_importance_results=compiled_feature_importance)
 
-    def save_results(self):
-        path_to_save = self.path / "experiment_results"
+    def save_results(self, condition_name: str):
+        path_to_save = self.path / f"{condition_name}_experiment_results"
         path_to_save.mkdir(parents=True, exist_ok=True)
         for key, df in self.experiment_results.items():
 
             df.to_parquet(f'{path_to_save}/{key}.parquet')
 
 
-class ElasticNetRegulairzationHyperopt:
-    def __init__(self, analyzer, results):
-        self.results = results
+class XGBRegExperimenterFactory:
+    def __init__(self, path: Path):
+        self.path = path
+        self.analyzer = XGBRegAnalyzer
+        self.results = XGBRegrResults
 
-
-# load conifgurations, including best parameters
-# run hyperopt on the same model with the best parameters, and search for best L1 and L2 combination
+    def create_experimenter(self) -> XGBRegExperimenter:
+        return XGBRegExperimenter(self.path, self.analyzer, self.results)
