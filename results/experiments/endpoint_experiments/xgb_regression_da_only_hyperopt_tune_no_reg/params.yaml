@@ -1,8 +1,8 @@
 best_params:
-  gamma: 4
+  gamma: 0
   learning_rate: 0.505
   max_depth: 12
-  min_child_weight: 2
-  n_estimators: 100
-  subsample: 0.4
+  min_child_weight: 3
+  n_estimators: 250
+  subsample: 0.6000000000000001
 experiment_name: xgb_regression_da_only_hyperopt_tune_no_reg

@@ -63,7 +63,6 @@ class XGBRegExperimenter:
             analyzer = self.analyzer(self.results)
             analyzer.create_pipeline(cls_to_drop=cls_to_drop)
             self.analyzer_runs.append(analyzer)  # keep track of runs
-
             analyzer.fit_best_xgb_model()
             run_metric_results = pd.DataFrame(analyzer.metrics_results)
             run_feature_importance = pd.DataFrame(

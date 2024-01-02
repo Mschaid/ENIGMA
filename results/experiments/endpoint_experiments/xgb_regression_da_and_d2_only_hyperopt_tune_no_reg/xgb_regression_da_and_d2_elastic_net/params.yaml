@@ -4,7 +4,7 @@ best_params:
   max_depth: 12
   min_child_weight: 2
   n_estimators: 50
-  reg_alpha: 2.132314796470298
-  reg_lambda: 0.2034988282956
+  reg_alpha: 8.859055931145566
+  reg_lambda: 2.950980455737148
   subsample: 0.4
 experiment_name: xgb_regression_da_and_d2_elastic_net
