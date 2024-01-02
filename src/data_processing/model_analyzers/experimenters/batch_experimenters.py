@@ -33,7 +33,7 @@ class XGBRegBatchExperimenter(BatchExperimeter):
         self.experiment_conditions = experiment_conditions
         self.xgb_regr_analyzer_factory = XGBRegExperimenterFactory
 
-    def get_experimet_directories(self):
+    def get_experiment_directories(self):
         experiment_direcotires = [d for d in self.main_path.rglob(
             '*') if d.is_dir() and not d.name.startswith('.')]
         return experiment_direcotires
