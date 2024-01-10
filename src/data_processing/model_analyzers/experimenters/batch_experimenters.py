@@ -45,9 +45,13 @@ class XGBRegBatchExperimenter(BatchExperimeter):
         self.experiment_conditions = experiment_conditions
         self.xgb_regr_analyzer_factory = XGBRegExperimenterFactory
 
-    def get_experiment_directories(self):
-        experiment_directoires = [d for d in self.main_path.rglob(
-            '*') if d.is_dir() and not d.name.startswith('.')]
+    def get_experiment_directories(self, filter_keywords = None):
+        if filter_keywords:
+            experiment_directoires = [d for d in self.main_path.rglob(
+                '*') if d.is_dir() and not d.name.startswith('.') and any(keyword in d.name for keyword in filter_keywords)]
+        else:
+            experiment_directoires = [d for d in self.main_path.rglob(
+                '*') if d.is_dir() and not d.name.startswith('.')]
         return experiment_directoires
 
     # @custom_multi_processor

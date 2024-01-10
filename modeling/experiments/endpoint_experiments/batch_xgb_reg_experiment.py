@@ -4,11 +4,13 @@ from dataclasses import dataclass
 from typing import Dict, List
 import logging
 
+
 @dataclass
 class BatchExperimentMetaData:
     main_path: str
     number_of_runs: int
     experiment_conditions: Dict[str, List[str]]
+    filter_keys: List[str] = None
 
 
 def batch_experiment(exp_data: BatchExperimentMetaData):
@@ -16,7 +18,8 @@ def batch_experiment(exp_data: BatchExperimentMetaData):
     batch_experimenter = XGBRegBatchExperimenter(
         exp_data.main_path, exp_data)
 
-    experiment_directories = batch_experimenter.get_experiment_directories()
+    experiment_directories = batch_experimenter.get_experiment_directories(
+        exp_data.filter_keys)
 
     experimenters = batch_experimenter.set_up_experimenters(
         experiment_directories)
@@ -31,11 +34,13 @@ def main():
         "with_day": ["mouse_id", "day"],
         "with_out_day": ["mouse_id"]
     }
+    FILTER_KEYS = ['elastic_net']
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
         number_of_runs=NUMBER_OF_RUNS,
-        experiment_conditions=EXPERIMENMT_CONDITIONS)
+        experiment_conditions=EXPERIMENMT_CONDITIONS,
+        filter_keys=FILTER_KEYS)
 
     batch_experiment(experiment_data)
 
