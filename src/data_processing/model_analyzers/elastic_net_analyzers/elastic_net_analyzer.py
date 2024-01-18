@@ -76,16 +76,16 @@ class MetricAnalyzer(ElasticNetAnalyzer):
         )
         self._data_frame = clean_df
 
-    def plot_data(self, df):
+    def plot_data(self):
 
         err_kws = {'linewidth': 1,
                    }
 
-        facet = sns.FacetGrid(df, col="metric", sharey=False).map(
+        facet = sns.FacetGrid(self.data_frame, col="metric", sharey=False).map(
             sns.barplot,
             'dataset',
             'value',
-            data=df,
+            data=self.data_frame,
             order=['Train', 'Dev', 'Test'],
             hue='dataset',
             palette=['white', 'silver', '#56B4E9'],
