@@ -4,12 +4,76 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+from dataclasses import dataclass
 
 from abc import ABC, abstractmethod
 from functools import lru_cache
 
 
+class ExperimentMetadata:
+    def __init__(self, path: str):
+        self.path = Path(path)
+
+    @property
+    def experiment_name(self):
+        return self.path.parents[1].name
+
+    @property
+    def net_status(self):
+        if re.search("net", self.path.as_posix()):
+            return "elastic_net"
+        else:
+            return "baseline"
+
+    @property
+    def is_net(self):
+        if self.net_status == "elastic_net":
+            return True
+
+    @property
+    def day_status(self):
+        if re.search("with_day", self.path.as_posix()):
+            return "with_day"
+        else:
+            return "without_day"
+
+    @property
+    def has_day(self):
+        if self.day_status == "with_day":
+            return True
+
+    @property
+    def data_category(self):
+        if re.search("metric", self.path.name):
+            return "metrics"
+        if re.search("feature", self.path.name):
+            return "feature_importance"
+
+    @staticmethod
+    def _get_group(path):
+
+        if re.search("da_only", path):
+            return "da_only"
+        if re.search("da_and_d1", path):
+            return "da_and_d1"
+        if re.search("da_and_d2", path):
+            return "da_and_d2"
+
+    @property
+    def group(self):
+        return ExperimentMetadata._get_group(self.path.as_posix())
+
+    @property
+    def full_name(self):
+        name = f"{self.group}_{self.net_status}_{self.day_status}_{self.data_category}"
+        return name
+
+
 class ElasticNetAnalyzer(ABC):
+
+    def __init__(self, path: Path, meta_data: ExperimentMetadata):
+        self.meta_data = meta_data(path)
+        self._data_frame = None
 
     @abstractmethod
     def read_and_clean_data(self):
@@ -19,33 +83,19 @@ class ElasticNetAnalyzer(ABC):
     def plot_data(self):
         ...
 
-    def organize_data(self, path: Path):
-        def find_has_day_in_string(exp_cat):
-            if re.match('with_day', exp_cat):
-                return True
-            else:
-                return False
+    def organize_data(self):
 
-        def find_net_in_string(exp_cat):
-            if re.match('net', exp_cat):
-                return True
-            else:
-                return False
-        data_cat = path.stem
-        experiment_cat = path.parent.stem
-        group = path.parent.parent.stem
-        df = pd.read_parquet(path)
-        frame = df.assign(data_cat=data_cat,
-                          with_day=find_has_day_in_string(experiment_cat),
-                          is_net=find_net_in_string(group))
+        df = pd.read_parquet(self.meta_data.path)
+        frame = df.assign(data_cat=self.meta_data.data_category,
+                          with_day=self.meta_data.has_day,
+                          is_net=self.meta_data.is_net)
 
         return frame
 
 
 class MetricAnalyzer(ElasticNetAnalyzer):
-    def __init__(self, path: Path):
-        self.path = path
-        self._data_frame = None
+    def __init__(self, path, meta_data):
+        super().__init__(path, meta_data)
 
     @property
     # @lru_cache(maxsize=None)
@@ -60,7 +110,7 @@ class MetricAnalyzer(ElasticNetAnalyzer):
         self.data_frame = df
 
     def read_and_clean_data(self):
-        df = self.organize_data(self.path)
+        df = self.organize_data()
         clean_df = (
             df
             .reset_index()
@@ -101,9 +151,8 @@ class MetricAnalyzer(ElasticNetAnalyzer):
 
 
 class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
-    def __init__(self, path: Path):
-        self.path = path
-        self._data_frame = None
+    def __init__(self, path, meta_data):
+        super().__init__(path, meta_data)
 
     @property
     # @lru_cache(maxsize=None)
@@ -127,7 +176,7 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
                                .sort_values(ascending=False).index.str.replace('_', ' ').str.title())
             return sorted_features
 
-        df = self.organize_data(self.path)
+        df = self.organize_data()
 
         sorted_features = _sort_features(df)
 
