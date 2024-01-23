@@ -7,7 +7,6 @@ class PathFinder:
     def __init__(self, main_path: Path):
         self.main_path = main_path
 
-
     @property
     def metrics_paths(self):
         paths = [p for p in self.main_path.glob(
