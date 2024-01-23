@@ -1,0 +1,10 @@
+best_params:
+  gamma: 0
+  learning_rate: 0.505
+  max_depth: 12
+  min_child_weight: 1
+  n_estimators: 150
+  reg_alpha: 0.37738198045741433
+  reg_lambda: 2.131359251831722
+  subsample: 0.6000000000000001
+experiment_name: xgb_regression_da_and_d1_hyperopt_tune_with_elastic_net

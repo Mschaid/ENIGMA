@@ -67,7 +67,7 @@ def save_results(best_params, results,  experiment_name, experiment_path):
 
 @hydra.main(version_base=None,
             config_path="conf",
-            config_name="configs_no_reg")
+            config_name="configs_all_params_w_net")
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
     EXPERIMENT_NAME = cfg.experiment_name
@@ -80,7 +80,7 @@ def main(cfg: DictConfig) -> None:
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
     queried_df_pipeline = partial(xgb_reg_signal_params_only_pd_preprocessor, cls_to_drop=[
-                                  'day'],  query=str(cfg.experiment_query))
+                                  'mouse_id'],  query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
@@ -94,7 +94,7 @@ def main(cfg: DictConfig) -> None:
         "max_depth": hp.choice('max_depth', np.arange(3, 15, 3)),
         "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
         "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
-        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)), 
+        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)),
         'reg_lambda': hp.uniform('reg_lambda', 0.1, 10),
         'reg_alpha': hp.uniform('reg_alpha', 0.1, 10)
     }

@@ -33,7 +33,7 @@ def main():
     EXPERIMENMT_CONDITIONS = {
         "with_day": ["mouse_id"]
     }
-    FILTER_KEYS = ['no_reg', 'elastic_net']
+    FILTER_KEYS = ['elastic_net']
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
