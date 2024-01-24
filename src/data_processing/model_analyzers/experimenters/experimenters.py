@@ -51,14 +51,15 @@ class XGBRegExperimenter:
         self.experiment_results: Dict[str, pd.DataFrame] = {}
         self.analyzer_runs: List[XGBRegAnalyzer] = []
 
-    def run_permutation_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
+    def run_permutation_experiment(self, number_of_runs, cls_to_drop: List[str] = []):
         analyzer = self.analyzer(self.results)
         analyzer.create_pipeline(cls_to_drop=cls_to_drop)
-        model = analyzer.best_xgb_model
-        X = analyzer.X_train
-        y = analyzer.y_train
-        result = permutation_importance(model, X, y, n_repeats=10)
-        return result
+        X = analyzer.pipeline.X_train
+        y = analyzer.pipeline.y_train
+        model = analyzer.best_xgb_model.fit(X, y)
+        result = permutation_importance(
+            model, X, y, n_repeats=number_of_runs,random_state=0)
+        return result, analyzer.feature_names
 
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
