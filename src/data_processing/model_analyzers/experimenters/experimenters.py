@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import xgboost as xgb
+from sklearn.inspection import permutation_importance
 
 
 from typing import Callable, List, Optional, Tuple, Dict, Any, Literal, Protocol
@@ -34,13 +35,7 @@ class Experimenter(Protocol):
     def run_experiment(self, number_of_runs: 10) -> None:
         pass
 
-    @property
-    def results(self):
-        if not self._results:
-            self._results = XGBRegrResults(self.path)
-        return self._results
-
-    def run_experiment(self):
+    def run_permutation_experiment(self, number_of_runs: 10) -> None:
         pass
 
     def save_results(self):
@@ -55,6 +50,15 @@ class XGBRegExperimenter:
         self._experiment_metric_results = None
         self.experiment_results: Dict[str, pd.DataFrame] = {}
         self.analyzer_runs: List[XGBRegAnalyzer] = []
+
+    def run_permutation_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
+        analyzer = self.analyzer(self.results)
+        analyzer.create_pipeline(cls_to_drop=cls_to_drop)
+        model = analyzer.best_xgb_model
+        X = analyzer.X_train
+        y = analyzer.y_train
+        result = permutation_importance(model, X, y, n_repeats=10)
+        return result
 
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []

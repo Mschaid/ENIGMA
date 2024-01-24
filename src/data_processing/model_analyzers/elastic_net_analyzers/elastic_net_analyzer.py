@@ -71,16 +71,17 @@ class ExperimentMetadata:
 
 class ElasticNetAnalyzer(ABC):
 
-    def __init__(self, path: Path, meta_data: ExperimentMetadata):
+    def __init__(self, path: Path, meta_data: ExperimentMetadata, path_to_save_figs: Path = None):
         self.meta_data = meta_data(path)
         self._data_frame = None
+        self.path_to_save_figs = path_to_save_figs
 
     @abstractmethod
     def read_and_clean_data(self):
         ...
 
     @abstractmethod
-    def plot_data(self):
+    def plot_data(self, save: bool = False):
         ...
 
     def organize_data(self):
@@ -94,8 +95,8 @@ class ElasticNetAnalyzer(ABC):
 
 
 class MetricAnalyzer(ElasticNetAnalyzer):
-    def __init__(self, path, meta_data):
-        super().__init__(path, meta_data)
+    def __init__(self, path, meta_data, path_to_save_figs: Path = None):
+        super().__init__(path, meta_data, path_to_save_figs)
 
     @property
     # @lru_cache(maxsize=None)
@@ -126,7 +127,7 @@ class MetricAnalyzer(ElasticNetAnalyzer):
         )
         self._data_frame = clean_df
 
-    def plot_data(self):
+    def plot_data(self, save: bool = False):
 
         err_kws = {'linewidth': 1,
                    }
@@ -149,10 +150,15 @@ class MetricAnalyzer(ElasticNetAnalyzer):
         facet.set_xlabels("Dataset")
         facet.set_titles("{col_name}")
 
+        if save:
+            plt.rcParams['svg.fonttype'] = 'none'
+            plt.savefig(self.path_to_save_figs /
+                        f"{self.meta_data.full_name}.svg", dpi=300, transparent=True)
+
 
 class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
-    def __init__(self, path, meta_data):
-        super().__init__(path, meta_data)
+    def __init__(self, path, meta_data, path_to_save_figs: Path = None):
+        super().__init__(path, meta_data, path_to_save_figs=path_to_save_figs)
 
     @property
     # @lru_cache(maxsize=None)
@@ -167,29 +173,54 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
         self.data_frame = df
 
     def read_and_clean_data(self):
-        def _sort_features(df):
-            mean_importance = df.groupby('feature')[
-                'importance'].mean()
-
-            # Sort the features by mean 'importance'
-            sorted_features = (mean_importance
-                               .sort_values(ascending=False).index.str.replace('_', ' ').str.title())
-            return sorted_features
+        label_dict = {
+            'day': 'Day',
+            'signal_trapz_DA_cue': 'Total DA AUC - Cue',
+            'signal_trapz_DA_avoid': 'Total DA AUC - Avoid',
+            'signal_min_DA_shock': 'Min DA - Shock',
+            'signal_min_DA_escape': 'Min DA - Escape',
+            'signal_min_DA_cue': 'Min DA - Cue',
+            'signal_min_DA_avoid': 'Min DA - Avoid',
+            'signal_max_DA_shock': 'Max DA - Shock',
+            'signal_max_DA_escape': 'Max DA - Escape',
+            'signal_max_DA_cue': 'Max DA - Cue',
+            'pos_signal_trapz_DA_shock': 'Postive DA AUC - Shock',
+            'pos_signal_trapz_DA_escape': 'Positive DA AUC - Escape',
+            'pos_signal_trapz_DA_avoid': 'Positive DA AUC - Avoid',
+            'neg_signal_trapz_DA_shock': 'Negative DA AUC - Shock',
+            'neg_signal_trapz_DA_escape': 'Negative DA AUC - Escape',
+            'neg_signal_trapz_DA_cue': 'Negative DA AUC - Cue',
+            'signal_max_DA_avoid': 'Max DA - Avoid',
+            'signal_trapz_DA_escape': 'Total DA AUC - Escape',
+            'signal_trapz_DA_shock': 'Total DA AUC - Shock',
+            'pos_signal_trapz_DA_cue': 'Positive DA AUC - Cue',
+            'neg_signal_trapz_DA_avoid': 'Negative DA AUC - Avoid'
+        }
 
         df = self.organize_data()
 
-        sorted_features = _sort_features(df)
-
         clean_df = (df
-                    .assign(feature=lambda df_:
-                            pd.Categorical(df_.feature.str.replace(
-                                '_', ' ').str.title(), categories=sorted_features, ordered=True)
-                            )
+                    .assign(
+                        feature=lambda df_:
+                            pd.Categorical(df_.feature.replace(
+                                label_dict), ordered=True)
+                    )
+                    .sort_values(by='feature')
                     )
         self._data_frame = clean_df
+        return clean_df
 
     def plot_data(self):
         # colors = sns.color_palette("light:dodgerblue", as_cmap=True)
+
+        def _sorted_features():
+            mean_importance = self.data_frame.groupby(
+                'feature', observed=True)['importance'].mean()
+            sorted_features = mean_importance.sort_values(
+                ascending=False).index
+            return sorted_features
+
+        sorted_features = _sorted_features()
 
         err_kws = {'linewidth': 1,
                    }
@@ -201,8 +232,15 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
                     orient='h',
                     capsize=.2,
                     palette='Blues_r',
-                    hue='feature',
-                    err_kws=err_kws)
+                    legend=False,
+                    order=sorted_features,
+                    err_kws=err_kws
+                    )
         plt.ylabel('Feature')
         plt.xlabel('Importance')
         plt.title('Feature Importance')
+
+        if save:
+            file_name = self.path_to_save_figs / f"{self.meta_data.full_name}.svg"
+            plt.rcParams['svg.fonttype'] = 'none'
+            plt.savefig(file_name, dpi=300, transparent=True)
