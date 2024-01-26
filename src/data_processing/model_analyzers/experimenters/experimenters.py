@@ -54,6 +54,7 @@ class XGBRegExperimenter:
     def run_permutation_experiment(self, number_of_runs, cls_to_drop: List[str] = []):
         analyzer = self.analyzer(self.results)
         analyzer.create_pipeline(cls_to_drop=cls_to_drop)
+<<<<<<< HEAD
         X = analyzer.pipeline.X_train
         y = analyzer.pipeline.y_train
         model = analyzer.best_xgb_model.fit(X, y)
@@ -61,6 +62,13 @@ class XGBRegExperimenter:
                                         'neg_mean_squared_error', 'neg_mean_absolute_error', 'r2'], n_repeats=10)
 
         return result, analyzer.feature_names
+=======
+        model = analyzer.best_xgb_model
+        X = analyzer.X_train
+        y = analyzer.y_train
+        result = permutation_importance(model, X, y, scoring=['neg_mean_squared_error', 'neg_mean_absolute_error', 'r2'] n_repeats=10)
+        return result
+>>>>>>> ef4d64f (Fix scoring parameter in permutation_importance)
 
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
