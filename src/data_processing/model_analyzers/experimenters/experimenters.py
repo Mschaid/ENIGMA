@@ -57,8 +57,9 @@ class XGBRegExperimenter:
         X = analyzer.pipeline.X_train
         y = analyzer.pipeline.y_train
         model = analyzer.best_xgb_model.fit(X, y)
-        result = permutation_importance(
-            model, X, y, n_repeats=number_of_runs,random_state=0)
+        result = permutation_importance(model, X, y, scoring=[
+                                        'neg_mean_squared_error', 'neg_mean_absolute_error', 'r2'], n_repeats=10)
+
         return result, analyzer.feature_names
 
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
