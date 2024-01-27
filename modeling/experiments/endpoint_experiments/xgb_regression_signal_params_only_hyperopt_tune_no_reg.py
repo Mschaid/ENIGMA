@@ -95,8 +95,6 @@ def main(cfg: DictConfig) -> None:
         "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
         "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
         "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)), 
-        'reg_lambda': hp.uniform('reg_lambda', 0.1, 10),
-        'reg_alpha': hp.uniform('reg_alpha', 0.1, 10)
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,
