@@ -41,6 +41,8 @@ class ExperimentMetadata:
     def has_day(self):
         if self.day_status == "with_day":
             return True
+        else:
+            return False
 
     @property
     def data_category(self):
@@ -210,7 +212,7 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
         self._data_frame = clean_df
         return clean_df
 
-    def plot_data(self):
+    def plot_data(self, save=False):
         # colors = sns.color_palette("light:dodgerblue", as_cmap=True)
 
         def _sorted_features():
@@ -241,6 +243,7 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
         plt.title('Feature Importance')
 
         if save:
-            file_name = self.path_to_save_figs / f"{self.meta_data.full_name}.svg"
+            file_name = self.path_to_save_figs / \
+                f"{self.meta_data.full_name}.svg"
             plt.rcParams['svg.fonttype'] = 'none'
             plt.savefig(file_name, dpi=300, transparent=True)
