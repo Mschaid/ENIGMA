@@ -127,7 +127,7 @@ def xgb_reg_signal_params_only_pd_preprocessor(df: pd.DataFrame, query: str = No
     '''pandas preprocessing specific to this experiment'''
 
     if cls_to_drop is None:
-        cls_to_drop = ['mouse_id', 'day']
+        cls_to_drop = ['mouse_id']
     drop_columns = ["action", "sex", "trial_count", "trial"]
     df_ = (
         df

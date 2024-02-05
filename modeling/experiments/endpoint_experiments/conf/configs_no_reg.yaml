@@ -1,5 +1,8 @@
-experiment_query: "sensor == 'DA'"
-experiment_name: xgb_regression_da_only_hyperopt_tune_no_reg
+experiment_query: "sensor == 'DA' & time >= 0.0 & time <= 10.0"
+experiment_name: xgb_regression_da_tune_time_greater_10
+cls_to_drop: 
+  - "mouse_id"
+
 
 
 quest_config:
