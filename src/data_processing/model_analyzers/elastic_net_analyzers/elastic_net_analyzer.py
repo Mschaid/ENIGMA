@@ -134,7 +134,7 @@ class MetricAnalyzer(ElasticNetAnalyzer):
         err_kws = {'linewidth': 1,
                    }
 
-        facet = sns.FacetGrid(self.data_frame, col="metric", sharey=False).map(
+        facet = sns.FacetGrid(self.data_frame, col="metric", sharey=False, sharex=True).map(
             sns.barplot,
             'dataset',
             'value',
@@ -226,6 +226,7 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
 
         err_kws = {'linewidth': 1,
                    }
+        plt.figure(figsize=(3, 6))
 
         sns.barplot(x='importance',
                     y='feature',
@@ -238,6 +239,7 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
                     order=sorted_features,
                     err_kws=err_kws
                     )
+        sns.despine()
         plt.ylabel('Feature')
         plt.xlabel('Importance')
         plt.title('Feature Importance')
