@@ -31,7 +31,7 @@ def main():
     NUMBER_OF_RUNS = 30
     MAIN_PATH = "/projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_normalzied_tune"
     EXPERIMENMT_CONDITIONS = {
-        # "with_day": ["mouse_id"],
+        "with_day": ["mouse_id"],
         "without_day": ["mouse_id", "day"]
     }
     FILTER_KEYS = None
