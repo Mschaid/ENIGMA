@@ -67,7 +67,7 @@ def save_results(best_params, results,  experiment_name, experiment_path):
 
 @hydra.main(version_base=None,
             config_path="conf",
-            config_name="configs_no_reg",
+            config_name="configs_normalzied_tune",
             )
 def main(cfg: DictConfig) -> None:
     OmegaConf.to_yaml(cfg)
