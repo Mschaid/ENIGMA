@@ -106,9 +106,9 @@ class XGBRegExperimenterFactory:
 
 
 class XGBNormRegExperimenter(Experimenter):
-    def __init__(self, path, analyzer, results):
+    def __init__(self, path, analyzer, results_reader):
         self.path = Path(path)
-        self.results = results(path)
+        self.results = results_reader(path)
         self.analyzer = analyzer
         self._experiment_metric_results = None
         self.experiment_results: Dict[str, pd.DataFrame] = {}
