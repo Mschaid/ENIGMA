@@ -38,7 +38,7 @@ class Experimenter(Protocol):
     def run_permutation_experiment(self, number_of_runs: 10) -> None:
         pass
 
-    def save_results(self):
+    def save_results(self, condition_name=''):
         pass
 
 
@@ -143,15 +143,15 @@ class XGBNormRegExperimenter(Experimenter):
         path_to_save = self.path / f"{condition_name}_experiment_results"
         path_to_save.mkdir(parents=True, exist_ok=True)
         for key, df in self.experiment_results.items():
-
             df.to_parquet(f'{path_to_save}/{key}.parquet')
+            print(f'saved {key} in {path_to_save}')
 
 
 class XGBNormRegExperimenterFactory:
     def __init__(self, path: Path):
         self.path = path
         self.analyzer = XGBNormRegAnalyzer
-        self.results = XGBNormRegrResults
+        self.results = XGBRegrResults
 
     def create_experimenter(self) -> XGBNormRegExperimenter:
         return XGBNormRegExperimenter(self.path, self.analyzer, self.results)

@@ -14,7 +14,7 @@ class BatchExperimentMetaData:
 
 
 def batch_experiment(exp_data: BatchExperimentMetaData, experimenter: BatchExperimeter = XGBRegBatchExperimenter):
-
+    print("batch_experiment")
     batch_experimenter = experimenter(
         exp_data.main_path, exp_data)
 
@@ -27,7 +27,7 @@ def batch_experiment(exp_data: BatchExperimentMetaData, experimenter: BatchExper
 
 
 def main():
-
+    print("main")
     NUMBER_OF_RUNS = 30
     MAIN_PATH = "/projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_normalzied_tune"
     EXPERIMENMT_CONDITIONS = {
