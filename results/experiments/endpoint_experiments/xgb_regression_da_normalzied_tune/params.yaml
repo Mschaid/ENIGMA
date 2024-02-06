@@ -1,0 +1,10 @@
+best_params:
+  gamma: 0
+  learning_rate: 0.505
+  max_depth: 9
+  min_child_weight: 2
+  n_estimators: 100
+  reg_alpha: 3.9877790907050246
+  reg_lambda: 0.8935698361787824
+  subsample: 0.8
+experiment_name: xgb_regression_da_normalzied_tune
