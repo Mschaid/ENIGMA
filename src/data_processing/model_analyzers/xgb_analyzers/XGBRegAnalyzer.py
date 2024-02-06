@@ -384,4 +384,6 @@ class XGBNormRegAnalyzerFactory:
         analyzer = XGBNormRegAnalyzer(self.results)
         analyzer.create_pipeline(cls_to_drop)
         analyzer.fit_best_xgb_model()
+        #predict from test
+        # save predictions and test data
         return analyzer

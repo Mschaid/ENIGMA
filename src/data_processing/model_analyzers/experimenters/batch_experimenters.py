@@ -60,10 +60,11 @@ class XGBRegBatchExperimenter(BatchExperimeter):
                 exp.save_results(condition_name)
 
 class XGBNormRegBatchExperimenter(BatchExperimeter):
-    def __init__(self, main_path, experiment_conditions: ExperimentConditions, analyzer_factory=XGBNormRegAnalyzerFactory):
+    def __init__(self, main_path, experiment_conditions: ExperimentConditions, experimenter_factory=XGBNormRegExperimenterFactory):
         self.main_path = Path(main_path)
         self.experiment_conditions = experiment_conditions
-        self.analyzer_factory = analyzer_factory
+        self.experiemter_factory = experimenter_factory
+        print("XGBNormRegBatchExperimenter")
 
     def get_experiment_directories(self, filter_keywords=None):
         if filter_keywords:
@@ -75,7 +76,7 @@ class XGBNormRegBatchExperimenter(BatchExperimeter):
         return experiment_directoires
 
     def set_up_experimenters(self, directories: List[Path]):
-        experimenters = [self.analyzer_factory(
+        experimenters = [self.experiemter_factory(
             d).create_experimenter()for d in directories]
         return experimenters
 
