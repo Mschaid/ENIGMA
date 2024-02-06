@@ -12,8 +12,8 @@ from pathlib import Path
 
 
 # local imports
-from src.data_processing.model_analyzers.xgb_analyzers.XGBRegAnalyzer import XGBRegAnalyzer
-from src.data_processing.model_analyzers.xgb_analyzers.XGBRegrResults import XGBRegrResults, XGBNormRegAnalyzer
+from src.data_processing.model_analyzers.xgb_analyzers.XGBRegAnalyzer import XGBRegAnalyzer,  XGBNormRegAnalyzer
+from src.data_processing.model_analyzers.xgb_analyzers.XGBRegrResults import XGBRegrResults
 
 from abc import ABC, abstractmethod
 
@@ -104,6 +104,7 @@ class XGBRegExperimenterFactory:
     def create_experimenter(self) -> XGBRegExperimenter:
         return XGBRegExperimenter(self.path, self.analyzer, self.results)
 
+
 class XGBNormRegExperimenter(Experimenter):
     def __init__(self, path, analyzer, results):
         self.path = Path(path)
@@ -112,7 +113,7 @@ class XGBNormRegExperimenter(Experimenter):
         self._experiment_metric_results = None
         self.experiment_results: Dict[str, pd.DataFrame] = {}
         self.analyzer_runs: List[XGBNormRegAnalyzer] = []
-        
+
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
         feature_importance_runs = []
@@ -144,6 +145,7 @@ class XGBNormRegExperimenter(Experimenter):
         for key, df in self.experiment_results.items():
 
             df.to_parquet(f'{path_to_save}/{key}.parquet')
+
 
 class XGBNormRegExperimenterFactory:
     def __init__(self, path: Path):
