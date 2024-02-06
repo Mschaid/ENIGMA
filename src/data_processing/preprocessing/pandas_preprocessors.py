@@ -175,17 +175,20 @@ def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="t
 def final_experiment_preprocessor(df: pd.DataFrame, baseline_normalizer: Callable,  query: str = None, cols_to_drop: List = None, ) -> pd.DataFrame:
     '''pandas preprocessing specific to this experiment'''
 
-    if cols_to_drop is None:
-        cols_to_check = ["mouse_id", "action", "trial", "trial_count"]
-        cols_to_drop = check_for_columns_to_drop(df, cols_to_check)
+    constant_features_to_drop = ["mouse_id", "action", "trial", "trial_count"]
+    constant_cols_to_drop = check_for_columns_to_drop(df, constant_features_to_drop)
+    
+    if cols_to_dorp is None:
+        cols_to_drop = constant_cols_to_drop
+    else:
+        cols_to_drop = constant_cols_to_drop + cols_to_drop
+    
     df_ = (
         df
         .query(query)
         .pipe(baseline_normalizer)
         .pipe(calculate_max_min_signal)
         .pipe(calculate_percent_avoid)
-        # .pipe(debug_df)
-        # .pipe(expand_df)
         .assign(event=lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
         .drop(columns=cols_to_drop)
     )

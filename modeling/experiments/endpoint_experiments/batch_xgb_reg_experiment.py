@@ -1,5 +1,5 @@
 import multiprocessing as mp
-from src.data_processing.model_analyzers.experimenters.batch_experimenters import XGBRegBatchExperimenter
+from src.data_processing.model_analyzers.experimenters.batch_experimenters import BatchExperimeter, XGBRegBatchExperimenter, XGBNormRegBatchExperimenter
 from dataclasses import dataclass
 from typing import Dict, List
 import logging
@@ -13,9 +13,9 @@ class BatchExperimentMetaData:
     filter_keys: List[str] = None
 
 
-def batch_experiment(exp_data: BatchExperimentMetaData):
+def batch_experiment(exp_data: BatchExperimentMetaData, experimenter: BatchExperimeter = XGBRegBatchExperimenter):
 
-    batch_experimenter = XGBRegBatchExperimenter(
+    batch_experimenter = experimenter(
         exp_data.main_path, exp_data)
 
     experiment_directories = batch_experimenter.get_experiment_directories(
@@ -29,12 +29,12 @@ def batch_experiment(exp_data: BatchExperimentMetaData):
 def main():
 
     NUMBER_OF_RUNS = 30
-    MAIN_PATH = "/projects/p31961/ENIGMA/results/experiments/endpoint_experiments"
+    MAIN_PATH = "/projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_normalzied_tune"
     EXPERIMENMT_CONDITIONS = {
         # "with_day": ["mouse_id"],
         "without_day": ["mouse_id", "day"]
     }
-    FILTER_KEYS = ['elastic_net']
+    FILTER_KEYS = None
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
@@ -42,7 +42,7 @@ def main():
         experiment_conditions=EXPERIMENMT_CONDITIONS,
         filter_keys=FILTER_KEYS)
 
-    batch_experiment(experiment_data)
+    batch_experiment(experiment_data, experimenter=XGBNormRegBatchExperimenter)
 
 
 if __name__ == '__main__':

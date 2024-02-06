@@ -16,7 +16,7 @@ from enum import Enum
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 from src.data_processing.model_analyzers.xgb_analyzers.XGBRegrResults import XGBRegrResults
-from src.data_processing.preprocessing.pandas_preprocessors import xgb_reg_signal_params_only_pd_preprocessor
+from src.data_processing.preprocessing.pandas_preprocessors import xgb_reg_signal_params_only_pd_preprocessor, normalize_by_baseline, final_experiment_preprocessor
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 
 
@@ -250,3 +250,138 @@ class XGBRegAnalyzerFactory:
         analyzer.fit_best_xgb_model()
         return analyzer
 # recommit
+
+class XGBNormRegAnalyzer:
+    def __init__(self, results: XGBRegrResults, metrics: List[Callable] = [mean_squared_error, mean_absolute_error, r2_score]):
+        self.results: XGBRegrResults = results
+        self._pipeline: ClassifierPipe = None
+        self._xgb_model: xgb.XGBRegressor = None
+        self.metrics: Dict = metrics
+        self._metrics_results = None
+        self.__datasets = None
+        self.__datasets_w_predictions = None
+        self._feature_names = None
+        self._feature_importance_df = None
+
+
+    
+    @property
+    def best_xgb_model(self) -> xgb.XGBRegressor:
+
+        if not self._xgb_model:
+            self._xgb_model = xgb.XGBRegressor(
+                objective='reg:squarederror',
+                eval_metric=['rmse', 'mae'],
+                **self.results.best_params)
+
+        return self._xgb_model
+
+    def create_pipeline(self, cls_to_drop = None, random_seed=None, shuffle=True) -> None:
+
+        df_processor = partial(final_experiment_preprocessor,
+                                  baseline_normalizer=normalize_by_baseline, 
+                                  cols_to_drop = cls_to_drop, 
+                                  query=self.results.experiment_query)
+        if not self._pipeline:
+            self._pipeline = (ClassifierPipe(self.results.data_path)
+                              .read_raw_data()
+                              .pandas_pipe(df_processor)
+                              .split_by_ratio(target='ratio_avoid', random_seed=random_seed, shuffle=shuffle)
+                              .transform_data()
+                              )
+        if not self._feature_names:
+            self._feature_names = self.pipeline.processor.named_transformers_[
+                "num"].get_feature_names_out().tolist()
+        return
+
+    @property
+    def pipeline(self) -> ClassifierPipe:
+        if not self._pipeline:
+            self.create_pipeline()
+        return self._pipeline
+
+    @property
+    def feature_names(self) -> List[str]:
+        if not self._feature_names:
+            raise ValueError(
+                'Pipeline not created yet, call create_pipeline() first')
+        return self._feature_names
+
+    def fit_best_xgb_model(self) -> None:
+        self.best_xgb_model.fit(self.pipeline.X_train, self.pipeline.y_train)
+
+    def predict(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> np.ndarray:
+        # predict from train by default
+
+        predictions = self.best_xgb_model.predict(
+            self._datasets[from_dataset])
+        return predictions
+
+    @property
+    def _datasets(self) -> Dict[str, pd.DataFrame]:
+        if not self.__datasets:
+            self.__datasets = {
+                'train': self.pipeline.X_train,
+                'dev': self.pipeline.X_dev,
+                'test': self.pipeline.X_test
+            }
+        return self.__datasets
+
+    @property
+    def _datasets_w_predictions(self) -> Dict[str, Tuple[pd.DataFrame, np.ndarray]]:
+        if not self.__datasets_w_predictions:
+            datasets = {
+                'train': (self.pipeline.X_train, self.pipeline.y_train, self.predict('train')),
+                'dev': (self.pipeline.X_dev, self.pipeline.y_dev, self.predict('dev')),
+                'test': (self.pipeline.X_test, self.pipeline.y_test, self.predict('test'))
+            }
+            self.__datasets_w_predictions = datasets
+        return self.__datasets_w_predictions
+
+    def _compute_metrics(self) -> Dict[str, Dict[str, float]]:
+        sets = {'train': (self.pipeline.y_train, self.predict('train')),
+                'dev': (self.pipeline.y_dev, self.predict('dev')),
+                'test': (self.pipeline.y_test, self.predict('test'))}
+
+        metrics_dict = {metric.__name__:  metric for metric in self.metrics}
+
+        results = {}
+
+        for name, fnc in metrics_dict.items():
+            results[name] = {name: fnc(*data) for name, data in sets.items()}
+        return results
+
+    @property
+    def metrics_results(self) -> Dict[str, Dict[str, float]]:
+        if not self._metrics_results:
+            self._metrics_results = self._compute_metrics()
+        return self._metrics_results
+
+    def _df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
+
+        df = (
+            pd.DataFrame(
+                (self._datasets_w_predictions[from_dataset][0]), columns=self._feature_names)
+            .assign(true_values=self._datasets_w_predictions[from_dataset][1].values,
+                    predictions=self._datasets_w_predictions[from_dataset][2])
+        )
+        return df
+
+    @property
+    def feature_importance_df(self) -> pd.DataFrame:
+        if self._feature_importance_df is None:
+            self._feature_importance_df = (pd.DataFrame({'feature': self._feature_names,
+                                                        'importance': self.best_xgb_model.feature_importances_})
+                                           .sort_values('importance', ascending=True)
+                                           )
+        return self._feature_importance_df
+
+class XGBNormRegAnalyzerFactory:
+    def __init__(self, path_to_results: str):
+        self.results = XGBRegrResults(path_to_results)
+
+    def create_analyzer(self, cls_to_drop: List[str] = None) -> XGBNormRegAnalyzer:
+        analyzer = XGBNormRegAnalyzer(self.results)
+        analyzer.create_pipeline(cls_to_drop)
+        analyzer.fit_best_xgb_model()
+        return analyzer
