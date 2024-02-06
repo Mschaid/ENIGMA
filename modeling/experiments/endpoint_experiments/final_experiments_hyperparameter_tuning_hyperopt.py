@@ -80,8 +80,8 @@ def main(cfg: DictConfig) -> None:
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
-    queried_df_pipeline = partial(xgb_reg_signal_params_only_pd_preprocessor,
-                                  cls_to_drop=cfg.cls_to_drop,  query=str(cfg.experiment_query))
+    queried_df_pipeline = partial(final_experiment_preprocessor,
+                                  baseline_normalizer=normalize_by_baseline, query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
@@ -89,8 +89,8 @@ def main(cfg: DictConfig) -> None:
                       .split_by_ratio(target='ratio_avoid')
                       .transform_data()
                       )
-    PROCESSOR_PIPE.X_train.to_parquet(
-        EXPERIMENT_PATH / 'X_train.parquet', engine='pyarrow', compression='gzip')
+    # PROCESSOR_PIPE.X_train.to_parquet(
+    # EXPERIMENT_PATH / 'X_train.parquet', engine='pyarrow', compression='gzip')
 
     SEARCH_SPACE = {
         "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),

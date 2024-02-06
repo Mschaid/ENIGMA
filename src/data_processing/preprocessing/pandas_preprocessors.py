@@ -1,7 +1,12 @@
 import numpy as np
 import pandas as pd
 
-from typing import List
+from typing import List, Callable
+
+
+def check_for_columns_to_drop(df, cols_to_check):
+    cols_to_drop = [c for c in cols_to_check if c in df.columns.to_list()]
+    return cols_to_drop
 
 
 def flatten_dataframe(df):
@@ -69,14 +74,19 @@ def calculate_max_min_signal(df, cols_to_drop=[]):
 
 
 def calculate_percent_avoid(df):
-    new_df = (
-        df
-        .drop(columns=['sex', 'sensor', 'trial_count',])
-        .replace({"action": {"avoid": 1, "escape": 0}})
-        .groupby(by=["mouse_id", "day", "event"], as_index=False).mean()
-        .rename(columns={"action": "ratio_avoid"})
-        .drop_duplicates(subset=["mouse_id", "day"], keep="last")[["mouse_id", "day", "ratio_avoid"]].reset_index(drop=True)
-    )
+
+    cols_to_check = ['sex', 'sensor', 'trial_count']
+    cols_to_drop = check_for_columns_to_drop(df, cols_to_check)
+
+    new_df = (df
+              .drop(columns=cols_to_drop)
+              .replace({"action": {"avoid": 1, "escape": 0}})
+              .groupby(by=["mouse_id", "day", "event"], as_index=False).mean()
+              .rename(columns={"action": "ratio_avoid"})
+              .drop_duplicates(subset=["mouse_id", "day"], keep="last")[["mouse_id", "day", "ratio_avoid"]]
+              .reset_index(drop=True)
+              )
+
     merged_df = df.merge(new_df, on=["mouse_id", "day"], how="left")
     return merged_df
 
@@ -97,9 +107,6 @@ def expand_df(df):
     )
     pivot_df.columns = ["_".join(col) for col in pivot_df.columns]
     return pivot_df.reset_index()
-
-
-cols_to_drop = ["action", "sex", "trial_count", "trial"]
 
 
 def max_trials(df):
@@ -137,5 +144,49 @@ def xgb_reg_signal_params_only_pd_preprocessor(df: pd.DataFrame, query: str = No
         .drop(columns=drop_columns)
         .pipe(expand_df)
         .drop(columns=cls_to_drop)
+    )
+    return df_
+
+
+def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="time>=-0 & time <= 10"):
+    group_by_columns = [col for col in df.columns if col not in ["signal"]]
+    normalized_values = (
+        df
+        .query(baseline_window)
+        .groupby(by=group_by_columns, as_index=False)
+        .mean()
+        .assign(mean_signal=lambda df_: df_.signal)
+        .drop(columns=['time', 'signal'])
+    )
+
+    normalzied_data = (pd
+                       .merge(df, normalized_values, on=[
+                           'mouse_id', 'day', 'event', 'sensor', 'trial_count',], how='left')
+                       .assign(signal=lambda df_: df_.signal - df_.mean_signal,
+                               trial=lambda df_: df_.trial_x,
+                               action=lambda df_: df_.action_x)
+                       .drop(columns=["mean_signal", "trial_x", "trial_y", "action_x", "action_y"])
+                       .query(time_query)
+                       )
+    return normalzied_data
+    # return group_by_columns
+
+
+def final_experiment_preprocessor(df: pd.DataFrame, baseline_normalizer: Callable,  query: str = None, cols_to_drop: List = None, ) -> pd.DataFrame:
+    '''pandas preprocessing specific to this experiment'''
+
+    if cols_to_drop is None:
+        cols_to_check = ["mouse_id", "action", "trial", "trial_count"]
+        cols_to_drop = check_for_columns_to_drop(df, cols_to_check)
+    df_ = (
+        df
+        .query(query)
+        .pipe(baseline_normalizer)
+        .pipe(calculate_max_min_signal)
+        .pipe(calculate_percent_avoid)
+        # .pipe(debug_df)
+        # .pipe(expand_df)
+        .assign(event=lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
+        .drop(columns=cols_to_drop)
     )
     return df_
