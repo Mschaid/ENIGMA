@@ -154,4 +154,4 @@ class XGBNormRegExperimenterFactory:
         self.results = XGBRegrResults
 
     def create_experimenter(self) -> XGBNormRegExperimenter:
-        return XGBNormRegExperimenter(self.path, self.analyzer, self.results)
+        return XGBNormRegExperimenter(path=self.path, analyxer=self.analyzer, results_reader=self.results)
