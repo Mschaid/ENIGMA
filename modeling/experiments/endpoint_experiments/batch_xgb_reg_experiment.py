@@ -48,6 +48,7 @@ def main():
     print("running batch experiment")
     batch_experiment(experiment_data, experimenter=XGBNormRegBatchExperimenter)
     print("done")
+    print("main done")
 
 if __name__ == '__main__':
     main()
