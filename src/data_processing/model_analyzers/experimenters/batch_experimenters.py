@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 
 
 from typing import Dict, List, NewType
-from src.data_processing.model_analyzers.xgb_analyzers.XGBRegAnalyzer import XGBRegAnalyzer, XGBRegAnalyzerFactory,XGBNormRegAnalyzer, XGBNormRegAnalyzerFactory
+from src.data_processing.model_analyzers.xgb_analyzers.XGBRegAnalyzer import XGBRegAnalyzer, XGBRegAnalyzerFactory, XGBNormRegAnalyzer, XGBNormRegAnalyzerFactory
 from src.data_processing.model_analyzers.xgb_analyzers.XGBRegrResults import XGBRegrResults
 from src.data_processing.model_analyzers.experimenters.experimenters import XGBRegExperimenter, XGBRegExperimenterFactory, XGBNormRegExperimenter, XGBNormRegExperimenterFactory
 
@@ -30,14 +30,13 @@ class BatchExperimeter(ABC):
         pass
 
 
-
 class XGBRegBatchExperimenter(BatchExperimeter):
     def __init__(self, main_path, experiment_conditions: ExperimentConditions, analyzer_factory=XGBRegAnalyzerFactory):
         self.main_path = Path(main_path)
         self.experiment_conditions = experiment_conditions
         self.analyzer_factory = analyzer_factory
 
-    def get_experiment_directories(self, filter_keywords = None):
+    def get_experiment_directories(self, filter_keywords=None):
         if filter_keywords:
             experiment_directoires = [d for d in self.main_path.rglob(
                 '*') if d.is_dir() and not d.name.startswith('.') and any(keyword in d.name for keyword in filter_keywords)]
@@ -59,12 +58,12 @@ class XGBRegBatchExperimenter(BatchExperimeter):
                 exp.run_experiment(number_of_runs, cls_to_drop)
                 exp.save_results(condition_name)
 
+
 class XGBNormRegBatchExperimenter(BatchExperimeter):
     def __init__(self, main_path, experiment_conditions: ExperimentConditions, experimenter_factory=XGBNormRegExperimenterFactory):
         self.main_path = Path(main_path)
         self.experiment_conditions = experiment_conditions
         self.experimenter_factory = experimenter_factory
-        print("XGBNormRegBatchExperimenter")
 
     def get_experiment_directories(self, filter_keywords=None):
         if filter_keywords:
@@ -83,7 +82,5 @@ class XGBNormRegBatchExperimenter(BatchExperimeter):
     def run_experiments(self, experimenters: List[XGBNormRegExperimenter], number_of_runs: int):
         for exp in experimenters:
             for condition_name, cls_to_drop in self.experiment_conditions.experiment_conditions.items():
-                print("running experiment: ", condition_name)
                 exp.run_experiment(number_of_runs, cls_to_drop)
-                print("saving results: ", condition_name)
                 exp.save_results(condition_name)
