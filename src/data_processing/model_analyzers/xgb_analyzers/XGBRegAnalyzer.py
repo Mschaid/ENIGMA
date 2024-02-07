@@ -357,7 +357,10 @@ class XGBNormRegAnalyzer:
         return self._metrics_results
 
     def _df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
-
+        print(self._feature_names)
+        print(self.best_xgb_model.feature_importances_)
+        print(len(self._feature_names))
+        print(len(self.best_xgb_model.feature_importances_))
         df = (
             pd.DataFrame(
                 (self._datasets_w_predictions[from_dataset][0]), columns=self._feature_names)
@@ -368,7 +371,7 @@ class XGBNormRegAnalyzer:
 
     @property
     def feature_importance_df(self) -> pd.DataFrame:
-        print(self._feature_importance_df)
+
         if self._feature_importance_df is None:
             self._feature_importance_df = (pd.DataFrame({'feature': self._feature_names,
                                                         'importance': self.best_xgb_model.feature_importances_})
