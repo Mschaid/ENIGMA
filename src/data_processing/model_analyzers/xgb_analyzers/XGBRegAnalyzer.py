@@ -251,6 +251,7 @@ class XGBRegAnalyzerFactory:
         return analyzer
 # recommit
 
+
 class XGBNormRegAnalyzer:
     def __init__(self, results: XGBRegrResults, metrics: List[Callable] = [mean_squared_error, mean_absolute_error, r2_score]):
         self.results: XGBRegrResults = results
@@ -263,8 +264,6 @@ class XGBNormRegAnalyzer:
         self._feature_names = None
         self._feature_importance_df = None
 
-
-    
     @property
     def best_xgb_model(self) -> xgb.XGBRegressor:
 
@@ -276,12 +275,12 @@ class XGBNormRegAnalyzer:
 
         return self._xgb_model
 
-    def create_pipeline(self, cls_to_drop = None, random_seed=None, shuffle=True) -> None:
+    def create_pipeline(self, cls_to_drop=None, random_seed=None, shuffle=True) -> None:
 
         df_processor = partial(final_experiment_preprocessor,
-                                  baseline_normalizer=normalize_by_baseline, 
-                                  cols_to_drop = cls_to_drop, 
-                                  query=self.results.experiment_query)
+                               baseline_normalizer=normalize_by_baseline,
+                               cols_to_drop=cls_to_drop,
+                               query=self.results.experiment_query)
         if not self._pipeline:
             self._pipeline = (ClassifierPipe(self.results.data_path)
                               .read_raw_data()
@@ -369,12 +368,14 @@ class XGBNormRegAnalyzer:
 
     @property
     def feature_importance_df(self) -> pd.DataFrame:
+        print(self._feature_importance_df)
         if self._feature_importance_df is None:
             self._feature_importance_df = (pd.DataFrame({'feature': self._feature_names,
                                                         'importance': self.best_xgb_model.feature_importances_})
                                            .sort_values('importance', ascending=True)
                                            )
         return self._feature_importance_df
+
 
 class XGBNormRegAnalyzerFactory:
     def __init__(self, path_to_results: str):
@@ -384,6 +385,6 @@ class XGBNormRegAnalyzerFactory:
         analyzer = XGBNormRegAnalyzer(self.results)
         analyzer.create_pipeline(cls_to_drop)
         analyzer.fit_best_xgb_model()
-        #predict from test
+        # predict from test
         # save predictions and test data
         return analyzer
