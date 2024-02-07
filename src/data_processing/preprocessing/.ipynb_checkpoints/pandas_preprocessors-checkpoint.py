@@ -154,7 +154,7 @@ def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="t
         df
         .query(baseline_window)
         .groupby(by=group_by_columns, as_index=False)
-        .mean()
+        .mean(numeric_only = True)
         .assign(mean_signal=lambda df_: df_.signal)
         .drop(columns=['time', 'signal'])
     )
@@ -170,26 +170,27 @@ def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="t
                        )
     return normalzied_data
     # return group_by_columns
-
+def print_cols(df):
+    print(df.columns)
+    return df
 
 def final_experiment_preprocessor(df: pd.DataFrame, baseline_normalizer: Callable,  query: str = None, cols_to_drop: List = None, ) -> pd.DataFrame:
     '''pandas preprocessing specific to this experiment'''
 
-    constant_features_to_drop = ["mouse_id", "action", "trial", "trial_count"]
-    constant_cols_to_drop = check_for_columns_to_drop(df, constant_features_to_drop)
-    
-    if cols_to_drop is None:
-        cols_to_drop = constant_cols_to_drop
-    else:
-        cols_to_drop = constant_cols_to_drop + cols_to_drop
-    
+    constant_features_to_drop = ["action", "trial", "trial_count"]
+    constant_cols_to_drop = check_for_columns_to_drop(
+        df, constant_features_to_drop)
+    if not cols_to_drop:
+        cols_to_drop = ['mouse_id']
     df_ = (
         df
         .query(query)
         .pipe(baseline_normalizer)
         .pipe(calculate_max_min_signal)
         .pipe(calculate_percent_avoid)
+        .drop(columns=constant_cols_to_drop)
         .assign(event=lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
+        .pipe(expand_df)
         .drop(columns=cols_to_drop)
     )
     return df_
