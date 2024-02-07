@@ -117,6 +117,11 @@ class XGBNormRegExperimenter(Experimenter):
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
         feature_importance_runs = []
+        print("norm experimenter")
+        print(f"number of runs: {number_of_runs}")
+        print(f"cols to drop: {cls_to_drop}")
+        print(f"metric runs {metric_runs}")
+        print(f"feature importance runs: {feature_importance_runs}")
         for _ in range(number_of_runs):
             analyzer = self.analyzer(self.results)
             analyzer.create_pipeline(cls_to_drop=cls_to_drop)
@@ -130,6 +135,8 @@ class XGBNormRegExperimenter(Experimenter):
             metric_runs.append(run_metric_results)
             # keep track of feature importance dataframes
             feature_importance_runs.append(run_feature_importance)
+        print(f"len metric runs {len(metric_runs)}")
+        print(f"len feature importance runs {len(feature_importance_runs)}")
 
         compiled_metric_results = pd.concat(metric_runs)
         compiled_feature_importance = pd.concat(feature_importance_runs)

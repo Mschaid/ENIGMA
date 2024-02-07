@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Dict, List
 import logging
 
+from src.utilities.logger_helpers import set_logger_config
 
 @dataclass
 class BatchExperimentMetaData:
@@ -34,6 +35,8 @@ def main():
         "without_day": ["mouse_id", "day"]
     }
     FILTER_KEYS = ['normalzied']
+    
+    logger = set_logger_config(MAIN_PATH, 'batch_norm_experiment.log')
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
