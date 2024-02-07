@@ -148,6 +148,7 @@ class XGBNormRegExperimenter(Experimenter):
 
     def save_results(self, condition_name: str):
         path_to_save = self.path / f"{condition_name}_experiment_results"
+        print(f'saving results to {path_to_save}')
         path_to_save.mkdir(parents=True, exist_ok=True)
         for key, df in self.experiment_results.items():
             df.to_parquet(f'{path_to_save}/{key}.parquet')
