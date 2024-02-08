@@ -135,6 +135,7 @@ class XGBNormRegExperimenter(Experimenter):
             metric_runs.append(run_metric_results)
             # keep track of feature importance dataframes
             feature_importance_runs.append(run_feature_importance)
+            print(feature_importance_runs)
         print(f"len metric runs {len(metric_runs)}")
         print(f"len feature importance runs {len(feature_importance_runs)}")
 
