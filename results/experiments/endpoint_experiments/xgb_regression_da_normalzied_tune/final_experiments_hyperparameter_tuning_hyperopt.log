@@ -2596,3 +2596,5 @@
 [2024-02-07 15:17:46,535][root][INFO] - Parameters written to /projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_normalzied_tune/best_params.yaml
 [2024-02-07 15:17:46,535][root][INFO] - Writing results to /projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_normalzied_tune/hyper_opt_results.parquet
 [2024-02-07 15:17:46,546][root][INFO] - Experiment complete
+[2024-02-08 14:37:56,885][root][INFO] - Experiment name: xgb_regression_da_normalzied_tune
+[2024-02-08 14:40:33,337][root][INFO] - Experiment name: xgb_regression_da_normalzied_tune
