@@ -87,6 +87,7 @@ def main(cfg: DictConfig) -> None:
 
     queried_df_pipeline = partial(final_experiment_preprocessor,
                                   baseline_normalizer=normalize_by_baseline, query=QUERY)
+    print(queried_df_pipeline)
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
@@ -94,7 +95,7 @@ def main(cfg: DictConfig) -> None:
                       .split_by_ratio(target='ratio_avoid')
                       .transform_data()
                       )
-    print(PROCESSOR_PIPE.X_train)
+    print(PROCESSOR_PIPE)
     # PROCESSOR_PIPE.X_train.to_parquet(
     # EXPERIMENT_PATH / 'X_train.parquet', engine='pyarrow', compression='gzip')
 
