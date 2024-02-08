@@ -80,7 +80,12 @@ class XGBNormRegBatchExperimenter(BatchExperimeter):
         return experimenters
 
     def run_experiments(self, experimenters: List[XGBNormRegExperimenter], number_of_runs: int):
+        print(f"norm conditions: {self.experiment_conditions.experiment_conditions.items()}")
+        print("run exp called from norm")
         for exp in experimenters:
             for condition_name, cls_to_drop in self.experiment_conditions.experiment_conditions.items():
+                print(condition_name)
+                print(cls_to_drop)
                 exp.run_experiment(number_of_runs, cls_to_drop)
-                exp.save_results(condition_name)
+                # print(exp.
+                # exp.save_results(condition_name)
