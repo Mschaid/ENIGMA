@@ -1,6 +1,6 @@
 experiment_query: "sensor == 'DA'"
-original_experiment_name: xgb_regression_da_only_hyperopt_tune_no_reg
-experiment_name: xgb_regression_da_only_hyperopt_elastic_net
+original_experiment_name: xgb_regression_da_normalzied_tune
+experiment_name: norm_elastic_net
 
 
 
