@@ -81,7 +81,7 @@ def calculate_percent_avoid(df):
     new_df = (df
               .drop(columns=cols_to_drop)
               .replace({"action": {"avoid": 1, "escape": 0}})
-              .groupby(by=["mouse_id", "day", "event"], as_index=False).mean()
+              .groupby(by=["mouse_id", "day", "event"], as_index=False).mean(numeric_only = True)
               .rename(columns={"action": "ratio_avoid"})
               .drop_duplicates(subset=["mouse_id", "day"], keep="last")[["mouse_id", "day", "ratio_avoid"]]
               .reset_index(drop=True)
@@ -99,14 +99,14 @@ def debug_df(df):
 def expand_df(df):
 
     pivot_df = (
-        df.pivot_table(index=["ratio_avoid", "mouse_id", "day"],
+        df.pivot_table(index=["ratio_avoid", "day"],
                        columns=["sensor", "event"],
                        values=[col for col in df.columns if col not in ["ratio_avoid", "sensor"]])
         # .drop(columns = ["mouse_id", "day"])
 
     )
     pivot_df.columns = ["_".join(col) for col in pivot_df.columns]
-    return pivot_df.reset_index()
+    return pivot_df.reset_index(drop = False)
 
 
 def max_trials(df):
@@ -126,7 +126,7 @@ def max_trials(df):
         .drop_duplicates(
             subset=["mouse_id", "day"],
             keep="last")
-        .reset_index(drop=True)
+        .reset_index()
     )
 
 
@@ -142,8 +142,9 @@ def xgb_reg_signal_params_only_pd_preprocessor(df: pd.DataFrame, query: str = No
         .pipe(calculate_max_min_signal)
         .pipe(calculate_percent_avoid)
         .drop(columns=drop_columns)
-        .pipe(expand_df)
         .drop(columns=cls_to_drop)
+        .pipe(expand_df)
+    
     )
     return df_
 
@@ -156,7 +157,7 @@ def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="t
         .groupby(by=group_by_columns, as_index=False)
         .mean(numeric_only = True)
         .assign(mean_signal=lambda df_: df_.signal)
-        .drop(columns=['time', 'signal'])
+        .drop(columns=['time', 'signal', 'sex', 'latency', 'learning_phase'])
     )
 
     normalzied_data = (pd
@@ -174,23 +175,22 @@ def print_cols(df):
     print(df.columns)
     return df
 
-def final_experiment_preprocessor(df: pd.DataFrame, baseline_normalizer: Callable,  query: str = None, cols_to_drop: List = None, ) -> pd.DataFrame:
-    '''pandas preprocessing specific to this experiment'''
 
-    constant_features_to_drop = ["action", "trial", "trial_count"]
-    constant_cols_to_drop = check_for_columns_to_drop(
-        df, constant_features_to_drop)
-    if not cols_to_drop:
-        cols_to_drop = ['mouse_id']
-    df_ = (
-        df
+    return df_
+def normalized_preprocessor(data: pd.DataFrame, normalizer: Callable, query: str = None, experiment_cols_to_drop: List = None)-> pd.DataFrame:
+    if not experiment_cols_to_drop:
+        experiment_cols_to_drop = []
+    constants_to_drop =  ["action", "trial", "trial", "sex", "mouse_id",  "trial_count"]
+    
+    processed_data = (
+        data
         .query(query)
-        .pipe(baseline_normalizer)
+        .pipe(normalizer)
         .pipe(calculate_max_min_signal)
         .pipe(calculate_percent_avoid)
-        .drop(columns=constant_cols_to_drop)
-        .assign(event=lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
+        .assign(event = lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
+        .drop(columns = constants_to_drop)
         .pipe(expand_df)
-        .drop(columns=cols_to_drop)
+        .drop(columns = experiment_cols_to_drop)
     )
-    return df_
+    return processed_data

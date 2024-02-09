@@ -95,8 +95,8 @@ def main(cfg: DictConfig) -> None:
                       .split_by_ratio(target='ratio_avoid')
                       .transform_data()
                       )
-    # print(PROCESSOR_PIPE.X_train)
-    # print(PROCESSOR_PIPE.y_train)
+    print(PROCESSOR_PIPE.X_train)
+    print(PROCESSOR_PIPE.y_train)
     # PROCESSOR_PIPE.X_train.to_parquet(
     # EXPERIMENT_PATH / 'X_train.parquet', engine='pyarrow', compression='gzip')
 

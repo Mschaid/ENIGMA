@@ -129,7 +129,7 @@ hydra:
   runtime:
     version: 1.3.2
     version_base: '1.3'
-    cwd: /projects/p31961/ENIGMA/jobs
+    cwd: /projects/p31961/ENIGMA
     config_sources:
     - path: hydra.conf
       schema: pkg
