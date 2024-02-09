@@ -85,40 +85,38 @@ def main(cfg: DictConfig) -> None:
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
-    queried_df_pipeline = partial(final_experiment_preprocessor,
-                                  baseline_normalizer=normalize_by_baseline, query=QUERY)
-
+    partial_normalized_preprocessor = partial(
+        normalized_preprocessor, normalizer=normalize_by_baseline, query=QUERY, experiment_cols_to_drop=None)
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
-                      .pandas_pipe(queried_df_pipeline)
+                      .pandas_pipe(partial_normalized_preprocessor)
                       .split_by_ratio(target='ratio_avoid')
                       .transform_data()
                       )
-    # print(PROCESSOR_PIPE.X_train)
-    # print(PROCESSOR_PIPE.y_train)
+
     # PROCESSOR_PIPE.X_train.to_parquet(
     # EXPERIMENT_PATH / 'X_train.parquet', engine='pyarrow', compression='gzip')
 
-    # SEARCH_SPACE = {
-    #     "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),
-    #     "learning_rate": hp.choice('learning_rate', np.arange(0.005, 1.0, 0.5)),
-    #     "max_depth": hp.choice('max_depth', np.arange(3, 15, 3)),
-    #     "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
-    #     "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
-    #     "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)),
-    #     "reg_lambda": hp.uniform('reg_lambda', 0.1, 10),
-    #     "reg_alpha": hp.uniform('reg_alpha', 0.1, 10)
-    # }
-    # best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
-    #                                            space=SEARCH_SPACE,
-    #                                            max_evals=500)
+    SEARCH_SPACE = {
+        "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),
+        "learning_rate": hp.choice('learning_rate', np.arange(0.005, 1.0, 0.5)),
+        "max_depth": hp.choice('max_depth', np.arange(3, 15, 3)),
+        "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
+        "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
+        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)),
+        "reg_lambda": hp.uniform('reg_lambda', 0.1, 10),
+        "reg_alpha": hp.uniform('reg_alpha', 0.1, 10)
+    }
+    best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
+                                               space=SEARCH_SPACE,
+                                               max_evals=500)
 
-    # save_results(best_params=best_params,
-    #              results=results,
-    #              experiment_name=EXPERIMENT_NAME,
-    #              experiment_path=EXPERIMENT_PATH)
-    # logging.info('Experiment complete')
+    save_results(best_params=best_params,
+                 results=results,
+                 experiment_name=EXPERIMENT_NAME,
+                 experiment_path=EXPERIMENT_PATH)
+    logging.info('Experiment complete')
 
 
 if __name__ == "__main__":
