@@ -6,6 +6,8 @@ import yaml
 from src.data_processing.processors.guppy_processors.config_loader import ConfigLoader
 
 # TODO  Add logging
+
+
 class ExperimentMetaData:
     """ This class is used to extract metadata from the guppy experiment. It is used by the DataPreprocessor class to load and format data from the individual experiments."""
 
@@ -144,7 +146,8 @@ class MetaDataFactory:
 
     def fetch_batch_metadata(self):
         return [d for d in self.data_path.iterdir() if d.is_dir()]
-    
+
     @property
     def all_meta_data(self):
-        return [ExperimentMetaData(self.configs, d) for d in self.fetch_batch_metadata()]
+        paths_to_igore = ["average", "aggregated_data"]
+        return [ExperimentMetaData(self.configs, d) for d in self.fetch_batch_metadata() if d.name not in paths_to_igore]

@@ -17,8 +17,6 @@ Event = NewType('Event', str)
 EventToAlign = NewType('EventToAlign', str)
 
 
-
-
 class DataPreprocessor:
 
     """
@@ -135,6 +133,7 @@ class DataPreprocessor:
         -------
         Dict[str, np.ndarray]
         """
+
         results = {}
         for event in events:
             try:
@@ -155,7 +154,7 @@ class DataPreprocessor:
             .assign(Subject=lambda df_: df_.Subject.astype('int64'),
                     User=lambda df_: df_.User.astype('category'),
                     Date=lambda df_: df_.Date.astype('datetime64[ns]'),
-                    Time=lambda df_: df_.Time.astype('datetime64[ns]')
+                    Time_Recorded=lambda df_: df_.Time.astype('datetime64[ns]')
                     )
             .rename(columns=lambda c: c.lower())
         )
@@ -182,7 +181,14 @@ class DataPreprocessor:
 
         meta_df = self._format_meta_df()
         data_df = pd.DataFrame(data)
-        joined_df = data_df.join(meta_df, how='outer').fillna(method='ffill')
+        joined_df = (data_df
+                     .join(meta_df, how='outer')
+                     .fillna(method='ffill')
+                     # assign time column
+                     .assign(time=np.linspace(-10, 20, 155))
+                     )
+        # print(joined_df.shape)
+        # joined_df = joined_df.set_index('time').
 
         if not self._processed_data_df:
             self._processed_data_df = joined_df
@@ -205,18 +211,17 @@ class BatchPreprocessor:
         """ creates a data preprocessor for a each experiment"""
         return [DataPreprocessor(metadata) for metadata in self.metadata_factory.all_meta_data]
 
-    def process_data(self, num_processors: int = 2)->None:
+    def process_data(self, num_processors: int = 2) -> None:
         """ processes the data for each experiment in parallel
-        
+
         Attributes
         ----------
         num_processors : int
             number of processors to use, by default 2
         """
-        
+
         pool = mp.Pool(processes=num_processors)
         preprocessors = self.preprocessor_factory()
         pool.map(self.processing_strategy.process, preprocessors)
         pool.close()
         pool.join()
-
