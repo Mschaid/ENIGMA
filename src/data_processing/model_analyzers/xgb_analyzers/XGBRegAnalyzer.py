@@ -278,7 +278,7 @@ class XGBNormRegAnalyzer:
     def create_pipeline(self, cls_to_drop=None, random_seed=None, shuffle=True) -> None:
 
         df_processor = partial(normalized_preprocessor,
-                               baseline_normalizer=normalize_by_baseline,
+                               normalizer=normalize_by_baseline,
                                query=self.results.experiment_query, 
                                experiment_cols_to_drop=cls_to_drop)
         if not self._pipeline:
