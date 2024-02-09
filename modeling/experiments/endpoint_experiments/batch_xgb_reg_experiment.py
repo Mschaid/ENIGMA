@@ -33,7 +33,7 @@ def main():
         "with_day": None,
         "without_day": ["day"]
     }
-    FILTER_KEYS = ['normalzied']
+    FILTER_KEYS = ['net']
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
