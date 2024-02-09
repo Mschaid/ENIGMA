@@ -113,7 +113,7 @@ hydra:
     - hydra.mode=RUN
     task: []
   job:
-    name: final_experiments_hyperparameter_tuning_hyperopt
+    name: norm_exper_hp_tuning_hyperopt
     chdir: null
     override_dirname: ''
     id: ???
