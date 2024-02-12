@@ -5,12 +5,11 @@ import yaml
 from pathlib import Path
 import xgboost as xgb
 
-from src.data_processing.processors.guppy_processors.config_loader import ConfigLoader
+
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_score
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials, space_eval
 # local imports
-from src.data_processing.model_analyzers.experimenters.elastic_net_optimizer import ElasticNetOptimizer
 
 from src.data_processing.preprocessing.pandas_preprocessors import *
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
@@ -26,7 +25,6 @@ def hyperopt_experiment(processor, space, max_evals):
         model = xgb.XGBRegressor(
             objective='reg:squarederror', eval_metric=['rmse', 'mae'], **params)
         model.fit(processor.X_train, processor.y_train)
-        print(model.i
         scores = -cross_val_score(model, processor.X_dev,
                                   processor.y_dev, cv=5,
                                   scoring='neg_root_mean_squared_error')
@@ -50,8 +48,6 @@ def hyperopt_experiment(processor, space, max_evals):
 
 def save_results(best_params, results,  experiment_name, experiment_path):
     '''Writes experiment parameters to yaml file'''
-    experiment_path.mkdir(
-        parents=True, exist_ok=True)  # create experiment folder if not presenti
     for key, value in best_params.items():
         if isinstance(value, np.generic):
             best_params[key] = value.item()
@@ -71,18 +67,21 @@ def save_results(best_params, results,  experiment_name, experiment_path):
 
 @hydra.main(version_base=None,
             config_path="conf",
-            config_name="configs_elastic_net")
+            config_name="configs_normalzied_tune",
+            )
 def main(cfg: DictConfig) -> None:
-
     OmegaConf.to_yaml(cfg)
     EXPERIMENT_NAME = cfg.experiment_name
-    ORIG_EXPERIMENT_NAME = cfg.original_experiment_name
 
     DATA_PATH = Path(cfg.quest_config.data_path)
     MAIN_DIR = Path(cfg.quest_config.main_dir)
+    MAIN_DIR.mkdir(parents=True, exist_ok=True)
     EXPERIMENT_PATH = Path(cfg.quest_config.experiment_dir)
-    ORIG_EXPERIMENT_PATH = Path(cfg.quest_config.original_experiment_dir)
     QUERY = cfg.experiment_query
+    print(f"Experiment path: {EXPERIMENT_PATH}")
+    print(f"Experiment name: {EXPERIMENT_NAME}")
+    print(f"Data path: {DATA_PATH}")
+    print(f"Query: {QUERY}")
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
@@ -96,15 +95,17 @@ def main(cfg: DictConfig) -> None:
                       .transform_data()
                       )
 
-    NET_PARAMS = {
-        'reg_lambda': hp.uniform('reg_lambda', 0.1, 10),
-        'reg_alpha': hp.uniform('reg_alpha', 0.1, 10)
+    # PROCESSOR_PIPE.X_train.to_parquet(
+    # EXPERIMENT_PATH / 'X_train.parquet', engine='pyarrow', compression='gzip')
+
+    SEARCH_SPACE = {
+        "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),
+        "learning_rate": hp.choice('learning_rate', np.arange(0.005, 1.0, 0.5)),
+        "max_depth": hp.choice('max_depth', np.arange(3, 15, 3)),
+        "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
+        "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
+        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2))
     }
-
-    net_optimizer = ElasticNetOptimizer(ORIG_EXPERIMENT_PATH)
-    SEARCH_SPACE = net_optimizer.set_experimental_params(
-        new_params=NET_PARAMS)
-
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,
                                                max_evals=500)

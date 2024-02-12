@@ -26,7 +26,6 @@ def hyperopt_experiment(processor, space, max_evals):
         model = xgb.XGBRegressor(
             objective='reg:squarederror', eval_metric=['rmse', 'mae'], **params)
         model.fit(processor.X_train, processor.y_train)
-        print(model.i
         scores = -cross_val_score(model, processor.X_dev,
                                   processor.y_dev, cv=5,
                                   scoring='neg_root_mean_squared_error')
@@ -82,16 +81,15 @@ def main(cfg: DictConfig) -> None:
     MAIN_DIR = Path(cfg.quest_config.main_dir)
     EXPERIMENT_PATH = Path(cfg.quest_config.experiment_dir)
     ORIG_EXPERIMENT_PATH = Path(cfg.quest_config.original_experiment_dir)
-    QUERY = cfg.experiment_query
 
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
-    partial_normalized_preprocessor = partial(
-        normalized_preprocessor, normalizer=normalize_by_baseline, query=QUERY, experiment_cols_to_drop=None)
+    queried_df_pipeline = partial(xgb_reg_signal_params_only_pd_preprocessor, cls_to_drop=[
+                                  'day'],  query=str(cfg.experiment_query))
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
-                      .pandas_pipe(partial_normalized_preprocessor)
+                      .pandas_pipe(queried_df_pipeline)
                       .split_by_ratio(target='ratio_avoid')
                       .transform_data()
                       )
