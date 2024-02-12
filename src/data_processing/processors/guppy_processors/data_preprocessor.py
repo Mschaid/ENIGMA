@@ -17,7 +17,7 @@ Event = NewType('Event', str)
 EventToAlign = NewType('EventToAlign', str)
 
 
-class DataPreprocessor:
+class BehaviorDataPreprocessor:
 
     """
     This class is used to load and format data from the guppy experiment from the individual experiments.
@@ -202,14 +202,14 @@ class DataPreprocessor:
             return
 
 
-class BatchPreprocessor:
+class BatchBehaviorDataPreprocessor:
     def __init__(self, metadata_factory: MetaDataFactory, processing_strategy: ProcessingStrategy):
         self.metadata_factory = metadata_factory
         self.processing_strategy = processing_strategy
 
-    def preprocessor_factory(self) -> List[DataPreprocessor]:
+    def preprocessor_factory(self) -> List[BehaviorDataPreprocessor]:
         """ creates a data preprocessor for a each experiment"""
-        return [DataPreprocessor(metadata) for metadata in self.metadata_factory.all_meta_data]
+        return [BehaviorDataPreprocessor(metadata) for metadata in self.metadata_factory.all_meta_data]
 
     def process_data(self, num_processors: int = 2) -> None:
         """ processes the data for each experiment in parallel
