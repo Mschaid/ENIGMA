@@ -26,7 +26,6 @@ def hyperopt_experiment(processor, space, max_evals):
         model = xgb.XGBRegressor(
             objective='reg:squarederror', eval_metric=['rmse', 'mae'], **params)
         model.fit(processor.X_train, processor.y_train)
-        print(model.i
         scores = -cross_val_score(model, processor.X_dev,
                                   processor.y_dev, cv=5,
                                   scoring='neg_root_mean_squared_error')
