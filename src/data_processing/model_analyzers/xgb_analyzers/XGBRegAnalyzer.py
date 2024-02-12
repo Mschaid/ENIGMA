@@ -279,7 +279,7 @@ class XGBNormRegAnalyzer:
 
         df_processor = partial(normalized_preprocessor,
                                normalizer=normalize_by_baseline,
-                               query=self.results.experiment_query, 
+                               query=self.results.experiment_query,
                                experiment_cols_to_drop=cls_to_drop)
         if not self._pipeline:
             self._pipeline = (ClassifierPipe(self.results.data_path)
@@ -308,6 +308,7 @@ class XGBNormRegAnalyzer:
 
     def fit_best_xgb_model(self) -> None:
         self.best_xgb_model.fit(self.pipeline.X_train, self.pipeline.y_train)
+        print(self.best_xgb_model.feature_importances_)
 
     def predict(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> np.ndarray:
         # predict from train by default
