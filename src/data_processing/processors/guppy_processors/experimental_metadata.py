@@ -95,6 +95,9 @@ class ExperimentMetaData:
             self._behavioral_events = list(
                 self.configs.config_data['behavioral_events'].keys())
         return self._behavioral_events
+    
+    # @property
+    # def photmetry
 
     def _get_stores_list_paths(self) -> List[Path]:
         """ returns a list of storesList.csv files from the output_paths property."""
@@ -134,6 +137,12 @@ class ExperimentMetaData:
             self._guppy_paths['behavior_files'] = self.behavior_files
             # self._guppy_paths[]
         return self._guppy_paths
+
+    @property
+    def guppy_output_path(self) -> Path:
+        if len(self.guppy_paths['output_paths']) < 2:
+            return self.guppy_paths['output_paths'][0]
+        return self.guppy_paths['output_paths']
 
 
 class MetaDataFactory:
