@@ -2,22 +2,32 @@ import multiprocessing as mp
 import numpy as np
 import pandas as pd
 import polars as pl
+
 import h5py
+from itertools import product
 
 import yaml
 
-from typing import List, Dict, Union, Tuple, Any, NewType
+from abc import ABC, abstractmethod
+
+from typing import List, Dict, Union, Tuple, Literal, Any, NewType, Protocol, Optional, Union
 from src.data_processing.processors.FileScraper import FileScraper
 from src.data_processing.processors.guppy_processors.experimental_metadata import ExperimentMetaData, MetaDataFactory
 from src.data_processing.processors.guppy_processors.config_loader import ConfigLoader
-from src.data_processing.processors.guppy_processors.processing_strategies import ProcessingStrategy
+
 from pathlib import Path
 
 Event = NewType('Event', str)
 EventToAlign = NewType('EventToAlign', str)
 
 
-class BehaviorDataPreprocessor:
+class DataPreprocessor(Protocol):
+
+    def __init__(self, metadata: ExperimentMetaData):
+        self.metadata = metadata
+
+
+class BehaviorDataPreprocessor(DataPreprocessor):
 
     """
     This class is used to load and format data from the guppy experiment from the individual experiments.
@@ -151,16 +161,16 @@ class BehaviorDataPreprocessor:
         data = self.metadata.data
         df = (
             pd.DataFrame(data, index=[0])
-            .assign(Subject=lambda df_: df_.Subject.astype('int64'),
-                    User=lambda df_: df_.User.astype('category'),
-                    Date=lambda df_: df_.Date.astype('datetime64[ns]'),
-                    Time_Recorded=lambda df_: df_.Time.astype('datetime64[ns]')
+            .assign(subject=lambda df_: df_.subject.astype('int64'),
+                    user=lambda df_: df_.user.astype('category'),
+                    date=lambda df_: df_.date.astype('datetime64[ns]'),
+                    time_recorded=lambda df_: df_.time.astype('datetime64[ns]')
                     )
-            .rename(columns=lambda c: c.lower())
+            .drop(columns=['time'])
         )
         return df
 
-    def aggreate_processed_results(self, data: Dict[str, np.ndarray], return_df: bool = True, save=True) -> Union[None, pd.DataFrame]:
+    def aggregate_processed_results(self, data: Dict[str, np.ndarray], return_df: bool = True, save=True) -> Union[None, pd.DataFrame]:
         """ aggregates the processed results into a pandas dataframe and saves it as a parquet file.
 
         Parameters
@@ -195,33 +205,197 @@ class BehaviorDataPreprocessor:
         if save:
 
             self.processed_data_df.to_parquet(
-                self.metadata.main_path / f'{self.metadata.experiment_id}_processed_data.parquet')
+                self.metadata.main_path / f'{self.metadata.experiment_id}_processed_behavior_data.parquet')
         if return_df:
             return self.processed_data_df
         else:
             return
 
 
-class BatchBehaviorDataPreprocessor:
-    def __init__(self, metadata_factory: MetaDataFactory, processing_strategy: ProcessingStrategy):
-        self.metadata_factory = metadata_factory
-        self.processing_strategy = processing_strategy
+class PhotometryDataPreprocessor(DataPreprocessor):
+    """
+    Class for processing photometry data.
 
-    def preprocessor_factory(self) -> List[BehaviorDataPreprocessor]:
-        """ creates a data preprocessor for a each experiment"""
-        return [BehaviorDataPreprocessor(metadata) for metadata in self.metadata_factory.all_meta_data]
+    Args:
+        metadata (ExperimentMetaData): The metadata for the experiment.
 
-    def process_data(self, num_processors: int = 2) -> None:
-        """ processes the data for each experiment in parallel
+    Attributes:
+        metadata (ExperimentMetaData): The metadata for the experiment.
+        _processed_data_df (None): The processed data dataframe.
+        _structure_event_combos (None): The combinations of structure and event.
+        _z_score_data_paths (List[Path]): The paths for z-score data.
+        _dff_score_data_paths (List[Path]): The paths for dff score data.
 
-        Attributes
-        ----------
-        num_processors : int
-            number of processors to use, by default 2
+    Methods:
+        _create_structure_event_combos: Creates combinations of structure and event for a given signal correction key.
+        _fetch_signal_correction_paths: Fetches the signal correction paths for a given signal correction key.
+        z_score_data_paths: Getter method for z_score_data_paths property.
+        dff_score_data_paths: Getter method for dff_score_data_paths property.
         """
 
-        pool = mp.Pool(processes=num_processors)
-        preprocessors = self.preprocessor_factory()
-        pool.map(self.processing_strategy.process, preprocessors)
-        pool.close()
-        pool.join()
+    def __init__(self, metadata: ExperimentMetaData):
+        self.metadata = metadata
+        self._processed_data_df = None
+        self._structure_event_combos = None
+        self._z_score_data_paths: List[Path] = None
+        self._dff_score_data_paths: List[Path] = None
+
+    @property
+    def processed_data_df(self):
+        ''' returns the processed data as a polars dataframe'''
+        return self._processed_data_df
+
+    def _create_structure_event_combos(self, signal_correction_key: Literal['z_score', 'dff']):
+        """
+        Creates combinations of events, structures, and signal correction keys based on the given parameters.
+
+        Parameters:
+            signal_correction_key (Literal['z_score', 'dff']): The type of signal correction key to use.
+
+        Returns:
+            List[str]: A list of combinations of events, structures, and signal correction keys.
+        """
+        events = self.metadata.config_data['behavioral_events'].values()
+        structures = self.metadata.config_data['structures'].values()
+        combos = [f'{event}_{structure}_{signal_correction_key}' for event,
+                  structure in product(events, structures)]
+        return combos
+
+    @property
+    def structure_event_combos(self):
+        """
+        Property function to get structure event combos.
+        """
+        if not self._structure_event_combos:
+            self._structure_event_combos = {
+                k: self._create_structure_event_combos(k) for k in ['z_score', 'dff']}
+        return self._structure_event_combos
+
+    def _fetch_signal_correction_paths(self, signal_correction_key: Literal['z_score', 'dff']):
+        """
+        Fetches the signal correction paths for a given signal correction key.
+
+        Parameters:
+            signal_correction_key (Literal['z_score', 'dff']): The type of signal correction key to use.
+
+        Returns:
+            List[Path]: A list of paths for the signal correction files.
+        """
+        keys = self.structure_event_combos[signal_correction_key]
+        files = [f for f in self.metadata.guppy_output_path.iterdir() if any(
+            key in f.name for key in keys) and not f.name.startswith('peak')]
+
+        try:
+            assert len(files) > 0
+        except Exception as exc:
+            raise KeyError(
+                f'No files found for keys {keys} in {self.metadata.guppy_output_path}') from exc
+
+        return files
+
+    @property
+    def z_score_data_paths(self):
+        """
+        Getter method for z_score_data_paths property.
+        """
+        if not self._z_score_data_paths:
+            self._z_score_data_paths = self._fetch_signal_correction_paths(
+                'z_score')
+        return self._z_score_data_paths
+
+    @property
+    def dff_score_data_paths(self):
+        """
+        Getter method for dff_score_data_paths property.
+        """
+        if not self._dff_score_data_paths:
+            self._dff_score_data_paths = self._fetch_signal_correction_paths(
+                'dff')
+        return self._dff_score_data_paths
+
+    def _categorize_event(self, event: str, events: List[str]) -> str:
+        for e in events:
+            if e in event:
+                return e
+
+    def _categorize_from_stem(self, path, category: Literal['behavioral_events', 'structures']):
+        event = path.stem
+        result = self._categorize_event(
+            event, self.metadata.config_data[category].values())
+        return {category: result}
+
+    def _experiment_categories(self, path):
+
+        structure_category = self._categorize_from_stem(path, 'structures')
+        event_category = self._categorize_from_stem(path, 'behavioral_events')
+        return {**structure_category, **event_category}
+
+    def _roll_and_downsample(self, df, rolling_size, downsample_factor):
+        return (
+            df
+            .rolling(rolling_size, center=True)
+            .mean()
+            .reset_index(drop=True)
+            .dropna()[::downsample_factor]
+        )
+    #
+
+    def _read_and_format_data_from_path(self, path) -> pl.DataFrame:
+        pl.enable_string_cache()
+        constant_cols_to_drop = ['mean', 'err']
+        raw_data = pd.read_hdf(path)
+        smoothed_data = self._roll_and_downsample(
+            df=raw_data, rolling_size=1000, downsample_factor=100)
+        polars_frame = pl.from_pandas(smoothed_data)
+        cols_to_rename = [col for col in polars_frame.columns if col not in [
+            'timestamps', 'mean', 'err']]
+        trials = [f'{i+1}' for i in range(len(cols_to_rename))]
+        rename_dict = {col: trial for col,
+                       trial in zip(cols_to_rename, trials)}
+        category_data = self._experiment_categories(path)
+        category_data.update(**self.metadata.data)
+
+        data = (
+            polars_frame
+            .drop(constant_cols_to_drop)
+            .rename(rename_dict)
+            .with_columns([
+                pl.Series(col, [val]*len(polars_frame)) for col, val in category_data.items()
+            ])
+            .melt(id_vars=['timestamps', 'behavioral_events', 'structures', 'subject', 'user', 'date', 'time'], variable_name='trial', value_name='z_score')
+            .with_columns([
+                pl.col('timestamps').cast(pl.Float32),
+                pl.col('z_score').cast(pl.Float32),
+                pl.col('date').str.strptime(
+                    pl.Date, '%m/%d/%Y').cast(pl.Datetime),
+                pl.col('trial').cast(pl.Int32),
+                pl.col('behavioral_events').cast(pl.Categorical),
+                pl.col('structures').cast(pl.Categorical),
+                pl.col('subject').cast(pl.Categorical),
+            ])
+            .sort(['trial', 'timestamps', 'date', 'subject', 'structures', 'behavioral_events'])
+        )
+        return data
+
+    def process_photometry_data(self, signal_correction: Literal['z_score', 'dff'] = 'z_score', events_to_exclude: List[str] = None, save=True, return_df=False) -> Optional[pl.DataFrame]:
+        if not events_to_exclude:
+            events_to_exclude = ['lick', 'encoder']
+        if signal_correction == 'z_score':
+            data_paths = self.z_score_data_paths
+        if signal_correction == 'dff':
+            data_paths = self.dff_score_data_paths
+
+        paths_to_read = [p for p in data_paths if not any(
+            p.stem.startswith(event) for event in events_to_exclude)]
+        data = pl.concat([self._read_and_format_data_from_path(path)
+                         for path in paths_to_read])
+
+        if self._processed_data_df is None:
+            self._processed_data_df = data
+        if save:
+            self.processed_data_df.write_parquet(
+                self.metadata.main_path / f'{self.metadata.experiment_id}_processed_photometry_data.parquet')
+        if return_df:
+            return self.processed_data_df
+        else:
+            return

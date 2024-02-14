@@ -77,7 +77,7 @@ class ExperimentMetaData:
                     meta_data_lines = lines[1:5]
                     key_value_pairs = map(lambda line: line.strip(
                         '\n').split(': '), meta_data_lines)
-                    data = {k: v for k, v in key_value_pairs}
+                    data = {k.lower(): v for k, v in key_value_pairs}
 
         return data
 
@@ -95,7 +95,7 @@ class ExperimentMetaData:
             self._behavioral_events = list(
                 self.configs.config_data['behavioral_events'].keys())
         return self._behavioral_events
-    
+
     # @property
     # def photmetry
 
