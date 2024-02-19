@@ -65,6 +65,7 @@ class XGBRegExperimenter:
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
         feature_importance_runs = []
+        test_preditions_df = []
         for _ in range(number_of_runs):
             analyzer = self.analyzer(self.results)
             analyzer.create_pipeline(cls_to_drop=cls_to_drop)
@@ -78,10 +79,16 @@ class XGBRegExperimenter:
             metric_runs.append(run_metric_results)
             # keep track of feature importance dataframes
             feature_importance_runs.append(run_feature_importance)
-
+            test_preditions_df.append(analyzer._df_from_pipleline('test'))
+            
+        compiled_test_predictions = pd.concat(test_preditions_df)
         compiled_metric_results = pd.concat(metric_runs)
         compiled_feature_importance = pd.concat(feature_importance_runs)
 
+
+
+        self.experiment_results.update(
+            test_predictions=compiled_test_predictions)
         self.experiment_results.update(
             metric_results=compiled_metric_results)
         self.experiment_results.update(
