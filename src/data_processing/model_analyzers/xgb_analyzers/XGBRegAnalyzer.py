@@ -308,7 +308,6 @@ class XGBNormRegAnalyzer:
 
     def fit_best_xgb_model(self) -> None:
         self.best_xgb_model.fit(self.pipeline.X_train, self.pipeline.y_train)
-        print(self.best_xgb_model.feature_importances_)
 
     def predict(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> np.ndarray:
         # predict from train by default
@@ -358,10 +357,7 @@ class XGBNormRegAnalyzer:
         return self._metrics_results
 
     def _df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
-        print(self._feature_names)
-        print(self.best_xgb_model.feature_importances_)
-        print(len(self._feature_names))
-        print(len(self.best_xgb_model.feature_importances_))
+
         df = (
             pd.DataFrame(
                 (self._datasets_w_predictions[from_dataset][0]), columns=self._feature_names)
