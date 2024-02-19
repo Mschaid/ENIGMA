@@ -104,7 +104,13 @@ def main(cfg: DictConfig) -> None:
         "max_depth": hp.choice('max_depth', np.arange(3, 15, 3)),
         "min_child_weight": hp.choice('min_child_weight', np.arange(1, 10, 1)),
         "gamma": hp.choice('gamma', np.arange(0, 5, 1)),
-        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2))
+        "subsample": hp.choice('subsample', np.arange(0, 1, 0.2)),
+        "colsample_bytree": hp.choice('colsample_bytree', np.arange(0, 1, 0.2)),
+        "colsample_bynode": hp.choice('colsample_bynode', np.arange(0, 1, 0.2)),
+        "scale_pos_weight": hp.choice('scale_pos_weight', np.arange(1, 10, 1)),
+        "reg_alpha": hp.choice('reg_alpha', np.arange(0, 20, 1)),
+        "reg_lambda": hp.choice('reg_lambda', np.arange(0, 20, 1)),
+        "early_stopping_rounds": hp.choice('early_stopping_rounds', np.arange(10, 50, 10))
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,

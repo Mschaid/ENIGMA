@@ -1,5 +1,5 @@
 experiment_query: "sensor == 'DA'"
-experiment_name: xgb_regression_da_normalzied_tune
+experiment_name: xgb_reg_da_w_action_no_day_norm_tune
 
 quest_config:
   data_path: /projects/p31961/gaby_data/aggregated_data/raw_data/datasets/raw_data_raw_data.parquet.gzip
