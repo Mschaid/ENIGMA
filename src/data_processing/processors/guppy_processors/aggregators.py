@@ -43,7 +43,7 @@ class BehaviorAggregationStrategy(AggregationStrategy):
 
     def save_to_aggregate_dir(self, file_name_to_save: str = 'aggregated_behavior_data', data: pd.DataFrame = None):
         if not data:
-            aggregate_data = self.aggreate_processed_results_into_df()
+            aggregate_data = self.aggregate_processed_results_into_df()
             aggregate_data.to_parquet(
                 self.aggregate_dir / f'{file_name_to_save}.parquet')
 
