@@ -110,7 +110,6 @@ def main(cfg: DictConfig) -> None:
         "scale_pos_weight": hp.choice('scale_pos_weight', np.arange(1, 10, 1)),
         "reg_alpha": hp.choice('reg_alpha', np.arange(0, 20, 1)),
         "reg_lambda": hp.choice('reg_lambda', np.arange(0, 20, 1)),
-        "early_stopping_rounds": hp.choice('early_stopping_rounds', np.arange(10, 50, 10))
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,
