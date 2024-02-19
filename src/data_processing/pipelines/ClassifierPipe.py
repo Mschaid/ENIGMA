@@ -290,7 +290,7 @@ class ClassifierPipe:
     # create pipeline
 
     def split_by_ratio(self, target,
-                       test_size=0.2,
+                       test_size=0.3,
                        test_dev_size=0.5,
                        random_seed=None, shuffle=True):
         X = self.processed_data.drop(columns=target)
