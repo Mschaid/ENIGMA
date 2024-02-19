@@ -195,10 +195,29 @@ def print_cols(df):
     return df_
 
 
-def normalized_preprocessor(data: pd.DataFrame, normalizer: Callable, query: str = None, experiment_cols_to_drop: List = None) -> pd.DataFrame:
+def normalized_preprocessor_drop(data: pd.DataFrame, normalizer: Callable, query: str = None, experiment_cols_to_drop: List = None) -> pd.DataFrame:
     if not experiment_cols_to_drop:
         experiment_cols_to_drop = []
     constants_to_drop = ["trial", "sex", "mouse_id",  "trial_count"]
+
+    processed_data = (
+        data
+        .query(query)
+        .pipe(normalizer)
+        .pipe(calculate_max_min_signal)
+        .pipe(calculate_percent_avoid)
+        # .assign(event = lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
+        .drop(columns=constants_to_drop)
+        .pipe(expand_df_with_action)
+        .drop(columns=experiment_cols_to_drop)
+    )
+    return processed_data
+
+
+def normalized_preprocessor_wo_day(data: pd.DataFrame, normalizer: Callable, query: str = None, experiment_cols_to_drop: List = None) -> pd.DataFrame:
+    if not experiment_cols_to_drop:
+        experiment_cols_to_drop = []
+    constants_to_drop = ["trial", "sex", "mouse_id",  'day', "trial_count"]
 
     processed_data = (
         data

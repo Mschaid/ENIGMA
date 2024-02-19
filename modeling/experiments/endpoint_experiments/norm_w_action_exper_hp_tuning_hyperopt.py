@@ -86,7 +86,7 @@ def main(cfg: DictConfig) -> None:
     logging.info(f"Experiment name: {EXPERIMENT_NAME}")
 
     partial_normalized_preprocessor = partial(
-        normalized_preprocessor, normalizer=normalize_by_baseline, query=QUERY, experiment_cols_to_drop=None)
+        normalized_preprocessor_wo_day, normalizer=normalize_by_baseline, query=QUERY, experiment_cols_to_drop=None)
 
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
