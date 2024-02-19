@@ -112,7 +112,7 @@ def expand_df(df):
 def expand_df_with_action(df):
     pivot_df = (
         df
-        .pivot_table(index=['ratio_avoid', 'day'],
+        .pivot_table(index=['ratio_avoid'],
                      columns=['sensor', 'event', 'action'],
                      values=[col for col in df.columns if col not in ['ratio_avoid', 'sensor', 'action']])
     )
@@ -191,8 +191,6 @@ def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="t
 def print_cols(df):
     print(df.columns)
     return df
-
-    return df_
 
 
 def normalized_preprocessor_drop(data: pd.DataFrame, normalizer: Callable, query: str = None, experiment_cols_to_drop: List = None) -> pd.DataFrame:

@@ -34,7 +34,7 @@ def main():
         "with_day": None,
         "without_day": ["day"]
     }
-    FILTER_KEYS = ['norm_elastic_net']
+    # FILTER_KEYS = ['norm_elastic_net']
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
