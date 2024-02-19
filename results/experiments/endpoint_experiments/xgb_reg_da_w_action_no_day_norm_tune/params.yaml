@@ -1,0 +1,13 @@
+best_params:
+  colsample_bynode: 0.6000000000000001
+  colsample_bytree: 0.2
+  gamma: 0
+  learning_rate: 0.505
+  max_depth: 12
+  min_child_weight: 2
+  n_estimators: 150
+  reg_alpha: 0
+  reg_lambda: 18
+  scale_pos_weight: 9
+  subsample: 0.4
+experiment_name: xgb_reg_da_w_action_no_day_norm_tune
