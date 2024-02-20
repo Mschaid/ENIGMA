@@ -16,7 +16,7 @@ from enum import Enum
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 from src.data_processing.model_analyzers.xgb_analyzers.XGBRegrResults import XGBRegrResults
-from src.data_processing.preprocessing.pandas_preprocessors import xgb_reg_signal_params_only_pd_preprocessor, normalized_preprocessor,  normalize_by_baseline
+from src.data_processing.preprocessing.pandas_preprocessors import xgb_reg_signal_params_only_pd_preprocessor, normalized_preprocessor_wo_day,  normalize_by_baseline
 from src.data_processing.pipelines.ClassifierPipe import ClassifierPipe
 
 
@@ -277,7 +277,7 @@ class XGBNormRegAnalyzer:
 
     def create_pipeline(self, cls_to_drop=None, random_seed=None, shuffle=True) -> None:
 
-        df_processor = partial(normalized_preprocessor,
+        df_processor = partial(normalized_preprocessor_wo_day,
                                normalizer=normalize_by_baseline,
                                query=self.results.experiment_query,
                                experiment_cols_to_drop=cls_to_drop)
