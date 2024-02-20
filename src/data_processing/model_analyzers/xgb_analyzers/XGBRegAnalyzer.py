@@ -125,7 +125,7 @@ class XGBRegAnalyzer:
             self._metrics_results = self._compute_metrics()
         return self._metrics_results
 
-    def _df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
+    def df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
 
         df = (
             pd.DataFrame(
@@ -195,7 +195,7 @@ class XGBRegAnalyzer:
 
     def plot_distribution(self, from_dataset: Literal['test', 'dev', 'train'] = 'test'):
 
-        df = self._df_from_pipeline(from_dataset)
+        df = self.df_from_pipeline(from_dataset)
 
         results = df[['true_values', 'predictions']].melt(
             var_name='dataset', value_name='ratio_avoid')
@@ -356,7 +356,7 @@ class XGBNormRegAnalyzer:
             self._metrics_results = self._compute_metrics()
         return self._metrics_results
 
-    def _df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
+    def df_from_pipeline(self, from_dataset: Literal['test', 'dev', 'train'] = 'train') -> pd.DataFrame:
 
         df = (
             pd.DataFrame(

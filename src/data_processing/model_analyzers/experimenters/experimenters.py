@@ -65,7 +65,7 @@ class XGBRegExperimenter:
     def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
         metric_runs = []
         feature_importance_runs = []
-        test_preditions_df = []
+
         for _ in range(number_of_runs):
             analyzer = self.analyzer(self.results)
             analyzer.create_pipeline(cls_to_drop=cls_to_drop)
@@ -79,16 +79,10 @@ class XGBRegExperimenter:
             metric_runs.append(run_metric_results)
             # keep track of feature importance dataframes
             feature_importance_runs.append(run_feature_importance)
-            test_preditions_df.append(analyzer._df_from_pipleline('test'))
-            
-        compiled_test_predictions = pd.concat(test_preditions_df)
+
         compiled_metric_results = pd.concat(metric_runs)
         compiled_feature_importance = pd.concat(feature_importance_runs)
 
-
-
-        self.experiment_results.update(
-            test_predictions=compiled_test_predictions)
         self.experiment_results.update(
             metric_results=compiled_metric_results)
         self.experiment_results.update(
@@ -121,9 +115,11 @@ class XGBNormRegExperimenter(Experimenter):
         self.experiment_results: Dict[str, pd.DataFrame] = {}
         self.analyzer_runs: List[XGBNormRegAnalyzer] = []
 
-    def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = []):
-        metric_runs = []
-        feature_importance_runs = []
+    def run_experiment(self, number_of_runs: 10, cls_to_drop: List[str] = [], metric_runs=None,  feature_importance_runs=None, prediction_df_runs=None):
+        if not metric_runs or not feature_importance_runs or not prediction_df_runs:
+            metric_runs = []
+            feature_importance_runs = []
+            prediction_df_runs = []
 
         for _ in range(number_of_runs):
             analyzer = self.analyzer(self.results)
@@ -133,20 +129,24 @@ class XGBNormRegExperimenter(Experimenter):
             run_metric_results = pd.DataFrame(analyzer.metrics_results)
             run_feature_importance = pd.DataFrame(
                 analyzer.feature_importance_df)
+            run_prediction_results = analyzer.df_from_pipeline('test')
 
             # keep track of metrics dataframes
             metric_runs.append(run_metric_results)
             # keep track of feature importance dataframes
             feature_importance_runs.append(run_feature_importance)
-
+            # keep track of prediction dataframes
+            prediction_df_runs.append(run_prediction_results)
 
         compiled_metric_results = pd.concat(metric_runs)
         compiled_feature_importance = pd.concat(feature_importance_runs)
+        compiled_prediction_df = pd.concat(prediction_df_runs)
 
-        self.experiment_results.update(
-            metric_results=compiled_metric_results)
-        self.experiment_results.update(
-            feature_importance_results=compiled_feature_importance)
+        self.experiment_results.update({
+            "metric_results": compiled_metric_results,
+            "feature_importance_results": compiled_feature_importance,
+            'prediction_df': compiled_prediction_df
+        })
 
     def save_results(self, condition_name: str):
         path_to_save = self.path / f"{condition_name}_experiment_results"
