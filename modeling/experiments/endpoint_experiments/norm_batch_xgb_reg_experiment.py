@@ -40,7 +40,7 @@ def main():
         main_path=MAIN_PATH,
         number_of_runs=NUMBER_OF_RUNS,
         experiment_conditions=EXPERIMENMT_CONDITIONS,
-        filter_keys=None)
+        filter_keys=FILTER_KEYS)
 
     print("running batch experiment")
     batch_experiment(experiment_data, experimenter=XGBNormRegBatchExperimenter)
