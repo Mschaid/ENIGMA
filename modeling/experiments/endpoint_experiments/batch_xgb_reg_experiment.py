@@ -29,12 +29,12 @@ def batch_experiment(exp_data: BatchExperimentMetaData, experimenter: BatchExper
 def main():
     print("main")
     NUMBER_OF_RUNS = 30
-    MAIN_PATH = "/projects/p31961/ENIGMA/results/experiments/endpoint_experiments/xgb_regression_da_normalzied_tune"
+    MAIN_PATH = "/projects/p31961/ENIGMA/results/experiments/endpoint_experiments"
     EXPERIMENMT_CONDITIONS = {
         "with_day": None,
         "without_day": ["day"]
     }
-    # FILTER_KEYS = ['norm_elastic_net']
+    FILTER_KEYS = ['xgb_regression_da_normalzied_tune']
 
     experiment_data = BatchExperimentMetaData(
         main_path=MAIN_PATH,
@@ -45,6 +45,7 @@ def main():
     print("running batch experiment")
     batch_experiment(experiment_data, experimenter=XGBNormRegBatchExperimenter)
     print("done")
+
 
 if __name__ == '__main__':
     main()
