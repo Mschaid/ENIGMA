@@ -109,7 +109,7 @@ def main(cfg: DictConfig) -> None:
         "scale_pos_weight": hp.loguniform('scale_pos_weight', -1, 10),
         "reg_alpha": hp.uniform('reg_alpha', 0, 100),
         "reg_lambda": hp.uniform('reg_lambda', 0, 100),
-        'max_delta_step': hp.log_uloguniform('max_delta_step', 0, 10),
+        'max_delta_step': hp.loguniform('max_delta_step', 0, 10),
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,
