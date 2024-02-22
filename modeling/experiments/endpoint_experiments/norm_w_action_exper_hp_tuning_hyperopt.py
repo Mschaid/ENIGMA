@@ -101,19 +101,17 @@ def main(cfg: DictConfig) -> None:
     SEARCH_SPACE = {
         "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),
         "learning_rate": hp.loguniform('learning_rate', -7, 0),
-        "max_depth": hp.choice('max_depth', np.arange(1, 8, 1)),
-        "min_child_weight": hp.loguniform('min_child_weight', -2, 3),
-        "gamma": hp.loguniform('gamma', -10, 10),
-        "subsample":  hp.uniform('subsample', 0.5, 1),
-        "colsample_bytree": hp.uniform('colsample_bytree', 0.5, 1),
-        "scale_pos_weight": hp.loguniform('scale_pos_weight', -1, 10),
-        "reg_alpha": hp.uniform('reg_alpha', 0, 100),
-        "reg_lambda": hp.uniform('reg_lambda', 0, 100),
+        "max_depth": hp.choice('max_depth', [1,2,3,4]),
+        "min_child_weight": hp.loguniform('min_child_weight', -3,3),
+        "subsample":  hp.uniform('subsample', 0.5, 1),,
+        "scale_pos_weight": hp.loguniform('scale_pos_weight', -1, 2),
+        "reg_alpha": hp.uniform('reg_alpha', 0, 1),
+        "reg_lambda": hp.uniform('reg_lambda', 0, 10),
         'max_delta_step': hp.loguniform('max_delta_step', 0, 10),
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,
-                                               max_evals=500)
+                                               max_evals=2000)
 
     save_results(best_params=best_params,
                  results=results,

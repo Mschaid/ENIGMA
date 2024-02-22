@@ -18,3 +18,9 @@ class PathFinder:
         paths = [p for p in self.main_path.glob(
             '**/*') if p.stem.startswith('feature')]
         return paths
+
+    @property
+    def predictions_path(self):
+        paths = [p for p in self.main_path.glob(
+            '**/*') if p.stem.startswith('prediction')]
+        return paths
