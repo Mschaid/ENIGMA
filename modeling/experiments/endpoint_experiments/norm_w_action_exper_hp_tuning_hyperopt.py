@@ -103,11 +103,11 @@ def main(cfg: DictConfig) -> None:
         "learning_rate": hp.loguniform('learning_rate', -7, 0),
         "max_depth": hp.choice('max_depth', [1,2,3,4]),
         "min_child_weight": hp.loguniform('min_child_weight', -3,3),
-        "subsample":  hp.uniform('subsample', 0.5, 1),,
+        "subsample":  hp.uniform('subsample', 0.5, 1),
         "scale_pos_weight": hp.loguniform('scale_pos_weight', -1, 2),
         "reg_alpha": hp.uniform('reg_alpha', 0, 1),
         "reg_lambda": hp.uniform('reg_lambda', 0, 10),
-        'max_delta_step': hp.loguniform('max_delta_step', 0, 10),
+        'max_delta_step': hp.loguniform('max_delta_step', 0, 10)
     }
     best_params, results = hyperopt_experiment(processor=PROCESSOR_PIPE,
                                                space=SEARCH_SPACE,
