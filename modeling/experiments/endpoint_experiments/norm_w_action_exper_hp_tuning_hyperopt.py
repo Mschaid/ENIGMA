@@ -101,7 +101,7 @@ def main(cfg: DictConfig) -> None:
     SEARCH_SPACE = {
         "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),
         "learning_rate": hp.loguniform('learning_rate', -7, 0),
-        "max_depth": hp.uniform('max_depth', 1, 8),
+        "max_depth": hp.choice('max_depth', np.range(1, 8, 1)),
         "min_child_weight": hp.loguniform('min_child_weight', -2, 3),
         "gamma": hp.loguniform('gamma', -10, 10),
         "subsample":  hp.uniform('subsample', 0.5, 1),
