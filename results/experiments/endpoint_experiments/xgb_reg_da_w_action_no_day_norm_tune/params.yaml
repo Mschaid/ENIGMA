@@ -1,13 +1,13 @@
 best_params:
-  colsample_bynode: 0.6000000000000001
-  colsample_bytree: 0.2
-  gamma: 0
-  learning_rate: 0.505
-  max_depth: 12
-  min_child_weight: 2
-  n_estimators: 150
-  reg_alpha: 0
-  reg_lambda: 18
-  scale_pos_weight: 9
-  subsample: 0.4
+  colsample_bytree: 0.7915532659653955
+  gamma: 18.384127502351657
+  learning_rate: 0.4288183381006204
+  max_delta_step: 31.99110220039605
+  max_depth: 6
+  min_child_weight: 0.7145189379916569
+  n_estimators: 100
+  reg_alpha: 0.23308007890695084
+  reg_lambda: 0.048811247413770076
+  scale_pos_weight: 21015.287197392812
+  subsample: 0.7808102206974598
 experiment_name: xgb_reg_da_w_action_no_day_norm_tune
