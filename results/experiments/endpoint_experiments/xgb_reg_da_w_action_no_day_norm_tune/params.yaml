@@ -1,11 +1,11 @@
 best_params:
-  learning_rate: 0.7720296764063289
-  max_delta_step: 20906.788445572492
-  max_depth: 1
-  min_child_weight: 2.6295833299734515
+  learning_rate: 0.0009646470804245722
+  max_delta_step: 6.494343464939533
+  max_depth: 4
+  min_child_weight: 1.6970565018734178
   n_estimators: 200
-  reg_alpha: 0.29273872474498935
-  reg_lambda: 6.301438723555968
-  scale_pos_weight: 0.47219619394213225
-  subsample: 0.6308071418881683
+  reg_alpha: 0.028770837736437512
+  reg_lambda: 0.8608209411127135
+  scale_pos_weight: 1.0805374210204053
+  subsample: 0.9997258064117617
 experiment_name: xgb_reg_da_w_action_no_day_norm_tune
