@@ -91,7 +91,7 @@ def main(cfg: DictConfig) -> None:
     PROCESSOR_PIPE = (ClassifierPipe(DATA_PATH)
                       .read_raw_data()
                       .pandas_pipe(partial_normalized_preprocessor)
-                      .split_by_ratio(target='ratio_avoid')
+                      .split_by_ratio(target='ratio_avoid', test_size=0.5, test_dev_size=0.3)
                       .transform_data()
                       )
 
@@ -101,8 +101,8 @@ def main(cfg: DictConfig) -> None:
     SEARCH_SPACE = {
         "n_estimators": hp.choice('n_estimators', [50, 100, 150, 200, 250]),
         "learning_rate": hp.loguniform('learning_rate', -7, 0),
-        "max_depth": hp.choice('max_depth', [1,2,3,4]),
-        "min_child_weight": hp.loguniform('min_child_weight', -3,3),
+        "max_depth": hp.choice('max_depth', [1, 2, 3, 4]),
+        "min_child_weight": hp.loguniform('min_child_weight', -3, 3),
         "subsample":  hp.uniform('subsample', 0.5, 1),
         "scale_pos_weight": hp.loguniform('scale_pos_weight', -1, 2),
         "reg_alpha": hp.uniform('reg_alpha', 0, 1),
