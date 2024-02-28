@@ -136,7 +136,7 @@ class XGBNormRegExperimenter(Experimenter):
             # keep track of feature importance dataframes
             feature_importance_runs.append(run_feature_importance)
             # keep track of prediction dataframes
-            prediction_df_runs.append(run_prediction_results)
+            prediction_df_runs.append(run_prediction_results.reset_index())
 
         compiled_metric_results = pd.concat(metric_runs)
         compiled_feature_importance = pd.concat(feature_importance_runs)
