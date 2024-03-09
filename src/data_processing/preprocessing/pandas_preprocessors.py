@@ -124,6 +124,21 @@ def expand_df_with_action(df):
     )
 
 
+def expand_df_w_action_and_day(df):
+    pivot_df = (
+        df
+        .pivot_table(index=['ratio_avoid', 'day'],
+                     columns=['sensor', 'event', 'action'],
+                     values=[col for col in df.columns if col not in ['ratio_avoid', 'sensor', 'action']])
+    )
+    pivot_df.columns = ['_'.join(col) for col in pivot_df.columns]
+    return (
+        pivot_df
+        .reset_index(drop=False)
+        .fillna(0)
+    )
+
+
 def max_trials(df):
     max_trials = (df[["mouse_id", "day", "trial", "action"]]
                   .query("action == 'avoid'")
@@ -215,7 +230,7 @@ def normalized_preprocessor_drop(data: pd.DataFrame, normalizer: Callable, query
 def normalized_preprocessor_wo_day(data: pd.DataFrame, normalizer: Callable, query: str = None, experiment_cols_to_drop: List = None) -> pd.DataFrame:
     if not experiment_cols_to_drop:
         experiment_cols_to_drop = []
-    constants_to_drop = ["trial", "sex", "mouse_id",  'day', "trial_count"]
+    constants_to_drop = ["trial", "sex", "mouse_id", "trial_count"]
 
     processed_data = (
         data
@@ -225,7 +240,7 @@ def normalized_preprocessor_wo_day(data: pd.DataFrame, normalizer: Callable, que
         .pipe(calculate_percent_avoid)
         # .assign(event = lambda df_: df_.event.replace({"avoid": "cross", "escape": "cross"}))
         .drop(columns=constants_to_drop)
-        .pipe(expand_df_with_action)
+        .pipe(expand_df_w_action_and_day)
         .drop(columns=experiment_cols_to_drop)
     )
     return processed_data

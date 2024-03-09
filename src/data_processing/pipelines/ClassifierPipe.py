@@ -320,8 +320,7 @@ class ClassifierPipe:
         -----------
         This function converts the target values in the training, development, 
         and testing sets to their corresponding numeric encoding using the 
-        provided dictionary `numeric_target_dict`. If `numeric_target_dict` 
-        is not provided, no conversion is performed.
+        provided dictionary `numeric_target_dict`. If `numeric_target_dict` is not provided, no conversion is performed.
 
         After converting the target values, this function applies a pipeline 
         to the input data `X` to transform it for modeling. The pipeline 

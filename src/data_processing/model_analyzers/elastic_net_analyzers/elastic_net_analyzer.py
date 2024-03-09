@@ -226,7 +226,7 @@ class FeatureImportanceAnalyzer(ElasticNetAnalyzer):
 
         err_kws = {'linewidth': 1,
                    }
-        plt.figure(figsize=(3, 6))
+        plt.figure(figsize=(4, 8))
 
         sns.barplot(x='importance',
                     y='feature',
