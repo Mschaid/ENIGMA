@@ -179,6 +179,7 @@ def xgb_reg_signal_params_only_pd_preprocessor(df: pd.DataFrame, query: str = No
     return df_
 
 
+# ! change to to 0 to 5
 def normalize_by_baseline(df, baseline_window="time>-5 & time<-2", time_query="time>=-0 & time <= 10"):
     group_by_columns = [col for col in df.columns if col not in ["signal"]]
     normalized_values = (
