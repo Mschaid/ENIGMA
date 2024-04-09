@@ -1,3 +1,4 @@
+from typing import Generator
 import pretty_errors
 import pytest
 from unittest.mock import Mock, patch, mock_open, PropertyMock
@@ -44,6 +45,24 @@ class TestAAMetaDataFetcher:
     def test_DA(self):
         assert self.fetcher_1.fetch_DA()
         assert self.fetcher_2.fetch_DA()
+
+    @patch("pathlib.Path.glob")
+    def test_fetch_hdf5_path(self, mock_glob):
+        mock_path = Path("root_path/sub_path")
+        mock_1 = mock_path / "test.hdf5"
+        mock_2 = mock_path / "test2.hdf5"
+        mock_glob.return_value = [mock_1, mock_2]
+        fetcher = AAMetaDataFetcher(mock_path)
+
+        keyword = 'test'
+        # act
+        result = fetcher._fetch_hdf5_paths(keyword)
+        result_list = list(result)
+
+        # assert
+        assert isinstance(result, Generator)
+        assert isinstance(result_list, list)
+        assert len(result_list) == 2
 
     def test_metadata(self):
         meta_data = self.fetcher_1.metadata

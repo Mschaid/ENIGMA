@@ -4,7 +4,7 @@ import pretty_errors
 import yaml
 from pathlib import Path
 
-from typing import List, Protocol
+from typing import Generator, List, Protocol
 
 
 class MetaDataFetcher(Protocol):
@@ -100,14 +100,13 @@ class AAMetaDataFetcher(MetaDataFetcher):
         """ always returns True, given that this dataset always records dopamine"""
         return True
 
-    def fetch_full_z_scored_recordings(self):
-        z_scored_paths = []
-        for file in self.path.glob("*z_score*.hdf5"):
-            posix_path = file.as_posix()
-            z_scored_paths.append(posix_path)
-        return z_scored_paths
+    def _fetch_hdf5_paths(self, *keyword) -> Generator[str, None, None]:
+        """ returns a generator that yields the paths of hdf5 files that contain the keyword in their name."""
+        for k in keyword:
+            for file in self.path.glob(f'*{k}*.hdf5'):
+                yield file.as_posix()
 
-    @property
+    @ property
     def metadata(self):
         """ returns a dictionary containing the metadata extracted from the file name."""
         if self._metadata is None:
@@ -118,7 +117,9 @@ class AAMetaDataFetcher(MetaDataFetcher):
                 "D1": self.fetch_D1(),
                 "D2": self.fetch_D2(),
                 'DA': self.fetch_DA(),
-                "full_z_scored_recording_paths": self.fetch_full_z_scored_recordings()
+                "full_z_scored_recording_paths": list(self._fetch_hdf5_paths("z_score_")),
+                "full_dff_recording_paths": list(self._fetch_hdf5_paths("dff_")),
+                "event_paths": list(self._fetch_hdf5_paths("CueA", "CueB", "CrsA", "CrsB", "ShkA", "ShkB"))
             }
             return self._metadata
 
