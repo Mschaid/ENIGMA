@@ -1,10 +1,41 @@
+
+import logging
+import pretty_errors
 import yaml
 from pathlib import Path
 
+from typing import List, Protocol
 
-class MetaDataFetcher:
+
+class MetaDataFetcher(Protocol):
+    def __init__(self, path: Path):
+        """ takes output guppy path as Path object"""
+        ...
+
+    def metadata(self) -> dict:
+        """ returns a dictionary containing the metadata extracted from the directory parameters, as well as any filepaths."""
+        ...
+
+    def save_metadata_to_yaml(self) -> None:
+        """ saves the metadata to a yaml file in the directory pointed to by the path attribute."""
+        ...
+
+# simple methods used by the MetaDataFetcher class implementation and factory function
+
+
+def directory_finder(main_path: Path, directory_keyword: str) -> List[Path]:
+    paths_found = main_path.glob(f"**/*{directory_keyword}*")
+    return [path for path in paths_found if path.is_dir()]
+
+
+def meta_data_factory(path: Path, fetcher: MetaDataFetcher) -> MetaDataFetcher:
+    fetcher = MetaDataFetcher(path)
+    return fetcher
+
+
+class AAMetaDataFetcher(MetaDataFetcher):
     """
-        class used to extract metadata from a given path.
+        class used to extract metadata from active avoidance experiments from a given path.
 
     Attributes
     ----------
@@ -28,75 +59,70 @@ class MetaDataFetcher:
 
     def __init__(self, path: Path):
         self.path = path
-        self._day = None
-        self._cage = None
-        self._mouse_id = None
-        self._D1 = None
-        self._D2 = None
-        self._DA = True
+        self._metadata: dict = None
 
-    @property
-    def day(self) -> int:
+    def fetch_day(self) -> int:
         """ extracts the day from the file name and returns it as an int."""
-        if not self._day:
-            parent_name = self.path.parent.name
-            day_string = parent_name.split("_")[1]
-            self._day = int(day_string[-1])
-        return self._day
+        parent_name = self.path.parents[1].name
+        day_string = parent_name.split("_")[1]
+        day = int(day_string[-1])
+        return day
 
-    @property
-    def cage(self) -> int:
+    def fetch_cage(self) -> int:
         """ extracts the cage number from the file name and returns it as an int."""
-        if not self._cage:
-            parent_name = self.path.name
-            cage_string = parent_name.split("-")[0]
-            self._cage = int(cage_string)
-        return self._cage
+        parent_name = self.path.name
+        cage_string = parent_name.split("-")[0]
+        cage = int(cage_string)
+        return cage
 
-    @property
-    def mouse_id(self) -> int:
+    def fetch_mouse_id(self) -> int:
         """extracts the mouse ID from the file name and returns it as an int."""
-        if not self._mouse_id:
-            name_split = self.path.name.split("-")
-            ids = name_split[1].split("_")
-            has_copy = "copy" in self.path.name
-            if not has_copy:
-                self._mouse_id = int(ids[0])
-            else:
-                self._mouse_id = int(ids[1])
-        return self._mouse_id
+        name_split = self.path.name.split("-")
+        ids = name_split[1].split("_")
+        has_copy = "copy" in self.path.name
+        if not has_copy:
+            mouse_id = int(ids[0])
+        else:
+            mouse_id = int(ids[1])
+        return mouse_id
 
-    @property
-    def D1(self) -> bool:
+    def fetch_D1(self) -> bool:
         """ returns True if "D1" is in the file name, False otherwise."""
-        if not self._D1:
-            self._D1 = "D1" in self.path.name
-        return self._D1
+        is_D1 = "D1" in self.path.as_posix()
+        return is_D1
 
-    @property
-    def D2(self) -> bool:
+    def fetch_D2(self) -> bool:
         """ returns True if "A2A" is in the file name, False otherwise."""
-        if not self._D2:
-            self._D2 = "A2A" in self.path.name
-        return self._D2
+        is_D2 = "A2A" in self.path.as_posix()
+        return is_D2
+
+    def fetch_DA(self) -> bool:
+        """ always returns True, given that this dataset always records dopamine"""
+        return True
+
+    def fetch_full_z_scored_recordings(self):
+        z_scored_paths = []
+        for file in self.path.glob("*z_score*.hdf5"):
+            posix_path = file.as_posix()
+            z_scored_paths.append(posix_path)
+        return z_scored_paths
 
     @property
-    def DA(self) -> bool:
-        """ always returns True, given that this dataset always records dopamine"""
-        return self._DA
-
     def metadata(self):
         """ returns a dictionary containing the metadata extracted from the file name."""
-        return {
-            "day": self.day,
-            "cage": self.cage,
-            "mouse_id": self.mouse_id,
-            "D1": self.D1,
-            "D2": self.D2,
-            'DA': self.DA
-        }
+        if self._metadata is None:
+            self._metadata = {
+                "day": self.fetch_day(),
+                "cage": self.fetch_cage(),
+                "mouse_id": self.fetch_mouse_id(),
+                "D1": self.fetch_D1(),
+                "D2": self.fetch_D2(),
+                'DA': self.fetch_DA(),
+                "full_z_scored_recording_paths": self.fetch_full_z_scored_recordings()
+            }
+            return self._metadata
 
     def save_metadata_to_yaml(self):
         """ saves the metadata to a yaml file in the directory pointed to by the path attribute)."""
         with open(self.path/"metadata.yaml", "w") as f:
-            yaml.dump(self.metadata(), f)
+            yaml.dump(self.metadata, f)
