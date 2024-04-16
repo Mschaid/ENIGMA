@@ -12,10 +12,13 @@ class TestAAMetaDataFetcher:
 
     test_path_1 = "/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Gaby/Data Analysis/ActiveAvoidance/Core_guppy_postcross/D1-Cre/06.02.22_Day1/309-910_911-220602-140203/309-910_911-220602-140203_output_1"
     test_path_2 = "/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Gaby/Data Analysis/ActiveAvoidance/Core_guppy_postcross/A2A-Cre/06-02-22_Day2/309-910_911-220602-140203/309-910_911-220602-140203_output_1 copy"
+    test_path_save = "not/a/real/path"
 
     def setup_method(self):
-        self.fetcher_1 = AAMetaDataFetcher(Path(self.test_path_1))
-        self.fetcher_2 = AAMetaDataFetcher(Path(self.test_path_2))
+        self.fetcher_1 = AAMetaDataFetcher(
+            path=Path(self.test_path_1), path_to_save=(self.test_path_save))
+        self.fetcher_2 = AAMetaDataFetcher(
+            Path(self.test_path_2), path_to_save=self.test_path_save)
 
     def test_path(self):
         assert isinstance(self.fetcher_1.path, Path)
@@ -52,7 +55,7 @@ class TestAAMetaDataFetcher:
         mock_1 = mock_path / "test.hdf5"
         mock_2 = mock_path / "test2.hdf5"
         mock_glob.return_value = [mock_1, mock_2]
-        fetcher = AAMetaDataFetcher(mock_path)
+        fetcher = AAMetaDataFetcher(mock_path, Path(self.test_path_save))
 
         keyword = 'test'
         # act
@@ -69,7 +72,8 @@ class TestAAMetaDataFetcher:
         assert isinstance(meta_data, dict)
 
     def test_save_metadata_to_yaml(self):
+        path_to_save = Path(self.test_path_save)
         with patch("builtins.open", mock_open()) as mock_file:
             self.fetcher_1.save_metadata_to_yaml()
-        mock_file.assert_called_once_with(
-            self.fetcher_1.path/"metadata.yaml", "w")
+            mock_file.assert_called_once_with(
+                path_to_save/"cage_309_mouse_910_day_1_metadata.yaml", "w")

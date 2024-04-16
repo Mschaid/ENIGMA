@@ -1,14 +1,26 @@
 
 import logging
+import re
+import sys
 import pretty_errors
 import yaml
 from pathlib import Path
-
 from typing import Generator, List, Protocol
+
+LOG_LEVEL = logging.INFO
+# set up logger for metadata runner
+logger = logging.getLogger(__name__)
+logger.setLevel(LOG_LEVEL)
+handler = logging.StreamHandler()
+handler.setLevel(LOG_LEVEL)
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 class MetaDataFetcher(Protocol):
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, path_to_save: Path):
         """ takes output guppy path as Path object"""
         ...
 
@@ -28,12 +40,11 @@ def directory_finder(main_path: Path, directory_keyword: str) -> List[Path]:
     return [path for path in paths_found if path.is_dir()]
 
 
-def meta_data_factory(path: Path, fetcher: MetaDataFetcher) -> MetaDataFetcher:
-    fetcher = MetaDataFetcher(path)
-    return fetcher
+def meta_data_factory(path: Path, path_to_save: Path, fetcher: MetaDataFetcher) -> MetaDataFetcher:
+    return fetcher(path=path, path_to_save=path_to_save)
 
 
-class AAMetaDataFetcher(MetaDataFetcher):
+class AAMetaDataFetcher:
     """
         class used to extract metadata from active avoidance experiments from a given path.
 
@@ -57,16 +68,22 @@ class AAMetaDataFetcher(MetaDataFetcher):
 
     """
 
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, path_to_save: Path):
         self.path = path
+        self.path_to_save = path_to_save
         self._metadata: dict = None
 
     def fetch_day(self) -> int:
         """ extracts the day from the file name and returns it as an int."""
-        parent_name = self.path.parents[1].name
-        day_string = parent_name.split("_")[1]
-        day = int(day_string[-1])
-        return day
+        search_match = re.search('[dD]ay[0-9]', self.path.as_posix())
+        day_string = search_match.group()
+        day_number = re.sub('[dD]ay', '', day_string)
+
+        try:
+            day = int(day_number)
+            return day
+        except ValueError:
+            print(f'{self.path} has an does not contain day string: {day_string}')
 
     def fetch_cage(self) -> int:
         """ extracts the cage number from the file name and returns it as an int."""
@@ -106,24 +123,39 @@ class AAMetaDataFetcher(MetaDataFetcher):
             for file in self.path.glob(f'*{k}*.hdf5'):
                 yield file.as_posix()
 
-    @ property
-    def metadata(self):
+    def load_metadata(self):
         """ returns a dictionary containing the metadata extracted from the file name."""
+        metadata = {
+            "day": self.fetch_day(),
+            "cage": self.fetch_cage(),
+            "mouse_id": self.fetch_mouse_id(),
+            "D1": self.fetch_D1(),
+            "D2": self.fetch_D2(),
+            'DA': self.fetch_DA(),
+            "full_z_scored_recording_paths": list(self._fetch_hdf5_paths("z_score_")),
+            "full_dff_recording_paths": list(self._fetch_hdf5_paths("dff_")),
+            "event_paths": list(self._fetch_hdf5_paths("CueA", "CueB", "CrsA", "CrsB", "ShkA", "ShkB", "AvdA", "AvdB", "EspA", "EspB"))
+        }
+        logging.debug(f"Metadata: {metadata}")
+        return metadata
+
+    @property
+    def metadata(self):
         if self._metadata is None:
-            self._metadata = {
-                "day": self.fetch_day(),
-                "cage": self.fetch_cage(),
-                "mouse_id": self.fetch_mouse_id(),
-                "D1": self.fetch_D1(),
-                "D2": self.fetch_D2(),
-                'DA': self.fetch_DA(),
-                "full_z_scored_recording_paths": list(self._fetch_hdf5_paths("z_score_")),
-                "full_dff_recording_paths": list(self._fetch_hdf5_paths("dff_")),
-                "event_paths": list(self._fetch_hdf5_paths("CueA", "CueB", "CrsA", "CrsB", "ShkA", "ShkB"))
-            }
-            return self._metadata
+            self._metadata = self.load_metadata()
+        return self._metadata
 
     def save_metadata_to_yaml(self):
+        logger.debug(f"Metadata: {self.metadata}")
         """ saves the metadata to a yaml file in the directory pointed to by the path attribute)."""
-        with open(self.path/"metadata.yaml", "w") as f:
+        cage = self.metadata["cage"]
+        mouse = self.metadata["mouse_id"]
+        day = self.metadata["day"]
+        file_path_name = Path(
+            f"cage_{cage}_mouse_{mouse}_day_{day}_metadata.yaml")
+
+        file_path = self.path_to_save / file_path_name
+
+        with open(file_path, "w") as f:
             yaml.dump(self.metadata, f)
+            logger.info(f"Metadata saved to {file_path}")

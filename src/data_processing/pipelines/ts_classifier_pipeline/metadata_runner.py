@@ -4,31 +4,37 @@ from pathlib import Path
 from typing import List
 from src.data_processing.pipelines import AAMetaDataFetcher, meta_data_factory, directory_finder
 
+LOG_LEVEL = logging.INFO
 # set up logger for metadata runner
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(LOG_LEVEL)
 handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
+handler.setLevel(LOG_LEVEL)
 formatter = logging.Formatter(
     "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-def main(PATH):
-    main_path = Path(PATH)
-    logger.info(f"Looking for directories in {main_path}")
+def main(path_to_data):
+    path_to_data = Path(path_to_data)
+    path_to_save = path_to_data / "metadata_files"
+    path_to_save.mkdir(exist_ok=True)
+    logger.info(f"Looking for directories in {path_to_data}")
 
-    files = directory_finder(main_path, "output")
+    files = directory_finder(path_to_data, "output")
+
     logger.info(f"Found {len(files)} directories")
-
-    fetchers = [meta_data_factory(file, AAMetaDataFetcher) for file in files]
+    fetchers = [meta_data_factory(
+        path=file, path_to_save=path_to_save, fetcher=AAMetaDataFetcher) for file in files]
     logger.info(f"Created {len(fetchers)} fetchers")
 
-    list(map(lambda fetcher: fetcher.save_metadata_to_yaml(), fetchers))
+    for _ in fetchers:
+        _.save_metadata_to_yaml()
+
     logger.info("Saved metadata to yaml files")
 
 
 if __name__ == "__main__":
-    PATH = "/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Gaby/Data Analysis/ActiveAvoidance/Core_guppy_postcross"
-    main(PATH)
+    path_to_data = "/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Gaby/Data Analysis/ActiveAvoidance/Core_guppy_postcross"
+    main(path_to_data)
