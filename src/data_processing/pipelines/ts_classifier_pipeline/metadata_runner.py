@@ -22,7 +22,8 @@ def main(path_to_data):
     path_to_save.mkdir(exist_ok=True)
     logger.info(f"Looking for directories in {path_to_data}")
 
-    files = directory_finder(path_to_data, "output")
+    files = directory_finder(
+        main_path=path_to_data, directory_keyword="output", keywords_to_drop=["Bad_Photometry"])
 
     logger.info(f"Found {len(files)} directories")
     fetchers = [meta_data_factory(

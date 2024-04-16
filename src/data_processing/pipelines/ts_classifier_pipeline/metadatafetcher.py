@@ -7,7 +7,7 @@ import yaml
 from pathlib import Path
 from typing import Generator, List, Protocol
 
-LOG_LEVEL = logging.INFO
+LOG_LEVEL = logging.DEBUG
 # set up logger for metadata runner
 logger = logging.getLogger(__name__)
 logger.setLevel(LOG_LEVEL)
@@ -35,9 +35,16 @@ class MetaDataFetcher(Protocol):
 # simple methods used by the MetaDataFetcher class implementation and factory function
 
 
-def directory_finder(main_path: Path, directory_keyword: str) -> List[Path]:
+def directory_finder(main_path: Path, directory_keyword: str, keywords_to_drop: List[str] = None) -> List[Path]:
+
     paths_found = main_path.glob(f"**/*{directory_keyword}*")
-    return [path for path in paths_found if path.is_dir()]
+    paths_found = [path for path in paths_found if path.is_dir()]
+    if not keywords_to_drop:
+        return paths_found
+    else:
+        def filter_paths(p): return all(kw not in p.as_posix()
+                                        for kw in keywords_to_drop)
+        return list(filter(filter_paths, paths_found))
 
 
 def meta_data_factory(path: Path, path_to_save: Path, fetcher: MetaDataFetcher) -> MetaDataFetcher:
@@ -74,43 +81,43 @@ class AAMetaDataFetcher:
         self._metadata: dict = None
 
     def fetch_day(self) -> int:
-        """ extracts the day from the file name and returns it as an int."""
-        search_match = re.search('[dD]ay[0-9]', self.path.as_posix())
-        day_string = search_match.group()
-        day_number = re.sub('[dD]ay', '', day_string)
-
+        """ extracts the day from the file name and returns it as an int.""")
         try:
-            day = int(day_number)
+            search_match= re.search('[dD]ay[0-9]', self.path.as_posix())
+            day_string= search_match.group()
+            day_number= re.sub('[dD]ay', '', day_string)
+
+            day= int(day_number)
             return day
         except ValueError:
             print(f'{self.path} has an does not contain day string: {day_string}')
 
     def fetch_cage(self) -> int:
         """ extracts the cage number from the file name and returns it as an int."""
-        parent_name = self.path.name
-        cage_string = parent_name.split("-")[0]
-        cage = int(cage_string)
+        parent_name= self.path.name
+        cage_string= parent_name.split("-")[0]
+        cage= int(cage_string)
         return cage
 
     def fetch_mouse_id(self) -> int:
         """extracts the mouse ID from the file name and returns it as an int."""
-        name_split = self.path.name.split("-")
-        ids = name_split[1].split("_")
-        has_copy = "copy" in self.path.name
+        name_split= self.path.name.split("-")
+        ids= name_split[1].split("_")
+        has_copy= "copy" in self.path.name
         if not has_copy:
-            mouse_id = int(ids[0])
+            mouse_id= int(ids[0])
         else:
-            mouse_id = int(ids[1])
+            mouse_id= int(ids[1])
         return mouse_id
 
     def fetch_D1(self) -> bool:
         """ returns True if "D1" is in the file name, False otherwise."""
-        is_D1 = "D1" in self.path.as_posix()
+        is_D1= "D1" in self.path.as_posix()
         return is_D1
 
     def fetch_D2(self) -> bool:
         """ returns True if "A2A" is in the file name, False otherwise."""
-        is_D2 = "A2A" in self.path.as_posix()
+        is_D2= "A2A" in self.path.as_posix()
         return is_D2
 
     def fetch_DA(self) -> bool:
@@ -125,7 +132,7 @@ class AAMetaDataFetcher:
 
     def load_metadata(self):
         """ returns a dictionary containing the metadata extracted from the file name."""
-        metadata = {
+        metadata= {
             "day": self.fetch_day(),
             "cage": self.fetch_cage(),
             "mouse_id": self.fetch_mouse_id(),
@@ -136,10 +143,9 @@ class AAMetaDataFetcher:
             "full_dff_recording_paths": list(self._fetch_hdf5_paths("dff_")),
             "event_paths": list(self._fetch_hdf5_paths("CueA", "CueB", "CrsA", "CrsB", "ShkA", "ShkB", "AvdA", "AvdB", "EspA", "EspB"))
         }
-        logging.debug(f"Metadata: {metadata}")
         return metadata
 
-    @property
+    @ property
     def metadata(self):
         if self._metadata is None:
             self._metadata = self.load_metadata()
@@ -154,7 +160,7 @@ class AAMetaDataFetcher:
         file_path_name = Path(
             f"cage_{cage}_mouse_{mouse}_day_{day}_metadata.yaml")
 
-        file_path = self.path_to_save / file_path_name
+        file_path= self.path_to_save / file_path_name
 
         with open(file_path, "w") as f:
             yaml.dump(self.metadata, f)
