@@ -81,43 +81,43 @@ class AAMetaDataFetcher:
         self._metadata: dict = None
 
     def fetch_day(self) -> int:
-        """ extracts the day from the file name and returns it as an int.""")
+        """ extracts the day from the file name and returns it as an int."""
         try:
-            search_match= re.search('[dD]ay[0-9]', self.path.as_posix())
-            day_string= search_match.group()
-            day_number= re.sub('[dD]ay', '', day_string)
+            search_match = re.search('[dD]ay[0-9]', self.path.as_posix())
+            day_string = search_match.group()
+            day_number = re.sub('[dD]ay', '', day_string)
 
-            day= int(day_number)
+            day = int(day_number)
             return day
         except ValueError:
             print(f'{self.path} has an does not contain day string: {day_string}')
 
     def fetch_cage(self) -> int:
         """ extracts the cage number from the file name and returns it as an int."""
-        parent_name= self.path.name
-        cage_string= parent_name.split("-")[0]
-        cage= int(cage_string)
+        parent_name = self.path.name
+        cage_string = parent_name.split("-")[0]
+        cage = int(cage_string)
         return cage
 
     def fetch_mouse_id(self) -> int:
         """extracts the mouse ID from the file name and returns it as an int."""
-        name_split= self.path.name.split("-")
-        ids= name_split[1].split("_")
-        has_copy= "copy" in self.path.name
+        name_split = self.path.name.split("-")
+        ids = name_split[1].split("_")
+        has_copy = "copy" in self.path.name
         if not has_copy:
-            mouse_id= int(ids[0])
+            mouse_id = int(ids[0])
         else:
-            mouse_id= int(ids[1])
+            mouse_id = int(ids[1])
         return mouse_id
 
     def fetch_D1(self) -> bool:
         """ returns True if "D1" is in the file name, False otherwise."""
-        is_D1= "D1" in self.path.as_posix()
+        is_D1 = "D1" in self.path.as_posix()
         return is_D1
 
     def fetch_D2(self) -> bool:
         """ returns True if "A2A" is in the file name, False otherwise."""
-        is_D2= "A2A" in self.path.as_posix()
+        is_D2 = "A2A" in self.path.as_posix()
         return is_D2
 
     def fetch_DA(self) -> bool:
@@ -132,7 +132,7 @@ class AAMetaDataFetcher:
 
     def load_metadata(self):
         """ returns a dictionary containing the metadata extracted from the file name."""
-        metadata= {
+        metadata = {
             "day": self.fetch_day(),
             "cage": self.fetch_cage(),
             "mouse_id": self.fetch_mouse_id(),
@@ -160,7 +160,7 @@ class AAMetaDataFetcher:
         file_path_name = Path(
             f"cage_{cage}_mouse_{mouse}_day_{day}_metadata.yaml")
 
-        file_path= self.path_to_save / file_path_name
+        file_path = self.path_to_save / file_path_name
 
         with open(file_path, "w") as f:
             yaml.dump(self.metadata, f)

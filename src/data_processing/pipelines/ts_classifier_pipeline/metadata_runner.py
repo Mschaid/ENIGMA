@@ -37,5 +37,5 @@ def main(path_to_data):
 
 
 if __name__ == "__main__":
-    path_to_data = "/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Gaby/Data Analysis/ActiveAvoidance/Core_guppy_postcross"
+    path_to_data = "/Volumes/fsmresfiles/Basic_Sciences/Phys/Lerner_Lab_tnl2633/Gaby/Data Analysis/ActiveAvoidance/Core_guppy_postcross/core_data"
     main(path_to_data)
