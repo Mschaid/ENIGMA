@@ -25,7 +25,7 @@ def compute_dip_duration(df) -> float:
         return 0.0
 
 
-def compute_avg_dip_duration_for_cue_df(df: pl.DataFrame) -> pl.DataFrame:
+def compute_avg_dip_duration_for_cue_df(df: pl.DataFrame, save=False, path_to_save=None) -> pl.DataFrame:
     cat_cols = [c for c in df.columns if c not in [
         'signal', 'time', 'event', 'sensor', 'cage']]
     unique_rows = df.select(cat_cols).group_by(
@@ -46,4 +46,15 @@ def compute_avg_dip_duration_for_cue_df(df: pl.DataFrame) -> pl.DataFrame:
         uniq_dip_frame = uniq_frame.with_columns(
             pl.lit(dip_dur).alias('dip_duration'))
         dip_frame = pl.concat([dip_frame, uniq_dip_frame], how='vertical')
-    return dip_frame
+    return_frame = (
+        dip_frame
+        .drop('time', 'signal', 'trial')
+        .group_by(['day', 'event', 'sensor', 'mouse_numb', 'cage'])
+        .agg(pl.mean('dip_duration'))
+        .sort('day', 'mouse_numb', 'cage')
+    )
+
+    if save:
+        return_frame.write_parquet(
+            path_to_save / "day_average_dip_duration.parquet")
+    return return_frame
