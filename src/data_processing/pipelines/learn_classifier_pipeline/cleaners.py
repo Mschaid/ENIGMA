@@ -65,7 +65,7 @@ def clean_cue_da_fp_data(df):
             [
                 pl.col('mouse_id')
                 .str.split_exact("_", 1)
-                .struct.rename_fields(['mouse_numb', 'cage']).alias('fields'),
+                .struct.rename_fields(['cage', 'mouse_numb']).alias('fields'),
             ]
         ).unnest("fields")
         .with_columns(
@@ -89,3 +89,29 @@ def clean_core_subjects(df: pl.DataFrame) -> pl.DataFrame:
     return (
         df.rename({'id': 'mouse_numb'})
     )
+
+
+def clean_percent_avoid_excel(path, save=False, path_to_save=None, return_frame=False):
+
+    perc_avoid = pl.read_excel(path)
+    clean_frame = (perc_avoid
+                   .rename({'Day': 'day'})
+                   .melt(id_vars='day', variable_name='id', value_name='perc_avoid')
+                   .with_columns(
+                       [
+                           pl.col('id')
+                           .str.split_exact("-", 1)
+                           .struct.rename_fields(['cage', 'mouse_numb']).alias('fields'),
+                       ]
+                   ).unnest("fields")
+                   .with_columns(
+                       pl.col('cage').cast(pl.Int64),
+                       pl.col('mouse_numb').cast(pl.Int64)
+                   )
+                   .drop('id')
+                   .select(['day', 'cage', 'mouse_numb', 'perc_avoid'])
+                   )
+    if save:
+        clean_frame.write_parquet(path_to_save/'percent_avoid.parquet')
+    if return_frame:
+        return clean_frame
